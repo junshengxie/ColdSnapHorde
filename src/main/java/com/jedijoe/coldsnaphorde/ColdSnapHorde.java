@@ -1,10 +1,15 @@
 package com.jedijoe.coldsnaphorde;
 
+import com.jedijoe.coldsnaphorde.Client.RenderColdSnapGunner;
+import com.jedijoe.coldsnaphorde.Entities.ColdSnapGunner;
 import net.minecraft.block.Block;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -26,6 +31,7 @@ public class ColdSnapHorde
 
     public ColdSnapHorde() {
         // Register the setup method for modloading
+        Register.init();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
 //        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
@@ -40,12 +46,16 @@ public class ColdSnapHorde
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        LOGGER.info("[FrostCore] Frost Core Online");
+        DeferredWorkQueue.runLater(() -> {
+            GlobalEntityTypeAttributes.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().create());
+        });
+
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
+
     }
 
 //    private void enqueueIMC(final InterModEnqueueEvent event)
@@ -58,10 +68,9 @@ public class ColdSnapHorde
 //
 //    }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(FMLServerStartingEvent event) {
-        // do something when the server starts
-        LOGGER.info("HELLO from server starting");
-    }
+//    @SubscribeEvent
+//    public void onServerStarting(FMLServerStartingEvent event) {
+//
+//    }
 
 }

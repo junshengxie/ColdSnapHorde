@@ -7,14 +7,19 @@ import net.minecraft.client.renderer.entity.SnowManRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.entity.model.SnowManModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.util.math.MathHelper;
 
-public class ColdSnapGunnerModel<T extends ColdSnapGunner> extends EntityModel<T> {
+// Made with Blockbench 3.7.4
+// Exported for Minecraft version 1.15
+// Paste this class into your mod and generate all required imports
 
+
+public class ColdSnapGunnerModel<C extends MonsterEntity> extends EntityModel<ColdSnapGunner> {
     private final ModelRenderer lowbody;
     private final ModelRenderer body;
-    private final ModelRenderer right_hand;
     private final ModelRenderer left_hand;
+    private final ModelRenderer right_hand;
     private final ModelRenderer head;
     private final ModelRenderer hat;
 
@@ -30,13 +35,13 @@ public class ColdSnapGunnerModel<T extends ColdSnapGunner> extends EntityModel<T
         body.setRotationPoint(0.0F, 13.0F, 0.0F);
         body.setTextureOffset(0, 16).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, -0.5F, false);
 
-        right_hand = new ModelRenderer(this);
-        right_hand.setRotationPoint(-5.0F, 6.0F, 0.0F);
-        right_hand.setTextureOffset(32, 0).addBox(9.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
-
         left_hand = new ModelRenderer(this);
-        left_hand.setRotationPoint(0.0F, 24.0F, 0.0F);
-        left_hand.setTextureOffset(32, 0).addBox(-16.0F, -18.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+        left_hand.setRotationPoint(-5.0F, 6.0F, 0.0F);
+        left_hand.setTextureOffset(32, 0).addBox(9.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+
+        right_hand = new ModelRenderer(this);
+        right_hand.setRotationPoint(0.0F, 24.0F, 0.0F);
+        right_hand.setTextureOffset(32, 0).addBox(-16.0F, -18.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
 
         head = new ModelRenderer(this);
         head.setRotationPoint(0.0F, 4.0F, 0.0F);
@@ -50,28 +55,18 @@ public class ColdSnapGunnerModel<T extends ColdSnapGunner> extends EntityModel<T
     }
 
     @Override
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(ColdSnapGunner entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
         this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
         this.body.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;
-        float f = MathHelper.sin(this.body.rotateAngleY);
-        float f1 = MathHelper.cos(this.body.rotateAngleY);
-        this.left_hand.rotateAngleZ = 1.0F;
-        this.right_hand.rotateAngleZ = -1.0F;
-        this.left_hand.rotateAngleY = 0.0F + this.body.rotateAngleY;
-        this.right_hand.rotateAngleY = (float)Math.PI + this.body.rotateAngleY;
-        this.left_hand.rotationPointX = f1 ;
-        this.left_hand.rotationPointZ = -f ;
-        this.right_hand.rotationPointX = -f1 * 5.0F;
-        this.right_hand.rotationPointZ = f * 5.0F;
     }
 
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         lowbody.render(matrixStack, buffer, packedLight, packedOverlay);
         body.render(matrixStack, buffer, packedLight, packedOverlay);
-        right_hand.render(matrixStack, buffer, packedLight, packedOverlay);
         left_hand.render(matrixStack, buffer, packedLight, packedOverlay);
+        right_hand.render(matrixStack, buffer, packedLight, packedOverlay);
         head.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
@@ -81,4 +76,3 @@ public class ColdSnapGunnerModel<T extends ColdSnapGunner> extends EntityModel<T
         modelRenderer.rotateAngleZ = z;
     }
 }
-

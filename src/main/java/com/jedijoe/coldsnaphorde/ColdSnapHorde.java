@@ -1,7 +1,11 @@
 package com.jedijoe.coldsnaphorde;
 
 import com.jedijoe.coldsnaphorde.Client.RenderColdSnapGunner;
+import com.jedijoe.coldsnaphorde.Client.RenderColdSnapSnowballer;
+import com.jedijoe.coldsnaphorde.Client.RenderColdSnapStabber;
 import com.jedijoe.coldsnaphorde.Entities.ColdSnapGunner;
+import com.jedijoe.coldsnaphorde.Entities.ColdSnapSnowballer;
+import com.jedijoe.coldsnaphorde.Entities.ColdSnapStabber;
 import net.minecraft.block.Block;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraftforge.common.MinecraftForge;
@@ -48,6 +52,8 @@ public class ColdSnapHorde
     {
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().create());
+            GlobalEntityTypeAttributes.put(Register.COLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().create());
+            GlobalEntityTypeAttributes.put(Register.COLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().create());
         });
 
     }
@@ -55,6 +61,8 @@ public class ColdSnapHorde
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
 
     }
 

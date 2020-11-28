@@ -1,26 +1,32 @@
-package com.jedijoe.coldsnaphorde.Client;
+package com.jedijoe.coldsnaphorde.Client.Models;
+
+import com.jedijoe.coldsnaphorde.Entities.ColdSnapGunner;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.entity.SnowManRenderer;
+import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.entity.model.SnowManModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.util.math.MathHelper;
+
 
 // Made with Blockbench 3.7.4
 // Exported for Minecraft version 1.15
 // Paste this class into your mod and generate all required imports
 
 
-import com.jedijoe.coldsnaphorde.Entities.ColdSnapSnowballer;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.monster.MonsterEntity;
-
-public class ColdSnapSnowballerModel<C extends MonsterEntity> extends EntityModel<ColdSnapSnowballer> {
+public class ColdSnapGunnerModel<C extends MonsterEntity> extends EntityModel<ColdSnapGunner> {
     private final ModelRenderer lowbody;
     private final ModelRenderer body;
     private final ModelRenderer left_hand;
     private final ModelRenderer right_hand;
+    private final ModelRenderer right_hand_r1;
+    private final ModelRenderer gun;
     private final ModelRenderer head;
     private final ModelRenderer hat;
 
-    public ColdSnapSnowballerModel() {
+    public ColdSnapGunnerModel() {
         textureWidth = 128;
         textureHeight = 128;
 
@@ -33,14 +39,31 @@ public class ColdSnapSnowballerModel<C extends MonsterEntity> extends EntityMode
         body.setTextureOffset(0, 16).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, -0.5F, false);
 
         left_hand = new ModelRenderer(this);
-        left_hand.setRotationPoint(5.0F, 6.0F, 0.0F);
+        left_hand.setRotationPoint(5.0F, 7.0F, 0.0F);
         setRotationAngle(left_hand, 0.0F, 0.0F, 1.1345F);
-        left_hand.setTextureOffset(32, 0).addBox(-1.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+        left_hand.setTextureOffset(32, 0).addBox(-1.0F, -1.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
 
         right_hand = new ModelRenderer(this);
-        right_hand.setRotationPoint(-5.0F, 6.0F, 0.0F);
-        setRotationAngle(right_hand, 0.0F, 0.0F, -1.1345F);
-        right_hand.setTextureOffset(32, 0).addBox(-11.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+        right_hand.setRotationPoint(-5.0F, 7.0F, 0.0F);
+
+
+        right_hand_r1 = new ModelRenderer(this);
+        right_hand_r1.setRotationPoint(0.0F, -1.0F, 0.0F);
+        right_hand.addChild(right_hand_r1);
+        setRotationAngle(right_hand_r1, 0.0F, -1.4835F, -0.1309F);
+        right_hand_r1.setTextureOffset(32, 0).addBox(-11.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+
+        gun = new ModelRenderer(this);
+        gun.setRotationPoint(-0.625F, 0.125F, -8.75F);
+        right_hand.addChild(gun);
+        setRotationAngle(gun, 0.0F, -1.4835F, -0.1309F);
+        gun.setTextureOffset(52, 4).addBox(-2.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, -0.5F, false);
+        gun.setTextureOffset(47, 15).addBox(-4.0F, -4.0F, -1.0F, 4.0F, 2.0F, 2.0F, -0.5F, false);
+        gun.setTextureOffset(40, 9).addBox(-4.0F, -3.8F, -0.5F, 1.0F, 1.0F, 1.0F, -0.65F, false);
+        gun.setTextureOffset(43, 8).addBox(-4.0F, -3.2F, -0.5F, 1.0F, 1.0F, 1.0F, -0.65F, false);
+        gun.setTextureOffset(41, 26).addBox(-4.0F, -3.5F, -0.8F, 1.0F, 1.0F, 1.0F, -0.65F, false);
+        gun.setTextureOffset(47, 5).addBox(-4.0F, -3.5F, -0.2F, 1.0F, 1.0F, 1.0F, -0.65F, false);
+        gun.setTextureOffset(33, 5).addBox(-3.925F, -3.5F, -0.5F, 1.0F, 1.0F, 1.0F, -0.65F, false);
 
         head = new ModelRenderer(this);
         head.setRotationPoint(0.0F, 4.0F, 0.0F);
@@ -54,7 +77,7 @@ public class ColdSnapSnowballerModel<C extends MonsterEntity> extends EntityMode
     }
 
     @Override
-    public void setRotationAngles(ColdSnapSnowballer entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setRotationAngles(ColdSnapGunner entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
         this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
         this.body.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;

@@ -1,5 +1,6 @@
-package com.jedijoe.coldsnaphorde.Client;
+package com.jedijoe.coldsnaphorde.Client.Renderers;
 
+import com.jedijoe.coldsnaphorde.Client.Models.ColdSnapGunnerModel;
 import com.jedijoe.coldsnaphorde.ColdSnapHorde;
 import com.jedijoe.coldsnaphorde.Entities.ColdSnapGunner;
 import net.minecraft.client.renderer.entity.EntityRendererManager;

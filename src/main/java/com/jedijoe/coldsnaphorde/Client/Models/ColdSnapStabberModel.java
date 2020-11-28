@@ -1,4 +1,4 @@
-package com.jedijoe.coldsnaphorde.Client;
+package com.jedijoe.coldsnaphorde.Client.Models;
 
 // Made with Blockbench 3.7.4
 // Exported for Minecraft version 1.15

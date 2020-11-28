@@ -1,6 +1,8 @@
 package com.jedijoe.coldsnaphorde.Entities;
 
 import com.jedijoe.coldsnaphorde.Register;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -18,6 +20,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
@@ -36,7 +39,7 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
         this.targetSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(2, new RangedBowAttackGoal<>(this, 0.75D, 30, 15.0F));
+        this.goalSelector.addGoal(2, new RangedBowAttackGoal<>(this, 0.75D, 30, 25.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, 10, true, false, this::shouldAttack));
@@ -91,4 +94,32 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
 
     @Override
     protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {}
+
+    public void livingTick() {
+        super.livingTick();
+        if (!this.world.isRemote) {
+            int i = MathHelper.floor(this.getPosX());
+            int j = MathHelper.floor(this.getPosY());
+            int k = MathHelper.floor(this.getPosZ());
+            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+                this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+            }
+
+            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this)) {
+                return;
+            }
+
+            BlockState blockstate = Blocks.SNOW.getDefaultState();
+
+            for(int l = 0; l < 4; ++l) {
+                i = MathHelper.floor(this.getPosX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+                j = MathHelper.floor(this.getPosY());
+                k = MathHelper.floor(this.getPosZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+                BlockPos blockpos = new BlockPos(i, j, k);
+                if (this.world.isAirBlock(blockpos) && this.world.getBiome(blockpos).getTemperature(blockpos) < 1.0F && blockstate.isValidPosition(this.world, blockpos)) {
+                    this.world.setBlockState(blockpos, blockstate);
+                }
+            }
+        }
+    }
 }

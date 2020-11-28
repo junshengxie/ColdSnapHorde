@@ -13,6 +13,8 @@ import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -55,6 +57,8 @@ public class GunnerProjectileEntity extends ProjectileItemEntity {
         Entity entity = p_213868_1_.getEntity();
         int i = 1 + world.getDifficulty().getId();
         entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), (float)i);
+        int chance = rand.nextInt(20);
+        if (entity instanceof LivingEntity && chance <= 3 && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.BLINDNESS, 10*20, 0));}
     }
 
     @Override

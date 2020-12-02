@@ -1,9 +1,6 @@
 package com.jedijoe.coldsnaphorde;
 
-import com.jedijoe.coldsnaphorde.Client.Renderers.GunnerProjectileRenderFactory;
-import com.jedijoe.coldsnaphorde.Client.Renderers.RenderColdSnapGunner;
-import com.jedijoe.coldsnaphorde.Client.Renderers.RenderColdSnapSnowballer;
-import com.jedijoe.coldsnaphorde.Client.Renderers.RenderColdSnapStabber;
+import com.jedijoe.coldsnaphorde.Client.Renderers.*;
 import com.jedijoe.coldsnaphorde.Entities.ColdSnapGunner;
 import com.jedijoe.coldsnaphorde.Entities.ColdSnapSnowballer;
 import com.jedijoe.coldsnaphorde.Entities.ColdSnapStabber;
@@ -13,6 +10,9 @@ import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.SnowballItem;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -43,6 +43,7 @@ public class ColdSnapHorde
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+        
     }
 
     private void setup(final FMLCommonSetupEvent event)
@@ -61,7 +62,14 @@ public class ColdSnapHorde
         RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.GUNNERPROJECTILE.get(), new GunnerProjectileRenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(Register.ROCKSNOWBALLPROJECTILE.get(), new RockySnowballRenderFactory());
+
     }
+
+    public static final ItemGroup TAB = new ItemGroup("ColdSnapHorde"){
+        @Override
+        public ItemStack createIcon() {return new ItemStack(Register.ROCKYSNOWBALL.get());}
+    };
 
 //    private void enqueueIMC(final InterModEnqueueEvent event)
 //    {

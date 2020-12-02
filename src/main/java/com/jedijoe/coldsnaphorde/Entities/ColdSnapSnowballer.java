@@ -1,5 +1,6 @@
 package com.jedijoe.coldsnaphorde.Entities;
 
+import com.jedijoe.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
@@ -60,7 +61,7 @@ public class ColdSnapSnowballer extends MonsterEntity implements IRangedAttackMo
 
     @Override
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        RockSnowballEntity snowballentity = new RockSnowballEntity(this.world, this);
+        RockSnowballEntity snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE.get(), this.world, this);
         double d0 = target.getPosYEye() - (double)1.1F;
         double d1 = target.getPosX() - this.getPosX();
         double d2 = d0 - snowballentity.getPosY();

@@ -1,5 +1,6 @@
 package com.jedijoe.coldsnaphorde.Entities;
 
+import com.jedijoe.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,7 @@ import net.minecraft.entity.monster.SpiderEntity;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -63,10 +65,9 @@ public class ColdSnapStabber extends MonsterEntity implements IAnimatable {
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if(entity != null){
-            return true;
-        }
-        else return false;
+        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+            return false;
+        }else return true;
     }
 
     @Override

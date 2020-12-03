@@ -4,6 +4,7 @@ import com.jedijoe.coldsnaphorde.Client.Renderers.*;
 import com.jedijoe.coldsnaphorde.Entities.ColdSnapGunner;
 import com.jedijoe.coldsnaphorde.Entities.ColdSnapSnowballer;
 import com.jedijoe.coldsnaphorde.Entities.ColdSnapStabber;
+import com.jedijoe.coldsnaphorde.Items.TopHat;
 import net.minecraft.client.particle.BreakingParticle;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
@@ -23,6 +24,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import software.bernie.geckolib3.GeckoLib;
+import software.bernie.geckolib3.renderers.geo.GeoArmorRenderer;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("coldsnaphorde")
@@ -65,6 +67,7 @@ public class ColdSnapHorde
         RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.GUNNERPROJECTILE.get(), new GunnerProjectileRenderFactory());
         RenderingRegistry.registerEntityRenderingHandler(Register.ROCKSNOWBALLPROJECTILE.get(), new RockySnowballRenderFactory());
+        GeoArmorRenderer.registerArmorRenderer(TopHat.class, new TopHatRenderer());
 
     }
 

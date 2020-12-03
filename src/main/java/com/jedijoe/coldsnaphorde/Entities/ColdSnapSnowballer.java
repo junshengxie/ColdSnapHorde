@@ -17,6 +17,7 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -54,10 +55,9 @@ public class ColdSnapSnowballer extends MonsterEntity implements IRangedAttackMo
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if(entity != null){
-            return true;
-        }
-        else return false;
+        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+            return false;
+        }else return true;
     }
 
     @Nullable

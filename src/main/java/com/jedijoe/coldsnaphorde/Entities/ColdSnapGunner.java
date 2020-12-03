@@ -54,7 +54,9 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null;
+        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+            return false;
+        }else return true;
     }
 
     @Nullable

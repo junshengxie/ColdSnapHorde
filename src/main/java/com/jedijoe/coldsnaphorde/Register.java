@@ -4,6 +4,7 @@ import com.jedijoe.coldsnaphorde.Entities.*;
 import com.jedijoe.coldsnaphorde.Items.RockySnowball;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.BowItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;

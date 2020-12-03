@@ -6,17 +6,14 @@ import com.jedijoe.coldsnaphorde.Entities.ColdSnapStabber;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 
-public class RenderColdSnapStabber extends MobRenderer<ColdSnapStabber, ColdSnapStabberModel<ColdSnapStabber>> {
+public class RenderColdSnapStabber extends GeoEntityRenderer<ColdSnapStabber> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapstabber.png");
 
-    public RenderColdSnapStabber(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new ColdSnapStabberModel<>(), 0.5F);
-    }
-
-    @Override
-    public ResourceLocation getEntityTexture(ColdSnapStabber entity) {
-        return TEXTURE;
+    public RenderColdSnapStabber(EntityRendererManager renderManager) {
+        super(renderManager, new ColdSnapStabberModel());
     }
 }

@@ -61,7 +61,7 @@ public class ColdSnapHorde
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
         RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
-        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSTABBER.get(), manager -> new RenderColdSnapStabber(manager));
         RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.GUNNERPROJECTILE.get(), new GunnerProjectileRenderFactory());
         RenderingRegistry.registerEntityRenderingHandler(Register.ROCKSNOWBALLPROJECTILE.get(), new RockySnowballRenderFactory());

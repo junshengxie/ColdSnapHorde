@@ -24,13 +24,20 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
 
-public class ColdSnapStabber extends MonsterEntity {
-    public ColdSnapStabber(EntityType<? extends MonsterEntity> type, World worldIn) {
-        super(type, worldIn);
-    }
+public class ColdSnapStabber extends MonsterEntity implements IAnimatable {
+    private int animation;
+    private AnimationFactory factory = new AnimationFactory(this);
+    public ColdSnapStabber(EntityType<? extends MonsterEntity> type, World worldIn) { super(type, worldIn); animation = 0;}
 
     @Override
     protected void registerGoals() {
@@ -68,6 +75,7 @@ public class ColdSnapStabber extends MonsterEntity {
             int chance = rand.nextInt(100);
             if (chance <= 6){((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.NAUSEA, 10*20, 0));}
         }
+        animation = 100;
         return super.attackEntityAsMob(entityIn);
     }
 
@@ -88,6 +96,7 @@ public class ColdSnapStabber extends MonsterEntity {
 
     public void livingTick() {
         super.livingTick();
+        if (animation > 0) animation -= 1;
         if (!this.world.isRemote) {
             int i = MathHelper.floor(this.getPosX());
             int j = MathHelper.floor(this.getPosY());
@@ -112,5 +121,22 @@ public class ColdSnapStabber extends MonsterEntity {
                 }
             }
         }
+    }
+
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
+        if(this.isAggressive()){
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("stab", true));
+            return PlayState.CONTINUE; }
+        else return PlayState.CONTINUE;
+    }
+
+    @Override
+    public void registerControllers(AnimationData animationData) {
+        animationData.addAnimationController(new AnimationController(this, "controller", 10, this::predicate));
+    }
+
+    @Override
+    public AnimationFactory getFactory() {
+        return this.factory;
     }
 }

@@ -72,6 +72,7 @@ public class RockSnowballEntity extends ProjectileItemEntity {
         if (this.world.isAirBlock(blockpos) && this.world.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.isValidPosition(this.world, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) && snowchance == 1 && !world.isRemote()) {
             this.world.setBlockState(blockpos, blockstate);
         }
+        this.remove();
     }
 
     @Override

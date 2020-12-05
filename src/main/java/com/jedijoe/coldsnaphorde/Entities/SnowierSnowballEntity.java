@@ -48,8 +48,7 @@ public class SnowierSnowballEntity extends ProjectileItemEntity {
         int i = entity instanceof BlazeEntity ? 5 : 0;
         entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), (float)i);
         int chance = rand.nextInt(20);
-        if (chance <= 2 && entity instanceof LivingEntity && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5*20, 0));
-            if (chance == 1) ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
+        if (chance <= 2 && entity instanceof LivingEntity && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 7*20, 0));}
     }
 
     @Override
@@ -59,6 +58,10 @@ public class SnowierSnowballEntity extends ProjectileItemEntity {
         BlockPos blockpos = new BlockPos(result.getHitVec());
         if (this.world.isAirBlock(blockpos) && this.world.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.isValidPosition(this.world, blockpos) && !world.isRemote()) {
             this.world.setBlockState(blockpos, blockstate);
+        } else if(this.world.getBlockState(blockpos) == Blocks.LAVA.getDefaultState() && !world.isRemote()){
+            this.world.setBlockState(blockpos, Blocks.OBSIDIAN.getDefaultState());
+        }else if(this.world.getBlockState(blockpos) == Blocks.WATER.getDefaultState() && !world.isRemote()){
+            this.world.setBlockState(blockpos, Blocks.ICE.getDefaultState());
         }
         this.remove();
     }

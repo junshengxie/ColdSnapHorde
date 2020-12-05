@@ -25,19 +25,6 @@
               "chance": 0.05
             }
           ]
-        },
-        {
-          "type": "minecraft:item",
-          "name": "coldsnaphorde:rockysnowball",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 3,
-                "max": 5
-              }
-            }
-          ]
         }
       ]
     }

@@ -4,5 +4,12 @@
   "entity.coldsnaphorde.coldsnapsnowballer": "Snowman Snowballer",
   "entity.coldsnaphorde.gunnerprojectile": "Flying Coal",
   "entity.coldsnaphorde.rocksnowballprojectile": "Flying Snow Rock",
-  "item.coldsnaphorde.rockysnowball": "Snow Covered Rock"
+  "entity.coldsnaphorde.snowiersnowballprojectile": "Flying Snowier Snowball",
+  "item.coldsnaphorde.rockysnowball": "Snow Covered Rock",
+  "item.coldsnaphorde.tophat": "Top Hat",
+  "item.coldsnaphorde.iceshard": "Frost Shard",
+  "item.coldsnaphorde.icecore": "Frost Core",
+  "item.coldsnaphorde.snowiersnowball": "Snowier Snowball",
+  "itemGroup.ColdSnapHorde": "Cold Snap Horde"
+
 }

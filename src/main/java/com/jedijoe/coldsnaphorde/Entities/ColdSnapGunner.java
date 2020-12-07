@@ -1,5 +1,6 @@
 package com.jedijoe.coldsnaphorde.Entities;
 
+import com.jedijoe.coldsnaphorde.ColdSnapHorde;
 import com.jedijoe.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -105,7 +106,7 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
             int i = MathHelper.floor(this.getPosX());
             int j = MathHelper.floor(this.getPosY());
             int k = MathHelper.floor(this.getPosZ());
-            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+            if (shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
                 this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
             }
 
@@ -120,10 +121,25 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
                 j = MathHelper.floor(this.getPosY());
                 k = MathHelper.floor(this.getPosZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
-                if (this.world.isAirBlock(blockpos) && this.world.getBiome(blockpos).getTemperature(blockpos) < 1.0F && blockstate.isValidPosition(this.world, blockpos)) {
+                if (this.world.isAirBlock(blockpos) && !shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.isValidPosition(this.world, blockpos)) {
                     this.world.setBlockState(blockpos, blockstate);
                 }
             }
+        }
+    }
+
+    protected boolean shouldOverHeat(float currentTemp, int protectionlevel){
+        switch(protectionlevel){
+            case 0:
+                return currentTemp > 0.3f;
+            case 1:
+                return currentTemp > 0.9f;
+            case 2:
+                return currentTemp > 1.5f;
+            case 3:
+                return false;
+            default:
+                return true;
         }
     }
 }

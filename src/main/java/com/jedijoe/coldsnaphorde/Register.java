@@ -28,6 +28,7 @@ public class Register {
     public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlotType.HEAD, new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", ItemBase::new);
     public static final RegistryObject<Item> ICECORE = ITEMS.register("icecore", ItemBase::new);
+    public static final RegistryObject<Item> THERMOMETER = ITEMS.register("thermometer", ItemBase::new);
 
     public static final RegistryObject<EntityType<ColdSnapGunner>> COLDSNAPGUNNER = ENTITY_TYPES.register("coldsnapgunner", () -> EntityType.Builder.create(ColdSnapGunner::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapgunner").toString()));
     public static final RegistryObject<EntityType<ColdSnapStabber>> COLDSNAPSTABBER = ENTITY_TYPES.register("coldsnapstabber", () -> EntityType.Builder.create(ColdSnapStabber::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapstabber").toString()));

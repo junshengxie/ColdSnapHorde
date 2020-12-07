@@ -5,7 +5,7 @@ package com.jedijoe.coldsnaphorde.Client.Models;
 // Paste this class into your mod and generate all required imports
 
 
-import com.jedijoe.coldsnaphorde.Entities.ColdSnapSnowballer;
+import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapSnowballer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;

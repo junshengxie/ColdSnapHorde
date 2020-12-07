@@ -1,7 +1,7 @@
 package com.jedijoe.coldsnaphorde.Items;
 
 import com.jedijoe.coldsnaphorde.ColdSnapHorde;
-import com.jedijoe.coldsnaphorde.Entities.SnowierSnowballEntity;
+import com.jedijoe.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
 import com.jedijoe.coldsnaphorde.Register;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

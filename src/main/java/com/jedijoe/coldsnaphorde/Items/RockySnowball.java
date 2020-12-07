@@ -1,10 +1,9 @@
 package com.jedijoe.coldsnaphorde.Items;
 
 import com.jedijoe.coldsnaphorde.ColdSnapHorde;
-import com.jedijoe.coldsnaphorde.Entities.RockSnowballEntity;
+import com.jedijoe.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
 import com.jedijoe.coldsnaphorde.Register;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Stats;

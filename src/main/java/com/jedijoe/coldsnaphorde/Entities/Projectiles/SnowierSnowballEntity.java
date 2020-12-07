@@ -1,4 +1,4 @@
-package com.jedijoe.coldsnaphorde.Entities;
+package com.jedijoe.coldsnaphorde.Entities.Projectiles;
 
 import com.jedijoe.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;

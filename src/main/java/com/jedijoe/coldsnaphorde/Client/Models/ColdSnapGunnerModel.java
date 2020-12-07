@@ -1,14 +1,11 @@
 package com.jedijoe.coldsnaphorde.Client.Models;
 
-import com.jedijoe.coldsnaphorde.Entities.ColdSnapGunner;
+import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapGunner;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.entity.SnowManRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.entity.model.SnowManModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.util.math.MathHelper;
 
 
 // Made with Blockbench 3.7.4

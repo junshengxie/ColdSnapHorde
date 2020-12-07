@@ -1,16 +1,17 @@
-package com.jedijoe.coldsnaphorde.Entities;
+package com.jedijoe.coldsnaphorde.Entities.Mobs;
 
 import com.jedijoe.coldsnaphorde.ColdSnapHorde;
 import com.jedijoe.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.entity.monster.BlazeEntity;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
@@ -19,21 +20,29 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.EffectType;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
-    public ColdSnapGunner(EntityType<? extends MonsterEntity> type, World worldIn) {
+public class ColdSnapGifter extends MonsterEntity {
+    public ColdSnapGifter(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
+        this.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 10000*20, 5, false, false));
     }
+
+    int timer = 50;
+    boolean exploding = false;
 
     @Override
     protected void registerGoals() {
@@ -41,7 +50,7 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
         this.targetSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(2, new RangedBowAttackGoal<>(this, 0.75D, 30, 25.0F));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 0.75D, true));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, 10, true, false, this::shouldAttack));
@@ -52,22 +61,14 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
     public static AttributeModifierMap.MutableAttribute customAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 0D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
         if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
             return false;
         }else return true;
-    }
-
-    @Nullable
-    @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
-        return spawnDataIn;
     }
 
     @Nullable
@@ -85,23 +86,37 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
         return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
     }
 
-    public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        GunnerProjectileEntity snowballentity = new GunnerProjectileEntity(Register.GUNNERPROJECTILE.get(), this.world, this);
-        double d0 = target.getPosYEye() - (double)1.1F;
-        double d1 = target.getPosX() - this.getPosX();
-        double d2 = d0 - snowballentity.getPosY();
-        double d3 = target.getPosZ() - this.getPosZ();
-        float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
-        snowballentity.shoot(d1, d2 + (double)f, d3, 1.6F, 3.0F);
-        this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.5F, 3.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.addEntity(snowballentity);
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {}
 
     public void livingTick() {
         super.livingTick();
+        LivingEntity livingEntity = this.getAttackTarget();
+        if (livingEntity != null) {
+            double distance = this.getDistanceSq(livingEntity);
+            if (distance < 4.5D && !world.isRemote()) {
+                if(!exploding){this.playSound(SoundEvents.ENTITY_TNT_PRIMED, 1F, 1F);}
+                exploding = true;
+                this.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 10, false, true));
+            }
+
+            if (exploding && distance < 36D) {
+                timer -= 1;
+                if (!world.isRemote() && timer == 0) {
+                    this.dead = true;
+                    boolean snowy = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
+                    GifterSurprise gifterSurprise = new GifterSurprise(this.world, this, DamageSource.causeExplosionDamage(this), null, this.getPosX(), this.getPosY(), this.getPosZ(), 5, true, Explosion.Mode.NONE);
+                    gifterSurprise.doExplosionA();
+                    gifterSurprise.doExplosionB(true);
+                    this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1f, 1.5f);
+                    this.remove();
+                }
+            } else if (exploding && distance > 36D) {
+                exploding = false;
+                timer = 50;
+            }
+        }
+
         if (!this.world.isRemote) {
             int i = MathHelper.floor(this.getPosX());
             int j = MathHelper.floor(this.getPosY());

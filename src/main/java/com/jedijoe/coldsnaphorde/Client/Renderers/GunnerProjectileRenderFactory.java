@@ -23,7 +23,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */ //This class is entirely based off of the spooky arms code for rendering these.
-import com.jedijoe.coldsnaphorde.Entities.GunnerProjectileEntity;
+import com.jedijoe.coldsnaphorde.Entities.Projectiles.GunnerProjectileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;

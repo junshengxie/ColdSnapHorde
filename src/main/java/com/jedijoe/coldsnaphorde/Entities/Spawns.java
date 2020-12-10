@@ -49,15 +49,21 @@ public class Spawns {
         }
 
         if(ColdSnapHorde.cconfig.NETHERSNOW.get() && event.getCategory() == Biome.Category.NETHER){
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners1);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners2);
+            MobSpawnInfo.Spawners espawners = new MobSpawnInfo.Spawners(Register.COLDSNAPSTABBER.get(), 2,1,1);
+            MobSpawnInfo.Spawners espawners1 = new MobSpawnInfo.Spawners(Register.COLDSNAPGUNNER.get(), 2,1,1);
+            MobSpawnInfo.Spawners espawners2 = new MobSpawnInfo.Spawners(Register.COLDSNAPSNOWBALLER.get(), 2,1,1);
+            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners);
+            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners1);
+            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners2);
         }
 
         if(ColdSnapHorde.cconfig.ENDSNOW.get() && event.getCategory() == Biome.Category.THEEND){
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners1);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners2);
+            MobSpawnInfo.Spawners espawners = new MobSpawnInfo.Spawners(Register.COLDSNAPSTABBER.get(), 2,1,1);
+            MobSpawnInfo.Spawners espawners1 = new MobSpawnInfo.Spawners(Register.COLDSNAPGUNNER.get(), 2,1,1);
+            MobSpawnInfo.Spawners espawners2 = new MobSpawnInfo.Spawners(Register.COLDSNAPSNOWBALLER.get(), 2,1,1);
+            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners);
+            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners1);
+            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners2);
         }
     }
 

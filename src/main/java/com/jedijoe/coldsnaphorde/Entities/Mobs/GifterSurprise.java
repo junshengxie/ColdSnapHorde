@@ -140,6 +140,8 @@ public class GifterSurprise extends Explosion {
                         double d11 = d10;
                         if (entity instanceof LivingEntity) {
                             d11 = ProtectionEnchantment.getBlastDamageReduction((LivingEntity) entity, d10);
+                            LivingEntity livingEntity = (LivingEntity) entity;
+                            livingEntity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*20, 1, false, true));
                         }
 
                         entity.setMotion(entity.getMotion().add(d5 * d11, d7 * d11, d9 * d11));
@@ -147,7 +149,6 @@ public class GifterSurprise extends Explosion {
                             PlayerEntity playerentity = (PlayerEntity) entity;
                             if (!playerentity.isSpectator() && (!playerentity.isCreative() || !playerentity.abilities.isFlying)) {
                                 this.playerKnockbackMap.put(playerentity, new Vector3d(d5 * d10, d7 * d10, d9 * d10));
-                                playerentity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*20, 1, false, true));
                             }
                         }
                     }

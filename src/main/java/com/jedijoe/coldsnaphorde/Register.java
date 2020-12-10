@@ -1,9 +1,6 @@
 package com.jedijoe.coldsnaphorde;
 
-import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapGifter;
-import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapGunner;
-import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapSnowballer;
-import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapStabber;
+import com.jedijoe.coldsnaphorde.Entities.Mobs.*;
 import com.jedijoe.coldsnaphorde.Entities.Projectiles.GunnerProjectileEntity;
 import com.jedijoe.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
 import com.jedijoe.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
@@ -42,6 +39,7 @@ public class Register {
     public static final RegistryObject<EntityType<ColdSnapGunner>> COLDSNAPGUNNER = ENTITY_TYPES.register("coldsnapgunner", () -> EntityType.Builder.create(ColdSnapGunner::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapgunner").toString()));
     public static final RegistryObject<EntityType<ColdSnapStabber>> COLDSNAPSTABBER = ENTITY_TYPES.register("coldsnapstabber", () -> EntityType.Builder.create(ColdSnapStabber::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapstabber").toString()));
     public static final RegistryObject<EntityType<ColdSnapSnowballer>> COLDSNAPSNOWBALLER = ENTITY_TYPES.register("coldsnapsnowballer", () -> EntityType.Builder.create(ColdSnapSnowballer::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapsnowballer").toString()));
+    public static final RegistryObject<EntityType<ColdSnapZapper>> COLDSNAPZAPPER = ENTITY_TYPES.register("coldsnapszapper", () -> EntityType.Builder.create(ColdSnapZapper::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapzapper").toString()));
     public static final RegistryObject<EntityType<GunnerProjectileEntity>> GUNNERPROJECTILE = ENTITY_TYPES.register("gunnerprojectile", () -> EntityType.Builder.<GunnerProjectileEntity>create(GunnerProjectileEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "gunnerprojectile").toString()));
     public static final RegistryObject<EntityType<RockSnowballEntity>> ROCKSNOWBALLPROJECTILE = ENTITY_TYPES.register("rocksnowballprojectile", () -> EntityType.Builder.<RockSnowballEntity>create(RockSnowballEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "rocksnowballprojectile").toString()));
     public static final RegistryObject<EntityType<SnowierSnowballEntity>> SNOWIERSNOWBALLPROJECTILE = ENTITY_TYPES.register("snowiersnowballprojectile", () -> EntityType.Builder.<SnowierSnowballEntity>create(SnowierSnowballEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).func_233608_b_(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "snowiersnowballprojectile").toString()));

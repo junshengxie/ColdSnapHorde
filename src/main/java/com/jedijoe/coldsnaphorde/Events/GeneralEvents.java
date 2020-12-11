@@ -4,9 +4,15 @@ import com.jedijoe.coldsnaphorde.ColdSnapHorde;
 import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapGifter;
 import com.jedijoe.coldsnaphorde.Register;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -30,8 +36,16 @@ public class GeneralEvents {
             else{
                 player.sendStatusMessage(new StringTextComponent("Temperature: " + code), true);
             }
-
         }
+    }
+
+    @SubscribeEvent
+    public static void Transposer(PlayerInteractEvent.RightClickItem event){
+        if(event.getItemStack().getItem().equals(Register.LIGHTNINGTRANSPOSER.get()) && event.getPlayer().isCrouching() && !event.getPlayer().world.isRemote()){
+            PlayerEntity player = event.getPlayer();
+            ItemStack itemStack = event.getItemStack();
+            itemStack.shrink(1);
+            EntityType.LIGHTNING_BOLT.spawn((ServerWorld) player.getEntityWorld(), new ItemStack(Items.AIR), null, event.getPos(), SpawnReason.TRIGGERED, true, false);}
     }
 
     @SubscribeEvent

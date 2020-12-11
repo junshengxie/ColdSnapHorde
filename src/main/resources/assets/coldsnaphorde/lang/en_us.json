@@ -2,15 +2,21 @@
   "entity.coldsnaphorde.coldsnapgunner": "Snowman Gunner",
   "entity.coldsnaphorde.coldsnapstabber": "Snowman Stabber",
   "entity.coldsnaphorde.coldsnapsnowballer": "Snowman Snowballer",
+  "entity.coldsnaphorde.coldsnapzapper": "Snowman Zapper",
+  "entity.coldsnaphorde.coldsnapgifter": "Snowman Gifter",
   "entity.coldsnaphorde.gunnerprojectile": "Flying Coal",
   "entity.coldsnaphorde.rocksnowballprojectile": "Flying Snow Rock",
   "entity.coldsnaphorde.snowiersnowballprojectile": "Flying Snowier Snowball",
+  "entity.coldsnaphorde.lightningsnowprojectile": "Flying Lightning Snowball",
   "item.coldsnaphorde.rockysnowball": "Snow Covered Rock",
   "item.coldsnaphorde.tophat": "Top Hat",
   "item.coldsnaphorde.iceshard": "Frost Shard",
   "item.coldsnaphorde.icecore": "Frost Core",
   "item.coldsnaphorde.thermometer": "Thermometer",
   "item.coldsnaphorde.snowiersnowball": "Snowier Snowball",
+  "item.coldsnaphorde.lightningsnowball": "Lightning Snowball",
+  "item.coldsnaphorde.lightningtransposer": "Lightning Transposer",
+  "item.coldsnaphorde.transposerpiece": "Lightning Transposer Piece",
   "itemGroup.ColdSnapHorde": "Cold Snap Horde"
 
 }

@@ -85,7 +85,7 @@ public class ColdSnapZapper extends MonsterEntity {
     @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         int chance = rand.nextInt(100);
-        if(chance > 50 && entityIn instanceof LivingEntity && transponderprogress == 1){
+        if(chance >= ColdSnapHorde.sconfig.STICKTRANSPONDER.get() && entityIn instanceof LivingEntity && transponderprogress == 1){
             ZapTarget = (LivingEntity) entityIn;
             transponderprogress = 0;
         }

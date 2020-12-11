@@ -38,6 +38,7 @@ public class ColdSnapZapper extends MonsterEntity {
 
     LivingEntity ZapTarget;
     int timer = 60;
+    float transponderprogress = 1;
 
     public LivingEntity getZapTarget() {
         return ZapTarget;
@@ -71,8 +72,8 @@ public class ColdSnapZapper extends MonsterEntity {
     public static AttributeModifierMap.MutableAttribute customAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2D);
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
@@ -84,8 +85,9 @@ public class ColdSnapZapper extends MonsterEntity {
     @Override
     public boolean attackEntityAsMob(Entity entityIn) {
         int chance = rand.nextInt(100);
-        if(chance > 50 && entityIn instanceof LivingEntity){
+        if(chance > 50 && entityIn instanceof LivingEntity && transponderprogress == 1){
             ZapTarget = (LivingEntity) entityIn;
+            transponderprogress = 0;
         }
         return super.attackEntityAsMob(entityIn);
     }
@@ -116,6 +118,11 @@ public class ColdSnapZapper extends MonsterEntity {
                 ZapTarget = null;
                 timer = 60;
             }
+        }
+
+        if(transponderprogress < 1){
+            transponderprogress += 0.0025;
+            if (transponderprogress > 1) transponderprogress = 1;
         }
 
 

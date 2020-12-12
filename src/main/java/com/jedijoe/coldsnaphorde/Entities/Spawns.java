@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
@@ -17,6 +18,17 @@ import net.minecraftforge.fml.common.Mod;
 public class Spawns {
     @SubscribeEvent
     public static void SnowmanSpawner(BiomeLoadingEvent event){
+        final String BiomeList = ColdSnapHorde.cconfig.BiomeExclusion.get();
+        String[] biomeExclusion = BiomeList.split(",");
+        int exclusionLength = biomeExclusion.length;
+        ResourceLocation[] finalBiomeExclusion = new ResourceLocation[exclusionLength];
+        int counter = 0;
+        for(String i : biomeExclusion){
+            ResourceLocation newResource = new ResourceLocation(i);
+            finalBiomeExclusion[counter] = newResource;
+            counter++;
+        }
+
         MobSpawnInfo.Spawners spawners = new MobSpawnInfo.Spawners(Register.COLDSNAPSTABBER.get(), ColdSnapHorde.cconfig.STABBER.get(),1,1);
         MobSpawnInfo.Spawners spawners1 = new MobSpawnInfo.Spawners(Register.COLDSNAPGUNNER.get(), ColdSnapHorde.cconfig.GUNNER.get(),1,1);
         MobSpawnInfo.Spawners spawners2 = new MobSpawnInfo.Spawners(Register.COLDSNAPSNOWBALLER.get(), ColdSnapHorde.cconfig.SNOWBALLER.get(),1,1);
@@ -24,7 +36,7 @@ public class Spawns {
         MobSpawnInfo.Spawners spawners4 = new MobSpawnInfo.Spawners(Register.COLDSNAPZAPPER.get(), ColdSnapHorde.cconfig.ZAPPER.get(),1,1);
 
 
-        if (event.getCategory() != Biome.Category.NETHER && event.getCategory() != Biome.Category.THEEND && event.getCategory() != Biome.Category.OCEAN){
+        if (event.getCategory() != Biome.Category.NETHER && event.getCategory() != Biome.Category.THEEND && event.getCategory() != Biome.Category.OCEAN && BiomeExclusion(finalBiomeExclusion, event.getName())){
         if(ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 0 && event.getClimate().temperature < 0.3f){
             event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners);
             event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners1);
@@ -92,5 +104,12 @@ public class Spawns {
         EntitySpawnPlacementRegistry.register(Register.COLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
         EntitySpawnPlacementRegistry.register(Register.COLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
         EntitySpawnPlacementRegistry.register(Register.COLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
+    }
+
+    public static Boolean BiomeExclusion(ResourceLocation[] BiomeExclusion, ResourceLocation name){
+        for (ResourceLocation i : BiomeExclusion){
+            if (i.toString().equals(name.toString())){return false;}
+        }
+        return true;
     }
 }

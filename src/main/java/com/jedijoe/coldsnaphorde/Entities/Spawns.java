@@ -63,7 +63,7 @@ public class Spawns {
             event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners4);}
         }
 
-        if(ColdSnapHorde.cconfig.OCEANSNOW.get() && event.getCategory() == Biome.Category.OCEAN){
+        if(ColdSnapHorde.cconfig.OCEANSNOW.get() && event.getCategory() == Biome.Category.OCEAN && BiomeExclusion(finalBiomeExclusion, event.getName())){
             event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners);
             event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners1);
             event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners2);
@@ -71,7 +71,7 @@ public class Spawns {
             event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners4);
         }
 
-        if(ColdSnapHorde.cconfig.NETHERSNOW.get() && event.getCategory() == Biome.Category.NETHER){
+        if(ColdSnapHorde.cconfig.NETHERSNOW.get() && event.getCategory() == Biome.Category.NETHER && BiomeExclusion(finalBiomeExclusion, event.getName())){
             MobSpawnInfo.Spawners espawners = new MobSpawnInfo.Spawners(Register.COLDSNAPSTABBER.get(), ColdSnapHorde.cconfig.NSTABBER.get(),1,1);
             MobSpawnInfo.Spawners espawners1 = new MobSpawnInfo.Spawners(Register.COLDSNAPGUNNER.get(), ColdSnapHorde.cconfig.NGUNNER.get(),1,1);
             MobSpawnInfo.Spawners espawners2 = new MobSpawnInfo.Spawners(Register.COLDSNAPSNOWBALLER.get(), ColdSnapHorde.cconfig.NSNOWBALLER.get(),1,1);
@@ -84,7 +84,7 @@ public class Spawns {
             event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners4);
         }
 
-        if(ColdSnapHorde.cconfig.ENDSNOW.get() && event.getCategory() == Biome.Category.THEEND){
+        if(ColdSnapHorde.cconfig.ENDSNOW.get() && event.getCategory() == Biome.Category.THEEND && BiomeExclusion(finalBiomeExclusion, event.getName())){
             MobSpawnInfo.Spawners espawners = new MobSpawnInfo.Spawners(Register.COLDSNAPSTABBER.get(), ColdSnapHorde.cconfig.ESTABBER.get(),1,1);
             MobSpawnInfo.Spawners espawners1 = new MobSpawnInfo.Spawners(Register.COLDSNAPGUNNER.get(), ColdSnapHorde.cconfig.EGUNNER.get(),1,1);
             MobSpawnInfo.Spawners espawners2 = new MobSpawnInfo.Spawners(Register.COLDSNAPSNOWBALLER.get(), ColdSnapHorde.cconfig.ESNOWBALLER.get(),1,1);

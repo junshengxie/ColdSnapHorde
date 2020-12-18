@@ -3,13 +3,15 @@ package com.jedijoe.coldsnaphorde.Client.Models;// Made with Blockbench 3.7.4
 // Paste this class into your mod and generate all required imports
 
 
+import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapBrawler;
+import com.jedijoe.coldsnaphorde.Entities.Mobs.GenericHordeMember;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class ColdSnapBrawlerModel extends EntityModel<Entity> {
+public class ColdSnapBrawlerModel<C extends GenericHordeMember> extends EntityModel<ColdSnapBrawler> {
 	private final ModelRenderer lowbody;
 	private final ModelRenderer body;
 	private final ModelRenderer left_hand;
@@ -95,7 +97,7 @@ public class ColdSnapBrawlerModel extends EntityModel<Entity> {
 	}
 
 	@Override
-	public void setRotationAngles(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setRotationAngles(ColdSnapBrawler entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
 		this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
 		this.body.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;

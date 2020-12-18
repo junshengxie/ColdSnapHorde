@@ -3,10 +3,7 @@ package com.jedijoe.coldsnaphorde;
 import com.jedijoe.coldsnaphorde.Configs.CConfiguration;
 import com.jedijoe.coldsnaphorde.Configs.ConfigHelper;
 import com.jedijoe.coldsnaphorde.Configs.SConfiguration;
-import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapGunner;
-import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapSnowballer;
-import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapStabber;
-import com.jedijoe.coldsnaphorde.Entities.Mobs.ColdSnapZapper;
+import com.jedijoe.coldsnaphorde.Entities.Mobs.*;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -54,6 +51,7 @@ public class ColdSnapHorde
             GlobalEntityTypeAttributes.put(Register.COLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().create());
             GlobalEntityTypeAttributes.put(Register.COLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().create());
             GlobalEntityTypeAttributes.put(Register.COLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().create());
+            GlobalEntityTypeAttributes.put(Register.COLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().create());
         });
 
     }

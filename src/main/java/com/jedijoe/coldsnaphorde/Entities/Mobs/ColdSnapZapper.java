@@ -72,7 +72,7 @@ public class ColdSnapZapper extends GenericHordeMember {
     public static AttributeModifierMap.MutableAttribute customAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.3D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D);
     }
 

@@ -35,7 +35,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class ColdSnapGifter extends MonsterEntity {
+public class ColdSnapGifter extends GenericHordeMember {
     public ColdSnapGifter(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
         this.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 10000*20, 5, false, false));
@@ -71,21 +71,6 @@ public class ColdSnapGifter extends MonsterEntity {
         }else return true;
     }
 
-    @Nullable
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
-    }
-
-    @Nullable
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_SNOW_GOLEM_HURT;
-    }
-
-    @Nullable
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
-    }
-
     @Override
     protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {}
 
@@ -97,7 +82,7 @@ public class ColdSnapGifter extends MonsterEntity {
             if (distance < 4.5D && !world.isRemote()) {
                 if(!exploding){this.playSound(SoundEvents.ENTITY_TNT_PRIMED, 1F, 1F);}
                 exploding = true;
-                this.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 10, false, true));
+                this.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 10, false, false));
             }
 
             if (exploding && distance < 36D) {
@@ -114,31 +99,6 @@ public class ColdSnapGifter extends MonsterEntity {
             } else if (exploding && distance > 36D) {
                 exploding = false;
                 timer = 50;
-            }
-        }
-
-        if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.getPosX());
-            int j = MathHelper.floor(this.getPosY());
-            int k = MathHelper.floor(this.getPosZ());
-            if (shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
-                this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
-            }
-
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this)) {
-                return;
-            }
-
-            BlockState blockstate = Blocks.SNOW.getDefaultState();
-
-            for(int l = 0; l < 4; ++l) {
-                i = MathHelper.floor(this.getPosX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor(this.getPosY());
-                k = MathHelper.floor(this.getPosZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
-                BlockPos blockpos = new BlockPos(i, j, k);
-                if (this.world.isAirBlock(blockpos) && !shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.isValidPosition(this.world, blockpos)) {
-                    this.world.setBlockState(blockpos, blockstate);
-                }
             }
         }
     }

@@ -30,7 +30,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
-public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
+public class ColdSnapGunner extends GenericHordeMember implements IRangedAttackMob {
     public ColdSnapGunner(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -70,21 +70,6 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
         return spawnDataIn;
     }
 
-    @Nullable
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
-    }
-
-    @Nullable
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_SNOW_GOLEM_HURT;
-    }
-
-    @Nullable
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
-    }
-
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
         GunnerProjectileEntity snowballentity = new GunnerProjectileEntity(Register.GUNNERPROJECTILE.get(), this.world, this);
         double d0 = target.getPosYEye() - (double)1.1F;
@@ -99,44 +84,6 @@ public class ColdSnapGunner extends MonsterEntity implements IRangedAttackMob {
 
     public void livingTick() {
         super.livingTick();
-        if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.getPosX());
-            int j = MathHelper.floor(this.getPosY());
-            int k = MathHelper.floor(this.getPosZ());
-            if (shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
-                this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
-            }
-
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this)) {
-                return;
-            }
-
-            BlockState blockstate = Blocks.SNOW.getDefaultState();
-
-            for(int l = 0; l < 4; ++l) {
-                i = MathHelper.floor(this.getPosX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor(this.getPosY());
-                k = MathHelper.floor(this.getPosZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
-                BlockPos blockpos = new BlockPos(i, j, k);
-                if (this.world.isAirBlock(blockpos) && !shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.isValidPosition(this.world, blockpos)) {
-                    this.world.setBlockState(blockpos, blockstate);
-                }
-            }
-        }
     }
 
-    protected boolean shouldOverHeat(float currentTemp, int protectionlevel){
-        switch(protectionlevel){
-            case 0:
-                return currentTemp > 0.3f;
-            case 1:
-                return currentTemp > 0.9f;
-            case 2:
-                return currentTemp > 1.5f;
-            case 3:
-                return false;
-            default:
-                return true;
-        }
-    }
 }

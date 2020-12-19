@@ -32,6 +32,9 @@ public class CConfiguration {
     public ConfigHelper.ConfigValueListener<Integer> ZAPPER;
     public ConfigHelper.ConfigValueListener<Integer> EZAPPER;
     public ConfigHelper.ConfigValueListener<Integer> NZAPPER;
+    public ConfigHelper.ConfigValueListener<Integer> BRAWLER;
+    public ConfigHelper.ConfigValueListener<Integer> EBRAWLER;
+    public ConfigHelper.ConfigValueListener<Integer> NBRAWLER;
 
     public ConfigHelper.ConfigValueListener<String> BiomeExclusion;
 
@@ -63,5 +66,8 @@ public class CConfiguration {
         this.ZAPPER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Zapper in the Overworld").defineInRange("zapperOverworldWeight", 6, 0, 1000));
         this.EZAPPER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Zapper in the End").defineInRange("zapperEndWeight", 1, 0, 1000));
         this.NZAPPER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Zapper in the Nether").defineInRange("zapperNetherWeight", 3, 0, 1000));
+        this.BRAWLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Brawler in the Overworld").defineInRange("brawlerOverworldWeight", 8, 0, 1000));
+        this.EBRAWLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Brawler in the End").defineInRange("brawlerEndWeight", 1, 0, 1000));
+        this.NBRAWLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Brawler in the Nether").defineInRange("brawlerNetherWeight", 1, 0, 1000));
     }
 }

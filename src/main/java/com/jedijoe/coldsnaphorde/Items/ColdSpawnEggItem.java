@@ -54,7 +54,7 @@ public class ColdSpawnEggItem extends SpawnEggItem {
             EGGS.put(spawnEgg.getType(null), spawnEgg);
             DispenserBlock.registerDispenseBehavior(spawnEgg, defaultDispenseItemBehavior);
         }
-        EGGS.clear();
+        UNADDED.clear();
     }
 
     @Override

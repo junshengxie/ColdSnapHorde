@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.2.2'
+version = '1.2.3'
 group = 'com.jedijoe.coldsnaphorde' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'coldsnaphorde'
 
@@ -26,7 +26,7 @@ repositories {
 }
 
 dependencies {
-    implementation fg.deobf('software.bernie.geckolib:forge-1.16.4-geckolib:3.0.0-beta.10')
+    implementation fg.deobf('software.bernie.geckolib:forge-1.16.4-geckolib:3.0.0')
 }
 
 minecraft {
@@ -118,7 +118,6 @@ dependencies {
 
     // These dependencies get remapped to your current MCP mappings
     // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-    compile fg.deobf('software.bernie.geckolib:forge-1.16.4-geckolib:3.0.0-beta.10')
 
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html

@@ -23,42 +23,43 @@ import java.util.Map;
 
 public class ColdSpawnEggItem extends SpawnEggItem {
 
-    protected static final List<ColdSpawnEggItem> UNADDED = new ArrayList<ColdSpawnEggItem>();
+    protected static final List<ColdSpawnEggItem> UNADDED_EGGS = new ArrayList<ColdSpawnEggItem>();
     private final Lazy<? extends EntityType<?>> entityTypeSupplier;
 
     public ColdSpawnEggItem(final RegistryObject<? extends EntityType<?>> entityTypeSupplier, final int primaryColorIn, final int secondaryColorIn, final Item.Properties properties) {
         super(null, primaryColorIn, secondaryColorIn, properties);
         this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
-        UNADDED.add(this);    }
+        UNADDED_EGGS.add(this);}
 
-    public ColdSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int PrimaryColor, final int SecondaryColor, final Item.Properties properties){
-        super(null, PrimaryColor, SecondaryColor, properties);
-        this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
-        UNADDED.add(this);
-    }
+//    public ColdSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int PrimaryColor, final int SecondaryColor, final Item.Properties properties){
+//        super(null, PrimaryColor, SecondaryColor, properties);
+//        this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
+//        UNADDED_EGGS.add(this);
+//    }
 
     public static void initSpawnEggs(){
-        final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class, null, "field_195987_b");
-        DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior(){
+        final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,null, "field_195987_b");
+        DefaultDispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() {
             @Override
             protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                 Direction direction = source.getBlockState().get(DispenserBlock.FACING);
                 EntityType<?> type = ((SpawnEggItem) stack.getItem()).getType(stack.getTag());
-                type.spawn(source.getWorld(), stack, null, source.getBlockPos().offset(direction), SpawnReason.DISPENSER, direction != Direction.UP, false);
+                type.spawn(source.getWorld(), stack, null, source.getBlockPos().offset(direction),
+                        SpawnReason.DISPENSER, direction != Direction.UP, false);
                 stack.shrink(1);
                 return stack;
             }
         };
 
-        for (final SpawnEggItem spawnEgg : UNADDED){
+        for (final SpawnEggItem spawnEgg : UNADDED_EGGS) {
             EGGS.put(spawnEgg.getType(null), spawnEgg);
-            DispenserBlock.registerDispenseBehavior(spawnEgg, defaultDispenseItemBehavior);
+            DispenserBlock.registerDispenseBehavior(spawnEgg, dispenseBehaviour);
         }
-        UNADDED.clear();
+        UNADDED_EGGS.clear();
     }
 
     @Override
-    public EntityType<?> getType(@Nullable CompoundNBT nbt) {
+    public EntityType<?> getType(CompoundNBT nbt) {
         return this.entityTypeSupplier.get();
     }
 }

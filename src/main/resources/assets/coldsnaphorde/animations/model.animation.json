@@ -8,7 +8,8 @@
 				"right_hand": {
 					"rotation": {
 						"0.0": {
-							"vector": [0, 0, 0]
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
 						},
 						"0.28": {
 							"vector": [0, -45, 0],
@@ -18,6 +19,18 @@
 							"vector": [0, 0, 0],
 							"easing": "easeInOutSine"
 						}
+					}
+				}
+			}
+		},
+		"idle": {
+			"loop": true,
+			"animation_length": 0.28,
+			"bones": {
+				"right_hand": {
+					"0.28": {
+						"vector": [0, 0, 0],
+						"easing": "easeInOutSine"
 					}
 				}
 			}

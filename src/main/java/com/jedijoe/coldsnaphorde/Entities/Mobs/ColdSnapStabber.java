@@ -20,6 +20,9 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -37,11 +40,13 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
-    private int animation;
+    private static final DataParameter<Float> ANITIMER = EntityDataManager.createKey(ColdSnapStabber.class, DataSerializers.FLOAT);
     private AnimationFactory factory = new AnimationFactory(this);
-    public ColdSnapStabber(EntityType<? extends MonsterEntity> type, World worldIn) { super(type, worldIn); animation = 0;}
+
+    public ColdSnapStabber(EntityType<? extends MonsterEntity> type, World worldIn) { super(type, worldIn);}
 
     @Override
     protected void registerGoals() {
@@ -58,6 +63,12 @@ public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, BlazeEntity.class, 10, true, false, this::shouldAttack));
 
+    }
+
+    @Override
+    protected void registerData() {
+        super.registerData();
+        getDataManager().register(ANITIMER, 0f);
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
@@ -78,21 +89,26 @@ public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
         if (entityIn instanceof LivingEntity && !this.world.isRemote()){
             int chance = rand.nextInt(100);
             if (chance <= 6){((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.NAUSEA, 10*20, 0));}
+
+            this.getDataManager().set(ANITIMER, 50f);
         }
-        animation = 100;
         return super.attackEntityAsMob(entityIn);
     }
 
     public void livingTick() {
         super.livingTick();
-        if (animation > 0) animation -= 1;
+        if(!this.world.isRemote()){
+        float timer = getDataManager().get(ANITIMER);
+        this.getDataManager().set(ANITIMER, timer -= 1f);
+    }
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
-        if(this.isAggressive()){
+        if(getDataManager().get(ANITIMER) > 0){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("stab", true));
             return PlayState.CONTINUE; }
-        else return PlayState.CONTINUE;
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
+            return PlayState.CONTINUE;
     }
 
     @Override

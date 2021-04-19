@@ -31,11 +31,6 @@ public class ColdSpawnEggItem extends SpawnEggItem {
         this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
         UNADDED_EGGS.add(this);}
 
-//    public ColdSpawnEggItem(final NonNullSupplier<? extends EntityType<?>> entityTypeSupplier, final int PrimaryColor, final int SecondaryColor, final Item.Properties properties){
-//        super(null, PrimaryColor, SecondaryColor, properties);
-//        this.entityTypeSupplier = Lazy.of(entityTypeSupplier::get);
-//        UNADDED_EGGS.add(this);
-//    }
 
     public static void initSpawnEggs(){
         final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,null, "field_195987_b");

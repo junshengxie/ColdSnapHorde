@@ -99,7 +99,7 @@ public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
         super.livingTick();
         if(!this.world.isRemote()){
         float timer = getDataManager().get(ANITIMER);
-        this.getDataManager().set(ANITIMER, timer -= 1f);
+        if (timer > -1) this.getDataManager().set(ANITIMER, timer -= 1f);
     }
     }
 

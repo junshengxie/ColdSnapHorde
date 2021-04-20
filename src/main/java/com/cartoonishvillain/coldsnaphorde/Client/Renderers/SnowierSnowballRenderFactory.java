@@ -1,6 +1,9 @@
+package com.cartoonishvillain.coldsnaphorde.Client.Renderers;
+
+/*
 MIT License
 
-Copyright (c) 2020 CartoonishVillain
+Copyright (c) 2020 przemykomo
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +22,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+ */ //This class is entirely based off of the spooky arms code for rendering these.
+import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+
+public class SnowierSnowballRenderFactory implements IRenderFactory<SnowierSnowballEntity> {
+    @Override
+    public EntityRenderer<? super SnowierSnowballEntity> createRenderFor(EntityRendererManager manager) {
+        return new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer());
+    }
+}

@@ -14,6 +14,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.raid.Raid;
@@ -43,12 +45,10 @@ public class Horde {
             }
         }
         //Stage 1, send message about incoming horde
-        //TODO Messages
-        //TODO Maybe bossbar?
+        for(PlayerEntity player : playerEntities){ player.sendStatusMessage(new StringTextComponent(TextFormatting.AQUA + "A cold snap horde approaches!"), true);}
+
         //Stage 2, spawn a horde of enemies, send them towards the block center.
-
-
-        for(int entityCount = 0; entityCount < 10; entityCount++){
+        for(int entityCount = 0; entityCount < ColdSnapHorde.sconfig.HORDESIZE.get(); entityCount++){
             this.hordeSpawn = this.getValidSpawn(2);
             if(!hordeSpawn.equals(Optional.empty()) && hordeSpawn.isPresent()){
                 spawnSnowman(hordeSpawn.get());
@@ -73,7 +73,7 @@ public class Horde {
             float f = this.world.rand.nextFloat() * ((float)Math.PI * 2F);
             double DISTANCE = -1;
             int j = Integer.MAX_VALUE, l = Integer.MAX_VALUE;
-            while (DISTANCE == -1 || !(DISTANCE > 450 && DISTANCE < 1250)){
+            while ((DISTANCE == -1 || !(DISTANCE > 450 && DISTANCE < 1250)) || !biomeCheck(world, new BlockPos(j, center.getY(), l))){ //check for appropriate distance from start and proper biome
             j = randFinder(this.center.getX(), f, i);
             l = randFinder(this.center.getZ(), f, i);
             DISTANCE = center.distanceSq(new BlockPos(j, center.getY(), l));}
@@ -145,5 +145,17 @@ public class Horde {
                 world.addEntity(coldSnapBrawler);
                 break;
         }
+    }
+
+    private boolean biomeCheck(World world, BlockPos pos){
+        int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
+        float temp = world.getBiome(pos).getTemperature();
+        int code = -1;
+        if (temp < 0.3){code = 0;}
+        else if(temp >= 0.3 && temp < 0.9){code = 1;}
+        else if(temp >= 0.9 && temp < 1.5){code = 2;}
+        else if(temp >= 1.5){code = 3;}
+
+        return code <= protlvl;
     }
 }

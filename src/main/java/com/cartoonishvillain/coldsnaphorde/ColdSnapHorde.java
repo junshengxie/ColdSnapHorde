@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde;
 
+import com.cartoonishvillain.coldsnaphorde.Capabilities.CooldownCapability;
 import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
@@ -45,6 +46,7 @@ public class ColdSnapHorde
 
     private void setup(final FMLCommonSetupEvent event)
     {
+        CooldownCapability.register();
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().create());
             GlobalEntityTypeAttributes.put(Register.COLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().create());

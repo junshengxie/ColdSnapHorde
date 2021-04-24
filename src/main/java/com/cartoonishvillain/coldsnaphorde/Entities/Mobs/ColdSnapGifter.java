@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.GifterSurprise;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
@@ -32,6 +33,7 @@ public class ColdSnapGifter extends GenericHordeMember {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
@@ -56,6 +58,8 @@ public class ColdSnapGifter extends GenericHordeMember {
             return false;
         }else return true;
     }
+
+    public int getTimer() {return timer;}
 
     @Override
     protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {}

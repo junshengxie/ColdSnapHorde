@@ -1,10 +1,17 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.GifterSurprise;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovementGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.PillagerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -13,8 +20,27 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
 public class GenericHordeMember extends MonsterEntity {
+    private BlockPos target = null;
+    private Boolean HordeMember = false;
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
+        this.goalSelector.addGoal(3, new HordeMovementGoal<>(this));
+        this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, ColdSnapGifter.class, 6.0F, 1.0D, 1.2D, this::avoid));
+    }
+
+    private boolean avoid(@Nullable LivingEntity entity) {
+        if (entity instanceof ColdSnapGifter) {
+            int timer = ((ColdSnapGifter) entity).getTimer();
+            return timer < 50;
+        }
+        return false;
+    }
+
     protected GenericHordeMember(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -33,6 +59,12 @@ public class GenericHordeMember extends MonsterEntity {
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
     }
+
+    public BlockPos getTarget() {return target;}
+
+    public boolean isHordeMember(){return HordeMember;}
+
+    public void toggleHordeMember(BlockPos center) {this.target = center; HordeMember = true;}
 
     @Override
     public void livingTick() {

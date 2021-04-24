@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
+package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

@@ -9,6 +9,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.BlazeEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -27,15 +28,17 @@ import javax.annotation.Nullable;
 public class ColdSnapGunner extends GenericHordeMember implements IRangedAttackMob {
     public ColdSnapGunner(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
+        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
     }
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
         this.targetSelector.addGoal(1, new SwimGoal(this));
-        this.goalSelector.addGoal(2, new RangedBowAttackGoal<>(this, 0.75D, 30, 25.0F));
+        this.goalSelector.addGoal(3, new RangedBowAttackGoal<>(this, 0.75D, 30, 25.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, 10, true, false, this::shouldAttack));
@@ -51,9 +54,9 @@ public class ColdSnapGunner extends GenericHordeMember implements IRangedAttackM
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem()) || (entity instanceof PlayerEntity && ((PlayerEntity) entity).isCreative())){
             return false;
-        }else return true;
+        }return true;
     }
 
     @Nullable

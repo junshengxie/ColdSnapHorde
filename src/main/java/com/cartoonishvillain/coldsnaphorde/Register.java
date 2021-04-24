@@ -60,4 +60,8 @@ public class Register {
     public static final RegistryObject<EntityType<LightningSnowEntity>> LIGHTNINGSNOWBALLPROJECTILE = ENTITY_TYPES.register("lightningsnowprojectile", () -> EntityType.Builder.<LightningSnowEntity>create(LightningSnowEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "lightningsnowprojectile").toString()));
 
     public static final RegistryObject<SoundEvent> GIFTERATTACK = SOUND_EVENT.register("gifter_attack", () -> new SoundEvent(new ResourceLocation(ColdSnapHorde.MOD_ID, "gifter_attack")));
+
+
+
+    public static final RegistryObject<Item> hordestick = ITEMS.register("hordestick", () -> new hordedebugstick(new Item.Properties().group(ColdSnapHorde.TAB)));
 }

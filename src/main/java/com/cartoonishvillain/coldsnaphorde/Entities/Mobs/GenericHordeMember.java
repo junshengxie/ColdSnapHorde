@@ -3,15 +3,18 @@ package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.GifterSurprise;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovementGoal;
+import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.PillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -39,6 +42,16 @@ public class GenericHordeMember extends MonsterEntity {
             return timer < 50;
         }
         return false;
+    }
+
+    @Override
+    public void onDeath(DamageSource cause) {
+        int random = world.rand.nextInt(100);
+        if(random > 80 && !world.isRemote() && isHordeMember()){
+            ItemEntity itemEntity = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(Register.PRESENT.get(), 1));
+            world.addEntity(itemEntity);
+        }
+        super.onDeath(cause);
     }
 
     protected GenericHordeMember(EntityType<? extends MonsterEntity> type, World worldIn) {

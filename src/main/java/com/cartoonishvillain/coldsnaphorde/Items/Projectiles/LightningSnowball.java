@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Items;
+package com.cartoonishvillain.coldsnaphorde.Items.Projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.LightningSnowEntity;
@@ -37,4 +37,3 @@ public class LightningSnowball extends Item {
         return ActionResult.func_233538_a_(itemstack, worldIn.isRemote());
     }
 }
-

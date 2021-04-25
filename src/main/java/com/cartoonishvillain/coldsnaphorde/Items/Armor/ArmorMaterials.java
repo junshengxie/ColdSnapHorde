@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Items;
+package com.cartoonishvillain.coldsnaphorde.Items.Armor;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -60,6 +60,8 @@ public enum ArmorMaterials implements IArmorMaterial {
     public Ingredient getRepairMaterial() {
         return this.repairMaterial.get();
     }
+
+
 
     @Override
     public String getName() {

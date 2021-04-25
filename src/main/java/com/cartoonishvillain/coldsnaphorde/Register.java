@@ -6,12 +6,26 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.LightningSnowEnt
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
 import com.cartoonishvillain.coldsnaphorde.Items.*;
+import com.cartoonishvillain.coldsnaphorde.Items.Armor.ArmorMaterials;
+import com.cartoonishvillain.coldsnaphorde.Items.Armor.TopHat;
+import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.LightningSnowball;
+import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.RockySnowball;
+import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.SnowierSnowball;
+import com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther.IceSword;
+import com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther.Materials;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Rarity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -22,15 +36,18 @@ public class Register {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, ColdSnapHorde.MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ColdSnapHorde.MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENT = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, ColdSnapHorde.MOD_ID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ColdSnapHorde.MOD_ID);
+
 
     public static void init(){
         ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         SOUND_EVENT.register(FMLJavaModLoadingContext.get().getModEventBus());
+        BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static final RegistryObject<Item> ROCKYSNOWBALL = ITEMS.register("rockysnowball", RockySnowball::new);
-    public static final RegistryObject<Item> SNOWIERSNOWBALL = ITEMS.register("snowiersnowball", SnowierSnowball::new);
+    public static final RegistryObject<Item> SNOWIERSNOWBALL = ITEMS.register("freezeball", SnowierSnowball::new);
     public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlotType.HEAD, new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", () -> new Item(new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ICECORE = ITEMS.register("icecore", () -> new Item(new Item.Properties().group(ColdSnapHorde.TAB)));
@@ -38,6 +55,8 @@ public class Register {
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSER = ITEMS.register("lightningtransposer", () -> new Item(new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> LIGHTNINGSNOWBALL = ITEMS.register("lightningsnowball", LightningSnowball::new);
     public static final RegistryObject<Item> THERMOMETER = ITEMS.register("thermometer", () -> new Item(new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> SNOWGLOBE = ITEMS.register("snowglobe", () -> new Snowglobe(new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> GUNNERSPAWN = ITEMS.register("gunner_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPGUNNER, 14804727, 0, new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> STABBERSPAWN = ITEMS.register("stabber_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPSTABBER, 14804727, 2359296, new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> SNOWBALLERSPAWN = ITEMS.register("snowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPSNOWBALLER, 14804727, 2084, new Item.Properties().group(ColdSnapHorde.TAB)));
@@ -61,7 +80,19 @@ public class Register {
 
     public static final RegistryObject<SoundEvent> GIFTERATTACK = SOUND_EVENT.register("gifter_attack", () -> new SoundEvent(new ResourceLocation(ColdSnapHorde.MOD_ID, "gifter_attack")));
 
+    public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(AbstractBlock.Properties.create(Material.BAMBOO).hardnessAndResistance(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.BONE)));
+    public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(AbstractBlock.Properties.create(Material.BAMBOO).hardnessAndResistance(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.BONE)));
 
+    public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new BlockItem(REDCANDYCANE.get(), new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new BlockItem(GREENCANDYCANE.get(), new Item.Properties().group(ColdSnapHorde.TAB)));
 
-    public static final RegistryObject<Item> hordestick = ITEMS.register("hordestick", () -> new hordedebugstick(new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", ()->new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().group(ColdSnapHorde.TAB).rarity(Rarity.UNCOMMON)));
+
+    public static Item gunner_egg;
+
+    public static ResourceLocation location(String name)
+    {
+        return new ResourceLocation(ColdSnapHorde.MOD_ID, name);
+    }
+
 }

@@ -1,7 +1,7 @@
-package com.cartoonishvillain.coldsnaphorde.Items;
+package com.cartoonishvillain.coldsnaphorde.Items.Projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
+import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -13,9 +13,9 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
-public class SnowierSnowball extends Item {
-    public SnowierSnowball() {
-        super(new Properties().group(ColdSnapHorde.TAB));
+public class RockySnowball extends Item {
+    public RockySnowball() {
+        super(new Item.Properties().group(ColdSnapHorde.TAB));
     }
 
     @Override
@@ -23,7 +23,7 @@ public class SnowierSnowball extends Item {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         worldIn.playSound((PlayerEntity)null, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
         if (!worldIn.isRemote) {
-            SnowierSnowballEntity snowballentity = new SnowierSnowballEntity(Register.SNOWIERSNOWBALLPROJECTILE.get(), worldIn, playerIn);
+            RockSnowballEntity snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE.get(), worldIn, playerIn);
             snowballentity.setItem(itemstack);
             snowballentity.setDirectionAndMovement(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
             worldIn.addEntity(snowballentity);
@@ -37,4 +37,3 @@ public class SnowierSnowball extends Item {
         return ActionResult.func_233538_a_(itemstack, worldIn.isRemote());
     }
 }
-

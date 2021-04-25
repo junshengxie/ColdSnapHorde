@@ -21,48 +21,48 @@ public class ColdSnapZapperModel<C extends MonsterEntity> extends EntityModel<Co
     private final ModelRenderer hat;
 
     public ColdSnapZapperModel() {
-        texWidth = 128;
-        texHeight = 128;
+        textureWidth = 128;
+        textureHeight = 128;
 
         lowbody = new ModelRenderer(this);
-        lowbody.setPos(0.0F, 24.0F, 0.0F);
-        lowbody.texOffs(0, 36).addBox(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, -0.5F, false);
+        lowbody.setRotationPoint(0.0F, 24.0F, 0.0F);
+        lowbody.setTextureOffset(0, 36).addBox(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, -0.5F, false);
 
         body = new ModelRenderer(this);
-        body.setPos(0.0F, 13.0F, 0.0F);
-        body.texOffs(0, 16).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, -0.5F, false);
+        body.setRotationPoint(0.0F, 13.0F, 0.0F);
+        body.setTextureOffset(0, 16).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, -0.5F, false);
 
         left_hand = new ModelRenderer(this);
-        left_hand.setPos(5.0F, 6.0F, 0.0F);
+        left_hand.setRotationPoint(5.0F, 6.0F, 0.0F);
         setRotationAngle(left_hand, 0.0F, 0.0F, 1.1345F);
-        left_hand.texOffs(32, 0).addBox(-1.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+        left_hand.setTextureOffset(32, 0).addBox(-1.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
 
         right_hand = new ModelRenderer(this);
-        right_hand.setPos(-5.0F, 6.0F, 0.0F);
+        right_hand.setRotationPoint(-5.0F, 6.0F, 0.0F);
         setRotationAngle(right_hand, 0.0F, 0.0F, -1.1345F);
-        right_hand.texOffs(32, 0).addBox(-11.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+        right_hand.setTextureOffset(32, 0).addBox(-11.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
 
         head = new ModelRenderer(this);
-        head.setPos(0.0F, 4.0F, 0.0F);
-        head.texOffs(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, false);
+        head.setRotationPoint(0.0F, 4.0F, 0.0F);
+        head.setTextureOffset(0, 0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, false);
 
         hat = new ModelRenderer(this);
-        hat.setPos(0.0F, 0.0F, 0.0F);
+        hat.setRotationPoint(0.0F, 0.0F, 0.0F);
         head.addChild(hat);
-        hat.texOffs(63, 13).addBox(-5.0F, -8.0F, -5.0F, 10.0F, 2.0F, 10.0F, -0.5F, false);
-        hat.texOffs(31, 11).addBox(-4.0F, -13.0F, -4.0F, 8.0F, 6.0F, 8.0F, -0.5F, false);
+        hat.setTextureOffset(63, 13).addBox(-5.0F, -8.0F, -5.0F, 10.0F, 2.0F, 10.0F, -0.5F, false);
+        hat.setTextureOffset(31, 11).addBox(-4.0F, -13.0F, -4.0F, 8.0F, 6.0F, 8.0F, -0.5F, false);
     }
 
     @Override
-    public void setupAnim(ColdSnapZapper entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-        this.head.xRot = headPitch * ((float)Math.PI / 180F);
-        this.body.yRot = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;
+    public void setRotationAngles(ColdSnapZapper entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
+        this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
+        this.body.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;
     }
 
 
     @Override
-    public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
         lowbody.render(matrixStack, buffer, packedLight, packedOverlay);
         body.render(matrixStack, buffer, packedLight, packedOverlay);
         left_hand.render(matrixStack, buffer, packedLight, packedOverlay);
@@ -71,8 +71,8 @@ public class ColdSnapZapperModel<C extends MonsterEntity> extends EntityModel<Co
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-        modelRenderer.xRot = x;
-        modelRenderer.yRot = y;
-        modelRenderer.zRot = z;
+        modelRenderer.rotateAngleX = x;
+        modelRenderer.rotateAngleY = y;
+        modelRenderer.rotateAngleZ = z;
     }
 }

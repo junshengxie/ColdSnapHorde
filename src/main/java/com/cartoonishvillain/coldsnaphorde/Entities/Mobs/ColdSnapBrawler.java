@@ -35,15 +35,15 @@ public class ColdSnapBrawler extends GenericHordeMember{
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.45D)
-                .add(Attributes.ATTACK_DAMAGE, 1D)
-                .add(Attributes.ATTACK_KNOCKBACK, 3d);
+        return MobEntity.func_233666_p_()
+                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.45D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D)
+                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3d);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
             return false;
         }else return true;
     }

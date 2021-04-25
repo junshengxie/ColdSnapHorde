@@ -16,7 +16,7 @@ public class RenderColdSnapSnowballer extends MobRenderer<ColdSnapSnowballer, Co
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ColdSnapSnowballer entity) {
+    public ResourceLocation getEntityTexture(ColdSnapSnowballer entity) {
         return TEXTURE;
     }
 }

@@ -36,7 +36,7 @@ public class Horde {
         //Stage 0, get nearby players and include them into event
         this.world = world;
         this.center = center;
-        ArrayList<Entity> entities = (ArrayList<Entity>) world.getEntities(playerEntity, new AxisAlignedBB(playerEntity.getX() - 25, playerEntity.getY() - 25, playerEntity.getZ() - 25, playerEntity.getX() + 25, playerEntity.getY() + 25, playerEntity.getZ() + 25 ));
+        ArrayList<Entity> entities = (ArrayList<Entity>) world.getEntitiesWithinAABBExcludingEntity(playerEntity, new AxisAlignedBB(playerEntity.getPosX() - 25, playerEntity.getPosY() - 25, playerEntity.getPosZ() - 25, playerEntity.getPosX() + 25, playerEntity.getPosY() + 25, playerEntity.getPosZ() + 25 ));
         ArrayList<PlayerEntity> playerEntities = new ArrayList<>();
         playerEntities.add(playerEntity);
         for(Entity entity : entities){
@@ -45,7 +45,7 @@ public class Horde {
             }
         }
         //Stage 1, send message about incoming horde
-        for(PlayerEntity player : playerEntities){ player.displayClientMessage(new StringTextComponent(TextFormatting.AQUA + "A cold snap horde approaches!"), true);}
+        for(PlayerEntity player : playerEntities){ player.sendStatusMessage(new StringTextComponent(TextFormatting.AQUA + "A cold snap horde approaches!"), true);}
 
         //Stage 2, spawn a horde of enemies, send them towards the block center.
         for(int entityCount = 0; entityCount < ColdSnapHorde.sconfig.HORDESIZE.get(); entityCount++){
@@ -70,22 +70,22 @@ public class Horde {
         BlockPos.Mutable blockPos = new BlockPos.Mutable();
 
         for(int a = 0; a < loopvar; ++a){
-            float f = this.world.random.nextFloat() * ((float)Math.PI * 2F);
+            float f = this.world.rand.nextFloat() * ((float)Math.PI * 2F);
             double DISTANCE = -1;
             int j = Integer.MAX_VALUE, l = Integer.MAX_VALUE;
             while ((DISTANCE == -1 || !(DISTANCE > 450 && DISTANCE < 1250)) || !biomeCheck(world, new BlockPos(j, center.getY(), l))){ //check for appropriate distance from start and proper biome
             j = randFinder(this.center.getX(), f, i);
             l = randFinder(this.center.getZ(), f, i);
-            DISTANCE = center.distSqr(new BlockPos(j, center.getY(), l));}
+            DISTANCE = center.distanceSq(new BlockPos(j, center.getY(), l));}
 
             int k = this.world.getHeight(Heightmap.Type.WORLD_SURFACE, j, l);
-            blockPos.set(j, k, l);
+            blockPos.setPos(j, k, l);
             if(this.world.isAreaLoaded(blockPos, 20)) return blockPos;
         }
         return null;
     }
 
-    private int randFinder(int centercoord, float f, int i){return centercoord + (this.world.random.nextInt(25+25) - 25);}
+    private int randFinder(int centercoord, float f, int i){return centercoord + (this.world.rand.nextInt(25+25) - 25);}
 
     private void spawnSnowman(BlockPos pos){
         ArrayList<Integer> SpawnWeights = new ArrayList<>();
@@ -110,46 +110,46 @@ public class Horde {
         switch (selected){
             case 0:
                 ColdSnapGunner coldSnapGunner = new ColdSnapGunner(Register.COLDSNAPGUNNER.get(), world);
-                coldSnapGunner.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapGunner.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapGunner.toggleHordeMember(center);
-                world.addFreshEntity(coldSnapGunner);
+                world.addEntity(coldSnapGunner);
                 break;
             case 1:
                 ColdSnapStabber coldSnapStabber = new ColdSnapStabber(Register.COLDSNAPSTABBER.get(), world);
-                coldSnapStabber.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapStabber.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapStabber.toggleHordeMember(center);
-                world.addFreshEntity(coldSnapStabber);
+                world.addEntity(coldSnapStabber);
                 break;
             case 2:
                 ColdSnapSnowballer coldSnapSnowballer = new ColdSnapSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
-                coldSnapSnowballer.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapSnowballer.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapSnowballer.toggleHordeMember(center);
-                world.addFreshEntity(coldSnapSnowballer);
+                world.addEntity(coldSnapSnowballer);
                 break;
             case 3:
                 ColdSnapZapper coldSnapZapper = new ColdSnapZapper(Register.COLDSNAPZAPPER.get(), world);
-                coldSnapZapper.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapZapper.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapZapper.toggleHordeMember(center);
-                world.addFreshEntity(coldSnapZapper);
+                world.addEntity(coldSnapZapper);
                 break;
             case 4:
                 ColdSnapGifter coldSnapGifter = new ColdSnapGifter(Register.COLDSNAPGIFTER.get(), world);
-                coldSnapGifter.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapGifter.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapGifter.toggleHordeMember(center);
-                world.addFreshEntity(coldSnapGifter);
+                world.addEntity(coldSnapGifter);
                 break;
             case 5:
                 ColdSnapBrawler coldSnapBrawler = new ColdSnapBrawler(Register.COLDSNAPBRAWLER.get(), world);
-                coldSnapBrawler.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapBrawler.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapBrawler.toggleHordeMember(center);
-                world.addFreshEntity(coldSnapBrawler);
+                world.addEntity(coldSnapBrawler);
                 break;
         }
     }
 
     private boolean biomeCheck(World world, BlockPos pos){
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).getBaseTemperature();
+        float temp = world.getBiome(pos).getTemperature();
         int code = -1;
         if (temp < 0.3){code = 0;}
         else if(temp >= 0.3 && temp < 0.9){code = 1;}

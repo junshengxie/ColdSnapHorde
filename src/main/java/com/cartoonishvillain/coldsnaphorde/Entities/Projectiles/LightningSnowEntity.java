@@ -37,15 +37,15 @@ public class LightningSnowEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onHit(RayTraceResult result) {
-        super.onHit(result);
-        if(!this.level.isClientSide()){
-        EntityType.LIGHTNING_BOLT.spawn((ServerWorld) this.getCommandSenderWorld(), new ItemStack(Items.AIR), null, new BlockPos(result.getLocation()), SpawnReason.TRIGGERED, true, false);}
+    protected void onImpact(RayTraceResult result) {
+        super.onImpact(result);
+        if(!this.world.isRemote()){
+        EntityType.LIGHTNING_BOLT.spawn((ServerWorld) this.getEntityWorld(), new ItemStack(Items.AIR), null, new BlockPos(result.getHitVec()), SpawnReason.TRIGGERED, true, false);}
         this.remove();
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

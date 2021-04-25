@@ -36,8 +36,6 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 import java.util.*;
 
-import net.minecraft.world.Explosion.Mode;
-
 public class GifterSurprise extends Explosion {
     private static final ExplosionContext DEFAULT_CONTEXT = new ExplosionContext();
     private final boolean causesFire;
@@ -71,7 +69,7 @@ public class GifterSurprise extends Explosion {
         this.position = new Vector3d(x, y, z);
     }
     @Override
-    public void explode() {
+    public void doExplosionA() {
         Set<BlockPos> set = Sets.newHashSet();
         int i = 16;
 
@@ -86,7 +84,7 @@ public class GifterSurprise extends Explosion {
                         d0 = d0 / d3;
                         d1 = d1 / d3;
                         d2 = d2 / d3;
-                        float f = this.size * (0.7F + this.world.random.nextFloat() * 0.6F);
+                        float f = this.size * (0.7F + this.world.rand.nextFloat() * 0.6F);
                         double d4 = this.x;
                         double d6 = this.y;
                         double d8 = this.z;
@@ -95,7 +93,7 @@ public class GifterSurprise extends Explosion {
                             BlockPos blockpos = new BlockPos(d4, d6, d8);
                             BlockState blockstate = this.world.getBlockState(blockpos);
                             FluidState fluidstate = this.world.getFluidState(blockpos);
-                            Optional<Float> optional = this.context.getBlockExplosionResistance(this, this.world, blockpos, blockstate, fluidstate);
+                            Optional<Float> optional = this.context.getExplosionResistance(this, this.world, blockpos, blockstate, fluidstate);
                             if (optional.isPresent()) {
                                 f -= (optional.get() + 0.3F) * 0.3F;
                             }
@@ -119,37 +117,37 @@ public class GifterSurprise extends Explosion {
         int i1 = MathHelper.floor(this.y + (double) f2 + 1.0D);
         int j2 = MathHelper.floor(this.z - (double) f2 - 1.0D);
         int j1 = MathHelper.floor(this.z + (double) f2 + 1.0D);
-        List<Entity> list = this.world.getEntities(this.exploder, new AxisAlignedBB((double) k1, (double) i2, (double) j2, (double) l1, (double) i1, (double) j1));
+        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this.exploder, new AxisAlignedBB((double) k1, (double) i2, (double) j2, (double) l1, (double) i1, (double) j1));
         net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(this.world, this, list, f2);
         Vector3d vector3d = new Vector3d(this.x, this.y, this.z);
 
         for (int k2 = 0; k2 < list.size(); ++k2) {
             Entity entity = list.get(k2);
-            if (!entity.ignoreExplosion()) {
-                double d12 = (double) (MathHelper.sqrt(entity.distanceToSqr(vector3d)) / f2);
+            if (!entity.isImmuneToExplosions()) {
+                double d12 = (double) (MathHelper.sqrt(entity.getDistanceSq(vector3d)) / f2);
                 if (d12 <= 1.0D) {
-                    double d5 = entity.getX() - this.x;
-                    double d7 = (entity instanceof TNTEntity ? entity.getY() : entity.getEyeY()) - this.y;
-                    double d9 = entity.getZ() - this.z;
+                    double d5 = entity.getPosX() - this.x;
+                    double d7 = (entity instanceof TNTEntity ? entity.getPosY() : entity.getPosYEye()) - this.y;
+                    double d9 = entity.getPosZ() - this.z;
                     double d13 = (double) MathHelper.sqrt(d5 * d5 + d7 * d7 + d9 * d9);
                     if (d13 != 0.0D) {
                         d5 = d5 / d13;
                         d7 = d7 / d13;
                         d9 = d9 / d13;
-                        double d14 = (double) getSeenPercent(vector3d, entity);
+                        double d14 = (double) getBlockDensity(vector3d, entity);
                         double d10 = (1.0D - d12) * d14;
-                        entity.hurt(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
+                        entity.attackEntityFrom(this.getDamageSource(), (float) ((int) ((d10 * d10 + d10) / 2.0D * 7.0D * (double) f2 + 1.0D)));
                         double d11 = d10;
                         if (entity instanceof LivingEntity) {
-                            d11 = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, d10);
+                            d11 = ProtectionEnchantment.getBlastDamageReduction((LivingEntity) entity, d10);
                             LivingEntity livingEntity = (LivingEntity) entity;
-                            livingEntity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*20, 1, false, true));
+                            livingEntity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*20, 1, false, true));
                         }
 
-                        entity.setDeltaMovement(entity.getDeltaMovement().add(d5 * d11, d7 * d11, d9 * d11));
+                        entity.setMotion(entity.getMotion().add(d5 * d11, d7 * d11, d9 * d11));
                         if (entity instanceof PlayerEntity) {
                             PlayerEntity playerentity = (PlayerEntity) entity;
-                            if (!playerentity.isSpectator() && (!playerentity.isCreative() || !playerentity.abilities.flying)) {
+                            if (!playerentity.isSpectator() && (!playerentity.isCreative() || !playerentity.abilities.isFlying)) {
                                 this.playerKnockbackMap.put(playerentity, new Vector3d(d5 * d10, d7 * d10, d9 * d10));
                             }
                         }
@@ -160,9 +158,9 @@ public class GifterSurprise extends Explosion {
     }
 
     @Override
-    public void finalizeExplosion(boolean spawnParticles) {
-        if (this.world.isClientSide) {
-            this.world.playLocalSound(this.x, this.y, this.z, SoundEvents.GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.random.nextFloat() - this.world.random.nextFloat()) * 0.2F) * 0.7F, false);
+    public void doExplosionB(boolean spawnParticles) {
+        if (this.world.isRemote) {
+            this.world.playSound(this.x, this.y, this.z, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.2F) * 0.7F, false);
         }
 
         boolean flag = this.mode != Explosion.Mode.NONE;
@@ -176,17 +174,17 @@ public class GifterSurprise extends Explosion {
 
         if (flag) {
             ObjectArrayList<Pair<ItemStack, BlockPos>> objectarraylist = new ObjectArrayList<>();
-            Collections.shuffle(this.affectedBlockPositions, this.world.random);
+            Collections.shuffle(this.affectedBlockPositions, this.world.rand);
 
             for(BlockPos blockpos : this.affectedBlockPositions) {
                 BlockState blockstate = this.world.getBlockState(blockpos);
                 Block block = blockstate.getBlock();
                 if (!blockstate.isAir(this.world, blockpos)) {
-                    BlockPos blockpos1 = blockpos.immutable();
-                    this.world.getProfiler().push("explosion_blocks");
+                    BlockPos blockpos1 = blockpos.toImmutable();
+                    this.world.getProfiler().startSection("explosion_blocks");
                     if (blockstate.canDropFromExplosion(this.world, blockpos, this) && this.world instanceof ServerWorld) {
-                        TileEntity tileentity = blockstate.hasTileEntity() ? this.world.getBlockEntity(blockpos) : null;
-                        LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerWorld)this.world)).withRandom(this.world.random).withParameter(LootParameters.ORIGIN, Vector3d.atCenterOf(blockpos)).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withOptionalParameter(LootParameters.BLOCK_ENTITY, tileentity).withOptionalParameter(LootParameters.THIS_ENTITY, this.exploder);
+                        TileEntity tileentity = blockstate.hasTileEntity() ? this.world.getTileEntity(blockpos) : null;
+                        LootContext.Builder lootcontext$builder = (new LootContext.Builder((ServerWorld)this.world)).withRandom(this.world.rand).withParameter(LootParameters.ORIGIN, Vector3d.copyCentered(blockpos)).withParameter(LootParameters.TOOL, ItemStack.EMPTY).withNullableParameter(LootParameters.BLOCK_ENTITY, tileentity).withNullableParameter(LootParameters.THIS_ENTITY, this.exploder);
                         if (this.mode == Explosion.Mode.DESTROY) {
                             lootcontext$builder.withParameter(LootParameters.EXPLOSION_RADIUS, this.size);
                         }
@@ -194,25 +192,25 @@ public class GifterSurprise extends Explosion {
                     }
 
                     blockstate.onBlockExploded(this.world, blockpos, this);
-                    this.world.getProfiler().pop();
+                    this.world.getProfiler().endSection();
                 }
             }
 
             for(Pair<ItemStack, BlockPos> pair : objectarraylist) {
-                Block.popResource(this.world, pair.getSecond(), pair.getFirst());
+                Block.spawnAsEntity(this.world, pair.getSecond(), pair.getFirst());
             }
         }
 
         if (this.causesFire) {
             for(BlockPos blockpos2 : this.affectedBlockPositions) {
-                if (this.world.getBlockState(blockpos2).isAir() && this.world.getBlockState(blockpos2.below()).isRedstoneConductor(this.world, blockpos2.below())) {
-                    this.world.setBlockAndUpdate(blockpos2, Blocks.SNOW.defaultBlockState());
-                }else if (this.world.getBlockState(blockpos2) == Blocks.WATER.defaultBlockState()){
-                    this.world.setBlockAndUpdate(blockpos2, Blocks.ICE.defaultBlockState());
-                }else if (this.world.getBlockState(blockpos2) == Blocks.LAVA.defaultBlockState()){
-                    this.world.setBlockAndUpdate(blockpos2, Blocks.OBSIDIAN.defaultBlockState());
-                }else if (this.world.getBlockState(blockpos2) == Blocks.FARMLAND.defaultBlockState()){
-                    this.world.setBlockAndUpdate(blockpos2, Blocks.COARSE_DIRT.defaultBlockState());
+                if (this.world.getBlockState(blockpos2).isAir() && this.world.getBlockState(blockpos2.down()).isNormalCube(this.world, blockpos2.down())) {
+                    this.world.setBlockState(blockpos2, Blocks.SNOW.getDefaultState());
+                }else if (this.world.getBlockState(blockpos2) == Blocks.WATER.getDefaultState()){
+                    this.world.setBlockState(blockpos2, Blocks.ICE.getDefaultState());
+                }else if (this.world.getBlockState(blockpos2) == Blocks.LAVA.getDefaultState()){
+                    this.world.setBlockState(blockpos2, Blocks.OBSIDIAN.getDefaultState());
+                }else if (this.world.getBlockState(blockpos2) == Blocks.FARMLAND.getDefaultState()){
+                    this.world.setBlockState(blockpos2, Blocks.COARSE_DIRT.getDefaultState());
                 }
             }
         }

@@ -16,7 +16,7 @@ public class RenderColdSnapGunner extends MobRenderer<ColdSnapGunner, ColdSnapGu
     }
 
     @Override
-    public ResourceLocation getTextureLocation(ColdSnapGunner entity) {
+    public ResourceLocation getEntityTexture(ColdSnapGunner entity) {
         return TEXTURE;
     }
 }

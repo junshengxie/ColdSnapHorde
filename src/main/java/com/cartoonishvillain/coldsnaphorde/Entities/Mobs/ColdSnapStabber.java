@@ -32,7 +32,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 import javax.annotation.Nullable;
 
 public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
-    private static final DataParameter<Float> ANITIMER = EntityDataManager.defineId(ColdSnapStabber.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> ANITIMER = EntityDataManager.createKey(ColdSnapStabber.class, DataSerializers.FLOAT);
     private AnimationFactory factory = new AnimationFactory(this);
 
     public ColdSnapStabber(EntityType<? extends MonsterEntity> type, World worldIn) { super(type, worldIn);}
@@ -55,45 +55,45 @@ public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        getEntityData().define(ANITIMER, 0f);
+    protected void registerData() {
+        super.registerData();
+        getDataManager().register(ANITIMER, 0f);
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 20.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.5D)
-                .add(Attributes.ATTACK_DAMAGE, 2D);
+        return MobEntity.func_233666_p_()
+                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
+                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
             return false;
         }else return true;
     }
 
     @Override
-    public boolean doHurtTarget(Entity entityIn) {
-        if (entityIn instanceof LivingEntity && !this.level.isClientSide()){
-            int chance = random.nextInt(100);
-            if (chance <= 6){((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.CONFUSION, 10*20, 0));}
+    public boolean attackEntityAsMob(Entity entityIn) {
+        if (entityIn instanceof LivingEntity && !this.world.isRemote()){
+            int chance = rand.nextInt(100);
+            if (chance <= 6){((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.NAUSEA, 10*20, 0));}
 
-            this.getEntityData().set(ANITIMER, 50f);
+            this.getDataManager().set(ANITIMER, 50f);
         }
-        return super.doHurtTarget(entityIn);
+        return super.attackEntityAsMob(entityIn);
     }
 
-    public void aiStep() {
-        super.aiStep();
-        if(!this.level.isClientSide()){
-        float timer = getEntityData().get(ANITIMER);
-        if (timer > -1) this.getEntityData().set(ANITIMER, timer -= 1f);
+    public void livingTick() {
+        super.livingTick();
+        if(!this.world.isRemote()){
+        float timer = getDataManager().get(ANITIMER);
+        if (timer > -1) this.getDataManager().set(ANITIMER, timer -= 1f);
     }
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
-        if(getEntityData().get(ANITIMER) > 0){
+        if(getDataManager().get(ANITIMER) > 0){
             event.getController().setAnimation(new AnimationBuilder().addAnimation("stab", true));
             return PlayState.CONTINUE; }
             event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));

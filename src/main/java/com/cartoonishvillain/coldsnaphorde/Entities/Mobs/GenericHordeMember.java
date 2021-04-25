@@ -3,18 +3,15 @@ package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.GifterSurprise;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovementGoal;
-import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.PillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -28,16 +25,6 @@ import java.util.ArrayList;
 public class GenericHordeMember extends MonsterEntity {
     private BlockPos target = null;
     private Boolean HordeMember = false;
-
-    @Override
-    public void die(DamageSource cause) {
-        int random = level.random.nextInt(100);
-        if(random > 80 && !level.isClientSide() && isHordeMember()){
-            ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
-            level.addFreshEntity(itemEntity);
-        }
-        super.die(cause);
-    }
 
     @Override
     protected void registerGoals() {
@@ -60,49 +47,49 @@ public class GenericHordeMember extends MonsterEntity {
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SNOW_GOLEM_AMBIENT;
+        return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
     }
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.SNOW_GOLEM_HURT;
+        return SoundEvents.ENTITY_SNOW_GOLEM_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SNOW_GOLEM_DEATH;
+        return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
     }
 
-    public BlockPos getLocTarget() {return target;}
+    public BlockPos getTarget() {return target;}
 
     public boolean isHordeMember(){return HordeMember;}
 
     public void toggleHordeMember(BlockPos center) {this.target = center; HordeMember = true;}
 
     @Override
-    public void aiStep() {
-        super.aiStep();
-        if (!this.level.isClientSide()) {
-            int i = MathHelper.floor(this.getX());
-            int j = MathHelper.floor(this.getY());
-            int k = MathHelper.floor(this.getZ());
-            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
-                this.hurt(DamageSource.ON_FIRE, 1.0F);
+    public void livingTick() {
+        super.livingTick();
+        if (!this.world.isRemote()) {
+            int i = MathHelper.floor(this.getPosX());
+            int j = MathHelper.floor(this.getPosY());
+            int k = MathHelper.floor(this.getPosZ());
+            if (shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
+                this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
             }
 
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this)) {
                 return;
             }
 
-            BlockState blockstate = Blocks.SNOW.defaultBlockState();
+            BlockState blockstate = Blocks.SNOW.getDefaultState();
 
             for(int l = 0; l < 4; ++l) {
-                i = MathHelper.floor(this.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor(this.getY());
-                k = MathHelper.floor(this.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+                i = MathHelper.floor(this.getPosX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+                j = MathHelper.floor(this.getPosY());
+                k = MathHelper.floor(this.getPosZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
-                if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
-                    this.level.setBlockAndUpdate(blockpos, blockstate);
+                if (this.world.isAirBlock(blockpos) && !shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.isValidPosition(this.world, blockpos)) {
+                    this.world.setBlockState(blockpos, blockstate);
                 }
             }
         }

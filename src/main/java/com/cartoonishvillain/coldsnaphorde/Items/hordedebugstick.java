@@ -5,12 +5,10 @@ import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Events.Horde;
 import com.sun.jna.platform.unix.X11;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -23,41 +21,40 @@ import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import net.minecraft.item.Item.Properties;
-
-public class Snowglobe extends Item {
-    public Snowglobe(Properties properties) {
+public class hordedebugstick extends Item {
+    public hordedebugstick(Properties properties) {
         super(properties);
     }
 
+
     @Override
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if(handIn == Hand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null) {
-            if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && biomeCheck(worldIn, playerIn.blockPosition())) {
+    public ActionResultType onItemUse(ItemUseContext context) {
+        if(context.getHand() == Hand.MAIN_HAND && !context.getWorld().isRemote() && context.getPlayer() != null) {
+            if (context.getWorld().isAreaLoaded(context.getPos(), 20) && biomeCheck(context.getWorld(), context.getPos())) {
                 AtomicInteger atomicInteger = new AtomicInteger(0);
-                worldIn.getCapability(CooldownCapability.INSTANCE).ifPresent(h->{
+                context.getWorld().getCapability(CooldownCapability.INSTANCE).ifPresent(h->{
                     if(h.getCooldownTicks() > 0){
                         atomicInteger.set(h.getCooldownTicks());
                     }
                 });
 
                 if(!(atomicInteger.get() > 0)) {
-                    Horde horde = new Horde((ServerWorld) worldIn, playerIn.blockPosition(), (ServerPlayerEntity) playerIn);
-                    worldIn.getCapability(CooldownCapability.INSTANCE).ifPresent(h->{h.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);});
-                    playerIn.getMainHandItem().shrink(1);
+                    Horde horde = new Horde((ServerWorld) context.getWorld(), context.getPlayer().getPosition(), (ServerPlayerEntity) context.getPlayer());
+                    context.getWorld().getCapability(CooldownCapability.INSTANCE).ifPresent(h->{h.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);});
+
                 }else{
-                    playerIn.displayClientMessage(new StringTextComponent("Horde on cooldown! Returning in: " + TimeBuilder(atomicInteger.get())), false);
+                    context.getPlayer().sendStatusMessage(new StringTextComponent("Horde on cooldown! Returning in: " + TimeBuilder(atomicInteger.get())), false);
                 }
             }else{
-                playerIn.displayClientMessage(new StringTextComponent("Temperature too hot for the horde to summon!"), false);
+                context.getPlayer().sendStatusMessage(new StringTextComponent("Temperature too hot for the horde to summon!"), false);
             }
         }
-        return super.use(worldIn, playerIn, handIn);
+        return super.onItemUse(context);
     }
 
     private boolean biomeCheck(World world, BlockPos pos){
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).getBaseTemperature();
+        float temp = world.getBiome(pos).getTemperature();
         int code = -1;
         if (temp < 0.3){code = 0;}
         else if(temp >= 0.3 && temp < 0.9){code = 1;}

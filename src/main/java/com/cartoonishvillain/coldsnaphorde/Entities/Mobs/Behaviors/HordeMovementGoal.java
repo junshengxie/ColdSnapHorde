@@ -10,42 +10,40 @@ import java.util.EnumSet;
 import java.util.List;
 
 //based on move towards raid goal
-import net.minecraft.entity.ai.goal.Goal.Flag;
-
 public class HordeMovementGoal<T extends GenericHordeMember> extends Goal {
     private final T Member;
 
     public HordeMovementGoal(T member){
         this.Member = member;
-        this.setFlags(EnumSet.of(Flag.MOVE));
+        this.setMutexFlags(EnumSet.of(Flag.MOVE));
     }
 
     @Override
-    public boolean canUse() {
-        return this.Member.getLocTarget() != null && this.Member.isHordeMember() && this.Member.getTarget() == null;
+    public boolean shouldExecute() {
+        return this.Member.getTarget() != null && this.Member.isHordeMember() && this.Member.getAttackTarget() == null;
     }
 
     @Override
-    public boolean canContinueToUse() {
-        return this.Member.getLocTarget() != null && this.Member.isHordeMember() && this.Member.getTarget() == null;
+    public boolean shouldContinueExecuting() {
+        return this.Member.getTarget() != null && this.Member.isHordeMember() && this.Member.getAttackTarget() == null;
     }
 
     @Override
     public void tick() {
         super.tick();
-        if(this.Member.tickCount % 50 == 0){inviteNearbySnowmentoHorde();}
-        if (!this.Member.isPathFinding()) {
-            Vector3d vector3d = RandomPositionGenerator.getPosTowards(this.Member, 15, 4, Vector3d.atBottomCenterOf(Member.getLocTarget()));
+        if(this.Member.ticksExisted % 50 == 0){inviteNearbySnowmentoHorde();}
+        if (!this.Member.hasPath()) {
+            Vector3d vector3d = RandomPositionGenerator.findRandomTargetBlockTowards(this.Member, 15, 4, Vector3d.copyCenteredHorizontally(Member.getTarget()));
             if (vector3d != null) {
-                this.Member.getNavigation().moveTo(vector3d.x, vector3d.y, vector3d.z, 0.5D);
+                this.Member.getNavigator().tryMoveToXYZ(vector3d.x, vector3d.y, vector3d.z, 0.5D);
             }
         }
     }
 
     private void inviteNearbySnowmentoHorde(){
-        List<GenericHordeMember> list = this.Member.level.getEntitiesOfClass(GenericHordeMember.class, this.Member.getBoundingBox().inflate(8));
+        List<GenericHordeMember> list = this.Member.world.getEntitiesWithinAABB(GenericHordeMember.class, this.Member.getBoundingBox().grow(8));
         for(GenericHordeMember snowman : list){
-            if(snowman.getTarget() == null && !snowman.isHordeMember() && snowman.getTarget() == null) snowman.toggleHordeMember(Member.getLocTarget());
+            if(snowman.getAttackTarget() == null && !snowman.isHordeMember() && snowman.getTarget() == null) snowman.toggleHordeMember(Member.getTarget());
         }
     }
 }

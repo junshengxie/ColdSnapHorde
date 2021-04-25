@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Items;
+package com.cartoonishvillain.coldsnaphorde.Items.Armor;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public enum ArmorMaterials implements IArmorMaterial {
 
-    HAT(ColdSnapHorde.MOD_ID + ":hat", 10, new int[] {1, 0, 0, 1}, 8, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0, ()->{return Ingredient.fromItems(Items.LEATHER);}, 0.0f);
+    HAT(ColdSnapHorde.MOD_ID + ":hat", 10, new int[] {1, 0, 0, 1}, 8, SoundEvents.ARMOR_EQUIP_LEATHER, 0, ()->{return Ingredient.of(Items.LEATHER);}, 0.0f);
 
 
     private static final int[] MAX_DAMAGE_ARRAY = new int[] {11, 16, 15, 13};
@@ -37,27 +37,27 @@ public enum ArmorMaterials implements IArmorMaterial {
     }
 
     @Override
-    public int getDurability(EquipmentSlotType slotIn) {
+    public int getDurabilityForSlot(EquipmentSlotType slotIn) {
         return MAX_DAMAGE_ARRAY[slotIn.getIndex()] * this.maxDamageFactor;
     }
 
     @Override
-    public int getDamageReductionAmount(EquipmentSlotType slotIn) {
+    public int getDefenseForSlot(EquipmentSlotType slotIn) {
         return this.damageReductionAmountArray[slotIn.getIndex()];
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return this.enchantability;
     }
 
     @Override
-    public SoundEvent getSoundEvent() {
+    public SoundEvent getEquipSound() {
         return this.soundEvent;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return this.repairMaterial.get();
     }
 

@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 public class ColdSnapGifter extends GenericHordeMember {
     public ColdSnapGifter(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 10000*20, 5, false, false));
+        this.addEffect(new EffectInstance(Effects.WEAKNESS, 10000*20, 5, false, false));
     }
 
     int timer = 50;
@@ -47,14 +47,14 @@ public class ColdSnapGifter extends GenericHordeMember {
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 0D);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                .add(Attributes.ATTACK_DAMAGE, 0D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
             return false;
         }else return true;
     }
@@ -62,28 +62,28 @@ public class ColdSnapGifter extends GenericHordeMember {
     public int getTimer() {return timer;}
 
     @Override
-    protected void dropSpecialItems(DamageSource source, int looting, boolean recentlyHitIn) {}
+    protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHitIn) {}
 
-    public void livingTick() {
-        super.livingTick();
-        LivingEntity livingEntity = this.getAttackTarget();
+    public void aiStep() {
+        super.aiStep();
+        LivingEntity livingEntity = this.getTarget();
         if (livingEntity != null) {
-            double distance = this.getDistanceSq(livingEntity);
-            if (distance < 4.5D && !world.isRemote()) {
-                if(!exploding){this.playSound(SoundEvents.ENTITY_TNT_PRIMED, 1F, 1F);}
+            double distance = this.distanceToSqr(livingEntity);
+            if (distance < 4.5D && !level.isClientSide()) {
+                if(!exploding){this.playSound(SoundEvents.TNT_PRIMED, 1F, 1F);}
                 exploding = true;
-                this.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 50, 10, false, false));
+                this.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 50, 10, false, false));
             }
 
             if (exploding && distance < 36D) {
                 timer -= 1;
-                if (!world.isRemote() && timer == 0) {
+                if (!level.isClientSide() && timer == 0) {
                     this.dead = true;
-                    boolean snowy = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
-                    GifterSurprise gifterSurprise = new GifterSurprise(this.world, this, DamageSource.causeExplosionDamage(this), null, this.getPosX(), this.getPosY(), this.getPosZ(), 5, true, Explosion.Mode.NONE);
-                    gifterSurprise.doExplosionA();
-                    gifterSurprise.doExplosionB(true);
-                    this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1f, 1.5f);
+                    boolean snowy = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this);
+                    GifterSurprise gifterSurprise = new GifterSurprise(this.level, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), 5, true, Explosion.Mode.NONE);
+                    gifterSurprise.explode();
+                    gifterSurprise.finalizeExplosion(true);
+                    this.playSound(SoundEvents.GENERIC_EXPLODE, 1f, 1.5f);
                     this.remove();
                 }
             } else if (exploding && distance > 36D) {

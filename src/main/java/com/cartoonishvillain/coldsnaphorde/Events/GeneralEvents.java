@@ -22,34 +22,34 @@ public class GeneralEvents {
     public static void CheckThermometer(PlayerInteractEvent.RightClickItem event){
         if(event.getItemStack().getItem().equals(Register.THERMOMETER.get())){
             PlayerEntity player = event.getPlayer();
-            float temp = player.world.getBiomeManager().getBiome(player.getPosition()).getTemperature(player.getPosition());
+            float temp = player.level.getBiomeManager().getBiome(player.blockPosition()).getTemperature(player.blockPosition());
             String code = "MISSING";
             if (temp < 0.3){code = "Cold";}
             else if(temp >= 0.3 && temp < 0.9){code = "Neutral";}
             else if(temp >= 0.9 && temp < 1.5){code = "Warm";}
             else if(temp >= 1.5){code = "Hot";}
             if(ColdSnapHorde.sconfig.TECHNICALTHERMOMETER.get()){
-                player.sendStatusMessage(new StringTextComponent("Temperature: " + Float.toString(temp) + " (" + code + ")"), true);
+                player.displayClientMessage(new StringTextComponent("Temperature: " + Float.toString(temp) + " (" + code + ")"), true);
             }
             else{
-                player.sendStatusMessage(new StringTextComponent("Temperature: " + code), true);
+                player.displayClientMessage(new StringTextComponent("Temperature: " + code), true);
             }
         }
     }
 
     @SubscribeEvent
     public static void Transposer(PlayerInteractEvent.RightClickItem event){
-        if(event.getItemStack().getItem().equals(Register.LIGHTNINGTRANSPOSER.get()) && event.getPlayer().isCrouching() && !event.getPlayer().world.isRemote()){
+        if(event.getItemStack().getItem().equals(Register.LIGHTNINGTRANSPOSER.get()) && event.getPlayer().isCrouching() && !event.getPlayer().level.isClientSide()){
             PlayerEntity player = event.getPlayer();
             ItemStack itemStack = event.getItemStack();
             itemStack.shrink(1);
-            EntityType.LIGHTNING_BOLT.spawn((ServerWorld) player.getEntityWorld(), new ItemStack(Items.AIR), null, event.getPos(), SpawnReason.TRIGGERED, true, false);}
+            EntityType.LIGHTNING_BOLT.spawn((ServerWorld) player.getCommandSenderWorld(), new ItemStack(Items.AIR), null, event.getPos(), SpawnReason.TRIGGERED, true, false);}
     }
 
     @SubscribeEvent
     public static void AttackSounds(LivingAttackEvent event){
-        if (event.getSource().getTrueSource() instanceof LivingEntity){
-            LivingEntity entity = (LivingEntity) event.getSource().getTrueSource();
+        if (event.getSource().getEntity() instanceof LivingEntity){
+            LivingEntity entity = (LivingEntity) event.getSource().getEntity();
             if(entity instanceof ColdSnapGifter){
                 entity.playSound(Register.GIFTERATTACK.get(), 1F, 1F);
             }

@@ -1,7 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Client.Renderers;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Items.TopHat;
+import com.cartoonishvillain.coldsnaphorde.Items.Armor.TopHat;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

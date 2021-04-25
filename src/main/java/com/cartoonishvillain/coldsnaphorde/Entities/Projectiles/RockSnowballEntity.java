@@ -39,7 +39,7 @@ public class RockSnowballEntity extends ProjectileItemEntity {
 
     @OnlyIn(Dist.CLIENT)
     private IParticleData makeParticle() {
-        ItemStack itemstack = this.func_213882_k();
+        ItemStack itemstack = this.getItemRaw();
         return new ItemParticleData(ParticleTypes.ITEM, itemstack);
     }
 
@@ -53,30 +53,30 @@ public class RockSnowballEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult p_213868_1_) {
-        super.onEntityHit(p_213868_1_);
+    protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+        super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
         int i = entity instanceof BlazeEntity ? 3 : 1;
-        entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), (float)i);
-        int chance = rand.nextInt(20);
-        if (chance <= 2 && entity instanceof LivingEntity && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5*20, 0));
-            if (chance == 1) ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
+        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
+        int chance = random.nextInt(20);
+        if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 5*20, 0));
+            if (chance == 1) ((LivingEntity) entity).addEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
-        BlockState blockstate = Blocks.SNOW_BLOCK.getDefaultState();
-        int snowchance = rand.nextInt(20);
-        BlockPos blockpos = new BlockPos(result.getHitVec());
-        if (this.world.isAirBlock(blockpos) && this.world.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.isValidPosition(this.world, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) && snowchance == 1 && !world.isRemote()) {
-            this.world.setBlockState(blockpos, blockstate);
+    protected void onHit(RayTraceResult result) {
+        super.onHit(result);
+        BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
+        int snowchance = random.nextInt(20);
+        BlockPos blockpos = new BlockPos(result.getLocation());
+        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.canSurvive(this.level, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && snowchance == 1 && !level.isClientSide()) {
+            this.level.setBlockAndUpdate(blockpos, blockstate);
         }
         this.remove();
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Items;
+package com.cartoonishvillain.coldsnaphorde.Items.Armor;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -8,10 +8,12 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 import software.bernie.geckolib3.item.GeoArmorItem;
 
+import net.minecraft.item.Item.Properties;
+
 public class TopHat extends GeoArmorItem implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
     public TopHat(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder) {
-        super(materialIn, slot, builder.group(ColdSnapHorde.TAB));
+        super(materialIn, slot, builder.tab(ColdSnapHorde.TAB));
     }
 
     @Override

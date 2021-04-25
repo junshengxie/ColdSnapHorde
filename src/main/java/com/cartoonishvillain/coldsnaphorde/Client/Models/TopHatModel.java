@@ -1,7 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Client.Models;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Items.TopHat;
+import com.cartoonishvillain.coldsnaphorde.Items.Armor.TopHat;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.model.AnimatedGeoModel;
 

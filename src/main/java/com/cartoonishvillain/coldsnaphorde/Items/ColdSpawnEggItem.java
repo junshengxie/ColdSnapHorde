@@ -30,13 +30,13 @@ public class ColdSpawnEggItem extends SpawnEggItem {
 
 
     public static void initSpawnEggs(){
-        final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,null, "field_195987_b");
+        final Map<EntityType<?>, SpawnEggItem> EGGS = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,null, "EGGS");
         DefaultDispenseItemBehavior dispenseBehaviour = new DefaultDispenseItemBehavior() {
             @Override
-            protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                Direction direction = source.getBlockState().get(DispenserBlock.FACING);
+            protected ItemStack execute(IBlockSource source, ItemStack stack) {
+                Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
                 EntityType<?> type = ((SpawnEggItem) stack.getItem()).getType(stack.getTag());
-                type.spawn(source.getWorld(), stack, null, source.getBlockPos().offset(direction),
+                type.spawn(source.getLevel(), stack, null, source.getPos().relative(direction),
                         SpawnReason.DISPENSER, direction != Direction.UP, false);
                 stack.shrink(1);
                 return stack;
@@ -45,7 +45,7 @@ public class ColdSpawnEggItem extends SpawnEggItem {
 
         for (final SpawnEggItem spawnEgg : UNADDED_EGGS) {
             EGGS.put(spawnEgg.getType(null), spawnEgg);
-            DispenserBlock.registerDispenseBehavior(spawnEgg, dispenseBehaviour);
+            DispenserBlock.registerBehavior(spawnEgg, dispenseBehaviour);
         }
         UNADDED_EGGS.clear();
     }
@@ -54,4 +54,5 @@ public class ColdSpawnEggItem extends SpawnEggItem {
     public EntityType<?> getType(CompoundNBT nbt) {
         return this.entityTypeSupplier.get();
     }
+    
 }

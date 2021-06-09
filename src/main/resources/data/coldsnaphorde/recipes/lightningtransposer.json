@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " g ",
-    "DGD",
-    " g "
+    " G ",
+    "DgD",
+    " G "
   ],
   "key": {
     "g": {
-      "item": "minecraft:gold_ingot"
+      "item": "minecraft:gold_nugget"
     },
     "D": {
       "item": "coldsnaphorde:transposerpiece"

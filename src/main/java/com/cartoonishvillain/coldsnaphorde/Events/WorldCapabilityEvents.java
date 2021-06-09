@@ -12,7 +12,7 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-public class EventBus {
+public class WorldCapabilityEvents {
     @SubscribeEvent
     public static void worldRegister(AttachCapabilitiesEvent<World> event){
         CooldownManager provider = new CooldownManager();

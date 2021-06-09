@@ -2,6 +2,7 @@ package com.cartoonishvillain.coldsnaphorde.Events;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapGifter;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -9,9 +10,11 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -52,6 +55,17 @@ public class GeneralEvents {
             LivingEntity entity = (LivingEntity) event.getSource().getTrueSource();
             if(entity instanceof ColdSnapGifter){
                 entity.playSound(Register.GIFTERATTACK.get(), 1F, 1F);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void HordeHitByFire(LivingHurtEvent event){
+        if(event.getEntityLiving() instanceof GenericHordeMember){
+            if(event.getSource() == DamageSource.ON_FIRE || event.getSource() == DamageSource.IN_FIRE || event.getSource() == DamageSource.LAVA){
+                if(ColdSnapHorde.sconfig.HORDETAKESMOREFIRE.get()){
+                    event.setAmount(event.getAmount() * 2);
+                }
             }
         }
     }

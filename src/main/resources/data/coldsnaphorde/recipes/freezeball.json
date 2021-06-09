@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "###",
-    "III",
+    "#I#",
     "###"
   ],
   "key": {
@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "coldsnaphorde:snowiersnowball",
-    "count": 1
+    "item": "coldsnaphorde:freezeball",
+    "count": 4
   }
 }

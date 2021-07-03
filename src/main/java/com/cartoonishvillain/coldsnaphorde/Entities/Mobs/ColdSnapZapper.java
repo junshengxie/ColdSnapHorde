@@ -59,35 +59,35 @@ public class ColdSnapZapper extends GenericHordeMember {
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                .add(Attributes.ATTACK_DAMAGE, 1D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem()) || entity == ZapTarget){
+        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem()) || entity == ZapTarget){
             return false;
         }else return true;
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entityIn) {
-        int chance = rand.nextInt(100);
+    public boolean doHurtTarget(Entity entityIn) {
+        int chance = random.nextInt(100);
         if(chance >= ColdSnapHorde.sconfig.STICKTRANSPONDER.get() && entityIn instanceof LivingEntity && transponderprogress == 1){
             ZapTarget = (LivingEntity) entityIn;
             transponderprogress = 0;
         }
-        return super.attackEntityAsMob(entityIn);
+        return super.doHurtTarget(entityIn);
     }
 
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
 
-        if(ZapTarget != null && !this.world.isRemote()){
+        if(ZapTarget != null && !this.level.isClientSide()){
             timer -= 1;
             if (timer == 0){
-                EntityType.LIGHTNING_BOLT.spawn((ServerWorld) ZapTarget.getEntityWorld(), new ItemStack(Items.AIR), null, ZapTarget.getPosition(), SpawnReason.TRIGGERED, true, false);
+                EntityType.LIGHTNING_BOLT.spawn((ServerWorld) ZapTarget.getCommandSenderWorld(), new ItemStack(Items.AIR), null, ZapTarget.blockPosition(), SpawnReason.TRIGGERED, true, false);
                 ZapTarget = null;
                 timer = 60;
             }
@@ -107,9 +107,9 @@ class CustomMeleeAttackGoal extends MeleeAttackGoal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        if(this.attacker instanceof ColdSnapZapper && this.attacker.getAttackTarget() == ((ColdSnapZapper) this.attacker).getZapTarget()){return false;}
-        return super.shouldContinueExecuting();
+    public boolean canContinueToUse() {
+        if(this.mob instanceof ColdSnapZapper && this.mob.getTarget() == ((ColdSnapZapper) this.mob).getZapTarget()){return false;}
+        return super.canContinueToUse();
     }
 }
 

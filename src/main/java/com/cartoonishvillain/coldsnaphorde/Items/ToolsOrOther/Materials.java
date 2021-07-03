@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 
 public enum Materials implements IItemTier {
 
-    ICE(1, 200, 10f, 6.0f, 8, ()->{return Ingredient.fromItems(Items.PACKED_ICE);});
+    ICE(1, 200, 10f, 6.0f, 8, ()->{return Ingredient.of(Items.PACKED_ICE);});
 
     private final int harvestLevel;
     private final int maxUses;
@@ -27,32 +27,32 @@ public enum Materials implements IItemTier {
     }
 
     @Override
-    public int getMaxUses() {
+    public int getUses() {
         return maxUses;
     }
 
     @Override
-    public float getEfficiency() {
+    public float getSpeed() {
         return efficiency;
     }
 
     @Override
-    public float getAttackDamage() {
+    public float getAttackDamageBonus() {
         return attackDamage;
     }
 
     @Override
-    public int getHarvestLevel() {
+    public int getLevel() {
         return harvestLevel;
     }
 
     @Override
-    public int getEnchantability() {
+    public int getEnchantmentValue() {
         return enchantability;
     }
 
     @Override
-    public Ingredient getRepairMaterial() {
+    public Ingredient getRepairIngredient() {
         return repairMaterial.get();
     }
 

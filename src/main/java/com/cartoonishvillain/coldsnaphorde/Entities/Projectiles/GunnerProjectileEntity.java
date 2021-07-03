@@ -35,7 +35,7 @@ public class GunnerProjectileEntity extends ProjectileItemEntity {
 
     @OnlyIn(Dist.CLIENT)
     private IParticleData makeParticle() {
-        ItemStack itemstack = this.func_213882_k();
+        ItemStack itemstack = this.getItemRaw();
         return new ItemParticleData(ParticleTypes.ITEM, itemstack);
     }
 
@@ -49,23 +49,23 @@ public class GunnerProjectileEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult p_213868_1_) {
-        super.onEntityHit(p_213868_1_);
+    protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+        super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
-        int i = 1 + world.getDifficulty().getId();
-        entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), (float)i);
-        int chance = rand.nextInt(20);
-        if (entity instanceof LivingEntity && chance <= 3 && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.BLINDNESS, 10*20, 0));}
+        int i = 1 + level.getDifficulty().getId();
+        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
+        int chance = random.nextInt(20);
+        if (entity instanceof LivingEntity && chance <= 3 && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new EffectInstance(Effects.BLINDNESS, 10*20, 0));}
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
+    protected void onHit(RayTraceResult result) {
+        super.onHit(result);
         this.remove();
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

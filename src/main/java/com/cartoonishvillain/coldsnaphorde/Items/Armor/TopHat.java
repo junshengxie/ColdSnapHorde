@@ -13,7 +13,7 @@ import net.minecraft.item.Item.Properties;
 public class TopHat extends GeoArmorItem implements IAnimatable {
     private AnimationFactory factory = new AnimationFactory(this);
     public TopHat(IArmorMaterial materialIn, EquipmentSlotType slot, Properties builder) {
-        super(materialIn, slot, builder.group(ColdSnapHorde.TAB));
+        super(materialIn, slot, builder.tab(ColdSnapHorde.TAB));
     }
 
     @Override

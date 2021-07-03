@@ -45,13 +45,13 @@ public class GenericHordeMember extends MonsterEntity {
     }
 
     @Override
-    public void onDeath(DamageSource cause) {
-        int random = world.rand.nextInt(100);
-        if(random > 80 && !world.isRemote() && isHordeMember()){
-            ItemEntity itemEntity = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(Register.PRESENT.get(), 1));
-            world.addEntity(itemEntity);
+    public void die(DamageSource cause) {
+        int random = level.random.nextInt(100);
+        if(random > 80 && !level.isClientSide() && isHordeMember()){
+            ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
+            level.addFreshEntity(itemEntity);
         }
-        super.onDeath(cause);
+        super.die(cause);
     }
 
     protected GenericHordeMember(EntityType<? extends MonsterEntity> type, World worldIn) {
@@ -60,49 +60,49 @@ public class GenericHordeMember extends MonsterEntity {
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
+        return SoundEvents.SNOW_GOLEM_AMBIENT;
     }
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_SNOW_GOLEM_HURT;
+        return SoundEvents.SNOW_GOLEM_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
+        return SoundEvents.SNOW_GOLEM_DEATH;
     }
 
-    public BlockPos getTarget() {return target;}
+    public BlockPos getLoc() {return target;}
 
     public boolean isHordeMember(){return HordeMember;}
 
     public void toggleHordeMember(BlockPos center) {this.target = center; HordeMember = true;}
 
     @Override
-    public void livingTick() {
-        super.livingTick();
-        if (!this.world.isRemote()) {
-            int i = MathHelper.floor(this.getPosX());
-            int j = MathHelper.floor(this.getPosY());
-            int k = MathHelper.floor(this.getPosZ());
-            if (shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
-                this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+    public void aiStep() {
+        super.aiStep();
+        if (!this.level.isClientSide()) {
+            int i = MathHelper.floor(this.getX());
+            int j = MathHelper.floor(this.getY());
+            int k = MathHelper.floor(this.getZ());
+            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
+                this.hurt(DamageSource.ON_FIRE, 1.0F);
             }
 
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this)) {
+            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 return;
             }
 
-            BlockState blockstate = Blocks.SNOW.getDefaultState();
+            BlockState blockstate = Blocks.SNOW.defaultBlockState();
 
             for(int l = 0; l < 4; ++l) {
-                i = MathHelper.floor(this.getPosX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor(this.getPosY());
-                k = MathHelper.floor(this.getPosZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+                i = MathHelper.floor(this.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+                j = MathHelper.floor(this.getY());
+                k = MathHelper.floor(this.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
-                if (this.world.isAirBlock(blockpos) && !shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.isValidPosition(this.world, blockpos)) {
-                    this.world.setBlockState(blockpos, blockstate);
+                if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
+                    this.level.setBlockAndUpdate(blockpos, blockstate);
                 }
             }
         }

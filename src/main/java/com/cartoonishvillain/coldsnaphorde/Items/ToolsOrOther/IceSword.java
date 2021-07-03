@@ -18,14 +18,14 @@ public class IceSword extends SwordItem {
 
 
     @Override
-    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        target.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 3 * 20, 1));
-        return super.hitEntity(stack, target, attacker);
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 3 * 20, 1));
+        return super.hurtEnemy(stack, target, attacker);
     }
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return !enchantment.getName().equals(Enchantments.FIRE_ASPECT.getName());
+        return !enchantment.getDescriptionId().equals(Enchantments.FIRE_ASPECT.getDescriptionId());
     }
 
 

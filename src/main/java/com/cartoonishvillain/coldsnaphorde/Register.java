@@ -7,7 +7,6 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.RockSnowballEnti
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
 import com.cartoonishvillain.coldsnaphorde.Items.*;
 import com.cartoonishvillain.coldsnaphorde.Items.Armor.ArmorMaterials;
-import com.cartoonishvillain.coldsnaphorde.Items.Armor.TopHat;
 import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.LightningSnowball;
 import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.RockySnowball;
 import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.SnowierSnowball;
@@ -48,7 +47,7 @@ public class Register {
 
     public static final RegistryObject<Item> ROCKYSNOWBALL = ITEMS.register("rockysnowball", RockySnowball::new);
     public static final RegistryObject<Item> SNOWIERSNOWBALL = ITEMS.register("freezeball", SnowierSnowball::new);
-    public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlotType.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
+//    public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlotType.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ICECORE = ITEMS.register("icecore", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSERPIECE = ITEMS.register("transposerpiece", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));

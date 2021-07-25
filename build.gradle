@@ -21,13 +21,10 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
-repositories {
-    maven { url 'https://repo.repsy.io/mvn/gandiber/geckolib' }
-}
+//repositories {
+//    maven { url 'https://repo.repsy.io/mvn/gandiber/geckolib' }
+//}
 
-dependencies {
-    implementation fg.deobf('software.bernie.geckolib:forge-1.16.4-geckolib:3.0.0')
-}
 
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.

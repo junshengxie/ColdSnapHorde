@@ -51,9 +51,10 @@ public class ColdSnapSnowballer extends GenericHordeMember implements IRangedAtt
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity) {
-        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())) {
-            return false;
-        } else return true;
+//        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())) {
+//            return false;
+//        } else
+            return true;
     }
 
     @Override

@@ -21,19 +21,13 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
+
 
 import javax.annotation.Nullable;
 
-public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
+public class ColdSnapStabber extends GenericHordeMember {
     private static final DataParameter<Float> ANITIMER = EntityDataManager.defineId(ColdSnapStabber.class, DataSerializers.FLOAT);
-    private AnimationFactory factory = new AnimationFactory(this);
+//    private AnimationFactory factory = new AnimationFactory(this);
 
     public ColdSnapStabber(EntityType<? extends MonsterEntity> type, World worldIn) { super(type, worldIn);}
 
@@ -68,9 +62,10 @@ public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
-            return false;
-        }else return true;
+//        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+//            return false;
+//        }else
+            return true;
     }
 
     @Override
@@ -92,21 +87,22 @@ public class ColdSnapStabber extends GenericHordeMember implements IAnimatable {
     }
     }
 
-    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
-        if(getEntityData().get(ANITIMER) > 0){
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("stab", true));
-            return PlayState.CONTINUE; }
-            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
-            return PlayState.CONTINUE;
-    }
-
-    @Override
-    public void registerControllers(AnimationData animationData) {
-        animationData.addAnimationController(new AnimationController(this, "controller", 10, this::predicate));
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return this.factory;
-    }
+    //Old geckolib dependency stuff
+//    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
+//        if(getEntityData().get(ANITIMER) > 0){
+//            event.getController().setAnimation(new AnimationBuilder().addAnimation("stab", true));
+//            return PlayState.CONTINUE; }
+//            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
+//            return PlayState.CONTINUE;
+//    }
+//
+//    @Override
+//    public void registerControllers(AnimationData animationData) {
+//        animationData.addAnimationController(new AnimationController(this, "controller", 10, this::predicate));
+//    }
+//
+//    @Override
+//    public AnimationFactory getFactory() {
+//        return this.factory;
+//    }
 }

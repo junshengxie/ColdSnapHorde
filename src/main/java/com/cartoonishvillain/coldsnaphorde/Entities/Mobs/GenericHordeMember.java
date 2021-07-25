@@ -1,31 +1,26 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.GifterSurprise;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovementGoal;
 import com.cartoonishvillain.coldsnaphorde.Register;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.PillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 
-public class GenericHordeMember extends MonsterEntity {
+public class GenericHordeMember extends Monster {
     private BlockPos target = null;
     private Boolean HordeMember = false;
 
@@ -54,7 +49,7 @@ public class GenericHordeMember extends MonsterEntity {
         super.die(cause);
     }
 
-    protected GenericHordeMember(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected GenericHordeMember(EntityType<? extends Monster> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -83,9 +78,9 @@ public class GenericHordeMember extends MonsterEntity {
     public void aiStep() {
         super.aiStep();
         if (!this.level.isClientSide()) {
-            int i = MathHelper.floor(this.getX());
-            int j = MathHelper.floor(this.getY());
-            int k = MathHelper.floor(this.getZ());
+            int i = Mth.floor(this.getX());
+            int j = Mth.floor(this.getY());
+            int k = Mth.floor(this.getZ());
             if (shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
                 this.hurt(DamageSource.ON_FIRE, 1.0F);
             }
@@ -97,9 +92,9 @@ public class GenericHordeMember extends MonsterEntity {
             BlockState blockstate = Blocks.SNOW.defaultBlockState();
 
             for(int l = 0; l < 4; ++l) {
-                i = MathHelper.floor(this.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor(this.getY());
-                k = MathHelper.floor(this.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
+                i = Mth.floor(this.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
+                j = Mth.floor(this.getY());
+                k = Mth.floor(this.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
                 if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
                     this.level.setBlockAndUpdate(blockpos, blockstate);

@@ -1,12 +1,12 @@
 package com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther;
 
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
-public enum Materials implements IItemTier {
+public enum Materials implements Tier {
 
     ICE(1, 200, 10f, 6.0f, 8, ()->{return Ingredient.of(Items.PACKED_ICE);});
 

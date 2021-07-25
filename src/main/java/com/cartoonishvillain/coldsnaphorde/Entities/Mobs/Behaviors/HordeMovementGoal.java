@@ -1,16 +1,17 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
-import net.minecraft.entity.ai.RandomPositionGenerator;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.monster.PillagerEntity;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.entity.ai.util.DefaultRandomPos;
+import net.minecraft.world.entity.ai.util.RandomPos;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.monster.Pillager;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
 import java.util.List;
 
 //based on move towards raid goal
-import net.minecraft.entity.ai.goal.Goal.Flag;
+import net.minecraft.world.entity.ai.goal.Goal.Flag;
 
 public class HordeMovementGoal<T extends GenericHordeMember> extends Goal {
     private final T Member;
@@ -35,7 +36,7 @@ public class HordeMovementGoal<T extends GenericHordeMember> extends Goal {
         super.tick();
         if(this.Member.tickCount % 50 == 0){inviteNearbySnowmentoHorde();}
         if (!this.Member.isPathFinding()) {
-            Vector3d vector3d = RandomPositionGenerator.getPosTowards(this.Member, 15, 4, Vector3d.atBottomCenterOf(Member.getLoc()));
+            Vec3 vector3d = DefaultRandomPos.getPosTowards(this.Member, 15, 4, Vec3.atBottomCenterOf(Member.getLoc()), (double)((float)Math.PI / 10F));
             if (vector3d != null) {
                 this.Member.getNavigation().moveTo(vector3d.x, vector3d.y, vector3d.z, 0.5D);
             }

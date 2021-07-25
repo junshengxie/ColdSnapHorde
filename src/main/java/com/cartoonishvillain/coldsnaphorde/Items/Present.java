@@ -1,30 +1,31 @@
 package com.cartoonishvillain.coldsnaphorde.Items;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.passive.*;
-import net.minecraft.entity.passive.horse.HorseEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-import net.minecraft.item.Item.Properties;
-
 public class Present extends Item {
     public Present(Properties properties) {super(properties);}
 
     @Override
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if(!worldIn.isClientSide() && handIn == Hand.MAIN_HAND){
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+        if(!worldIn.isClientSide() && handIn == InteractionHand.MAIN_HAND){
         playerIn.getCooldowns().addCooldown(this, 20);
         ArrayList<String> possibilities = new ArrayList<>();
         ArrayList<Float> weights = new ArrayList<>();
@@ -63,7 +64,7 @@ public class Present extends Item {
         return super.use(worldIn, playerIn, handIn);
     }
 
-    private void ItemSpawner(BlockPos pos, World world, Item item, int low, int high){
+    private void ItemSpawner(BlockPos pos, Level world, Item item, int low, int high){
 
         int bound = 0;
         if(low == high) {low = 0; bound = high;}
@@ -72,44 +73,44 @@ public class Present extends Item {
         world.addFreshEntity(itemEntity);
     }
 
-    private void SpawnDispenser(World world, PlayerEntity playerEntity, Entity entity){
-        if(entity instanceof WolfEntity){
-            WolfEntity wolfEntity = (WolfEntity) entity;
+    private void SpawnDispenser(Level world, Player playerEntity, Entity entity){
+        if(entity instanceof Wolf){
+            Wolf wolfEntity = (Wolf) entity;
             wolfEntity.tame(playerEntity);
             wolfEntity.setCollarColor(DyeColor.byId(world.random.nextInt(15)));
             wolfEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(wolfEntity);
         }
-        if(entity instanceof CatEntity){
-            CatEntity catEntity = (CatEntity) entity;
+        if(entity instanceof Cat){
+            Cat catEntity = (Cat) entity;
             catEntity.tame(playerEntity);
             catEntity.setCatType(-1);
             catEntity.setCollarColor(DyeColor.byId(world.random.nextInt(15)));
             catEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(catEntity);
         }
-        if(entity instanceof ParrotEntity){
-            ParrotEntity parrotEntity = (ParrotEntity) entity;
+        if(entity instanceof Parrot){
+            Parrot parrotEntity = (Parrot) entity;
             parrotEntity.tame(playerEntity);
             parrotEntity.setVariant(world.random.nextInt(4));
             parrotEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(parrotEntity);
         }
-        if(entity instanceof HorseEntity){
-            HorseEntity horseEntity = (HorseEntity) entity;
+        if(entity instanceof Horse){
+            Horse horseEntity = (Horse) entity;
             horseEntity.tameWithName(playerEntity);
             horseEntity.setTamed(true);
             horseEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(horseEntity);
         }
-        if(entity instanceof PigEntity){
-            PigEntity pigEntity = (PigEntity) entity;
+        if(entity instanceof Pig){
+            Pig pigEntity = (Pig) entity;
             pigEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(pigEntity);
         }
     }
 
-    private void RewardDispenser(World world, PlayerEntity playerEntity, String selected) {
+    private void RewardDispenser(Level world, Player playerEntity, String selected) {
         switch (selected) {
             case "coal":
                 ItemSpawner(playerEntity.blockPosition(), world, Items.COAL, 6, 15);
@@ -127,19 +128,19 @@ public class Present extends Item {
                 ItemSpawner(playerEntity.blockPosition(), world, Items.BLUE_ICE, 3, 6);
                 break;
             case "doggo":
-                WolfEntity wolfEntity = new WolfEntity(EntityType.WOLF, world);
+                Wolf wolfEntity = new Wolf(EntityType.WOLF, world);
                 SpawnDispenser(world, playerEntity, wolfEntity);
                 break;
             case "cats":
-                CatEntity catEntity = new CatEntity(EntityType.CAT, world);
+                Cat catEntity = new Cat(EntityType.CAT, world);
                 SpawnDispenser(world, playerEntity, catEntity);
                 break;
             case "birb":
-                ParrotEntity parrotEntity = new ParrotEntity(EntityType.PARROT, world);
+                Parrot parrotEntity = new Parrot(EntityType.PARROT, world);
                 SpawnDispenser(world, playerEntity, parrotEntity);
                 break;
             case "friendsnowman":
-                SnowGolemEntity snowGolemEntity = new SnowGolemEntity(EntityType.SNOW_GOLEM, world);
+                SnowGolem snowGolemEntity = new SnowGolem(EntityType.SNOW_GOLEM, world);
                 SpawnDispenser(world, playerEntity, snowGolemEntity);
                 break;
             case "music":
@@ -155,12 +156,12 @@ public class Present extends Item {
                 ItemSpawner(playerEntity.blockPosition(), world, Items.DETECTOR_RAIL, 1, 4);
                 break;
             case "horse":
-                HorseEntity horseEntity = new HorseEntity(EntityType.HORSE, world);
+                Horse horseEntity = new Horse(EntityType.HORSE, world);
                 SpawnDispenser(world, playerEntity, horseEntity);
                 ItemSpawner(playerEntity.blockPosition(), world, Items.SADDLE, 1, 1);
                 break;
             case "pig":
-                PigEntity pigEntity = new PigEntity(EntityType.PIG, world);
+                Pig pigEntity = new Pig(EntityType.PIG, world);
                 SpawnDispenser(world, playerEntity, pigEntity);
                 ItemSpawner(playerEntity.blockPosition(), world, Items.SADDLE, 1, 1);
                 ItemSpawner(playerEntity.blockPosition(), world, Items.CARROT_ON_A_STICK, 1, 1);

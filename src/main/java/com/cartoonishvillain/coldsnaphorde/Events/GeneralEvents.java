@@ -4,15 +4,15 @@ import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapGifter;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
 import com.cartoonishvillain.coldsnaphorde.Register;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -24,7 +24,7 @@ public class GeneralEvents {
     @SubscribeEvent
     public static void CheckThermometer(PlayerInteractEvent.RightClickItem event){
         if(event.getItemStack().getItem().equals(Register.THERMOMETER.get())){
-            PlayerEntity player = event.getPlayer();
+            Player player = event.getPlayer();
             float temp = player.level.getBiomeManager().getBiome(player.blockPosition()).getTemperature(player.blockPosition());
             String code = "MISSING";
             if (temp < 0.3){code = "Cold";}
@@ -32,10 +32,10 @@ public class GeneralEvents {
             else if(temp >= 0.9 && temp < 1.5){code = "Warm";}
             else if(temp >= 1.5){code = "Hot";}
             if(ColdSnapHorde.sconfig.TECHNICALTHERMOMETER.get()){
-                player.displayClientMessage(new StringTextComponent("Temperature: " + Float.toString(temp) + " (" + code + ")"), true);
+                player.displayClientMessage(new TextComponent("Temperature: " + Float.toString(temp) + " (" + code + ")"), true);
             }
             else{
-                player.displayClientMessage(new StringTextComponent("Temperature: " + code), true);
+                player.displayClientMessage(new TextComponent("Temperature: " + code), true);
             }
         }
     }
@@ -43,10 +43,10 @@ public class GeneralEvents {
     @SubscribeEvent
     public static void Transposer(PlayerInteractEvent.RightClickItem event){
         if(event.getItemStack().getItem().equals(Register.LIGHTNINGTRANSPOSER.get()) && event.getPlayer().isCrouching() && !event.getPlayer().level.isClientSide()){
-            PlayerEntity player = event.getPlayer();
+            Player player = event.getPlayer();
             ItemStack itemStack = event.getItemStack();
             itemStack.shrink(1);
-            EntityType.LIGHTNING_BOLT.spawn((ServerWorld) player.getCommandSenderWorld(), new ItemStack(Items.AIR), null, event.getPos(), SpawnReason.TRIGGERED, true, false);}
+            EntityType.LIGHTNING_BOLT.spawn((ServerLevel) player.getCommandSenderWorld(), new ItemStack(Items.AIR), null, event.getPos(), MobSpawnType.TRIGGERED, true, false);}
     }
 
     @SubscribeEvent

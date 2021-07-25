@@ -1,42 +1,42 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.IPacket;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ItemParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public class GunnerProjectileEntity extends ProjectileItemEntity {
+public class GunnerProjectileEntity extends ThrowableItemProjectile {
 
 
 
-    public GunnerProjectileEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn, LivingEntity entity) {
+    public GunnerProjectileEntity(EntityType<? extends ThrowableItemProjectile> type, Level worldIn, LivingEntity entity) {
         super(type, entity, worldIn);
     }
 
-    public GunnerProjectileEntity(EntityType<GunnerProjectileEntity> gunnerProjectileEntityEntityType, World world) {
+    public GunnerProjectileEntity(EntityType<GunnerProjectileEntity> gunnerProjectileEntityEntityType, Level world) {
         super(gunnerProjectileEntityEntityType, world);
     }
 
     @OnlyIn(Dist.CLIENT)
-    private IParticleData makeParticle() {
+    private ParticleOptions makeParticle() {
         ItemStack itemstack = this.getItemRaw();
-        return new ItemParticleData(ParticleTypes.ITEM, itemstack);
+        return new ItemParticleOption(ParticleTypes.ITEM, itemstack);
     }
 
     @Override
@@ -49,23 +49,23 @@ public class GunnerProjectileEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+    protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
         int i = 1 + level.getDifficulty().getId();
         entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
-        if (entity instanceof LivingEntity && chance <= 3 && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new EffectInstance(Effects.BLINDNESS, 10*20, 0));}
+        if (entity instanceof LivingEntity && chance <= 3 && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
     }
 
     @Override
-    protected void onHit(RayTraceResult result) {
+    protected void onHit(HitResult result) {
         super.onHit(result);
-        this.remove();
+        this.remove(false);
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

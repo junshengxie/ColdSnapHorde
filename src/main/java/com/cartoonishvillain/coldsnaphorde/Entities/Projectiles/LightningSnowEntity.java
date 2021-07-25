@@ -1,29 +1,29 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.IPacket;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public class LightningSnowEntity extends ProjectileItemEntity {
+public class LightningSnowEntity extends ThrowableItemProjectile {
 
-    public LightningSnowEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn, LivingEntity livingEntityIn) {
+    public LightningSnowEntity(EntityType<? extends ThrowableItemProjectile> type, Level worldIn, LivingEntity livingEntityIn) {
         super(type, livingEntityIn, worldIn);
     }
 
-    public LightningSnowEntity(EntityType<LightningSnowEntity> type, World worldIn) {
+    public LightningSnowEntity(EntityType<LightningSnowEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -37,15 +37,15 @@ public class LightningSnowEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onHit(RayTraceResult result) {
+    protected void onHit(HitResult result) {
         super.onHit(result);
         if(!this.level.isClientSide()){
-        EntityType.LIGHTNING_BOLT.spawn((ServerWorld) this.getCommandSenderWorld(), new ItemStack(Items.AIR), null, new BlockPos(result.getLocation()), SpawnReason.TRIGGERED, true, false);}
-        this.remove();
+        EntityType.LIGHTNING_BOLT.spawn((ServerLevel) this.getCommandSenderWorld(), new ItemStack(Items.AIR), null, new BlockPos(result.getLocation()), MobSpawnType.TRIGGERED, true, false);}
+        this.remove(false);
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

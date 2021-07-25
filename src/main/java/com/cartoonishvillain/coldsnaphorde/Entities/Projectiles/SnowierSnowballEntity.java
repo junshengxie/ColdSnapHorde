@@ -1,34 +1,34 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.BlazeEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.IPacket;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public class SnowierSnowballEntity extends ProjectileItemEntity {
+public class SnowierSnowballEntity extends ThrowableItemProjectile {
 
-    public SnowierSnowballEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn, LivingEntity livingEntityIn) {
+    public SnowierSnowballEntity(EntityType<? extends ThrowableItemProjectile> type, Level worldIn, LivingEntity livingEntityIn) {
         super(type, livingEntityIn, worldIn);
     }
 
-    public SnowierSnowballEntity(EntityType<SnowierSnowballEntity> type, World worldIn) {
+    public SnowierSnowballEntity(EntityType<SnowierSnowballEntity> type, Level worldIn) {
         super(type, worldIn);
     }
 
@@ -42,17 +42,17 @@ public class SnowierSnowballEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+    protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
-        int i = entity instanceof BlazeEntity ? 5 : 0;
+        int i = entity instanceof Blaze ? 5 : 0;
         entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
-        if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 7*20, 0));}
+        if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 7*20, 0));}
     }
 
     @Override
-    protected void onHit(RayTraceResult result) {
+    protected void onHit(HitResult result) {
         super.onHit(result);
         BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
         BlockPos blockpos = new BlockPos(result.getLocation());
@@ -63,11 +63,11 @@ public class SnowierSnowballEntity extends ProjectileItemEntity {
         }else if(this.level.getBlockState(blockpos) == Blocks.WATER.defaultBlockState() && !level.isClientSide()){
             this.level.setBlockAndUpdate(blockpos, Blocks.ICE.defaultBlockState());
         }
-        this.remove();
+        this.remove(false);
     }
 
     @Override
-    public IPacket<?> getAddEntityPacket() {
+    public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
@@ -78,10 +78,10 @@ public class SnowierSnowballEntity extends ProjectileItemEntity {
         if(!level.isClientSide()){
             if(level.getBlockState(position) == Blocks.WATER.defaultBlockState()){
                 level.setBlockAndUpdate(position, Blocks.ICE.defaultBlockState());
-                this.remove();
+                this.remove(false);
             }else if(level.getBlockState(position) == Blocks.LAVA.defaultBlockState()){
                 level.setBlockAndUpdate(position, Blocks.OBSIDIAN.defaultBlockState());
-                this.remove();
+                this.remove(false);
             }
 
         }

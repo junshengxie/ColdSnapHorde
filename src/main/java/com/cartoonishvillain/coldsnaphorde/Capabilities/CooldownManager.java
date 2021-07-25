@@ -1,7 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Capabilities;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -10,7 +10,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CooldownManager implements ICooldownManager, ICapabilityProvider, INBTSerializable<CompoundNBT> {
+public class CooldownManager implements ICooldownManager, ICapabilityProvider, INBTSerializable<CompoundTag> {
     protected int ticks = 0;
     public final LazyOptional<ICooldownManager> holder = LazyOptional.of(() -> this);
     @Override
@@ -30,14 +30,14 @@ public class CooldownManager implements ICooldownManager, ICapabilityProvider, I
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
-        CompoundNBT tag = new CompoundNBT();
+    public CompoundTag serializeNBT() {
+        CompoundTag tag = new CompoundTag();
         tag.putInt("cooldown", ticks);
         return tag;
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(CompoundTag nbt) {
         ticks = nbt.getInt("cooldown");
     }
 }

@@ -5,9 +5,9 @@ import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.*;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
@@ -45,19 +45,10 @@ public class ColdSnapHorde
     private void setup(final FMLCommonSetupEvent event)
     {
         CooldownCapability.register();
-        DeferredWorkQueue.runLater(() -> {
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-        });
-
     }
 
 
-    public static final ItemGroup TAB = new ItemGroup("ColdSnapHorde"){
+    public static final CreativeModeTab TAB = new CreativeModeTab("ColdSnapHorde"){
         @Override
         public ItemStack makeIcon() {return new ItemStack(Register.ROCKYSNOWBALL.get());}
     };

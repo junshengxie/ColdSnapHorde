@@ -44,7 +44,7 @@ public class ColdSnapGunnerModel<C extends Monster> extends EntityModel<ColdSnap
         body.setPos(0, 13, 0);
         right_hand_r1.setPos(-5, 6, 0);
         left_hand.setPos(5, 6, 0);
-        gun.setPos(-4.375F, 7.625F, -8.75F);
+        gun.setPos(-5.375F, 7.625F, -8.75F);
         head.setPos(0, 4, 0);
         hat.setPos(0, 4, 0);
         left_hand.setRotation(0.0F, 0.0F, 1.1345F);

@@ -98,44 +98,44 @@ public class Horde {
             }else counter++; rng -= weights;
         }
 
-//        switch (selected){
-//            case 0:
-//                ColdSnapGunner coldSnapGunner = new ColdSnapGunner(Register.COLDSNAPGUNNER.get(), world);
-//                coldSnapGunner.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
-//                coldSnapGunner.toggleHordeMember(center);
-//                world.addFreshEntity(coldSnapGunner);
-//                break;
-//            case 1:
-//                ColdSnapStabber coldSnapStabber = new ColdSnapStabber(Register.COLDSNAPSTABBER.get(), world);
-//                coldSnapStabber.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
-//                coldSnapStabber.toggleHordeMember(center);
-//                world.addFreshEntity(coldSnapStabber);
-//                break;
-//            case 2:
-//                ColdSnapSnowballer coldSnapSnowballer = new ColdSnapSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
-//                coldSnapSnowballer.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
-//                coldSnapSnowballer.toggleHordeMember(center);
-//                world.addFreshEntity(coldSnapSnowballer);
-//                break;
-//            case 3:
-//                ColdSnapZapper coldSnapZapper = new ColdSnapZapper(Register.COLDSNAPZAPPER.get(), world);
-//                coldSnapZapper.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
-//                coldSnapZapper.toggleHordeMember(center);
-//                world.addFreshEntity(coldSnapZapper);
-//                break;
-//            case 4:
-//                ColdSnapGifter coldSnapGifter = new ColdSnapGifter(Register.COLDSNAPGIFTER.get(), world);
-//                coldSnapGifter.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
-//                coldSnapGifter.toggleHordeMember(center);
-//                world.addFreshEntity(coldSnapGifter);
-//                break;
-//            case 5:
-//                ColdSnapBrawler coldSnapBrawler = new ColdSnapBrawler(Register.COLDSNAPBRAWLER.get(), world);
-//                coldSnapBrawler.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
-//                coldSnapBrawler.toggleHordeMember(center);
-//                world.addFreshEntity(coldSnapBrawler);
-//                break;
-//        }
+        switch (selected){
+            case 0:
+                ColdSnapGunner coldSnapGunner = new ColdSnapGunner(Register.COLDSNAPGUNNER.get(), world);
+                coldSnapGunner.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapGunner.toggleHordeMember(center);
+                world.addFreshEntity(coldSnapGunner);
+                break;
+            case 1:
+                ColdSnapStabber coldSnapStabber = new ColdSnapStabber(Register.COLDSNAPSTABBER.get(), world);
+                coldSnapStabber.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapStabber.toggleHordeMember(center);
+                world.addFreshEntity(coldSnapStabber);
+                break;
+            case 2:
+                ColdSnapSnowballer coldSnapSnowballer = new ColdSnapSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
+                coldSnapSnowballer.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapSnowballer.toggleHordeMember(center);
+                world.addFreshEntity(coldSnapSnowballer);
+                break;
+            case 3:
+                ColdSnapZapper coldSnapZapper = new ColdSnapZapper(Register.COLDSNAPZAPPER.get(), world);
+                coldSnapZapper.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapZapper.toggleHordeMember(center);
+                world.addFreshEntity(coldSnapZapper);
+                break;
+            case 4:
+                ColdSnapGifter coldSnapGifter = new ColdSnapGifter(Register.COLDSNAPGIFTER.get(), world);
+                coldSnapGifter.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapGifter.toggleHordeMember(center);
+                world.addFreshEntity(coldSnapGifter);
+                break;
+            case 5:
+                ColdSnapBrawler coldSnapBrawler = new ColdSnapBrawler(Register.COLDSNAPBRAWLER.get(), world);
+                coldSnapBrawler.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapBrawler.toggleHordeMember(center);
+                world.addFreshEntity(coldSnapBrawler);
+                break;
+        }
     }
 
     private boolean biomeCheck(Level world, BlockPos pos){

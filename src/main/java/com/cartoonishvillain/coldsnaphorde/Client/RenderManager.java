@@ -1,11 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Client;
 
-import com.cartoonishvillain.coldsnaphorde.Client.Models.ColdSnapGunnerModel;
-import com.cartoonishvillain.coldsnaphorde.Client.Models.ColdSnapSnowballerModel;
-import com.cartoonishvillain.coldsnaphorde.Client.Models.ColdSnapStabberModel;
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.RenderColdSnapGunner;
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.RenderColdSnapSnowballer;
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.RenderColdSnapStabber;
+import com.cartoonishvillain.coldsnaphorde.Client.Models.*;
+import com.cartoonishvillain.coldsnaphorde.Client.Renderers.*;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -23,6 +19,10 @@ public class RenderManager {
     public static ModelLayerLocation COLDSNAPSTABBER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:stabber"), "stabber");
     public static ModelLayerLocation COLDSNAPGUNNER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:gunner"), "gunner");
     public static ModelLayerLocation COLDSNAPSNOWBALLER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:snowballer"), "snowballer");
+    public static ModelLayerLocation COLDSNAPGIFTER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:gifter"), "gifter");
+    public static ModelLayerLocation COLDSNAPZAPPER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:zapper"), "zapper");
+    public static ModelLayerLocation COLDSNAPBRAWLER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:brawler"), "brawler");
+
 
 
     @SubscribeEvent
@@ -30,6 +30,10 @@ public class RenderManager {
         event.registerLayerDefinition(COLDSNAPSTABBER, ColdSnapStabberModel::createLayer);
         event.registerLayerDefinition(COLDSNAPGUNNER, ColdSnapGunnerModel::createLayer);
         event.registerLayerDefinition(COLDSNAPSNOWBALLER, ColdSnapSnowballerModel::createLayer);
+        event.registerLayerDefinition(COLDSNAPGIFTER, ColdSnapGifterModel::createLayer);
+        event.registerLayerDefinition(COLDSNAPZAPPER, ColdSnapZapperModel::createLayer);
+        event.registerLayerDefinition(COLDSNAPBRAWLER, ColdSnapBrawlerModel::createLayer);
+
     }
 
     @SubscribeEvent
@@ -37,6 +41,9 @@ public class RenderManager {
         event.registerEntityRenderer(Register.COLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
         event.registerEntityRenderer(Register.COLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
         event.registerEntityRenderer(Register.COLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
+        event.registerEntityRenderer(Register.COLDSNAPGIFTER.get(), RenderColdSnapGifter::new);
+        event.registerEntityRenderer(Register.COLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
+        event.registerEntityRenderer(Register.COLDSNAPBRAWLER.get(), RenderColdSnapBrawler::new);
         event.registerEntityRenderer(Register.GUNNERPROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(Register.LIGHTNINGSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(Register.ROCKSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);

@@ -44,7 +44,7 @@ public class ColdSnapGunnerModel<C extends Monster> extends EntityModel<ColdSnap
         body.setPos(0, 13, 0);
         right_hand_r1.setPos(-4, 6, 0);
         left_hand.setPos(5, 6, 0);
-        gun.setPos(-4.625F, 7.625F, -8.75F);
+        gun.setPos(-4.375F, 7.625F, -8.75F);
         head.setPos(0, 4, 0);
         hat.setPos(0, 4, 0);
         left_hand.setRotation(0.0F, 0.0F, 1.1345F);
@@ -67,11 +67,13 @@ public class ColdSnapGunnerModel<C extends Monster> extends EntityModel<ColdSnap
         partDefinition.addOrReplaceChild(GUN, CubeListBuilder.create()
                 .texOffs(52, 4).addBox(-2.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, cubedeformation5)
                 .texOffs(47, 15).addBox(-4.0F, -4.0F, -1.0F, 4.0F, 2.0F, 2.0F, cubedeformation5)
-                .texOffs(40, 9).addBox(-4.0F, -3.8F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-                .texOffs(43, 8).addBox(-4.0F, -3.2F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-                .texOffs(41, 26).addBox(-4.0F, -3.5F, -0.8F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-                .texOffs(47, 5).addBox(-4.0F, -3.5F, -0.2F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-                .texOffs(33, 5).addBox(-3.925F, -3.5F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5), PartPose.ZERO);
+                //Not showing for some reason when activated. Might as well not waste time with it until I figure out why.
+//                .texOffs(40, 9).addBox(-4.0F, -3.8F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5)
+//                .texOffs(43, 8).addBox(-4.0F, -3.2F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5)
+//                .texOffs(41, 26).addBox(-4.0F, -3.5F, -0.8F, 1.0F, 1.0F, 1.0F, cubedeformation5)
+//                .texOffs(47, 5).addBox(-4.0F, -3.5F, -0.2F, 1.0F, 1.0F, 1.0F, cubedeformation5)
+//                .texOffs(33, 5).addBox(-3.925F, -3.5F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5)
+                , PartPose.ZERO);
         partDefinition.addOrReplaceChild(HEAD, CubeListBuilder.create()
                 .texOffs(0,0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, cubedeformation5), PartPose.ZERO);
         partDefinition.addOrReplaceChild(HAT, CubeListBuilder.create()

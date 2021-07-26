@@ -2,6 +2,7 @@ package com.cartoonishvillain.coldsnaphorde.Events;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapGunner;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapSnowballer;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapStabber;
 import com.cartoonishvillain.coldsnaphorde.Entities.Spawns;
 import com.cartoonishvillain.coldsnaphorde.Items.ColdSpawnEggItem;
@@ -18,10 +19,12 @@ public class ModBusEvents {
     @SubscribeEvent
     public static void entityRegister(final RegistryEvent.Register<EntityType<?>> event){
         event.getRegistry().registerAll(
-//                Register.COLDSNAPGUNNER.get(), Register.COLDSNAPSNOWBALLER.get(),
+                Register.COLDSNAPGUNNER.get(),
+                Register.COLDSNAPSNOWBALLER.get(),
                         Register.COLDSNAPSTABBER.get()
 //                        , Register.COLDSNAPZAPPER.get(),
-//                        Register.COLDSNAPGIFTER.get(), Register.COLDSNAPBRAWLER.get()
+//                        Register.COLDSNAPGIFTER.get(),
+//                        Register.COLDSNAPBRAWLER.get()
                         );
         Spawns.PlacementManager();
     }
@@ -35,6 +38,7 @@ public class ModBusEvents {
     public static void attributeAssigner(EntityAttributeCreationEvent event){
         event.put(Register.COLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
         event.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
+        event.put(Register.COLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
 
     }
 }

@@ -1,6 +1,8 @@
 package com.cartoonishvillain.coldsnaphorde.Client;
 
+import com.cartoonishvillain.coldsnaphorde.Client.Models.ColdSnapGunnerModel;
 import com.cartoonishvillain.coldsnaphorde.Client.Models.ColdSnapStabberModel;
+import com.cartoonishvillain.coldsnaphorde.Client.Renderers.RenderColdSnapGunner;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.RenderColdSnapStabber;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
@@ -17,15 +19,19 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class RenderManager {
 
     public static ModelLayerLocation COLDSNAPSTABBER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:stabber"), "stabber");
+    public static ModelLayerLocation COLDSNAPGUNNER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:gunner"), "gunner");
 
     @SubscribeEvent
     public static void registerlayers(EntityRenderersEvent.RegisterLayerDefinitions event){
         event.registerLayerDefinition(COLDSNAPSTABBER, ColdSnapStabberModel::createLayer);
+        event.registerLayerDefinition(COLDSNAPGUNNER, ColdSnapGunnerModel::createLayer);
     }
 
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event){
         event.registerEntityRenderer(Register.COLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
+        event.registerEntityRenderer(Register.COLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
+        event.registerEntityRenderer(Register.GUNNERPROJECTILE.get(), ThrownItemRenderer::new);
 
     }
 

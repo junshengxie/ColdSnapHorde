@@ -1,6 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Events;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapGunner;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapStabber;
 import com.cartoonishvillain.coldsnaphorde.Entities.Spawns;
 import com.cartoonishvillain.coldsnaphorde.Items.ColdSpawnEggItem;
@@ -33,5 +34,7 @@ public class ModBusEvents {
     @SubscribeEvent
     public static void attributeAssigner(EntityAttributeCreationEvent event){
         event.put(Register.COLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
+        event.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
+
     }
 }

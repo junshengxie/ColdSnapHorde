@@ -58,7 +58,7 @@ public class ColdSnapStabber extends GenericHordeMember {
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null && !entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get());}
+        return entity != null && (!entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get()) || this.isHordeMember());}
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {

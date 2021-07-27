@@ -40,6 +40,11 @@ public class GenericHordeMember extends Monster {
     }
 
     @Override
+    public boolean canFreeze() {
+        return false;
+    }
+
+    @Override
     public void die(DamageSource cause) {
         int random = level.random.nextInt(100);
         if(random > 80 && !level.isClientSide() && isHordeMember()){

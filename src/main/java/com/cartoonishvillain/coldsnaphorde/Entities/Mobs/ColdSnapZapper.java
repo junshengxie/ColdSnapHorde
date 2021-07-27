@@ -66,7 +66,7 @@ public class ColdSnapZapper extends GenericHordeMember {
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null && !entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get()) && entity != ZapTarget;
+        return entity != null && (!entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get()) || this.isHordeMember()) && entity != ZapTarget;
     }
 
     @Override

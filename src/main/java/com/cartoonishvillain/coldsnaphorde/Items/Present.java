@@ -2,11 +2,15 @@ package com.cartoonishvillain.coldsnaphorde.Items;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.*;
+import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.animal.horse.Horse;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -15,6 +19,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,20 +34,23 @@ public class Present extends Item {
         playerIn.getCooldowns().addCooldown(this, 20);
         ArrayList<String> possibilities = new ArrayList<>();
         ArrayList<Float> weights = new ArrayList<>();
-        possibilities.add("coal"); weights.add(25.5f);
-        possibilities.add("snow"); weights.add(10f);
-        possibilities.add("ice"); weights.add(15f);
-        possibilities.add("packedice"); weights.add(10f);
-        possibilities.add("blueice"); weights.add(5f);
-        possibilities.add("doggo"); weights.add(5f);
-        possibilities.add("cats"); weights.add(5f);
-        possibilities.add("birb"); weights.add(5f);
+        possibilities.add("coal"); weights.add(30f);
+        possibilities.add("snow"); weights.add(15f);
+        possibilities.add("ice"); weights.add(20f);
+        possibilities.add("packedice"); weights.add(15f);
+        possibilities.add("blueice"); weights.add(10f);
+        possibilities.add("doggo"); weights.add(10f);
+        possibilities.add("cats"); weights.add(10f);
+        possibilities.add("birb"); weights.add(10f);
         possibilities.add("friendsnowman"); weights.add(10f);
         possibilities.add("music"); weights.add(15f);
         possibilities.add("rollercoaster"); weights.add(10f);
-        possibilities.add("horse"); weights.add(5f);
-        possibilities.add("pig"); weights.add(5f);
+        possibilities.add("horse"); weights.add(10f);
+        possibilities.add("pig"); weights.add(10f);
         possibilities.add("candycane"); weights.add(10f);
+        possibilities.add("axolotl"); weights.add(10f);
+        possibilities.add("screamgoat"); weights.add(5f);
+        possibilities.add("panda"); weights.add(5f);
 
         playerIn.getMainHandItem().shrink(1);
 
@@ -74,47 +82,65 @@ public class Present extends Item {
     }
 
     private void SpawnDispenser(Level world, Player playerEntity, Entity entity){
-        if(entity instanceof Wolf){
-            Wolf wolfEntity = (Wolf) entity;
+        if(entity instanceof Wolf wolfEntity){
             wolfEntity.tame(playerEntity);
+            wolfEntity.setBaby(true);
             wolfEntity.setCollarColor(DyeColor.byId(world.random.nextInt(15)));
             wolfEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(wolfEntity);
         }
-        if(entity instanceof Cat){
-            Cat catEntity = (Cat) entity;
+        if(entity instanceof Cat catEntity){
             catEntity.tame(playerEntity);
             catEntity.setCatType(-1);
+            catEntity.setBaby(true);
             catEntity.setCollarColor(DyeColor.byId(world.random.nextInt(15)));
             catEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(catEntity);
         }
-        if(entity instanceof Parrot){
-            Parrot parrotEntity = (Parrot) entity;
+        if(entity instanceof Parrot parrotEntity){
             parrotEntity.tame(playerEntity);
+            parrotEntity.setBaby(true);
             parrotEntity.setVariant(world.random.nextInt(4));
             parrotEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(parrotEntity);
         }
-        if(entity instanceof Horse){
-            Horse horseEntity = (Horse) entity;
+        if(entity instanceof Horse horseEntity){
             horseEntity.tameWithName(playerEntity);
             horseEntity.setTamed(true);
             horseEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(horseEntity);
         }
-        if(entity instanceof Pig){
-            Pig pigEntity = (Pig) entity;
+        if(entity instanceof Pig pigEntity){
             pigEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(pigEntity);
+        }
+        if(entity instanceof Axolotl axolotl){
+            axolotl.setBaby(true);
+            axolotl.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
+            SynchedEntityData synchedEntityData = ObfuscationReflectionHelper.getPrivateValue(Entity.class, axolotl, "f_19804_");
+            EntityDataAccessor<Integer> entityDataAccessor = ObfuscationReflectionHelper.getPrivateValue(Axolotl.class, axolotl, "f_149096_");
+            synchedEntityData.set(entityDataAccessor, world.random.nextInt(5));
+            world.addFreshEntity(axolotl);
+        }
+        if(entity instanceof Goat goat){
+            goat.setBaby(true);
+            goat.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
+            SynchedEntityData synchedEntityData = ObfuscationReflectionHelper.getPrivateValue(Entity.class, goat, "f_19804_");
+            EntityDataAccessor<Boolean> entityDataAccessor = ObfuscationReflectionHelper.getPrivateValue(Goat.class, goat, "f_149347_");
+            synchedEntityData.set(entityDataAccessor, true);
+            world.addFreshEntity(goat);
+        }
+        if (entity instanceof Panda panda){
+            panda.setBaby(true);
+            panda.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
+            panda.setMainGene(Panda.Gene.getRandom(world.random));
+            panda.setHiddenGene(Panda.Gene.getRandom(world.random));
+            world.addFreshEntity(panda);
         }
     }
 
     private void RewardDispenser(Level world, Player playerEntity, String selected) {
         switch (selected) {
-            case "coal":
-                ItemSpawner(playerEntity.blockPosition(), world, Items.COAL, 6, 15);
-                break;
             case "snow":
                 ItemSpawner(playerEntity.blockPosition(), world, Items.SNOW_BLOCK, 12, 28);
                 break;
@@ -170,6 +196,19 @@ public class Present extends Item {
                 if(world.random.nextInt() % 2 == 0) ItemSpawner(playerEntity.blockPosition(), world, Register.REDCANDYCANEITEM.get(), 10, 20);
                 else ItemSpawner(playerEntity.blockPosition(), world, Register.GREENCANDYCANEITEM.get(), 10, 20);
                 break;
+            case "axolotl":
+                Axolotl axolotl = new Axolotl(EntityType.AXOLOTL, world);
+                SpawnDispenser(world, playerEntity, axolotl);
+                ItemSpawner(playerEntity.blockPosition(), world, Items.WATER_BUCKET, 1, 1);
+                break;
+            case "screamgoat":
+                Goat goat = new Goat(EntityType.GOAT, world);
+                SpawnDispenser(world, playerEntity, goat);
+            case "panda":
+                Panda panda = new Panda(EntityType.PANDA, world);
+                SpawnDispenser(world, playerEntity, panda);
+
+
         }
     }
     private Item MusicDisc(){

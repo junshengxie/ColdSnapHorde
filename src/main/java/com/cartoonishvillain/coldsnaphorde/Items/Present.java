@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Items;
 
+import com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther.IceSword;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -51,6 +52,7 @@ public class Present extends Item {
         possibilities.add("axolotl"); weights.add(10f);
         possibilities.add("screamgoat"); weights.add(5f);
         possibilities.add("panda"); weights.add(5f);
+        possibilities.add("icesword"); weights.add(10f);
 
         playerIn.getMainHandItem().shrink(1);
 
@@ -207,6 +209,8 @@ public class Present extends Item {
             case "panda":
                 Panda panda = new Panda(EntityType.PANDA, world);
                 SpawnDispenser(world, playerEntity, panda);
+            case "icesword":
+                ItemSpawner(playerEntity.blockPosition(), world, Register.ICESWORD.get(), 1, 1);
 
 
         }

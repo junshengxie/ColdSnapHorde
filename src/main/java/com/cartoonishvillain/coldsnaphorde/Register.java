@@ -5,6 +5,8 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.GunnerProjectile
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.LightningSnowEntity;
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
+import com.cartoonishvillain.coldsnaphorde.Items.Armor.ArmorMaterials;
+import com.cartoonishvillain.coldsnaphorde.Items.Armor.TopHat;
 import com.cartoonishvillain.coldsnaphorde.Items.ColdSpawnEggItem;
 import com.cartoonishvillain.coldsnaphorde.Items.Present;
 import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.LightningSnowball;
@@ -16,7 +18,9 @@ import com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther.Materials;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
@@ -46,7 +50,7 @@ public class Register {
 
     public static final RegistryObject<Item> ROCKYSNOWBALL = ITEMS.register("rockysnowball", RockySnowball::new);
     public static final RegistryObject<Item> SNOWIERSNOWBALL = ITEMS.register("freezeball", SnowierSnowball::new);
-//    public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlotType.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ICECORE = ITEMS.register("icecore", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSERPIECE = ITEMS.register("transposerpiece", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));

@@ -1,6 +1,8 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 
+import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -42,10 +44,7 @@ public class ColdSnapBrawler extends GenericHordeMember{
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-//        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
-//            return false;
-//        }else
-          return true;
+        return entity != null && !entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get());
     }
 
 }

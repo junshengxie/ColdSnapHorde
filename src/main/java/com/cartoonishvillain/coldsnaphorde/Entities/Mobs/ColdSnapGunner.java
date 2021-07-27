@@ -54,10 +54,7 @@ public class ColdSnapGunner extends GenericHordeMember implements RangedAttackMo
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-//        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem()) || (entity instanceof PlayerEntity && ((PlayerEntity) entity).isCreative())){
-//            return false;
-//        }
-        return true;
+        return entity != null && !entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get());
     }
 
     @Nullable

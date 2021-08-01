@@ -3,6 +3,8 @@ package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -75,6 +77,21 @@ public class ColdSnapZapper extends GenericHordeMember {
         if(chance >= ColdSnapHorde.sconfig.STICKTRANSPONDER.get() && entityIn instanceof LivingEntity && transponderprogress == 1){
             ZapTarget = (LivingEntity) entityIn;
             transponderprogress = 0;
+        }
+        switch(getHordeVariant()){
+            case STANDARD -> {
+                int chance2 = random.nextInt(100);
+            }
+            case FLAMING -> {
+                int chance2 = random.nextInt(100);
+                if (chance2 <= 75){entityIn.setSecondsOnFire(1);}
+
+            }
+            case ENDER -> {
+                int chance2 = random.nextInt(20);
+                if(chance2 <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
+                else if(chance2 <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+            }
         }
         return super.doHurtTarget(entityIn);
     }

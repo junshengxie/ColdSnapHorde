@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -67,6 +68,13 @@ public class GeneralEvents {
                     event.setAmount(event.getAmount() * 2);
                 }
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void HordeSpawn(EntityJoinWorldEvent event){
+        if(event.getEntity() instanceof GenericHordeMember){
+            ((GenericHordeMember) event.getEntity()).determineHordeVariant();
         }
     }
 }

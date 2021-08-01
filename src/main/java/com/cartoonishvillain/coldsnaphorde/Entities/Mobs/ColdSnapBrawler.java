@@ -1,10 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
@@ -41,6 +38,26 @@ public class ColdSnapBrawler extends GenericHordeMember{
                 .add(Attributes.MOVEMENT_SPEED, 0.45D)
                 .add(Attributes.ATTACK_DAMAGE, 1D)
                 .add(Attributes.ATTACK_KNOCKBACK, 3d);
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity entityIn) {
+        switch(getHordeVariant()){
+            case STANDARD -> {
+                int chance2 = random.nextInt(100);
+            }
+            case FLAMING -> {
+                int chance2 = random.nextInt(100);
+                if (chance2 <= 75){entityIn.setSecondsOnFire(3);}
+
+            }
+            case ENDER -> {
+                int chance2 = random.nextInt(20);
+                if(chance2 <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
+                else if(chance2 <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+            }
+        }
+        return super.doHurtTarget(entityIn);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){

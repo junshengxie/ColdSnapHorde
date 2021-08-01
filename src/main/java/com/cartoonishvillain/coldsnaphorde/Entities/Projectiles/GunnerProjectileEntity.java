@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -55,7 +56,25 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
         int i = 1 + level.getDifficulty().getId();
         entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
-        if (entity instanceof LivingEntity && chance <= 3 && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
+        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
+            GenericHordeMember member = (GenericHordeMember) this.getOwner();
+            switch(member.getHordeVariant()){
+                case STANDARD -> {
+                    if(chance <= 3)  {((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
+                }
+                case FLAMING -> {
+                    int chance2 = random.nextInt(100);
+                    if (chance2 <= 75){entity.setSecondsOnFire(3);}
+
+                }
+                case ENDER -> {
+                    int chance2 = random.nextInt(20);
+                    if(chance2 <= 2) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
+                    else if(chance2 <=4) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+                }
+            }
+        }
+        else if (entity instanceof LivingEntity && chance <= 3 && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
     }
 
     @Override

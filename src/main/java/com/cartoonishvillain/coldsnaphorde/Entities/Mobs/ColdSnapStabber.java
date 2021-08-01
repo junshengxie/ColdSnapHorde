@@ -1,9 +1,11 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.monster.Blaze;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
@@ -25,7 +28,10 @@ public class ColdSnapStabber extends GenericHordeMember {
     private static final EntityDataAccessor<Float> ANITIMER = SynchedEntityData.defineId(ColdSnapStabber.class, EntityDataSerializers.FLOAT);
 //    private AnimationFactory factory = new AnimationFactory(this);
 
-    public ColdSnapStabber(EntityType<? extends Monster> type, Level worldIn) { super(type, worldIn);}
+    public ColdSnapStabber(EntityType<? extends Monster> type, Level worldIn) {
+        super(type, worldIn);
+    }
+
 
     @Override
     protected void registerGoals() {
@@ -57,19 +63,37 @@ public class ColdSnapStabber extends GenericHordeMember {
                 .add(Attributes.ATTACK_DAMAGE, 2D);
     }
 
+
     public boolean shouldAttack(@Nullable LivingEntity entity){
         return entity != null && (!entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get()) || this.isHordeMember());}
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
-        if (entityIn instanceof LivingEntity && !this.level.isClientSide()){
-            int chance = random.nextInt(100);
-            if (chance <= 6){((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.CONFUSION, 10*20, 0));}
+        if (entityIn instanceof LivingEntity && !this.level.isClientSide()) {
+            switch(getHordeVariant()){
+                case STANDARD -> {
+                    int chance = random.nextInt(100);
+                    if (chance <= 6){((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.CONFUSION, 10*20, 0));}
 
-            this.getEntityData().set(ANITIMER, 50f);
+                    this.getEntityData().set(ANITIMER, 50f);
+                }
+                case FLAMING -> {
+                    int chance = random.nextInt(100);
+                    if (chance <= 75){entityIn.setSecondsOnFire(5);}
+
+                    this.getEntityData().set(ANITIMER, 50f);
+                }
+                case ENDER -> {
+                    int chance = random.nextInt(20);
+                    if(chance <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
+                    else if(chance <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+                }
+            }
+
         }
         return super.doHurtTarget(entityIn);
     }
+
 
     public void aiStep() {
         super.aiStep();

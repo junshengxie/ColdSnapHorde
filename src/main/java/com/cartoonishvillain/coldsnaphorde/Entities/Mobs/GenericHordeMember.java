@@ -4,6 +4,7 @@ import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovementGoal;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -23,6 +25,7 @@ import javax.annotation.Nullable;
 public class GenericHordeMember extends Monster {
     private BlockPos target = null;
     private Boolean HordeMember = false;
+    private HordeVariants hordeVariant;
 
     @Override
     protected void registerGoals() {
@@ -57,6 +60,65 @@ public class GenericHordeMember extends Monster {
     protected GenericHordeMember(EntityType<? extends Monster> type, Level worldIn) {
         super(type, worldIn);
     }
+
+    public void setHordeVariant(HordeVariants hordeVariant) {this.hordeVariant = hordeVariant;}
+
+    public HordeVariants getHordeVariant() {return hordeVariant;}
+
+    @Override
+    public boolean isSensitiveToWater() {
+        return hordeVariant == HordeVariants.FLAMING || hordeVariant == HordeVariants.ENDER;
+    }
+
+    @Override
+    public boolean fireImmune() {return hordeVariant == HordeVariants.FLAMING;}
+
+    public void determineHordeVariant(){
+        Biome thisBiome = this.level.getBiome(this.getOnPos());
+        if(thisBiome.getRegistryName().toString().contains("swamp") || thisBiome.getRegistryName().toString().contains("roofed")){
+            this.hordeVariant = HordeVariants.PLAGUE;
+        }
+        else if(this.level.dimension().toString().contains("nether")){this.hordeVariant = HordeVariants.FLAMING;}
+        else if(this.level.dimension().toString().contains("end")){this.hordeVariant = HordeVariants.ENDER;}
+        else{this.hordeVariant = HordeVariants.STANDARD;}
+    }
+
+    @Override
+    protected void actuallyHurt(DamageSource p_21240_, float p_21241_) {
+        super.actuallyHurt(p_21240_, p_21241_);
+        if(getHordeVariant() == HordeVariants.ENDER){
+            int chance = random.nextInt(10);
+            if(chance <= 2) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+
+        }
+    }
+
+    @Override
+    public void deserializeNBT(CompoundTag nbt) {
+        super.deserializeNBT(nbt);
+        setHordeVariant(HordeVariants.valueOf(nbt.getString("variant")));
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag p_21484_) {
+        super.addAdditionalSaveData(p_21484_);
+        p_21484_.putString("variant", hordeVariant.name());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag p_21450_) {
+        super.readAdditionalSaveData(p_21450_);
+        setHordeVariant(HordeVariants.valueOf(p_21450_.getString("variant")));
+    }
+
+    @Override
+    public CompoundTag serializeNBT() {
+        CompoundTag tag = super.serializeNBT();
+        tag.putString("variant", hordeVariant.name());
+        return tag;
+    }
+
+
 
     @Nullable
     protected SoundEvent getAmbientSound() {
@@ -94,15 +156,21 @@ public class GenericHordeMember extends Monster {
                 return;
             }
 
-            BlockState blockstate = Blocks.SNOW.defaultBlockState();
+            BlockState blockstate = null;
+            if(hordeVariant == HordeVariants.STANDARD || hordeVariant == HordeVariants.PLAGUE){ blockstate = Blocks.SNOW.defaultBlockState();}
+            if(hordeVariant == HordeVariants.FLAMING){blockstate = Blocks.FIRE.defaultBlockState();}
 
-            for(int l = 0; l < 4; ++l) {
-                i = Mth.floor(this.getX() + (double)((float)(l % 2 * 2 - 1) * 0.25F));
-                j = Mth.floor(this.getY());
-                k = Mth.floor(this.getZ() + (double)((float)(l / 2 % 2 * 2 - 1) * 0.25F));
-                BlockPos blockpos = new BlockPos(i, j, k);
-                if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
-                    this.level.setBlockAndUpdate(blockpos, blockstate);
+
+            if(blockstate != null) {
+                for (int l = 0; l < 4; ++l) {
+                    i = Mth.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+                    j = Mth.floor(this.getY());
+                    k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+                    BlockPos blockpos = new BlockPos(i, j, k);
+                    if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
+                        if(this.level.getBlockState(blockpos.below()) == Blocks.SOUL_SAND.defaultBlockState() || this.level.getBlockState(blockpos.below()) == Blocks.SOUL_SOIL.defaultBlockState()){blockstate = Blocks.SOUL_FIRE.defaultBlockState();}
+                        this.level.setBlockAndUpdate(blockpos, blockstate);
+                    }
                 }
             }
         }
@@ -110,17 +178,14 @@ public class GenericHordeMember extends Monster {
 
 
     protected boolean shouldOverHeat(float currentTemp, int protectionlevel){
-        switch(protectionlevel){
-            case 0:
-                return currentTemp > 0.3f;
-            case 1:
-                return currentTemp > 0.9f;
-            case 2:
-                return currentTemp > 1.5f;
-            case 3:
-                return false;
-            default:
-                return true;
-        }
+        if(hordeVariant != HordeVariants.FLAMING) {
+            return switch (protectionlevel) {
+                case 0 -> currentTemp > 0.3f;
+                case 1 -> currentTemp > 0.9f;
+                case 2 -> currentTemp > 1.5f;
+                case 3 -> false;
+                default -> true;
+            };
+        }else return false;
     }
 }

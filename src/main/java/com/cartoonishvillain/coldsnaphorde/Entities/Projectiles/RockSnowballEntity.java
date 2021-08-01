@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
@@ -59,7 +60,26 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
         int i = entity instanceof Blaze ? 3 : 1;
         entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
-        if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
+        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
+            GenericHordeMember member = (GenericHordeMember) this.getOwner();
+            switch(member.getHordeVariant()){
+                case STANDARD -> {
+                    if(chance <= 2)  {((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
+                    if(chance == 1) ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5*20, 0));}
+                }
+                case FLAMING -> {
+                    int chance2 = random.nextInt(100);
+                    if (chance2 <= 75){entity.setSecondsOnFire(1);}
+
+                }
+                case ENDER -> {
+                    int chance2 = random.nextInt(20);
+                    if(chance2 <= 2) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
+                    else if(chance2 <=4) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+                }
+            }
+        }
+        else if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
             if (chance == 1) ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5*20, 0));}
     }
 

@@ -196,7 +196,7 @@ public class GenericHordeMember extends Monster {
 
 
     protected boolean shouldOverHeat(float currentTemp, int protectionlevel){
-        if(hordeVariant != HordeVariants.FLAMING) {
+        if(hordeVariant == HordeVariants.STANDARD) {
             return switch (protectionlevel) {
                 case 0 -> currentTemp > 0.3f;
                 case 1 -> currentTemp > 0.9f;

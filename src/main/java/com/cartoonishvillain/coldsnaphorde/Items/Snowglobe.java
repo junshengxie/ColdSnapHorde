@@ -24,7 +24,7 @@ public class Snowglobe extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null) {
-            if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && biomeCheck(worldIn, playerIn.blockPosition())) {
+            if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (biomeCheck(worldIn, playerIn.blockPosition()) || worldIn.getBiome(playerIn.blockPosition()).getRegistryName().toString().contains("swamp") || worldIn.dimension().toString().contains("end"))) {
                 AtomicInteger atomicInteger = new AtomicInteger(0);
                 worldIn.getCapability(CooldownCapability.INSTANCE).ifPresent(h->{
                     if(h.getCooldownTicks() > 0){

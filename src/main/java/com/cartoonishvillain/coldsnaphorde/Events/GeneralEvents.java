@@ -74,7 +74,8 @@ public class GeneralEvents {
     @SubscribeEvent
     public static void HordeSpawn(EntityJoinWorldEvent event){
         if(event.getEntity() instanceof GenericHordeMember){
-            ((GenericHordeMember) event.getEntity()).determineHordeVariant();
+            if(((GenericHordeMember) event.getEntity()).getHordeVariant() == null){
+            ((GenericHordeMember) event.getEntity()).determineHordeVariant();}
         }
     }
 }

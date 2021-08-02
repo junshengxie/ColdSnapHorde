@@ -67,7 +67,8 @@ public class GenericHordeMember extends Monster {
 
     public void setHordeVariant(HordeVariants hordeVariant) {this.hordeVariant = hordeVariant;}
 
-    public HordeVariants getHordeVariant() {return hordeVariant;}
+    public HordeVariants getHordeVariant() {
+        return hordeVariant;}
 
     @Override
     public boolean isSensitiveToWater() {

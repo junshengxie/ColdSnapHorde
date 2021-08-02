@@ -92,6 +92,9 @@ public class ColdSnapZapper extends GenericHordeMember {
                 if(chance2 <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
                 else if(chance2 <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
             }
+            case PLAGUE -> {
+                Infection((LivingEntity) entityIn);
+            }
         }
         return super.doHurtTarget(entityIn);
     }

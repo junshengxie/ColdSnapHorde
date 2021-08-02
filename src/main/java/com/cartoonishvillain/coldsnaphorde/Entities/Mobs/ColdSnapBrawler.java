@@ -44,7 +44,7 @@ public class ColdSnapBrawler extends GenericHordeMember{
     public boolean doHurtTarget(Entity entityIn) {
         switch(getHordeVariant()){
             case STANDARD -> {
-                int chance2 = random.nextInt(100);
+
             }
             case FLAMING -> {
                 int chance2 = random.nextInt(100);
@@ -55,6 +55,9 @@ public class ColdSnapBrawler extends GenericHordeMember{
                 int chance2 = random.nextInt(20);
                 if(chance2 <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
                 else if(chance2 <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+            }
+            case PLAGUE -> {
+                Infection((LivingEntity) entityIn);
             }
         }
         return super.doHurtTarget(entityIn);

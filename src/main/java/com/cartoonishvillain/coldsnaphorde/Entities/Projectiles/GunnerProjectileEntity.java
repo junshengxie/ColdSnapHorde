@@ -22,6 +22,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.Infection;
+
 public class GunnerProjectileEntity extends ThrowableItemProjectile {
 
 
@@ -71,6 +73,9 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
                     int chance2 = random.nextInt(20);
                     if(chance2 <= 2) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
                     else if(chance2 <=4) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+                }
+                case PLAGUE -> {
+                    Infection((LivingEntity) entity);
                 }
             }
         }

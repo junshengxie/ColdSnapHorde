@@ -10,6 +10,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -25,6 +26,7 @@ public class ColdSnapHorde
     private static final Logger LOGGER = LogManager.getLogger();
     public static SConfiguration sconfig;
     public static CConfiguration cconfig;
+    public static boolean isCalyxLoaded;
 
     public ColdSnapHorde() {
         // Register the setup method for modloading
@@ -39,12 +41,12 @@ public class ColdSnapHorde
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        
     }
 
     private void setup(final FMLCommonSetupEvent event)
     {
         CooldownCapability.register();
+        isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
     }
 
 

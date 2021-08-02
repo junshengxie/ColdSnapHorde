@@ -88,6 +88,9 @@ public class ColdSnapStabber extends GenericHordeMember {
                     if(chance <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
                     else if(chance <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 }
+                case PLAGUE -> {
+                    Infection((LivingEntity) entityIn);
+                }
             }
 
         }

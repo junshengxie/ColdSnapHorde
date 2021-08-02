@@ -13,6 +13,9 @@ import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPS
 public class RenderColdSnapSnowballer extends MobRenderer<ColdSnapSnowballer, ColdSnapSnowballerModel<ColdSnapSnowballer>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapsnowballer.png");
+    protected static final ResourceLocation FTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/flamingcoldsnapsnowballer.png");
+    protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/endercoldsnapsnowballer.png");
+    protected static final ResourceLocation PTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/plaguecoldsnapsnowballer.png");
 
     public RenderColdSnapSnowballer(EntityRendererProvider.Context p_174304_) {
         super(p_174304_, new ColdSnapSnowballerModel<>(p_174304_.bakeLayer(COLDSNAPSNOWBALLER)), 0.5F);
@@ -20,6 +23,11 @@ public class RenderColdSnapSnowballer extends MobRenderer<ColdSnapSnowballer, Co
 
     @Override
     public ResourceLocation getTextureLocation(ColdSnapSnowballer entity) {
-        return TEXTURE;
+        switch (entity.getHordeVariant()){
+            case ENDER -> {return ETEXTURE;}
+            case FLAMING -> {return FTEXTURE;}
+            case PLAGUE -> {return PTEXTURE;}
+            default -> {return TEXTURE;}
+        }
     }
 }

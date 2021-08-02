@@ -1,5 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 
+import com.cartoonishvillain.ImmortuosCalyx.ImmortuosCalyx;
+import com.cartoonishvillain.ImmortuosCalyx.Infection.InfectionManagerCapability;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovementGoal;
 import com.cartoonishvillain.coldsnaphorde.Register;
@@ -9,6 +11,8 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -76,11 +80,24 @@ public class GenericHordeMember extends Monster {
     public void determineHordeVariant(){
         Biome thisBiome = this.level.getBiome(this.getOnPos());
         if(thisBiome.getRegistryName().toString().contains("swamp") || thisBiome.getRegistryName().toString().contains("roofed")){
-            this.hordeVariant = HordeVariants.PLAGUE;
+            int chance = this.level.random.nextInt(100);
+            if(chance <= ColdSnapHorde.cconfig.PLAGUESPAWNINSWAMP.get()){
+            this.hordeVariant = HordeVariants.PLAGUE;}
+            else if(!shouldOverHeat(thisBiome.getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())){
+                this.hordeVariant = HordeVariants.STANDARD;
+            }else this.remove(false);
         }
         else if(this.level.dimension().toString().contains("nether")){this.hordeVariant = HordeVariants.FLAMING;}
         else if(this.level.dimension().toString().contains("end")){this.hordeVariant = HordeVariants.ENDER;}
-        else{this.hordeVariant = HordeVariants.STANDARD;}
+        else{
+            int chance = this.level.random.nextInt(100);
+            if(chance <= ColdSnapHorde.cconfig.FLAMINGSPAWNINSTANDARD.get()){ this.hordeVariant = HordeVariants.FLAMING; return;}
+            chance = this.level.random.nextInt(100);
+            if(chance <= ColdSnapHorde.cconfig.ENDERSPAWNINSTANDARD.get()){ this.hordeVariant = HordeVariants.ENDER; return;}
+            chance = this.level.random.nextInt(100);
+            if(chance <= ColdSnapHorde.cconfig.PLAGUESPAWNINSTANDARD.get()){ this.hordeVariant = HordeVariants.PLAGUE; return;}
+            this.hordeVariant = HordeVariants.STANDARD;
+        }
     }
 
     @Override
@@ -187,5 +204,27 @@ public class GenericHordeMember extends Monster {
                 default -> true;
             };
         }else return false;
+    }
+
+    public static void Infection(LivingEntity entity){
+        if(ColdSnapHorde.isCalyxLoaded && ColdSnapHorde.sconfig.PLAGUEIMMORTUOSCOMPAT.get()){
+            entity.getCapability(InfectionManagerCapability.INSTANCE).ifPresent(h->{
+                if(entity.getRandom().nextInt(10) >= 4){
+                    h.setInfectionProgressIfLower(1);
+                }
+            });
+        }else{
+            int chance = entity.getRandom().nextInt(10);
+            switch (chance){
+                default -> {}
+                case 3 -> {entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*20, 0));}
+                case 4 -> {entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*20, 0)); entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20*20, 0));}
+                case 5 -> {entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*40, 0)); entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20*40, 0));}
+                case 6 -> {entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*30, 0)); entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20*30, 0)); entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20*10, 0));}
+                case 7 -> {entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*25, 1)); entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20*25, 1)); entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20*20, 0));}
+                case 8 -> {entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20*20, 0)); entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20*30, 0));}
+                case 9 -> {entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20*20, 0)); entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 20*30, 1));}
+            }
+        }
     }
 }

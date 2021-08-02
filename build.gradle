@@ -26,6 +26,15 @@ println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getPro
 //    maven { url 'https://repo.repsy.io/mvn/gandiber/geckolib' }
 //}
 
+repositories {
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
 
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
@@ -110,6 +119,10 @@ dependencies {
     // Real examples
     // compile 'com.mod-buildcraft:buildcraft:6.0.8:dev'  // adds buildcraft to the dev env
     // compile 'com.googlecode.efficient-java-matrix-library:ejml:0.24' // adds ejml to the dev env
+
+
+//    implementation fg.deobf("curse.maven:immortuoscalyx-411857:3406910")
+    compileOnly fg.deobf("curse.maven:immortuoscalyx-411857:3406910")
 
     // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
     // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'

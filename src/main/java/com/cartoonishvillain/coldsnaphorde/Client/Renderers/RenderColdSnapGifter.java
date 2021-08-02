@@ -13,6 +13,9 @@ import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPG
 public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGifterModel<ColdSnapGifter>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapgifter.png");
+    protected static final ResourceLocation FTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/flamingcoldsnapgifter.png");
+    protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/endercoldsnapgifter.png");
+    protected static final ResourceLocation PTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/plaguecoldsnapgifter.png");
 
     public RenderColdSnapGifter(EntityRendererProvider.Context p_174304) {
         super(p_174304, new ColdSnapGifterModel<>(p_174304.bakeLayer(COLDSNAPGIFTER)), 0.5f);
@@ -24,6 +27,11 @@ public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGi
 
     @Override
     public ResourceLocation getTextureLocation(ColdSnapGifter entity) {
-        return TEXTURE;
+        switch (entity.getHordeVariant()){
+            case ENDER -> {return ETEXTURE;}
+            case FLAMING -> {return FTEXTURE;}
+            case PLAGUE -> {return PTEXTURE;}
+            default -> {return TEXTURE;}
+        }
     }
 }

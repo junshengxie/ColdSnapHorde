@@ -43,6 +43,8 @@ import net.minecraft.world.level.Explosion.BlockInteraction;
 import net.minecraftforge.event.world.ExplosionEvent;
 import org.lwjgl.system.CallbackI;
 
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.Infection;
+
 public class GifterSurprise {
 
     Level world;
@@ -165,6 +167,7 @@ public class GifterSurprise {
                                 knockback = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, damage);
                             }
                             entity.setDeltaMovement(entity.getDeltaMovement().add(directionalx * knockback, directionaly * knockback, directionalz * knockback));
+                            if(hordeVariant == HordeVariants.PLAGUE){Infection((LivingEntity) entity);}
                         }else{
                             ((LivingEntity) entity).randomTeleport(entity.getX() + entity.level.random.nextInt(10+10)-10,entity.getY() + entity.level.random.nextInt(10+10)-10,entity.getZ() + entity.level.random.nextInt(10+10)-10, true);
                         }

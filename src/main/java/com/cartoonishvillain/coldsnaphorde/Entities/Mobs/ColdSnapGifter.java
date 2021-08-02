@@ -80,10 +80,10 @@ public class ColdSnapGifter extends GenericHordeMember {
                 timer -= 1;
                 if (!level.isClientSide() && timer == 0) {
                     this.dead = true;
-                    boolean snowy = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this);
-                    GifterSurprise gifterSurprise = new GifterSurprise(this.level, this, DamageSource.explosion(this), null, this.getX(), this.getY(), this.getZ(), 5, true, Explosion.BlockInteraction.NONE);
-                    gifterSurprise.explode();
-                    gifterSurprise.finalizeExplosion(true);
+                    GifterSurprise gifterSurprise = new GifterSurprise(this.level, this, this.getX(), this.getY(), this.getZ(), 5);
+                    gifterSurprise.StageDetonation();
+                    gifterSurprise.DetonateBlockDamage();
+                    gifterSurprise.DetonateLivingHarm();
                     this.playSound(SoundEvents.GENERIC_EXPLODE, 1f, 1.5f);
                     this.remove(false);
                 }
@@ -91,21 +91,6 @@ public class ColdSnapGifter extends GenericHordeMember {
                 exploding = false;
                 timer = 50;
             }
-        }
-    }
-
-    protected boolean shouldOverHeat(float currentTemp, int protectionlevel){
-        switch(protectionlevel){
-            case 0:
-                return currentTemp > 0.3f;
-            case 1:
-                return currentTemp > 0.9f;
-            case 2:
-                return currentTemp > 1.5f;
-            case 3:
-                return false;
-            default:
-                return true;
         }
     }
 }

@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPGIFTER;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
 
 public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGifterModel<ColdSnapGifter>> {
 
@@ -27,10 +28,10 @@ public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGi
 
     @Override
     public ResourceLocation getTextureLocation(ColdSnapGifter entity) {
-        switch (entity.getHordeVariant()){
-            case ENDER -> {return ETEXTURE;}
-            case FLAMING -> {return FTEXTURE;}
-            case PLAGUE -> {return PTEXTURE;}
+        switch (entity.getEntityData().get(variant)){
+            case 2 -> {return ETEXTURE;}
+            case 1 -> {return FTEXTURE;}
+            case 3 -> {return PTEXTURE;}
             default -> {return TEXTURE;}
         }
     }

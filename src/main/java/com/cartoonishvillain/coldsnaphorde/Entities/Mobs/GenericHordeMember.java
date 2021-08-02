@@ -7,6 +7,9 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovement
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -29,7 +32,7 @@ import javax.annotation.Nullable;
 public class GenericHordeMember extends Monster {
     private BlockPos target = null;
     private Boolean HordeMember = false;
-    private HordeVariants hordeVariant;
+    public static final EntityDataAccessor<Integer> variant = SynchedEntityData.defineId(GenericHordeMember.class, EntityDataSerializers.INT);
 
     @Override
     protected void registerGoals() {
@@ -44,6 +47,24 @@ public class GenericHordeMember extends Monster {
             return timer < 50;
         }
         return false;
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag p_21484_) {
+        super.addAdditionalSaveData(p_21484_);
+        p_21484_.putInt("variant", this.getHordeVariant());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag p_21450_) {
+        super.readAdditionalSaveData(p_21450_);
+        this.setHordeVariant(p_21450_.getInt("variant"));
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        getEntityData().define(variant, -1);
     }
 
     @Override
@@ -65,76 +86,58 @@ public class GenericHordeMember extends Monster {
         super(type, worldIn);
     }
 
-    public void setHordeVariant(HordeVariants hordeVariant) {this.hordeVariant = hordeVariant;}
+    public void setHordeVariant(int hordeVariant) {this.getEntityData().set(variant, hordeVariant);}
 
-    public HordeVariants getHordeVariant() {
-        return hordeVariant;}
-
-    @Override
-    public boolean isSensitiveToWater() {
-        return hordeVariant == HordeVariants.FLAMING || hordeVariant == HordeVariants.ENDER;
+    public int getHordeVariant() {
+        int variant = this.getEntityData().get(GenericHordeMember.variant);
+        return variant;
     }
 
     @Override
-    public boolean fireImmune() {return hordeVariant == HordeVariants.FLAMING;}
+    public boolean isSensitiveToWater() {
+        int hordeVariant = this.getEntityData().get(variant);
+        return hordeVariant == 1|| hordeVariant == 2;
+    }
+
+    @Override
+    public boolean fireImmune() {return this.getEntityData().get(variant) == 1;}
 
     public void determineHordeVariant(){
         Biome thisBiome = this.level.getBiome(this.getOnPos());
         if(thisBiome.getRegistryName().toString().contains("swamp") || thisBiome.getRegistryName().toString().contains("roofed")){
             int chance = this.level.random.nextInt(100);
             if(chance <= ColdSnapHorde.cconfig.PLAGUESPAWNINSWAMP.get()){
-            this.hordeVariant = HordeVariants.PLAGUE;}
+                this.getEntityData().set(variant, 3);}
             else if(!shouldOverHeat(thisBiome.getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())){
-                this.hordeVariant = HordeVariants.STANDARD;
+                this.getEntityData().set(variant, 0);
             }else this.remove(false);
         }
-        else if(this.level.dimension().toString().contains("nether")){this.hordeVariant = HordeVariants.FLAMING;}
-        else if(this.level.dimension().toString().contains("end")){this.hordeVariant = HordeVariants.ENDER;}
+        else if(this.level.dimension().toString().contains("nether")){this.getEntityData().set(variant, 1);}
+        else if(this.level.dimension().toString().contains("end")){this.getEntityData().set(variant, 2);}
         else{
             int chance = this.level.random.nextInt(100);
-            if(chance <= ColdSnapHorde.cconfig.FLAMINGSPAWNINSTANDARD.get()){ this.hordeVariant = HordeVariants.FLAMING; return;}
+            if(chance <= ColdSnapHorde.cconfig.FLAMINGSPAWNINSTANDARD.get()){
+                this.getEntityData().set(variant, 1); return;}
             chance = this.level.random.nextInt(100);
-            if(chance <= ColdSnapHorde.cconfig.ENDERSPAWNINSTANDARD.get()){ this.hordeVariant = HordeVariants.ENDER; return;}
+            if(chance <= ColdSnapHorde.cconfig.ENDERSPAWNINSTANDARD.get()){
+                this.getEntityData().set(variant, 2); return;}
             chance = this.level.random.nextInt(100);
-            if(chance <= ColdSnapHorde.cconfig.PLAGUESPAWNINSTANDARD.get()){ this.hordeVariant = HordeVariants.PLAGUE; return;}
-            this.hordeVariant = HordeVariants.STANDARD;
+            if(chance <= ColdSnapHorde.cconfig.PLAGUESPAWNINSTANDARD.get()){
+                this.getEntityData().set(variant, 3); return;}
+            this.getEntityData().set(variant, 0);
         }
     }
 
     @Override
     protected void actuallyHurt(DamageSource p_21240_, float p_21241_) {
         super.actuallyHurt(p_21240_, p_21241_);
-        if(getHordeVariant() == HordeVariants.ENDER){
+        if(this.getEntityData().get(variant) == 2){
             int chance = random.nextInt(10);
             if(chance <= 2) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
 
         }
     }
 
-    @Override
-    public void deserializeNBT(CompoundTag nbt) {
-        super.deserializeNBT(nbt);
-        setHordeVariant(HordeVariants.valueOf(nbt.getString("variant")));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag p_21484_) {
-        super.addAdditionalSaveData(p_21484_);
-        p_21484_.putString("variant", hordeVariant.name());
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag p_21450_) {
-        super.readAdditionalSaveData(p_21450_);
-        setHordeVariant(HordeVariants.valueOf(p_21450_.getString("variant")));
-    }
-
-    @Override
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = super.serializeNBT();
-        tag.putString("variant", hordeVariant.name());
-        return tag;
-    }
 
 
 
@@ -175,20 +178,33 @@ public class GenericHordeMember extends Monster {
             }
 
             BlockState blockstate = null;
-            if(hordeVariant == HordeVariants.STANDARD || hordeVariant == HordeVariants.PLAGUE){ blockstate = Blocks.SNOW.defaultBlockState();}
-            if(hordeVariant == HordeVariants.FLAMING){blockstate = Blocks.FIRE.defaultBlockState();}
+            if (this.getEntityData().get(variant) == 0 || this.getEntityData().get(variant) == 3) {
+                blockstate = Blocks.SNOW.defaultBlockState();
+            }
+            if (this.getEntityData().get(variant) == 1) {
+                blockstate = Blocks.FIRE.defaultBlockState();
+            }
 
 
-            if(blockstate != null) {
+            if (blockstate == Blocks.SNOW.defaultBlockState()) {
                 for (int l = 0; l < 4; ++l) {
                     i = Mth.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
                     j = Mth.floor(this.getY());
                     k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
                     if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
-                        if(this.level.getBlockState(blockpos.below()) == Blocks.SOUL_SAND.defaultBlockState() || this.level.getBlockState(blockpos.below()) == Blocks.SOUL_SOIL.defaultBlockState()){blockstate = Blocks.SOUL_FIRE.defaultBlockState();}
                         this.level.setBlockAndUpdate(blockpos, blockstate);
                     }
+                }
+            } else if (blockstate == Blocks.FIRE.defaultBlockState()) {
+                for (int l = 0; l < 4; ++l) {
+                    i = Mth.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+                    j = Mth.floor(this.getY());
+                    k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+                    BlockPos blockpos = new BlockPos(i, j, k);
+                    if (this.level.getBlockState(blockpos.below()) == Blocks.SOUL_SAND.defaultBlockState() || this.level.getBlockState(blockpos.below()) == Blocks.SOUL_SOIL.defaultBlockState()) {
+                        blockstate = Blocks.SOUL_FIRE.defaultBlockState();
+                    } this.level.setBlockAndUpdate(blockpos, blockstate);
                 }
             }
         }
@@ -196,7 +212,7 @@ public class GenericHordeMember extends Monster {
 
 
     protected boolean shouldOverHeat(float currentTemp, int protectionlevel){
-        if(hordeVariant == HordeVariants.STANDARD) {
+        if(this.getEntityData().get(variant) == 0) {
             return switch (protectionlevel) {
                 case 0 -> currentTemp > 0.3f;
                 case 1 -> currentTemp > 0.9f;

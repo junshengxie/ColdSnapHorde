@@ -20,6 +20,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
+
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GeneralEvents {
     @SubscribeEvent
@@ -73,8 +75,8 @@ public class GeneralEvents {
 
     @SubscribeEvent
     public static void HordeSpawn(EntityJoinWorldEvent event){
-        if(event.getEntity() instanceof GenericHordeMember){
-            if(((GenericHordeMember) event.getEntity()).getHordeVariant() == null){
+        if(event.getEntity() instanceof GenericHordeMember && !event.getWorld().isClientSide()){
+            if(event.getEntity().getEntityData().get(variant) == -1){
             ((GenericHordeMember) event.getEntity()).determineHordeVariant();}
         }
     }

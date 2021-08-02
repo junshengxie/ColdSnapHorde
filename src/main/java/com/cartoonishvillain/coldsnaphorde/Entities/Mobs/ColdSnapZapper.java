@@ -78,21 +78,21 @@ public class ColdSnapZapper extends GenericHordeMember {
             ZapTarget = (LivingEntity) entityIn;
             transponderprogress = 0;
         }
-        switch(getHordeVariant()){
-            case STANDARD -> {
+        switch(this.getHordeVariant()){
+            case 0 -> {
                 int chance2 = random.nextInt(100);
             }
-            case FLAMING -> {
+            case 1 -> {
                 int chance2 = random.nextInt(100);
                 if (chance2 <= 75){entityIn.setSecondsOnFire(1);}
 
             }
-            case ENDER -> {
+            case 2 -> {
                 int chance2 = random.nextInt(20);
                 if(chance2 <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
                 else if(chance2 <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
             }
-            case PLAGUE -> {
+            case 3 -> {
                 Infection((LivingEntity) entityIn);
             }
         }

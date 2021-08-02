@@ -70,25 +70,25 @@ public class ColdSnapStabber extends GenericHordeMember {
     @Override
     public boolean doHurtTarget(Entity entityIn) {
         if (entityIn instanceof LivingEntity && !this.level.isClientSide()) {
-            switch(getHordeVariant()){
-                case STANDARD -> {
+            switch(this.getHordeVariant()){
+                case 0 -> {
                     int chance = random.nextInt(100);
                     if (chance <= 6){((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.CONFUSION, 10*20, 0));}
 
                     this.getEntityData().set(ANITIMER, 50f);
                 }
-                case FLAMING -> {
+                case 1 -> {
                     int chance = random.nextInt(100);
                     if (chance <= 75){entityIn.setSecondsOnFire(5);}
 
                     this.getEntityData().set(ANITIMER, 50f);
                 }
-                case ENDER -> {
+                case 2 -> {
                     int chance = random.nextInt(20);
                     if(chance <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
                     else if(chance <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 }
-                case PLAGUE -> {
+                case 3 -> {
                     Infection((LivingEntity) entityIn);
                 }
             }

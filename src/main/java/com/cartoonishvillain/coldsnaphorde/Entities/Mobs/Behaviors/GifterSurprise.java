@@ -1,47 +1,19 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariants;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
-import com.mojang.datafixers.util.Pair;
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SnowLayerBlock;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.PrimedTnt;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.ExplosionDamageCalculator;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nullable;
 import java.util.*;
-
-import net.minecraft.world.level.Explosion.BlockInteraction;
-import net.minecraftforge.event.world.ExplosionEvent;
-import org.lwjgl.system.CallbackI;
 
 import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.Infection;
 
@@ -57,7 +29,7 @@ public class GifterSurprise {
     Vec3 position;
     DamageSource damageSource;
     ArrayList<BlockPos> blockPosArrayList = new ArrayList<>();
-    HordeVariants hordeVariant;
+    int hordeVariant;
     ArrayList<Entity> effectedEntities = new ArrayList<>();
 
 
@@ -124,8 +96,8 @@ public class GifterSurprise {
     }
 
     public void DetonateBlockDamage(){
-        if(net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(exploder.level, exploder) && hordeVariant != HordeVariants.ENDER){
-            if(hordeVariant != HordeVariants.FLAMING){
+        if(net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(exploder.level, exploder) && hordeVariant != 2){
+            if(hordeVariant != 1){
                 for (BlockPos blockPos : blockPosArrayList){
                     if((world.getBlockState(blockPos).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos).equals(Blocks.GRASS.defaultBlockState())) && !(world.getBlockState(blockPos.below()).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos.below()).equals(Blocks.GRASS.defaultBlockState()))){
                         world.setBlockAndUpdate(blockPos, Blocks.SNOW.defaultBlockState());
@@ -161,13 +133,13 @@ public class GifterSurprise {
                         double directionalz = entity.getZ() - this.Entz;
                         double percentSeen =  Explosion.getSeenPercent(vec3, entity);
                         double damage = (1.0D - distanceFactor) * percentSeen;
-                        if(hordeVariant != HordeVariants.ENDER) {
+                        if(hordeVariant != 2) {
                             double knockback = damage;
                             if (entity instanceof LivingEntity) {
                                 knockback = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, damage);
                             }
                             entity.setDeltaMovement(entity.getDeltaMovement().add(directionalx * knockback, directionaly * knockback, directionalz * knockback));
-                            if(hordeVariant == HordeVariants.PLAGUE){Infection((LivingEntity) entity);}
+                            if(hordeVariant == 3){Infection((LivingEntity) entity);}
                         }else{
                             ((LivingEntity) entity).randomTeleport(entity.getX() + entity.level.random.nextInt(10+10)-10,entity.getY() + entity.level.random.nextInt(10+10)-10,entity.getZ() + entity.level.random.nextInt(10+10)-10, true);
                         }

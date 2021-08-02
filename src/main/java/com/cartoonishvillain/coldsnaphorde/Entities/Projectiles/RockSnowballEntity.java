@@ -65,21 +65,21 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
         if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
-                case STANDARD -> {
+                case 0 -> {
                     if(chance <= 2)  {((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
                     if(chance == 1) ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5*20, 0));}
                 }
-                case FLAMING -> {
+                case 1 -> {
                     int chance2 = random.nextInt(100);
                     if (chance2 <= 75){entity.setSecondsOnFire(1);}
 
                 }
-                case ENDER -> {
+                case 2 -> {
                     int chance2 = random.nextInt(20);
                     if(chance2 <= 2) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
                     else if(chance2 <=4) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 }
-                case PLAGUE -> {
+                case 3 -> {
                     Infection((LivingEntity) entity);
                 }
             }

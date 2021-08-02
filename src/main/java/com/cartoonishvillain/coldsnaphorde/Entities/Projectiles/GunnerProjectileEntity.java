@@ -23,6 +23,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.Infection;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
 
 public class GunnerProjectileEntity extends ThrowableItemProjectile {
 
@@ -61,20 +62,20 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
         if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
-                case STANDARD -> {
+                case 0 -> {
                     if(chance <= 3)  {((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
                 }
-                case FLAMING -> {
+                case 1 -> {
                     int chance2 = random.nextInt(100);
                     if (chance2 <= 75){entity.setSecondsOnFire(3);}
 
                 }
-                case ENDER -> {
+                case 2 -> {
                     int chance2 = random.nextInt(20);
                     if(chance2 <= 2) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
                     else if(chance2 <=4) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 }
-                case PLAGUE -> {
+                case 3 -> {
                     Infection((LivingEntity) entity);
                 }
             }

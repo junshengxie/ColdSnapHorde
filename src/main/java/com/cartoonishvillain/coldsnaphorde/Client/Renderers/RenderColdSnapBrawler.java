@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPBRAWLER;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
 
 public class RenderColdSnapBrawler extends MobRenderer<ColdSnapBrawler, ColdSnapBrawlerModel<ColdSnapBrawler>> {
 
@@ -27,10 +28,10 @@ public class RenderColdSnapBrawler extends MobRenderer<ColdSnapBrawler, ColdSnap
 
     @Override
     public ResourceLocation getTextureLocation(ColdSnapBrawler entity) {
-        switch (entity.getHordeVariant()){
-            case ENDER -> {return ETEXTURE;}
-            case FLAMING -> {return FTEXTURE;}
-            case PLAGUE -> {return PTEXTURE;}
+        switch (entity.getEntityData().get(variant)){
+            case 2 -> {return ETEXTURE;}
+            case 1 -> {return FTEXTURE;}
+            case 3 -> {return PTEXTURE;}
             default -> {return TEXTURE;}
         }
     }

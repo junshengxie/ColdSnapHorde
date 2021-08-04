@@ -110,7 +110,7 @@ public class GenericHordeMember extends Monster {
                 this.getEntityData().set(variant, 3);}
             else if(!shouldOverHeat(thisBiome.getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())){
                 this.getEntityData().set(variant, 0);
-            }else this.remove(false);
+            }else this.remove(RemovalReason.DISCARDED);
         }
         else if(this.level.dimension().toString().contains("nether")){this.getEntityData().set(variant, 1);}
         else if(this.level.dimension().toString().contains("end")){this.getEntityData().set(variant, 2);}

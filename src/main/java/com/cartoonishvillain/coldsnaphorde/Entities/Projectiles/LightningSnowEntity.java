@@ -41,7 +41,7 @@ public class LightningSnowEntity extends ThrowableItemProjectile {
         super.onHit(result);
         if(!this.level.isClientSide()){
         EntityType.LIGHTNING_BOLT.spawn((ServerLevel) this.getCommandSenderWorld(), new ItemStack(Items.AIR), null, new BlockPos(result.getLocation()), MobSpawnType.TRIGGERED, true, false);}
-        this.remove(false);
+        this.remove(RemovalReason.DISCARDED);
     }
 
     @Override

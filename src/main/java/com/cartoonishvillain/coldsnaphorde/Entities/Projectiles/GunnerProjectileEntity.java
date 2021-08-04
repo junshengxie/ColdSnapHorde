@@ -86,7 +86,7 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
     @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
-        this.remove(false);
+        this.remove(RemovalReason.DISCARDED);
     }
 
     @Override

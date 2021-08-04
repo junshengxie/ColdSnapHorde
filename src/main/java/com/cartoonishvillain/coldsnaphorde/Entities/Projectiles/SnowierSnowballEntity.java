@@ -63,7 +63,7 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
         }else if(this.level.getBlockState(blockpos) == Blocks.WATER.defaultBlockState() && !level.isClientSide()){
             this.level.setBlockAndUpdate(blockpos, Blocks.ICE.defaultBlockState());
         }
-        this.remove(false);
+        this.remove(RemovalReason.DISCARDED);
     }
 
     @Override
@@ -78,10 +78,10 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
         if(!level.isClientSide()){
             if(level.getBlockState(position) == Blocks.WATER.defaultBlockState()){
                 level.setBlockAndUpdate(position, Blocks.ICE.defaultBlockState());
-                this.remove(false);
+                this.remove(RemovalReason.DISCARDED);
             }else if(level.getBlockState(position) == Blocks.LAVA.defaultBlockState()){
                 level.setBlockAndUpdate(position, Blocks.OBSIDIAN.defaultBlockState());
-                this.remove(false);
+                this.remove(RemovalReason.DISCARDED);
             }
 
         }

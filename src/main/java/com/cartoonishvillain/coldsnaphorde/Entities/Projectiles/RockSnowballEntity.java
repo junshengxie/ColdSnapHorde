@@ -97,7 +97,7 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
         if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.canSurvive(this.level, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && snowchance == 1 && !level.isClientSide()) {
             this.level.setBlockAndUpdate(blockpos, blockstate);
         }
-        this.remove(false);
+        this.remove(RemovalReason.DISCARDED);
     }
 
     @Override

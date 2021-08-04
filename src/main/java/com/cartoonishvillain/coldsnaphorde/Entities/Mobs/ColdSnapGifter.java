@@ -85,7 +85,7 @@ public class ColdSnapGifter extends GenericHordeMember {
                     gifterSurprise.DetonateBlockDamage();
                     gifterSurprise.DetonateLivingHarm();
                     this.playSound(SoundEvents.GENERIC_EXPLODE, 1f, 1.5f);
-                    this.remove(false);
+                    this.remove(RemovalReason.KILLED);
                 }
             } else if (exploding && distance > 36D) {
                 exploding = false;

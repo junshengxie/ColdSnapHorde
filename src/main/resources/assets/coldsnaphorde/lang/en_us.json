@@ -5,6 +5,7 @@
   "entity.coldsnaphorde.coldsnapzapper": "Snowman Zapper",
   "entity.coldsnaphorde.coldsnapbrawler": "Snowman Brawler",
   "entity.coldsnaphorde.coldsnapgifter": "Snowman Gifter",
+  "entity.coldsnaphorde.frostycow": "Frosty Cow",
   "entity.coldsnaphorde.gunnerprojectile": "Flying Coal",
   "entity.coldsnaphorde.rocksnowballprojectile": "Flying Snow Rock",
   "entity.coldsnaphorde.snowiersnowballprojectile": "Flying Snowier Snowball",
@@ -29,6 +30,7 @@
   "item.coldsnaphorde.gifter_spawn_egg": "Snowman Gifter Spawn Egg",
   "item.coldsnaphorde.zapper_spawn_egg": "Snowman Zapper Spawn Egg",
   "item.coldsnaphorde.brawler_spawn_egg": "Snowman Brawler Spawn Egg",
+  "item.coldsnaphorde.frostcow_spawn_egg": "Frosty Cow Spawn Egg",
   "itemGroup.ColdSnapHorde": "Cold Snap Horde"
 
 }

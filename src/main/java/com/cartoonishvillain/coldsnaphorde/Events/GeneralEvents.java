@@ -3,6 +3,7 @@ package com.cartoonishvillain.coldsnaphorde.Events;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapGifter;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.SnowCreature;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -64,7 +65,7 @@ public class GeneralEvents {
 
     @SubscribeEvent
     public static void HordeHitByFire(LivingHurtEvent event){
-        if(event.getEntityLiving() instanceof GenericHordeMember){
+        if(event.getEntityLiving() instanceof SnowCreature){
             if(event.getSource() == DamageSource.ON_FIRE || event.getSource() == DamageSource.IN_FIRE || event.getSource() == DamageSource.LAVA){
                 if(ColdSnapHorde.sconfig.HORDETAKESMOREFIRE.get()){
                     event.setAmount(event.getAmount() * 2);

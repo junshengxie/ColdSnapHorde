@@ -29,7 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 
-public class GenericHordeMember extends Monster {
+public class GenericHordeMember extends Monster implements SnowCreature {
     private BlockPos target = null;
     private Boolean HordeMember = false;
     public static final EntityDataAccessor<Integer> variant = SynchedEntityData.defineId(GenericHordeMember.class, EntityDataSerializers.INT);
@@ -211,7 +211,7 @@ public class GenericHordeMember extends Monster {
     }
 
 
-    protected boolean shouldOverHeat(float currentTemp, int protectionlevel){
+    public boolean shouldOverHeat(float currentTemp, int protectionlevel){
         if(this.getEntityData().get(variant) == 0) {
             return switch (protectionlevel) {
                 case 0 -> currentTemp > 0.3f;

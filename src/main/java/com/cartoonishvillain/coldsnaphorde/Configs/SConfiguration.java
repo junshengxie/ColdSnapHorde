@@ -15,6 +15,7 @@ public class SConfiguration {
     public ConfigHelper.ConfigValueListener<Integer> HORDESIZE;
     public ConfigHelper.ConfigValueListener<Boolean> HORDETAKESMOREFIRE;
     public ConfigHelper.ConfigValueListener<Boolean> PLAGUEIMMORTUOSCOMPAT;
+    public ConfigHelper.ConfigValueListener<Integer> FROSTYHARVESTCOOLDOWN;
 
 
     public SConfiguration(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber){
@@ -25,6 +26,7 @@ public class SConfiguration {
         this.HORDESIZE = subscriber.subscribe(builder.comment("How large snowmen hordes are when manually summoned.").defineInRange("snowmanHordeSize", 10, 5, 50));
         this.HORDETAKESMOREFIRE = subscriber.subscribe(builder.comment("Horde snowmen take double damage from fire.").define("fireMeltsSnowBetter", true));
         this.PLAGUEIMMORTUOSCOMPAT = subscriber.subscribe(builder.comment("Plague variants of the Cold Snap Horde can infect attack entities with Immortuos Calyx if it is installed alongside this mod.").define("plagueImmortuosCompat", true));
+        this.FROSTYHARVESTCOOLDOWN = subscriber.subscribe(builder.comment("How long in ticks (20 per second by default) it takes for a frosty cow to be ready to be \"milked\" for powdered snow again.").define("frostyHarvestCooldown", 1800));
         builder.pop();
     }
 }

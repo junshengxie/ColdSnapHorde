@@ -64,7 +64,8 @@ public class Register {
     public static final RegistryObject<Item> SNOWBALLERSPAWN = ITEMS.register("snowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPSNOWBALLER, 14804727, 2084, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> GIFTERSPAWN = ITEMS.register("gifter_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPGIFTER, 14804727, 9222, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ZAPPERSPAWN = ITEMS.register("zapper_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPZAPPER, 14804727, 7697692, new Item.Properties().tab(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> BRAWLERPAWN = ITEMS.register("brawler_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPBRAWLER, 14804727, 6229378, new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> BRAWLERSPAWN = ITEMS.register("brawler_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPBRAWLER, 14804727, 6229378, new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> COWSPAWN = ITEMS.register("frostcow_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPCOW, 14804727, 1840384, new Item.Properties().tab(ColdSnapHorde.TAB)));
 
 
 
@@ -74,6 +75,8 @@ public class Register {
     public static final RegistryObject<EntityType<ColdSnapSnowballer>> COLDSNAPSNOWBALLER = ENTITY_TYPES.register("coldsnapsnowballer", () -> EntityType.Builder.of(ColdSnapSnowballer::new, MobCategory.MONSTER).sized(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapsnowballer").toString()));
     public static final RegistryObject<EntityType<ColdSnapZapper>> COLDSNAPZAPPER = ENTITY_TYPES.register("coldsnapzapper", () -> EntityType.Builder.of(ColdSnapZapper::new, MobCategory.MONSTER).sized(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapzapper").toString()));
     public static final RegistryObject<EntityType<ColdSnapBrawler>> COLDSNAPBRAWLER = ENTITY_TYPES.register("coldsnapbrawler", () -> EntityType.Builder.of(ColdSnapBrawler::new, MobCategory.MONSTER).sized(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapbrawler").toString()));
+    public static final RegistryObject<EntityType<ColdSnapCow>> COLDSNAPCOW = ENTITY_TYPES.register("frostycow", () -> EntityType.Builder.of(ColdSnapCow::new, MobCategory.CREATURE).sized(0.9F, 1.4F).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "frostycow").toString()));
+
 
     public static final RegistryObject<EntityType<GunnerProjectileEntity>> GUNNERPROJECTILE = ENTITY_TYPES.register("gunnerprojectile", () -> EntityType.Builder.<GunnerProjectileEntity>of(GunnerProjectileEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "gunnerprojectile").toString()));
     public static final RegistryObject<EntityType<RockSnowballEntity>> ROCKSNOWBALLPROJECTILE = ENTITY_TYPES.register("rocksnowballprojectile", () -> EntityType.Builder.<RockSnowballEntity>of(RockSnowballEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "rocksnowballprojectile").toString()));

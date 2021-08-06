@@ -40,6 +40,7 @@ public class ModBusEvents {
         event.put(Register.COLDSNAPGIFTER.get(), ColdSnapGifter.customAttributes().build());
         event.put(Register.COLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
         event.put(Register.COLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
+        event.put(Register.COLDSNAPCOW.get(), ColdSnapCow.customAttributes().build());
 
     }
 }

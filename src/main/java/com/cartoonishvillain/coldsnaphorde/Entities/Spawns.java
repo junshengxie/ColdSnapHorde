@@ -6,6 +6,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -34,6 +35,7 @@ public class Spawns {
         MobSpawnSettings.SpawnerData spawners3 = new MobSpawnSettings.SpawnerData(Register.COLDSNAPGIFTER.get(), ColdSnapHorde.cconfig.GIFTER.get(),1,1);
         MobSpawnSettings.SpawnerData spawners4 = new MobSpawnSettings.SpawnerData(Register.COLDSNAPZAPPER.get(), ColdSnapHorde.cconfig.ZAPPER.get(),1,1);
         MobSpawnSettings.SpawnerData spawners5 = new MobSpawnSettings.SpawnerData(Register.COLDSNAPZAPPER.get(), ColdSnapHorde.cconfig.BRAWLER.get(),1,1);
+        MobSpawnSettings.SpawnerData spawners6 = new MobSpawnSettings.SpawnerData(Register.COLDSNAPCOW.get(), 8,4, 4);
 
 
         if (BiomeExclusion(finalBiomeExclusion, event.getName()) && !event.getName().toString().contains("swamp")){
@@ -44,6 +46,7 @@ public class Spawns {
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners3);
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners4);
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners5);
+            event.getSpawns().addSpawn(MobCategory.CREATURE, spawners6);
         }
         else if (ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 1 && event.getClimate().temperature < 0.9f){
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners);
@@ -52,6 +55,7 @@ public class Spawns {
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners3);
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners4);
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners5);
+            event.getSpawns().addSpawn(MobCategory.CREATURE, spawners6);
         }
         else if (ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 2 && event.getClimate().temperature < 1.5f){
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners);
@@ -60,6 +64,8 @@ public class Spawns {
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners3);
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners4);
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners5);
+            event.getSpawns().addSpawn(MobCategory.CREATURE, spawners6);
+
         }
         else if (ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 3){
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners);
@@ -68,6 +74,7 @@ public class Spawns {
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners3);
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners4);
             event.getSpawns().addSpawn(MobCategory.MONSTER, spawners5);
+            event.getSpawns().addSpawn(MobCategory.CREATURE, spawners6);
         }
         }
         else if(event.getName().toString().contains("swamp")){
@@ -87,6 +94,7 @@ public class Spawns {
         SpawnPlacements.register(Register.COLDSNAPGIFTER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
         SpawnPlacements.register(Register.COLDSNAPZAPPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
         SpawnPlacements.register(Register.COLDSNAPBRAWLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Mob::checkMobSpawnRules);
+        SpawnPlacements.register(Register.COLDSNAPCOW.get(),SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
     }
 
     public static Boolean BiomeExclusion(ResourceLocation[] BiomeExclusion, ResourceLocation name){

@@ -59,19 +59,14 @@ public class ColdSnapBrawlerModel<C extends GenericHordeMember> extends EntityMo
         hat.setPos(0, 4, 0);
         left_hand.setRotation(0.0F, 1.4399F, -0.4363F);
         right_hand.setRotation(0.0F, -1.4399F, 0.4363F);
-        cube_r1.setPos(-5.36f, 6.9842f, -9.659F);
-        cube_r1.setRotation(-0.1745F, 1.5272F, -1.309F);
-        cube_r2.setRotation(-5.36f, 4.586f,-9.659f);
-        cube_r2.setRotation(1.015F, -0.871F, -0.996F);
+        rglove.children.put(CUBE1, cube_r1);
+        rglove.children.put(CUBE2, cube_r2);
         rglove.setPos(-6.375F, 5.457F, -8.35F);
         rglove.setRotation(-0.1745F, 1.5272F, -1.309F);
-        lglove.setRotation(0.0873F, 1.5272F, -1.8326F);
         lglove.setPos(6.1F, 5.557F, -7.975F);
         lglove.setRotation(0.0873F, 1.5272F, -1.8326F);
-        cube_r3.setPos(7.11f, 6.5274f, -9.0449f);
-        cube_r3.setRotation(-1.5708F, 1.5708F, 0.0F);
-        cube_r4.setRotation(-1.5708F, 1.5708F, 0.0F);
-        cube_r4.setPos(7.11f, 4.5274f, -9.0449f);
+        lglove.children.put(CUBE3, cube_r3);
+        lglove.children.put(CUBE4, cube_r4);
 
 
 //		texWidth = 128;
@@ -167,17 +162,17 @@ public class ColdSnapBrawlerModel<C extends GenericHordeMember> extends EntityMo
         .texOffs(56, 37).addBox(1.5F, -1.375F, -2.0F, 2.0F, 3.0F, 2.0F, cubedeformation5)
         .texOffs(56, 37).addBox(0.5F, -1.375F, -2.0F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.ZERO);
         partDefinition.addOrReplaceChild(CUBE1, CubeListBuilder.create()
-        .texOffs(56, 37).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.ZERO);
+        .texOffs(56, 37).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.offsetAndRotation(1.015F, 1.129F, -0.996F, -1.5708F, 1.5708F, 0.0F));
         partDefinition.addOrReplaceChild(CUBE2, CubeListBuilder.create()
-        .texOffs(56, 37).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.ZERO);
+        .texOffs(56, 37).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.offsetAndRotation(1.015F, -0.871F, -0.996F, -1.5708F, 1.5708F, 0.0F));
         partDefinition.addOrReplaceChild(LGLOVE, CubeListBuilder.create()
                 .texOffs(52, 27).addBox(-0.502F, -1.5336F, -1.0739F, 4.0F, 3.0F, 2.0F, cubedeformation5)
                 .texOffs(52, 27).addBox(1.498F, -1.5336F, -2.0739F, 2.0F, 3.0F, 2.0F, cubedeformation5)
                 .texOffs(52, 27).addBox(0.498F, -1.5336F, -2.0739F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.ZERO);
         partDefinition.addOrReplaceChild(CUBE3, CubeListBuilder.create()
-                .texOffs( 52,27).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.ZERO);
+                .texOffs( 52,27).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.offsetAndRotation(1.013F, 0.9704F, -1.0699F, -1.5708F, 1.5708F, 0.0F));
         partDefinition.addOrReplaceChild(CUBE4, CubeListBuilder.create()
-                .texOffs(52, 27).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.ZERO);
+                .texOffs(52, 27).addBox(-1.0F, -1.5F, -0.5F, 2.0F, 3.0F, 1.0F, cubedeformation5), PartPose.offsetAndRotation(1.013F, -1.0296F, -1.0699F,  -1.5708F, 1.5708F, 0.0F));
         return LayerDefinition.create(meshDefinition, 128, 128);
     }
 
@@ -200,10 +195,6 @@ public class ColdSnapBrawlerModel<C extends GenericHordeMember> extends EntityMo
         hat.render(matrixStack, buffer, packedLight, packedOverlay);
         rglove.render(matrixStack, buffer, packedLight, packedOverlay);
 		lglove.render(matrixStack, buffer, packedLight, packedOverlay);
-//        cube_r1.render(matrixStack, buffer, packedLight, packedOverlay);
-//        cube_r2.render(matrixStack, buffer, packedLight, packedOverlay);
-//        cube_r3.render(matrixStack, buffer, packedLight, packedOverlay);
-//        cube_r4.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
 	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {

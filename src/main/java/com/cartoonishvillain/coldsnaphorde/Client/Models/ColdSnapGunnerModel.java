@@ -20,6 +20,7 @@ public class ColdSnapGunnerModel<C extends Monster> extends EntityModel<ColdSnap
     private final ModelPart body;
     private final ModelPart left_hand;
     private final ModelPart right_hand_r1;
+    private final ModelPart right_hand;
     private final ModelPart gun;
     private final ModelPart head;
     private final ModelPart hat;
@@ -27,6 +28,7 @@ public class ColdSnapGunnerModel<C extends Monster> extends EntityModel<ColdSnap
     private static final String LOWBODY = "lowbody";
     private static final String BODY = "body";
     private static final String LEFTHAND = "lefthand";
+    private static final String RIGHTHAND = "righthand";
     private static final String RIGHTHAND1 = "righthand1";
     private static final String GUN = "gun";
     private static final String HAT = "hat";
@@ -37,25 +39,28 @@ public class ColdSnapGunnerModel<C extends Monster> extends EntityModel<ColdSnap
         this.hat = part.getChild(HAT);
         this.gun = part.getChild(GUN);
         this.right_hand_r1 = part.getChild(RIGHTHAND1);
+        this.right_hand = part.getChild(RIGHTHAND);
         this.left_hand = part.getChild(LEFTHAND);
         this.body = part.getChild(BODY);
         this.lowbody = part.getChild(LOWBODY);
+
+        right_hand.setPos(-5.0F, 7.0F, 0.0F);
         lowbody.setPos(0.0F, 24.0F, 0.0F);
         body.setPos(0, 13, 0);
-        right_hand_r1.setPos(-5, 6, 0);
         left_hand.setPos(5, 6, 0);
-        gun.setPos(-5.375F, 7.625F, -8.75F);
         head.setPos(0, 4, 0);
         hat.setPos(0, 4, 0);
         left_hand.setRotation(0.0F, 0.0F, 1.1345F);
-        right_hand_r1.setRotation(0.0F, -1.4835F, -0.1309F);
-        gun.setRotation(0.0F, -1.4835F, -0.1309F);
+        right_hand.children.put(RIGHTHAND1, right_hand_r1);
+        right_hand.children.put(GUN, gun);
     }
 
     public static LayerDefinition createLayer(){
         MeshDefinition meshDefinition = new MeshDefinition();
         PartDefinition partDefinition = meshDefinition.getRoot();
         CubeDeformation cubedeformation5 = new CubeDeformation(-0.5F);
+        CubeDeformation cubedeformation65 = new CubeDeformation(-0.65F);
+        partDefinition.addOrReplaceChild(RIGHTHAND, CubeListBuilder.create().texOffs(0,0).addBox(0, 0, 0, 0, 0, 0), PartPose.ZERO);
         partDefinition.addOrReplaceChild(LOWBODY, CubeListBuilder.create()
                 .texOffs(0, 36).addBox(-6, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, cubedeformation5), PartPose.ZERO);
         partDefinition.addOrReplaceChild(BODY, CubeListBuilder.create()
@@ -63,17 +68,16 @@ public class ColdSnapGunnerModel<C extends Monster> extends EntityModel<ColdSnap
         partDefinition.addOrReplaceChild(LEFTHAND, CubeListBuilder.create()
                 .texOffs(32, 0).addBox(-1.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, cubedeformation5), PartPose.ZERO);
         partDefinition.addOrReplaceChild(RIGHTHAND1, CubeListBuilder.create()
-                .texOffs(32, 0).addBox(-11.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, cubedeformation5), PartPose.ZERO);
+                .texOffs(32, 0).addBox(-11.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, cubedeformation5), PartPose.offsetAndRotation(0.0F, -1.0F, 0.0F, 0.0F, -1.4835F, -0.1309F));
         partDefinition.addOrReplaceChild(GUN, CubeListBuilder.create()
                 .texOffs(52, 4).addBox(-2.0F, -3.0F, -1.0F, 2.0F, 3.0F, 2.0F, cubedeformation5)
                 .texOffs(47, 15).addBox(-4.0F, -4.0F, -1.0F, 4.0F, 2.0F, 2.0F, cubedeformation5)
-                //Not showing for some reason when activated. Might as well not waste time with it until I figure out why.
-//                .texOffs(40, 9).addBox(-4.0F, -3.8F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-//                .texOffs(43, 8).addBox(-4.0F, -3.2F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-//                .texOffs(41, 26).addBox(-4.0F, -3.5F, -0.8F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-//                .texOffs(47, 5).addBox(-4.0F, -3.5F, -0.2F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-//                .texOffs(33, 5).addBox(-3.925F, -3.5F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation5)
-                , PartPose.ZERO);
+                .texOffs(40, 9).addBox(-4.0F, -3.8F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation65)
+                .texOffs(43, 8).addBox(-4.0F, -3.2F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation65)
+                .texOffs(41, 26).addBox(-4.0F, -3.5F, -0.8F, 1.0F, 1.0F, 1.0F, cubedeformation65)
+                .texOffs(47, 5).addBox(-4.0F, -3.5F, -0.2F, 1.0F, 1.0F, 1.0F, cubedeformation65)
+                .texOffs(33, 5).addBox(-3.925F, -3.5F, -0.5F, 1.0F, 1.0F, 1.0F, cubedeformation65)
+                , PartPose.offsetAndRotation(-0.625F, 0.125F, -8.75F, 0.0F, -1.4835F, -0.1309F));
         partDefinition.addOrReplaceChild(HEAD, CubeListBuilder.create()
                 .texOffs(0,0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, cubedeformation5), PartPose.ZERO);
         partDefinition.addOrReplaceChild(HAT, CubeListBuilder.create()
@@ -145,10 +149,9 @@ public class ColdSnapGunnerModel<C extends Monster> extends EntityModel<ColdSnap
         lowbody.render(matrixStack, buffer, packedLight, packedOverlay);
         body.render(matrixStack, buffer, packedLight, packedOverlay);
         left_hand.render(matrixStack, buffer, packedLight, packedOverlay);
-        right_hand_r1.render(matrixStack, buffer, packedLight, packedOverlay);
+        right_hand.render(matrixStack, buffer, packedLight, packedOverlay);
         head.render(matrixStack, buffer, packedLight, packedOverlay);
         hat.render(matrixStack, buffer, packedLight, packedOverlay);
-        gun.render(matrixStack, buffer, packedLight, packedOverlay);
     }
 
     public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {

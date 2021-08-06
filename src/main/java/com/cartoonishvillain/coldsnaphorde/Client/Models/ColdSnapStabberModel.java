@@ -44,12 +44,11 @@ public class ColdSnapStabberModel<C extends GenericHordeMember> extends EntityMo
 		body.setPos(0, 13, 0);
 		right_hand.setPos(-4, 6, 0);
 		left_hand.setPos(5, 6, 0);
-		knife.setPos(-4F, -2.5f, -1.5F);
+		right_hand.children.put(KNIFE, knife);
 		head.setPos(0, 4, 0);
 		hat.setPos(0, 4, 0);
 		left_hand.setRotation(0.0f, 0.0f, 0.9163f);
 		right_hand.setRotation(0f, -0.3927f, 1.5708f);
-		knife.setRotation(2.138F, 0.0F, 0.0F);
 	}
 
 	public static LayerDefinition createLayer(){
@@ -69,7 +68,7 @@ public class ColdSnapStabberModel<C extends GenericHordeMember> extends EntityMo
 				.texOffs(41, 26).addBox(-1.5F, -4.0F, 0.5F, 1.0F, 3.0F, 2.0F, cubedeformation25)
 				.texOffs(36, 40).addBox(-2.0F, -5.0F, -1.0F, 2.0F, 2.0F, 5.0F, cubedeformation5)
 				.texOffs(1,17).addBox(-2.0F, -8.0F, 0.0F, 2.0F, 4.0F, 2.0F, cubedeformation5)
-				.texOffs(0, 36).addBox(-2.0F, -9.0F, 1.0F, 2.0F, 5.0F, 2.0F, cubedeformation5), PartPose.ZERO);
+				.texOffs(0, 36).addBox(-2.0F, -9.0F, 1.0F, 2.0F, 5.0F, 2.0F, cubedeformation5), PartPose.offsetAndRotation(-11.1183F, 2.125F, 1.3915F, 1.4399F, 0.0F, 1.5708F));
 		partDefinition.addOrReplaceChild(HEAD, CubeListBuilder.create()
 				.texOffs(0,0).addBox(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, cubedeformation5), PartPose.ZERO);
 		partDefinition.addOrReplaceChild(HAT, CubeListBuilder.create()
@@ -137,7 +136,6 @@ public class ColdSnapStabberModel<C extends GenericHordeMember> extends EntityMo
 		right_hand.render(matrixStack, buffer, packedLight, packedOverlay);
 		head.render(matrixStack, buffer, packedLight, packedOverlay);
 		hat.render(matrixStack, buffer, packedLight, packedOverlay);
-		knife.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
 	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {

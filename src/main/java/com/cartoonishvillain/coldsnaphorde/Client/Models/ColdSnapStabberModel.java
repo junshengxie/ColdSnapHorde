@@ -14,6 +14,7 @@ import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.util.Mth;
 
 public class ColdSnapStabberModel<C extends GenericHordeMember> extends EntityModel<ColdSnapStabber> {
 	private static final String LOWBODY = "lowbody";
@@ -125,6 +126,19 @@ public class ColdSnapStabberModel<C extends GenericHordeMember> extends EntityMo
 		this.hat.yRot = netHeadYaw * ((float)Math.PI / 180F);
 		this.hat.xRot = headPitch * ((float)Math.PI / 180F);
 		this.body.yRot = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;
+
+		if(entityIn.getANITIMER() > 0){
+			this.right_hand.yRot = -1.5F + 2 * Mth.triangleWave((float)entityIn.getANITIMER() + limbSwing, 10f);
+		}
+		if(entityIn.getANITIMER() <= 0){
+			this.right_hand.yRot = -0.3927f;
+		}
+
+//		this.right_hand.yRot = -2.0F + 1.5F * Mth.triangleWave((float)entityIn.getANITIMER() + limbSwing, 10.0F);
+//	}
+//		if(entityIn.getANITIMER() <= 0){
+//		this.right_hand.yRot = -0.3927f;
+//	}
 	}
 
 
@@ -138,9 +152,5 @@ public class ColdSnapStabberModel<C extends GenericHordeMember> extends EntityMo
 		hat.render(matrixStack, buffer, packedLight, packedOverlay);
 	}
 
-	public void setRotationAngle(ModelPart modelRenderer, float x, float y, float z) {
-		modelRenderer.xRot = x;
-		modelRenderer.yRot = y;
-		modelRenderer.zRot = z;
-	}
+
 }

@@ -56,6 +56,10 @@ public class ColdSnapStabber extends GenericHordeMember {
         getEntityData().define(ANITIMER, 0f);
     }
 
+    public float getANITIMER() {
+        return getEntityData().get(ANITIMER);
+    }
+
     public static AttributeSupplier.Builder customAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
@@ -75,13 +79,11 @@ public class ColdSnapStabber extends GenericHordeMember {
                     int chance = random.nextInt(100);
                     if (chance <= 6){((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.CONFUSION, 10*20, 0));}
 
-                    this.getEntityData().set(ANITIMER, 50f);
                 }
                 case 1 -> {
                     int chance = random.nextInt(100);
                     if (chance <= 75){entityIn.setSecondsOnFire(5);}
 
-                    this.getEntityData().set(ANITIMER, 50f);
                 }
                 case 2 -> {
                     int chance = random.nextInt(20);
@@ -92,6 +94,7 @@ public class ColdSnapStabber extends GenericHordeMember {
                     Infection((LivingEntity) entityIn);
                 }
             }
+            this.getEntityData().set(ANITIMER, 50f);
 
         }
         return super.doHurtTarget(entityIn);

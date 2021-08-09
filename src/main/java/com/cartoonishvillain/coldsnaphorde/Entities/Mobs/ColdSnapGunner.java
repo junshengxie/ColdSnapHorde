@@ -37,7 +37,7 @@ public class ColdSnapGunner extends GenericHordeMember implements IRangedAttackM
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
-        this.targetSelector.addGoal(1, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(3, new RangedBowAttackGoal<>(this, 0.75D, 30, 25.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, 10, true, false, this::shouldAttack));

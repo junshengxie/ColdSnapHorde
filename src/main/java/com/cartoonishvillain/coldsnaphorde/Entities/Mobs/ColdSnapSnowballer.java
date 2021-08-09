@@ -33,7 +33,7 @@ public class ColdSnapSnowballer extends GenericHordeMember implements IRangedAtt
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
-        this.targetSelector.addGoal(1, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(1, new RangedAttackGoal(this, 1.0D, 16, 20.0F));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, VillagerEntity.class, 10, true, false, this::shouldAttack));

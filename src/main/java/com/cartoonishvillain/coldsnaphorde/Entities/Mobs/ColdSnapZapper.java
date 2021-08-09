@@ -39,7 +39,7 @@ public class ColdSnapZapper extends GenericHordeMember {
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 8.0F));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomWalkingGoal(this, 0.5D));
-        this.targetSelector.addGoal(1, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, CreatureEntity.class, 6.0F, 0.75D, 0.75D, this::avoid));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, PlayerEntity.class, 6.0F, 1.0D, 1.2D, this::avoid));
         this.goalSelector.addGoal(2, new CustomMeleeAttackGoal(this, 0.75D, false));

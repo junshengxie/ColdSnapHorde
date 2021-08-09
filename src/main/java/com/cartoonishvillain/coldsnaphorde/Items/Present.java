@@ -42,8 +42,10 @@ public class Present extends Item {
         possibilities.add("horse"); weights.add(5f);
         possibilities.add("pig"); weights.add(5f);
         possibilities.add("candycane"); weights.add(10f);
+        possibilities.add("icesword"); weights.add(5f);
 
-        playerIn.getHeldItemMainhand().shrink(1);
+
+            playerIn.getHeldItemMainhand().shrink(1);
 
         float Total = 0f;
         for(float totaling : weights) Total += totaling;
@@ -169,6 +171,8 @@ public class Present extends Item {
                 if(world.rand.nextInt() % 2 == 0) ItemSpawner(playerEntity.getPosition(), world, Register.REDCANDYCANEITEM.get(), 10, 20);
                 else ItemSpawner(playerEntity.getPosition(), world, Register.GREENCANDYCANEITEM.get(), 10, 20);
                 break;
+            case "icesword":
+                ItemSpawner(playerEntity.getPosition(), world, Register.ICESWORD.get(), 1, 1);
         }
     }
     private Item MusicDisc(){

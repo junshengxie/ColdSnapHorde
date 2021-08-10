@@ -13,9 +13,7 @@ import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.RockySnowball;
 import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.SnowierSnowball;
 import com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther.IceSword;
 import com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther.Materials;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -65,7 +63,6 @@ public class Register {
     public static final RegistryObject<Item> BRAWLERPAWN = ITEMS.register("brawler_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPBRAWLER, 14804727, 6229378, new Item.Properties().group(ColdSnapHorde.TAB)));
 
 
-
     public static final RegistryObject<EntityType<ColdSnapGifter>> COLDSNAPGIFTER = ENTITY_TYPES.register("coldsnapgifter", () -> EntityType.Builder.create(ColdSnapGifter::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapgifter").toString()));
     public static final RegistryObject<EntityType<ColdSnapGunner>> COLDSNAPGUNNER = ENTITY_TYPES.register("coldsnapgunner", () -> EntityType.Builder.create(ColdSnapGunner::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapgunner").toString()));
     public static final RegistryObject<EntityType<ColdSnapStabber>> COLDSNAPSTABBER = ENTITY_TYPES.register("coldsnapstabber", () -> EntityType.Builder.create(ColdSnapStabber::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapstabber").toString()));
@@ -82,9 +79,12 @@ public class Register {
 
     public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(AbstractBlock.Properties.create(Material.BAMBOO).hardnessAndResistance(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.BONE)));
     public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(AbstractBlock.Properties.create(Material.BAMBOO).hardnessAndResistance(2).harvestTool(ToolType.PICKAXE).setRequiresTool().sound(SoundType.BONE)));
+    public static final RegistryObject<Block> SLUSH = BLOCKS.register("slush", () -> new SlushBlock(AbstractBlock.Properties.create(Material.SNOW).hardnessAndResistance(0).sound(SoundType.SNOW)));
 
     public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new BlockItem(REDCANDYCANE.get(), new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new BlockItem(GREENCANDYCANE.get(), new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<BlockItem> SLUSHITEM = ITEMS.register("slush", ()-> new BlockItem(SLUSH.get(), new Item.Properties().group(ColdSnapHorde.TAB)));
+
 
     public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", ()->new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().group(ColdSnapHorde.TAB).rarity(Rarity.UNCOMMON)));
 

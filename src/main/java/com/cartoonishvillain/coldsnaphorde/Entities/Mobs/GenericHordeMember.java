@@ -167,7 +167,7 @@ public class GenericHordeMember extends MonsterEntity {
                 blockstate = Blocks.SNOW.getDefaultState();
             }
             if (this.dataManager.get(variant) == 1) {
-                blockstate = Blocks.FIRE.getDefaultState();
+                blockstate = Register.SLUSH.get().getDefaultState();
             }
 
 
@@ -181,16 +181,13 @@ public class GenericHordeMember extends MonsterEntity {
                         this.world.setBlockState(blockpos, blockstate);
                     }
                 }
-            } else if (blockstate == Blocks.FIRE.getDefaultState()) {
+            } else if (blockstate == Register.SLUSH.get().getDefaultState()) {
                 for (int l = 0; l < 4; ++l) {
                     i = MathHelper.floor(this.getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
                     j = MathHelper.floor(this.getPosY());
                     k = MathHelper.floor(this.getPosZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.world.getBlockState(blockpos.down()) == Blocks.SOUL_SAND.getDefaultState() || this.world.getBlockState(blockpos.down()) == Blocks.SOUL_SOIL.getDefaultState()) {
-                        blockstate = Blocks.SOUL_FIRE.getDefaultState();
-                    }
-                    if(this.world.isAirBlock(blockpos) && blockstate.isValidPosition(this.world, blockpos))this.world.setBlockState(blockpos, blockstate);
+                    if(this.world.isAirBlock(blockpos) && (!this.world.isAirBlock(blockpos.down()) && !this.world.getBlockState(blockpos.down()).equals(Register.SLUSH.get().getDefaultState())))this.world.setBlockState(blockpos, blockstate);
                 }
             }}
             }

@@ -1,6 +1,5 @@
-package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
+package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
-import com.cartoonishvillain.ImmortuosCalyx.ImmortuosCalyx;
 import com.cartoonishvillain.ImmortuosCalyx.Infection.InfectionManagerCapability;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovementGoal;

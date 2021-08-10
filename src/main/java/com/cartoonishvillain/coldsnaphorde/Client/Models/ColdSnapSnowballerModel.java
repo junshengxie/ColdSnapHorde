@@ -5,11 +5,10 @@ package com.cartoonishvillain.coldsnaphorde.Client.Models;
 // Paste this class into your mod and generate all required imports
 
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapSnowballer;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapSnowballer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.SnowGolemModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;

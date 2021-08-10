@@ -1,6 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Client.Models;
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapGunner;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapGunner;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

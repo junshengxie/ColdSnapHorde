@@ -1,7 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Events;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.*;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.*;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

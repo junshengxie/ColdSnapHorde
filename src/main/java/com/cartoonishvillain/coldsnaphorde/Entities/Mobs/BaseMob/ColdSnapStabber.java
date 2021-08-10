@@ -1,11 +1,9 @@
-package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
+package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -16,7 +14,6 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.monster.Blaze;
-import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;

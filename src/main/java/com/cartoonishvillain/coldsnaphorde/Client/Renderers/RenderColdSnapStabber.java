@@ -2,13 +2,13 @@ package com.cartoonishvillain.coldsnaphorde.Client.Renderers;
 
 import com.cartoonishvillain.coldsnaphorde.Client.Models.ColdSnapStabberModel;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapStabber;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapStabber;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPSTABBER;
-import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.variant;
 
 public class RenderColdSnapStabber extends MobRenderer<ColdSnapStabber, ColdSnapStabberModel<ColdSnapStabber>> {
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapstabber.png");

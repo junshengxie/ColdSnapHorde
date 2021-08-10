@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
+package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
 import com.cartoonishvillain.coldsnaphorde.Register;

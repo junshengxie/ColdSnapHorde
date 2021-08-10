@@ -3,7 +3,7 @@ package com.cartoonishvillain.coldsnaphorde.Client.Models;// Made with Blockbenc
 // Paste this class into your mod and generate all required imports
 
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapGifter;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapGifter;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

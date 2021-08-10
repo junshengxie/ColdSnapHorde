@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
+package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
@@ -16,16 +16,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-
-import javax.annotation.Nullable;
 
 public class ColdSnapCow extends Cow implements SnowCreature {
 

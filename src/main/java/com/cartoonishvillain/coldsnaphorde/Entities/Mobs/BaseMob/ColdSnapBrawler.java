@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
+package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.entity.*;

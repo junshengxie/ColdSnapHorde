@@ -1,18 +1,12 @@
 package com.cartoonishvillain.coldsnaphorde.Client.Renderers;
 
-import com.cartoonishvillain.coldsnaphorde.Client.Models.ColdSnapBrawlerModel;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapBrawler;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapCow;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapCow;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
-
-import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPBRAWLER;
-import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
 
 public class RenderColdSnapCow extends MobRenderer<ColdSnapCow, CowModel<ColdSnapCow>> {
 

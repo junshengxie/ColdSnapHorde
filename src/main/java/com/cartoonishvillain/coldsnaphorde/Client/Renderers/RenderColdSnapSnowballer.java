@@ -2,14 +2,13 @@ package com.cartoonishvillain.coldsnaphorde.Client.Renderers;
 
 import com.cartoonishvillain.coldsnaphorde.Client.Models.ColdSnapSnowballerModel;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapSnowballer;
-import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapSnowballer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPSNOWBALLER;
-import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.variant;
 
 public class RenderColdSnapSnowballer extends MobRenderer<ColdSnapSnowballer, ColdSnapSnowballerModel<ColdSnapSnowballer>> {
 

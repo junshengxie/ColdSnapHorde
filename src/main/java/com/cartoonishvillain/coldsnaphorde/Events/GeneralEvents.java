@@ -1,9 +1,9 @@
 package com.cartoonishvillain.coldsnaphorde.Events;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapGifter;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.SnowCreature;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapGifter;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.SnowCreature;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,7 +21,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.variant;
 
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GeneralEvents {

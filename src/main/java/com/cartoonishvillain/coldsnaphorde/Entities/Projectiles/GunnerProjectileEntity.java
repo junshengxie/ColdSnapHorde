@@ -1,6 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -22,8 +22,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.Infection;
-import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.Infection;
 
 public class GunnerProjectileEntity extends ThrowableItemProjectile {
 

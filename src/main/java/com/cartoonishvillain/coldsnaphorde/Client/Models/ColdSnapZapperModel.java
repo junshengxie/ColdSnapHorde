@@ -5,7 +5,7 @@ package com.cartoonishvillain.coldsnaphorde.Client.Models;
 // Paste this class into your mod and generate all required imports
 
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.ColdSnapZapper;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapZapper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;

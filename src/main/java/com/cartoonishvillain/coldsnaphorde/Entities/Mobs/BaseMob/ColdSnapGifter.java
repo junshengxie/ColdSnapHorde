@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
+package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.GifterSurprise;
 import com.cartoonishvillain.coldsnaphorde.Register;
@@ -20,7 +20,6 @@ import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;

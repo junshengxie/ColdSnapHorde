@@ -14,6 +14,8 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -49,7 +51,9 @@ public class ColdSnapBrawler extends GenericHordeMember{
             case 0: break;
             case 1:
                 int chance2 = this.rand.nextInt(100);
-                if (chance2 <= 75){entityIn.setFire(3);}
+                if (chance2 <= 75){
+                    if (entityIn instanceof LivingEntity) ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
+                }
                 break;
             case 2:
                 int chance3 = rand.nextInt(20);

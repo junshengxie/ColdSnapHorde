@@ -72,19 +72,19 @@ public class Register {
     public static final RegistryObject<Item> NZAPPERSPAWN = ITEMS.register("nzapper_spawn_egg", () -> new ColdSpawnEggItem(Register.NCOLDSNAPZAPPER, 4926000, 9802549, new Item.Properties().group(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> NBRAWLERPAWN = ITEMS.register("nbrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.NCOLDSNAPBRAWLER, 4926000, 6229378, new Item.Properties().group(ColdSnapHorde.TAB)));
 
-    public static final RegistryObject<Item> EGUNNERSPAWN = ITEMS.register("egunner_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPGUNNER, 14804727, 0, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> ESTABBERSPAWN = ITEMS.register("estabber_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPSTABBER, 14804727, 2359296, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> ESNOWBALLERSPAWN = ITEMS.register("esnowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPSNOWBALLER, 14804727, 2084, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> EGIFTERSPAWN = ITEMS.register("egifter_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPGIFTER, 14804727, 9222, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> EZAPPERSPAWN = ITEMS.register("ezapper_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPZAPPER, 14804727, 7697692, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> EBRAWLERPAWN = ITEMS.register("ebrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPBRAWLER, 14804727, 6229378, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> EGUNNERSPAWN = ITEMS.register("egunner_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPGUNNER, 15332272, 0, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> ESTABBERSPAWN = ITEMS.register("estabber_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPSTABBER, 15332272, 8585216, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> ESNOWBALLERSPAWN = ITEMS.register("esnowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPSNOWBALLER, 15332272, 25753, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> EGIFTERSPAWN = ITEMS.register("egifter_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPGIFTER, 15332272, 26671, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> EZAPPERSPAWN = ITEMS.register("ezapper_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPZAPPER, 15332272, 9802549, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> EBRAWLERPAWN = ITEMS.register("ebrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPBRAWLER, 15332272, 6229378, new Item.Properties().group(ColdSnapHorde.TAB)));
 
-    public static final RegistryObject<Item> PGUNNERSPAWN = ITEMS.register("pgunner_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPGUNNER, 14804727, 0, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> PSTABBERSPAWN = ITEMS.register("pstabber_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPSTABBER, 14804727, 2359296, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> PSNOWBALLERSPAWN = ITEMS.register("psnowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPSNOWBALLER, 14804727, 2084, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> PGIFTERSPAWN = ITEMS.register("pgifter_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPGIFTER, 14804727, 9222, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> PZAPPERSPAWN = ITEMS.register("pzapper_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPZAPPER, 14804727, 7697692, new Item.Properties().group(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> PBRAWLERPAWN = ITEMS.register("pbrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPBRAWLER, 14804727, 6229378, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> PGUNNERSPAWN = ITEMS.register("pgunner_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPGUNNER, 7444, 0, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> PSTABBERSPAWN = ITEMS.register("pstabber_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPSTABBER, 7444, 8585216, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> PSNOWBALLERSPAWN = ITEMS.register("psnowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPSNOWBALLER, 7444, 25753, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> PGIFTERSPAWN = ITEMS.register("pgifter_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPGIFTER, 7444, 26671, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> PZAPPERSPAWN = ITEMS.register("pzapper_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPZAPPER, 7444, 9802549, new Item.Properties().group(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> PBRAWLERPAWN = ITEMS.register("pbrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPBRAWLER, 7444, 6229378, new Item.Properties().group(ColdSnapHorde.TAB)));
 
 
     public static final RegistryObject<EntityType<StandardHorde.StandardGifter>> COLDSNAPGIFTER = ENTITY_TYPES.register("coldsnapgifter", () -> EntityType.Builder.create(StandardHorde.StandardGifter::new, EntityClassification.MONSTER).size(0.6f, 1.95f).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "coldsnapgifter").toString()));

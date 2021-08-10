@@ -71,9 +71,10 @@ public class RockSnowballEntity extends ProjectileItemEntity {
                 break;
                 case 1:
                     int chance2 = rand.nextInt(100);
-                    if (chance2 <= 75){entity.setFire(1);}
-
-                break;
+                    if (chance2 <= 75) {
+                        ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
+                    }
+                    break;
                 case 2:
                     int chance3 = rand.nextInt(20);
                     if(chance3 <= 2) ((LivingEntity) entity).attemptTeleport(entity.getPosX() + rand.nextInt(5+5)-5,entity.getPosY() + rand.nextInt(5+5)-5,entity.getPosZ() + rand.nextInt(5+5)-5, true);

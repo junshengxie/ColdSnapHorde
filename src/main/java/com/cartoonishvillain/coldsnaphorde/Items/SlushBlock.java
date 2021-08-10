@@ -31,7 +31,16 @@ public class SlushBlock extends Block {
         return worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP);
     }
 
+    @Override
+    public boolean ticksRandomly(BlockState state) {
+        return true;
+    }
 
+    @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        super.randomTick(state, worldIn, pos, random);
+        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+    }
 
     public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if(!(entityIn instanceof GenericHordeMember))

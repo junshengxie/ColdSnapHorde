@@ -15,6 +15,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -84,7 +86,7 @@ public class ColdSnapZapper extends GenericHordeMember {
             case 1:
                 int chance2 = this.rand.nextInt(100);
                 if (chance2 <= 75) {
-                    entityIn.setFire(3);
+                    if (entityIn instanceof LivingEntity) ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
                 }
                 break;
             case 2:

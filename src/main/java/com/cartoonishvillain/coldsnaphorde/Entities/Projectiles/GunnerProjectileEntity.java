@@ -66,7 +66,9 @@ public class GunnerProjectileEntity extends ProjectileItemEntity {
                 break;
                 case 1:
                     int chance2 = rand.nextInt(100);
-                    if (chance2 <= 75){entity.setFire(3);}
+                    if (chance2 <= 75) {
+                        ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
+                    }
                     break;
                 case 2:
                     int chance3 = rand.nextInt(20);

@@ -83,7 +83,7 @@ public class ColdSnapStabber extends GenericHordeMember {
                 case 1:
                     int chance2 = this.rand.nextInt(100);
                     if (chance2 <= 75) {
-                        entityIn.setFire(3);
+                        ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
                     }
                     break;
                 case 2:

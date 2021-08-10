@@ -1,6 +1,8 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.Entity;
@@ -107,12 +109,13 @@ public class GifterSurprise {
                 }
             } else{
                 for (BlockPos blockPos : blockPosArrayList){
-                    if((world.getBlockState(blockPos).equals(Blocks.AIR.getDefaultState()) || world.getBlockState(blockPos).equals(Blocks.GRASS.getDefaultState())) && !(world.getBlockState(blockPos.down()).equals(Blocks.AIR.getDefaultState()) || world.getBlockState(blockPos.down()).equals(Blocks.GRASS.getDefaultState()))){
-                        if(world.getBlockState(blockPos.down()).equals(Blocks.SOUL_SAND.getDefaultState()) || world.getBlockState(blockPos.down()).equals(Blocks.SOUL_SOIL.getDefaultState())){
-                            world.setBlockState(blockPos, Blocks.SOUL_FIRE.getDefaultState());
-                        }else {world.setBlockState(blockPos, Blocks.FIRE.getDefaultState());}
+                    if(world.getBlockState(blockPos).equals(Blocks.AIR.getDefaultState())){
+                        BlockState blockstate = Register.SLUSH.get().getDefaultState();
+                        if(blockstate.isValidPosition(world, blockPos)){
+                            world.setBlockState(blockPos, blockstate);
+                        }
 
-                    } else if(world.getBlockState(blockPos).equals(Blocks.ICE.getDefaultState())) world.setBlockState(blockPos, Blocks.PACKED_ICE.getDefaultState());
+                    }
                 }
             }
         }

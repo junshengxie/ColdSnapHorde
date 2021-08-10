@@ -13,11 +13,14 @@ import net.minecraft.item.Items;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.variant;
 
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GeneralEvents {
@@ -67,6 +70,15 @@ public class GeneralEvents {
                     event.setAmount(event.getAmount() * 2);
                 }
             }
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void HordeSpawn(EntityJoinWorldEvent event){
+        if(event.getEntity() instanceof GenericHordeMember && !event.getWorld().isRemote()){
+            if(event.getEntity().getDataManager().get(variant) == -1){
+                ((GenericHordeMember) event.getEntity()).determineHordeVariant();}
         }
     }
 }

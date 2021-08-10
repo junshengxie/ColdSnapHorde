@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,6 +25,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
+
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.Infection;
 
 public class RockSnowballEntity extends ProjectileItemEntity {
 
@@ -59,7 +62,29 @@ public class RockSnowballEntity extends ProjectileItemEntity {
         int i = entity instanceof BlazeEntity ? 3 : 1;
         entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), (float)i);
         int chance = rand.nextInt(20);
-        if (chance <= 2 && entity instanceof LivingEntity && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5*20, 0));
+        if(this.getShooter() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.world.isRemote()){
+            GenericHordeMember member = (GenericHordeMember) this.getShooter();
+            switch(member.getHordeVariant()){
+                case 0:
+                    if(chance <= 2)  {((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5*20, 0));
+                        if(chance == 1) ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
+                break;
+                case 1:
+                    int chance2 = rand.nextInt(100);
+                    if (chance2 <= 75){entity.setFire(1);}
+
+                break;
+                case 2:
+                    int chance3 = rand.nextInt(20);
+                    if(chance3 <= 2) ((LivingEntity) entity).attemptTeleport(entity.getPosX() + rand.nextInt(5+5)-5,entity.getPosY() + rand.nextInt(5+5)-5,entity.getPosZ() + rand.nextInt(5+5)-5, true);
+                    else if(chance3 <=4) member.attemptTeleport(this.getPosX() + rand.nextInt(5+5)-5,this.getPosY() + rand.nextInt(5+5)-5,this.getPosZ() + rand.nextInt(5+5)-5, true);
+                break;
+                case 3:
+                    Infection((LivingEntity) entity);
+                    break;
+            }
+        }
+        else if (chance <= 2 && entity instanceof LivingEntity && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5*20, 0));
             if (chance == 1) ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
     }
 

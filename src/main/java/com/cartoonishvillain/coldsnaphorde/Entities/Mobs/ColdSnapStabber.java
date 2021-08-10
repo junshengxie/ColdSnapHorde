@@ -79,11 +79,34 @@ public class ColdSnapStabber extends GenericHordeMember {
 
     @Override
     public boolean attackEntityAsMob(Entity entityIn) {
-        if (entityIn instanceof LivingEntity && !this.world.isRemote()){
-            int chance = rand.nextInt(100);
-            if (chance <= 6){((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.NAUSEA, 10*20, 0));}
-
-            this.getDataManager().set(ANITIMER, 10f);
+        if (entityIn instanceof LivingEntity && !this.world.isRemote()) {
+            switch (this.getHordeVariant()) {
+                case 0:
+                    int chance = rand.nextInt(100);
+                    if (chance <= 6) {
+                        ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.NAUSEA, 10 * 20, 0));
+                    }
+                    break;
+                case 1:
+                    int chance2 = this.rand.nextInt(100);
+                    if (chance2 <= 75) {
+                        entityIn.setFire(3);
+                    }
+                    break;
+                case 2:
+                    int chance3 = rand.nextInt(20);
+                    if (chance3 <= 2)
+                        ((LivingEntity) entityIn).attemptTeleport(entityIn.getPosX() + rand.nextInt(5 + 5) - 5, entityIn.getPosY() + rand.nextInt(5 + 5) - 5, entityIn.getPosZ() + rand.nextInt(5 + 5) - 5, true);
+                    else if (chance3 <= 4)
+                        this.attemptTeleport(this.getPosX() + rand.nextInt(5 + 5) - 5, this.getPosY() + rand.nextInt(5 + 5) - 5, this.getPosZ() + rand.nextInt(5 + 5) - 5, true);
+                    break;
+                case 3:
+                    Infection((LivingEntity) entityIn);
+                    break;
+            }
+            if(getANITIMER() <= 0){
+            this.getDataManager().set(ANITIMER, 20f);}
+            return super.attackEntityAsMob(entityIn);
         }
         return super.attackEntityAsMob(entityIn);
     }

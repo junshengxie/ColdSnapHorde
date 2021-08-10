@@ -13,6 +13,7 @@ public class SConfiguration {
     public ConfigHelper.ConfigValueListener<Integer> STICKTRANSPONDER;
     public ConfigHelper.ConfigValueListener<Integer> GLOBALHORDECOOLDOWN;
     public ConfigHelper.ConfigValueListener<Integer> HORDESIZE;
+    public ConfigHelper.ConfigValueListener<Boolean> PLAGUEIMMORTUOSCOMPAT;
     public ConfigHelper.ConfigValueListener<Boolean> HORDETAKESMOREFIRE;
 
 
@@ -22,6 +23,7 @@ public class SConfiguration {
         this.STICKTRANSPONDER = subscriber.subscribe(builder.comment("The percent chance that the snowman zapper will stick a transponder on his target if one is available.").defineInRange("transponderStick", 20, 0, 100));
         this.GLOBALHORDECOOLDOWN = subscriber.subscribe(builder.comment("How long in seconds players need to wait inbetween Snowglobe usage (Spawning a notable number of snowmen)").defineInRange("globalHordeCooldown", 60, 1, 3600));
         this.HORDESIZE = subscriber.subscribe(builder.comment("How large snowmen hordes are when manually summoned.").defineInRange("snowmanHordeSize", 10, 5, 50));
+        this.PLAGUEIMMORTUOSCOMPAT = subscriber.subscribe(builder.comment("Plague variants of the Cold Snap Horde can infect attack entities with Immortuos Calyx if it is installed alongside this mod.").define("plagueImmortuosCompat", true));
         this.HORDETAKESMOREFIRE = subscriber.subscribe(builder.comment("Horde snowmen take double damage from fire.").define("fireMeltsSnowBetter", true));
         builder.pop();
     }

@@ -8,6 +8,8 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.BlazeEntity;
+import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.monster.HuskEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.SnowGolemEntity;
@@ -46,6 +48,25 @@ public class ColdSnapGifter extends GenericHordeMember {
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, SnowGolemEntity.class, 10, true, false, this::shouldAttack));
     }
 
+
+    @Override
+    public boolean attackEntityAsMob(Entity entityIn) {
+        switch(this.getHordeVariant()){
+            case 0: break;
+            case 1:
+                int chance2 = this.rand.nextInt(100);
+                if (chance2 <= 75){entityIn.setFire(3);}
+                break;
+            case 2:
+                int chance3 = rand.nextInt(20);
+                if(chance3 <= 2) ((LivingEntity) entityIn).attemptTeleport(entityIn.getPosX() + rand.nextInt(5+5)-5,entityIn.getPosY() + rand.nextInt(5+5)-5,entityIn.getPosZ() + rand.nextInt(5+5)-5, true);
+                else if(chance3 <=4) this.attemptTeleport(this.getPosX() + rand.nextInt(5+5)-5,this.getPosY() + rand.nextInt(5+5)-5,this.getPosZ() + rand.nextInt(5+5)-5, true);
+                break;
+            case 3: Infection((LivingEntity) entityIn); break;
+        }
+        return super.attackEntityAsMob(entityIn);
+    }
+
     public static AttributeModifierMap.MutableAttribute customAttributes() {
         return MobEntity.func_233666_p_()
                 .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
@@ -80,9 +101,10 @@ public class ColdSnapGifter extends GenericHordeMember {
                 if (!world.isRemote() && timer == 0) {
                     this.dead = true;
                     boolean snowy = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this);
-                    GifterSurprise gifterSurprise = new GifterSurprise(this.world, this, DamageSource.causeExplosionDamage(this), null, this.getPosX(), this.getPosY(), this.getPosZ(), 5, true, Explosion.Mode.NONE);
-                    gifterSurprise.doExplosionA();
-                    gifterSurprise.doExplosionB(true);
+                    GifterSurprise gifterSurprise = new GifterSurprise(this.world, this, this.getPosX(), this.getPosY(), this.getPosZ(), 5);
+                    gifterSurprise.StageDetonation();
+                    gifterSurprise.DetonateBlockDamage();
+                    gifterSurprise.DetonateLivingHarm();
                     this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1f, 1.5f);
                     this.remove();
                 }
@@ -90,21 +112,6 @@ public class ColdSnapGifter extends GenericHordeMember {
                 exploding = false;
                 timer = 50;
             }
-        }
-    }
-
-    protected boolean shouldOverHeat(float currentTemp, int protectionlevel){
-        switch(protectionlevel){
-            case 0:
-                return currentTemp > 0.3f;
-            case 1:
-                return currentTemp > 0.9f;
-            case 2:
-                return currentTemp > 1.5f;
-            case 3:
-                return false;
-            default:
-                return true;
         }
     }
 }

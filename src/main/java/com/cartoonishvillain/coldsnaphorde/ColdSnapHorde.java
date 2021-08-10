@@ -10,6 +10,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -26,6 +27,7 @@ public class ColdSnapHorde
     private static final Logger LOGGER = LogManager.getLogger();
     public static SConfiguration sconfig;
     public static CConfiguration cconfig;
+    public static boolean isCalyxLoaded;
 
     public ColdSnapHorde() {
         // Register the setup method for modloading
@@ -55,6 +57,7 @@ public class ColdSnapHorde
             GlobalEntityTypeAttributes.put(Register.COLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().create());
             GlobalEntityTypeAttributes.put(Register.COLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().create());
         });
+        isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
 
     }
 

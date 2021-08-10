@@ -15,6 +15,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
@@ -77,6 +79,26 @@ public class ColdSnapZapper extends GenericHordeMember {
         if(chance >= ColdSnapHorde.sconfig.STICKTRANSPONDER.get() && entityIn instanceof LivingEntity && transponderprogress == 1){
             ZapTarget = (LivingEntity) entityIn;
             transponderprogress = 0;
+        }
+        switch (this.getHordeVariant()) {
+            case 0:
+                break;
+            case 1:
+                int chance2 = this.rand.nextInt(100);
+                if (chance2 <= 75) {
+                    entityIn.setFire(3);
+                }
+                break;
+            case 2:
+                int chance3 = rand.nextInt(20);
+                if (chance3 <= 2)
+                    ((LivingEntity) entityIn).attemptTeleport(entityIn.getPosX() + rand.nextInt(5 + 5) - 5, entityIn.getPosY() + rand.nextInt(5 + 5) - 5, entityIn.getPosZ() + rand.nextInt(5 + 5) - 5, true);
+                else if (chance3 <= 4)
+                    this.attemptTeleport(this.getPosX() + rand.nextInt(5 + 5) - 5, this.getPosY() + rand.nextInt(5 + 5) - 5, this.getPosZ() + rand.nextInt(5 + 5) - 5, true);
+                break;
+            case 3:
+                Infection((LivingEntity) entityIn);
+                break;
         }
         return super.attackEntityAsMob(entityIn);
     }

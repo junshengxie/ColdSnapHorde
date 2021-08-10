@@ -82,8 +82,8 @@ public class ColdSnapStabberModel<C extends GenericHordeMember> extends EntityMo
 		float ANITIMER = entity.getANITIMER();
 
 		if(ANITIMER > 0){
-			if(ANITIMER > 5) this.right_hand.rotateAngleY += 0.10472;
-			else this.right_hand.rotateAngleY -= 0.10472;
+			if(ANITIMER > 10) this.right_hand.rotateAngleY -= 0.05236;
+			else this.right_hand.rotateAngleY += 0.05236;
 		}
 		if(ANITIMER <= 0){
 			this.right_hand.rotateAngleY = -0.2618F;

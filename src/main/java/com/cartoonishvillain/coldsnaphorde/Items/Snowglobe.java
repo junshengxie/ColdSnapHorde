@@ -33,7 +33,7 @@ public class Snowglobe extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if(handIn == Hand.MAIN_HAND && !worldIn.isRemote() && playerIn != null) {
-            if (worldIn.isAreaLoaded(playerIn.getPosition(), 20) && biomeCheck(worldIn, playerIn.getPosition())) {
+            if (worldIn.isAreaLoaded(playerIn.getPosition(), 20) && (biomeCheck(worldIn, playerIn.getPosition()) || worldIn.getBiome(playerIn.getPosition()).getRegistryName().toString().contains("swamp") || worldIn.getDimensionKey().toString().contains("end"))) {
                 AtomicInteger atomicInteger = new AtomicInteger(0);
                 worldIn.getCapability(CooldownCapability.INSTANCE).ifPresent(h->{
                     if(h.getCooldownTicks() > 0){

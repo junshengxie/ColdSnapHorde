@@ -75,6 +75,7 @@ public class ColdSnapGunner extends GenericHordeMember implements IRangedAttackM
         double d3 = target.getPosZ() - this.getPosZ();
         float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
         snowballentity.shoot(d1, d2 + (double)f, d3, 1.6F, 3.0F);
+        snowballentity.setShooter(this);
         this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.5F, 3.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(snowballentity);
     }

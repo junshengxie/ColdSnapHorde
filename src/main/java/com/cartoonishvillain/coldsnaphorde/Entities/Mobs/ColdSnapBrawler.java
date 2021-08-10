@@ -1,6 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
@@ -43,6 +44,24 @@ public class ColdSnapBrawler extends GenericHordeMember{
                 .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.42D)
                 .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D)
                 .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3d);
+    }
+
+    @Override
+    public boolean attackEntityAsMob(Entity entityIn) {
+        switch(this.getHordeVariant()){
+            case 0: break;
+            case 1:
+                int chance2 = this.rand.nextInt(100);
+                if (chance2 <= 75){entityIn.setFire(3);}
+                break;
+            case 2:
+                int chance3 = rand.nextInt(20);
+                if(chance3 <= 2) ((LivingEntity) entityIn).attemptTeleport(entityIn.getPosX() + rand.nextInt(5+5)-5,entityIn.getPosY() + rand.nextInt(5+5)-5,entityIn.getPosZ() + rand.nextInt(5+5)-5, true);
+                else if(chance3 <=4) this.attemptTeleport(this.getPosX() + rand.nextInt(5+5)-5,this.getPosY() + rand.nextInt(5+5)-5,this.getPosZ() + rand.nextInt(5+5)-5, true);
+                break;
+            case 3: Infection((LivingEntity) entityIn); break;
+        }
+        return super.attackEntityAsMob(entityIn);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){

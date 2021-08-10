@@ -65,6 +65,7 @@ public class ColdSnapSnowballer extends GenericHordeMember implements IRangedAtt
         double d3 = target.getPosZ() - this.getPosZ();
         float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
         snowballentity.shoot(d1, d2 + (double)f, d3, 1.6F, 8.0F);
+        snowballentity.setShooter(this);
         this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
         this.world.addEntity(snowballentity);
     }

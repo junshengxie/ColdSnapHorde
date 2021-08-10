@@ -148,6 +148,8 @@ public class Horde {
     }
 
     private boolean biomeCheck(World world, BlockPos pos){
+        if(world.getBiome(pos).getRegistryName().toString().contains("swamp")){return true;}
+        if(!world.getDimensionKey().toString().contains("over")){return true;}
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
         float temp = world.getBiome(pos).getTemperature();
         int code = -1;

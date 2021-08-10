@@ -1,6 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors;
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
 import net.minecraft.block.Blocks;
 import net.minecraft.enchantment.ProtectionEnchantment;
 import net.minecraft.entity.Entity;
@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.*;
 
-import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.Infection;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.Infection;
 
 public class GifterSurprise {
 

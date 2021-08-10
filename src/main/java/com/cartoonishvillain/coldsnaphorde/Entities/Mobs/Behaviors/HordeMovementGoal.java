@@ -1,9 +1,8 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors;
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.monster.PillagerEntity;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.EnumSet;

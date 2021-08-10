@@ -1,6 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -26,7 +26,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.GenericHordeMember.Infection;
+import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.Infection;
 
 public class RockSnowballEntity extends ProjectileItemEntity {
 

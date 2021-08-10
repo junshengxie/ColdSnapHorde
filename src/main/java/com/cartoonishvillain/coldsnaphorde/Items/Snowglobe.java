@@ -3,27 +3,18 @@ package com.cartoonishvillain.coldsnaphorde.Items;
 import com.cartoonishvillain.coldsnaphorde.Capabilities.CooldownCapability;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Events.Horde;
-import com.sun.jna.platform.unix.X11;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.raid.Raid;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import net.minecraft.item.Item.Properties;
 
 public class Snowglobe extends Item {
     public Snowglobe(Properties properties) {

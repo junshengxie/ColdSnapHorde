@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGifterModel<ColdSnapGifter>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapgifter.png");
+    protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/ecoldsnapgifter.png");
 
     public RenderColdSnapGifter(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ColdSnapGifterModel<>(), 0.5F);
@@ -17,6 +18,8 @@ public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGi
 
     @Override
     public ResourceLocation getEntityTexture(ColdSnapGifter entity) {
-        return TEXTURE;
+        if(entity.getHordeVariant() == 0)
+            return TEXTURE;
+        else return ETEXTURE;
     }
 }

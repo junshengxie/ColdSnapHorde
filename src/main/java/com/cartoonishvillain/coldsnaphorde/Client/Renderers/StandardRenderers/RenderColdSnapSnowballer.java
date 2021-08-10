@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderColdSnapSnowballer extends MobRenderer<ColdSnapSnowballer, ColdSnapSnowballerModel<ColdSnapSnowballer>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapsnowballer.png");
+    protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/ecoldsnapsnowballer.png");
 
     public RenderColdSnapSnowballer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ColdSnapSnowballerModel<>(), 0.5F);
@@ -17,6 +18,9 @@ public class RenderColdSnapSnowballer extends MobRenderer<ColdSnapSnowballer, Co
 
     @Override
     public ResourceLocation getEntityTexture(ColdSnapSnowballer entity) {
-        return TEXTURE;
+        if(entity.getHordeVariant() == 0)
+            return TEXTURE;
+        else return ETEXTURE;
     }
+
 }

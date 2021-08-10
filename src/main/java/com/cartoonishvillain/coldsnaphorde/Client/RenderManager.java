@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Client;
 
+import com.cartoonishvillain.coldsnaphorde.Client.Renderers.EndRenderers.RenderEndColdSnapSnowballer;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.NetherRenderers.*;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.StandardRenderers.*;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.misc.TopHatRenderer;
@@ -37,7 +38,7 @@ public class RenderManager {
 
         RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
-        RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPSNOWBALLER.get(), RenderEndColdSnapSnowballer::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPGIFTER.get(), RenderColdSnapGifter::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPBRAWLER.get(), RenderColdSnapBrawler::new);

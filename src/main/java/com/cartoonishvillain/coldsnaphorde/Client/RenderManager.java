@@ -1,6 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Client;
 
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.NetherRenderers.RenderNetherColdSnapSnowballer;
+import com.cartoonishvillain.coldsnaphorde.Client.Renderers.NetherRenderers.*;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.StandardRenderers.*;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.misc.TopHatRenderer;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.projectiles.GunnerProjectileRenderFactory;
@@ -42,12 +42,12 @@ public class RenderManager {
         RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.ECOLDSNAPBRAWLER.get(), RenderColdSnapBrawler::new);
 
-        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
-        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPGUNNER.get(), RenderNetherColdSnapGunner::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPSTABBER.get(), RenderNetherColdSnapStabber::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPSNOWBALLER.get(), RenderNetherColdSnapSnowballer::new);
-        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPGIFTER.get(), RenderColdSnapGifter::new);
-        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
-        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPBRAWLER.get(), RenderColdSnapBrawler::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPGIFTER.get(), RenderNetherColdSnapGifter::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPZAPPER.get(), RenderNetherColdSnapZapper::new);
+        RenderingRegistry.registerEntityRenderingHandler(Register.NCOLDSNAPBRAWLER.get(), RenderNetherColdSnapBrawler::new);
 
         RenderingRegistry.registerEntityRenderingHandler(Register.PCOLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
         RenderingRegistry.registerEntityRenderingHandler(Register.PCOLDSNAPSTABBER.get(), RenderColdSnapStabber::new);

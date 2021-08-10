@@ -83,9 +83,9 @@ public class NetherColdSnapSnowballerModel<C extends GenericHordeMember> extends
     @Override
     public void setRotationAngles(ColdSnapSnowballer entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
         //previously the render function, render code was moved to a method below
-        this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
-        this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
-        this.body.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;
+//        this.head.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
+//        this.head.rotateAngleX = headPitch * ((float)Math.PI / 180F);
+//        this.body.rotateAngleY = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;
     }
 
     @Override

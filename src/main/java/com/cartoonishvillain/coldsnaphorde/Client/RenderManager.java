@@ -1,13 +1,12 @@
 package com.cartoonishvillain.coldsnaphorde.Client;
 
-import com.cartoonishvillain.coldsnaphorde.Client.Models.*;
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.*;
+import com.cartoonishvillain.coldsnaphorde.Client.Models.StandardModel.*;
+import com.cartoonishvillain.coldsnaphorde.Client.Renderers.StandardRenders.*;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -24,6 +23,7 @@ public class RenderManager {
     public static ModelLayerLocation COLDSNAPGIFTER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:gifter"), "gifter");
     public static ModelLayerLocation COLDSNAPZAPPER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:zapper"), "zapper");
     public static ModelLayerLocation COLDSNAPBRAWLER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:brawler"), "brawler");
+    public static ModelLayerLocation NCOLDSNAPBRAWLER = new ModelLayerLocation( new ResourceLocation("coldsnaphorde:nbrawler"), "nbrawler");
     public static ModelLayerLocation TOPHAT = new ModelLayerLocation( new ResourceLocation("minecraft:player"), "tophat");
 
 
@@ -33,9 +33,10 @@ public class RenderManager {
         event.registerLayerDefinition(COLDSNAPSTABBER, ColdSnapStabberModel::createLayer);
         event.registerLayerDefinition(COLDSNAPGUNNER, ColdSnapGunnerModel::createLayer);
         event.registerLayerDefinition(COLDSNAPSNOWBALLER, ColdSnapSnowballerModel::createLayer);
-        event.registerLayerDefinition(COLDSNAPGIFTER, ColdSnapGifterModel::createLayer);
-        event.registerLayerDefinition(COLDSNAPZAPPER, ColdSnapZapperModel::createLayer);
-        event.registerLayerDefinition(COLDSNAPBRAWLER, ColdSnapBrawlerModel::createLayer);
+//        event.registerLayerDefinition(COLDSNAPGIFTER, ColdSnapGifterModel::createLayer);
+//        event.registerLayerDefinition(COLDSNAPZAPPER, ColdSnapZapperModel::createLayer);
+//        event.registerLayerDefinition(COLDSNAPBRAWLER, ColdSnapBrawlerModel::createLayer);
+//        event.registerLayerDefinition(NCOLDSNAPBRAWLER, NetherColdSnapBrawlerModel::createLayer);
         event.registerLayerDefinition(TOPHAT, TopHatModel::createLayer);
 
     }
@@ -45,9 +46,10 @@ public class RenderManager {
         event.registerEntityRenderer(Register.COLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
         event.registerEntityRenderer(Register.COLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
         event.registerEntityRenderer(Register.COLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
-        event.registerEntityRenderer(Register.COLDSNAPGIFTER.get(), RenderColdSnapGifter::new);
-        event.registerEntityRenderer(Register.COLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
-        event.registerEntityRenderer(Register.COLDSNAPBRAWLER.get(), RenderColdSnapBrawler::new);
+//        event.registerEntityRenderer(Register.COLDSNAPGIFTER.get(), RenderColdSnapGifter::new);
+//        event.registerEntityRenderer(Register.COLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
+//        event.registerEntityRenderer(Register.COLDSNAPBRAWLER.get(), RenderNetherColdSnapBrawler::new);
+//        event.registerEntityRenderer(Register.NCOLDSNAPBRAWLER.get(), RenderNetherColdSnapBrawler::new);
         event.registerEntityRenderer(Register.COLDSNAPCOW.get(), RenderColdSnapCow::new);
         event.registerEntityRenderer(Register.GUNNERPROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(Register.LIGHTNINGSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
@@ -109,7 +111,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
 //        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPGIFTER.get(), RenderColdSnapGifter::new);
 //        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
-//        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPBRAWLER.get(), RenderColdSnapBrawler::new);
+//        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPBRAWLER.get(), RenderNetherColdSnapBrawler::new);
 //        RenderingRegistry.registerEntityRenderingHandler(Register.GUNNERPROJECTILE.get(), new GunnerProjectileRenderFactory());
 //        RenderingRegistry.registerEntityRenderingHandler(Register.ROCKSNOWBALLPROJECTILE.get(), new RockySnowballRenderFactory());
 //        RenderingRegistry.registerEntityRenderingHandler(Register.SNOWIERSNOWBALLPROJECTILE.get(), new SnowierSnowballRenderFactory());

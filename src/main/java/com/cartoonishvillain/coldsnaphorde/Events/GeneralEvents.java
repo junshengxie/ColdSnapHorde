@@ -73,12 +73,4 @@ public class GeneralEvents {
             }
         }
     }
-
-    @SubscribeEvent
-    public static void HordeSpawn(EntityJoinWorldEvent event){
-        if(event.getEntity() instanceof GenericHordeMember && !event.getWorld().isClientSide()){
-            if(event.getEntity().getEntityData().get(variant) == -1){
-            ((GenericHordeMember) event.getEntity()).determineHordeVariant();}
-        }
-    }
 }

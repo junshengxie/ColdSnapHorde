@@ -101,31 +101,6 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     @Override
     public boolean fireImmune() {return this.getEntityData().get(variant) == 1;}
 
-    public void determineHordeVariant(){
-        Biome thisBiome = this.level.getBiome(this.getOnPos());
-        if(thisBiome.getRegistryName().toString().contains("swamp") || thisBiome.getRegistryName().toString().contains("roofed")){
-            int chance = this.level.random.nextInt(100);
-            if(chance <= ColdSnapHorde.cconfig.PLAGUESPAWNINSWAMP.get()){
-                this.getEntityData().set(variant, 3);}
-            else if(!shouldOverHeat(thisBiome.getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())){
-                this.getEntityData().set(variant, 0);
-            }else this.remove(RemovalReason.DISCARDED);
-        }
-        else if(this.level.dimension().toString().contains("nether")){this.getEntityData().set(variant, 1);}
-        else if(this.level.dimension().toString().contains("end")){this.getEntityData().set(variant, 2);}
-        else{
-            int chance = this.level.random.nextInt(100);
-            if(chance <= ColdSnapHorde.cconfig.FLAMINGSPAWNINSTANDARD.get()){
-                this.getEntityData().set(variant, 1); return;}
-            chance = this.level.random.nextInt(100);
-            if(chance <= ColdSnapHorde.cconfig.ENDERSPAWNINSTANDARD.get()){
-                this.getEntityData().set(variant, 2); return;}
-            chance = this.level.random.nextInt(100);
-            if(chance <= ColdSnapHorde.cconfig.PLAGUESPAWNINSTANDARD.get()){
-                this.getEntityData().set(variant, 3); return;}
-            this.getEntityData().set(variant, 0);
-        }
-    }
 
     @Override
     protected void actuallyHurt(DamageSource p_21240_, float p_21241_) {

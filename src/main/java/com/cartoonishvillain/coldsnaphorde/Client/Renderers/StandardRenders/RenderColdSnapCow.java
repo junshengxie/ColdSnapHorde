@@ -1,4 +1,4 @@
-package com.cartoonishvillain.coldsnaphorde.Client.Renderers;
+package com.cartoonishvillain.coldsnaphorde.Client.Renderers.StandardRenders;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapCow;
@@ -17,7 +17,7 @@ public class RenderColdSnapCow extends MobRenderer<ColdSnapCow, CowModel<ColdSna
         super(p_174304_, new CowModel<ColdSnapCow>(p_174304_.bakeLayer(ModelLayers.COW)), 0.5f);
     }
 
-//    public RenderColdSnapBrawler(EntityRenderDispatcher renderManagerIn) {
+//    public RenderNetherColdSnapBrawler(EntityRenderDispatcher renderManagerIn) {
 //        super(renderManagerIn, new ColdSnapBrawlerModel<>(), 0.5F);
 //    }
 

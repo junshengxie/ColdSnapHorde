@@ -1,11 +1,13 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec3;
@@ -109,12 +111,13 @@ public class GifterSurprise {
                 }
             } else{
                 for (BlockPos blockPos : blockPosArrayList){
-                    if((world.getBlockState(blockPos).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos).equals(Blocks.GRASS.defaultBlockState())) && !(world.getBlockState(blockPos.below()).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos.below()).equals(Blocks.GRASS.defaultBlockState()))){
-                        if(world.getBlockState(blockPos.below()).equals(Blocks.SOUL_SAND.defaultBlockState()) || world.getBlockState(blockPos.below()).equals(Blocks.SOUL_SOIL.defaultBlockState())){
-                            world.setBlockAndUpdate(blockPos, Blocks.SOUL_FIRE.defaultBlockState());
-                        }else {world.setBlockAndUpdate(blockPos, Blocks.FIRE.defaultBlockState());}
+                    if(world.getBlockState(blockPos).equals(Blocks.AIR.defaultBlockState())){
+                        BlockState blockstate = Register.SLUSH.get().defaultBlockState();
+                        if(blockstate.canSurvive(world, blockPos)){
+                            world.setBlockAndUpdate(blockPos, blockstate);
+                        }
 
-                    } else if(world.getBlockState(blockPos).equals(Blocks.ICE.defaultBlockState())) world.setBlockAndUpdate(blockPos, Blocks.PACKED_ICE.defaultBlockState());
+                    }
                 }
             }
         }

@@ -16,6 +16,7 @@ import com.cartoonishvillain.coldsnaphorde.Items.Present;
 import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.LightningSnowball;
 import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.RockySnowball;
 import com.cartoonishvillain.coldsnaphorde.Items.Projectiles.SnowierSnowball;
+import com.cartoonishvillain.coldsnaphorde.Items.SlushBlock;
 import com.cartoonishvillain.coldsnaphorde.Items.Snowglobe;
 import com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther.IceSword;
 import com.cartoonishvillain.coldsnaphorde.Items.ToolsOrOther.Materials;
@@ -136,9 +137,11 @@ public class Register {
 
     public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(BlockBehaviour.Properties.of(Material.BAMBOO).strength(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of(Material.BAMBOO).strength(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<Block> SLUSH = BLOCKS.register("slush", () -> new SlushBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(0).sound(SoundType.SNOW)));
 
     public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new BlockItem(REDCANDYCANE.get(), new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new BlockItem(GREENCANDYCANE.get(), new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<BlockItem> SLUSHITEM = ITEMS.register("slush", ()-> new BlockItem(SLUSH.get(), new Item.Properties().tab(ColdSnapHorde.TAB)));
 
     public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", ()->new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().tab(ColdSnapHorde.TAB).rarity(Rarity.UNCOMMON)));
 

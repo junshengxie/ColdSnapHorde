@@ -171,7 +171,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                 blockstate = Blocks.SNOW.defaultBlockState();
             }
             if (this.getEntityData().get(variant) == 1) {
-                blockstate = Blocks.FIRE.defaultBlockState();
+                blockstate = Register.SLUSH.get().defaultBlockState();
             }
 
 
@@ -185,15 +185,14 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                         this.level.setBlockAndUpdate(blockpos, blockstate);
                     }
                 }
-            } else if (blockstate == Blocks.FIRE.defaultBlockState()) {
+            } else if (blockstate == Register.SLUSH.get().defaultBlockState()) {
                 for (int l = 0; l < 4; ++l) {
                     i = Mth.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
                     j = Mth.floor(this.getY());
                     k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.level.getBlockState(blockpos.below()) == Blocks.SOUL_SAND.defaultBlockState() || this.level.getBlockState(blockpos.below()) == Blocks.SOUL_SOIL.defaultBlockState()) {
-                        blockstate = Blocks.SOUL_FIRE.defaultBlockState();
-                    } this.level.setBlockAndUpdate(blockpos, blockstate);
+                    if (this.level.getBlockState(blockpos).equals(Blocks.AIR.defaultBlockState()) && (blockstate.canSurvive(this.level, blockpos)))
+                        this.level.setBlockAndUpdate(blockpos, blockstate);
                 }
             }
         }

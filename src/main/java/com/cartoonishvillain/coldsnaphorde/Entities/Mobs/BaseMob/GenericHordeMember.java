@@ -67,6 +67,21 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if(this.tickCount == 2){
+            String check = this.getType().toString();
+            int variantcheck = this.getHordeVariant();
+            if(check.contains("ncoldsnap") && variantcheck != 1)
+            {setHordeVariant(1);}
+            else if(check.contains("ecoldsnap") && variantcheck != 2)
+            {setHordeVariant(2);}
+            else if(check.contains("pcoldsnap") && variantcheck != 3)
+            {setHordeVariant(3);}
+        }
+    }
+
+    @Override
     public boolean canFreeze() {
         return false;
     }

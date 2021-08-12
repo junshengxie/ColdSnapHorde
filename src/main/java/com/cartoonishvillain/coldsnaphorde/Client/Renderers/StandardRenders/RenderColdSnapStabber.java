@@ -15,6 +15,7 @@ import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPS
 public class RenderColdSnapStabber extends MobRenderer<ColdSnapStabber, ColdSnapStabberModel<ColdSnapStabber>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapstabber.png");
+    protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/ecoldsnapstabber.png");
 
     public RenderColdSnapStabber(EntityRendererProvider.Context p_174304_) {
         super(p_174304_, new ColdSnapStabberModel<>(p_174304_.bakeLayer(COLDSNAPSTABBER)), 0.5f);
@@ -26,6 +27,8 @@ public class RenderColdSnapStabber extends MobRenderer<ColdSnapStabber, ColdSnap
 
     @Override
     public ResourceLocation getTextureLocation(ColdSnapStabber entity) {
-        return TEXTURE;
+        if (entity.getHordeVariant() == 0) {return TEXTURE;}
+        else if(entity.getHordeVariant() == 2) {return ETEXTURE;}
+        else return TEXTURE;
     }
 }

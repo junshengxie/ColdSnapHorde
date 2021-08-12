@@ -23,16 +23,17 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */ //This class is entirely based off of the spooky arms code for rendering these.
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.LightningSnowEntity;
+import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
-public class LightningSnowballRenderFactory implements IRenderFactory<LightningSnowEntity> {
+public class GenericProjectileRenderFactory implements IRenderFactory<ProjectileItemEntity> {
     @Override
-    public EntityRenderer<? super LightningSnowEntity> createRenderFor(EntityRendererManager manager) {
+    public EntityRenderer<? super ProjectileItemEntity> createRenderFor(EntityRendererManager manager) {
         return new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer());
     }
 }

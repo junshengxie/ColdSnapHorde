@@ -4,10 +4,7 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.End
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.NetherHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.PlagueHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.StandardHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.GunnerProjectileEntity;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.LightningSnowEntity;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
+import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.*;
 import com.cartoonishvillain.coldsnaphorde.Items.*;
 import com.cartoonishvillain.coldsnaphorde.Items.Armor.ArmorMaterials;
 import com.cartoonishvillain.coldsnaphorde.Items.Armor.TopHat;
@@ -117,6 +114,7 @@ public class Register {
 
     public static final RegistryObject<EntityType<GunnerProjectileEntity>> GUNNERPROJECTILE = ENTITY_TYPES.register("gunnerprojectile", () -> EntityType.Builder.<GunnerProjectileEntity>create(GunnerProjectileEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "gunnerprojectile").toString()));
     public static final RegistryObject<EntityType<RockSnowballEntity>> ROCKSNOWBALLPROJECTILE = ENTITY_TYPES.register("rocksnowballprojectile", () -> EntityType.Builder.<RockSnowballEntity>create(RockSnowballEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "rocksnowballprojectile").toString()));
+    public static final RegistryObject<EntityType<ThrownChorusEntity>> THROWNCHORUSPROJECTILE = ENTITY_TYPES.register("thrownchorusprojectile", () -> EntityType.Builder.<ThrownChorusEntity>create(ThrownChorusEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "thrownchorusprojectile").toString()));
     public static final RegistryObject<EntityType<SnowierSnowballEntity>> SNOWIERSNOWBALLPROJECTILE = ENTITY_TYPES.register("snowiersnowballprojectile", () -> EntityType.Builder.<SnowierSnowballEntity>create(SnowierSnowballEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "snowiersnowballprojectile").toString()));
     public static final RegistryObject<EntityType<LightningSnowEntity>> LIGHTNINGSNOWBALLPROJECTILE = ENTITY_TYPES.register("lightningsnowprojectile", () -> EntityType.Builder.<LightningSnowEntity>create(LightningSnowEntity::new, EntityClassification.MISC).size(0.25f, 0.25f).trackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "lightningsnowprojectile").toString()));
 

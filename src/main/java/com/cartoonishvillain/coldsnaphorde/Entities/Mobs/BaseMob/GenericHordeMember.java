@@ -50,6 +50,21 @@ public class GenericHordeMember extends MonsterEntity {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if(this.ticksExisted == 2){
+            String check = this.getType().toString();
+            int variantcheck = this.getHordeVariant();
+            if(check.contains("ncoldsnap") && variantcheck != 1)
+            {setHordeVariant(1);}
+            else if(check.contains("ecoldsnap") && variantcheck != 2)
+            {setHordeVariant(2);}
+            else if(check.contains("pcoldsnap") && variantcheck != 3)
+            {setHordeVariant(3);}
+        }
+    }
+
+    @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
         this.setHordeVariant(compound.getInt("variant"));

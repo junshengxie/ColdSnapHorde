@@ -4,10 +4,7 @@ import com.cartoonishvillain.coldsnaphorde.Client.Renderers.EndRenderers.RenderE
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.NetherRenderers.*;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.StandardRenderers.*;
 import com.cartoonishvillain.coldsnaphorde.Client.Renderers.misc.TopHatRenderer;
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.projectiles.GunnerProjectileRenderFactory;
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.projectiles.LightningSnowballRenderFactory;
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.projectiles.RockySnowballRenderFactory;
-import com.cartoonishvillain.coldsnaphorde.Client.Renderers.projectiles.SnowierSnowballRenderFactory;
+import com.cartoonishvillain.coldsnaphorde.Client.Renderers.projectiles.GenericProjectileRenderFactory;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Items.Armor.TopHat;
 import com.cartoonishvillain.coldsnaphorde.Register;
@@ -23,10 +20,11 @@ public class RenderManager {
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event){
         // do something that can only be done on the client
-        RenderingRegistry.registerEntityRenderingHandler(Register.GUNNERPROJECTILE.get(), new GunnerProjectileRenderFactory());
-        RenderingRegistry.registerEntityRenderingHandler(Register.ROCKSNOWBALLPROJECTILE.get(), new RockySnowballRenderFactory());
-        RenderingRegistry.registerEntityRenderingHandler(Register.SNOWIERSNOWBALLPROJECTILE.get(), new SnowierSnowballRenderFactory());
-        RenderingRegistry.registerEntityRenderingHandler(Register.LIGHTNINGSNOWBALLPROJECTILE.get(), new LightningSnowballRenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(Register.GUNNERPROJECTILE.get(), new GenericProjectileRenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(Register.ROCKSNOWBALLPROJECTILE.get(), new GenericProjectileRenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(Register.SNOWIERSNOWBALLPROJECTILE.get(), new GenericProjectileRenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(Register.LIGHTNINGSNOWBALLPROJECTILE.get(), new GenericProjectileRenderFactory());
+        RenderingRegistry.registerEntityRenderingHandler(Register.THROWNCHORUSPROJECTILE.get(), new GenericProjectileRenderFactory());
         GeoArmorRenderer.registerArmorRenderer(TopHat.class, new TopHatRenderer());
 
         RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPGUNNER.get(), RenderColdSnapGunner::new);

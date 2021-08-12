@@ -2,6 +2,7 @@ package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
 import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.client.renderer.EffectInstance;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.Entity;
@@ -33,12 +34,12 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
 
 
     public RockSnowballEntity(EntityType<? extends ThrowableItemProjectile> type, Level worldIn, LivingEntity entity) {
-        super(type, entity, worldIn);
-    }
+        super(type, entity, worldIn);}
 
     public RockSnowballEntity(EntityType<RockSnowballEntity> gunnerProjectileEntityEntityType, Level world) {
         super(gunnerProjectileEntityEntityType, world);
     }
+
 
     @OnlyIn(Dist.CLIENT)
     private ParticleOptions makeParticle() {
@@ -71,8 +72,9 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
                 }
                 case 1 -> {
                     int chance2 = random.nextInt(100);
-                    if (chance2 <= 75){entity.setSecondsOnFire(1);}
-
+                    if (chance2 <= 75) {
+                        ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*5, 1));
+                    }
                 }
                 case 2 -> {
                     int chance2 = random.nextInt(20);

@@ -1,6 +1,8 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
+import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
@@ -11,11 +13,14 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,17 +29,17 @@ import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.Infection;
 
-public class GunnerProjectileEntity extends ThrowableItemProjectile {
+public class ThrownChorusEntity extends ThrowableItemProjectile {
 
 
 
-    public GunnerProjectileEntity(EntityType<? extends ThrowableItemProjectile> type, Level worldIn, LivingEntity entity) {
-        super(type, entity, worldIn);
-    }
+    public ThrownChorusEntity(EntityType<? extends ThrowableItemProjectile> type, Level worldIn, LivingEntity entity) {
+        super(type, entity, worldIn);}
 
-    public GunnerProjectileEntity(EntityType<GunnerProjectileEntity> gunnerProjectileEntityEntityType, Level world) {
+    public ThrownChorusEntity(EntityType<ThrownChorusEntity> gunnerProjectileEntityEntityType, Level world) {
         super(gunnerProjectileEntityEntityType, world);
     }
+
 
     @OnlyIn(Dist.CLIENT)
     private ParticleOptions makeParticle() {
@@ -43,33 +48,33 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    protected Item getDefaultItem() {return Items.COAL;}
+    protected Item getDefaultItem() {return Items.CHORUS_FRUIT;}
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public ItemStack getItem() {
-        return new ItemStack(Items.COAL);
+        return new ItemStack(Items.CHORUS_FRUIT);
     }
 
     @Override
     protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
-        int i = 1 + level.getDifficulty().getId();
+        int i = entity instanceof Blaze ? 3 : 1;
         entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
         if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
                 case 0 -> {
-                    if(chance <= 3)  {((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
+                    if(chance <= 2)  {((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
+                    if(chance == 1) ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5*20, 0));}
                 }
                 case 1 -> {
                     int chance2 = random.nextInt(100);
                     if (chance2 <= 75) {
                         ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*5, 1));
                     }
-
                 }
                 case 2 -> {
                     int chance2 = random.nextInt(20);
@@ -81,12 +86,19 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
                 }
             }
         }
-        else if (entity instanceof LivingEntity && chance <= 3 && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
+        else if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
+            if (chance == 1) ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5*20, 0));}
     }
 
     @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
+        BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
+        int snowchance = random.nextInt(20);
+        BlockPos blockpos = new BlockPos(result.getLocation());
+        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.canSurvive(this.level, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && snowchance == 1 && !level.isClientSide()) {
+            this.level.setBlockAndUpdate(blockpos, blockstate);
+        }
         this.remove(RemovalReason.DISCARDED);
     }
 

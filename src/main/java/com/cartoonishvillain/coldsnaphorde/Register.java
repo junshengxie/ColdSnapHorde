@@ -5,10 +5,7 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.End
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.NetherHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.PlagueHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.StandardHorde;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.GunnerProjectileEntity;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.LightningSnowEntity;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
-import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.SnowierSnowballEntity;
+import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.*;
 import com.cartoonishvillain.coldsnaphorde.Items.Armor.ArmorMaterials;
 import com.cartoonishvillain.coldsnaphorde.Items.Armor.TopHat;
 import com.cartoonishvillain.coldsnaphorde.Items.ColdSpawnEggItem;
@@ -33,7 +30,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolType;
+import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -130,13 +127,15 @@ public class Register {
 
     public static final RegistryObject<EntityType<GunnerProjectileEntity>> GUNNERPROJECTILE = ENTITY_TYPES.register("gunnerprojectile", () -> EntityType.Builder.<GunnerProjectileEntity>of(GunnerProjectileEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "gunnerprojectile").toString()));
     public static final RegistryObject<EntityType<RockSnowballEntity>> ROCKSNOWBALLPROJECTILE = ENTITY_TYPES.register("rocksnowballprojectile", () -> EntityType.Builder.<RockSnowballEntity>of(RockSnowballEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "rocksnowballprojectile").toString()));
+    public static final RegistryObject<EntityType<ThrownChorusEntity>> THROWNCHORUSPROJECTILE = ENTITY_TYPES.register("thrownchorusprojectile", () -> EntityType.Builder.<ThrownChorusEntity>of(ThrownChorusEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "thrownchorusprojectile").toString()));
     public static final RegistryObject<EntityType<SnowierSnowballEntity>> SNOWIERSNOWBALLPROJECTILE = ENTITY_TYPES.register("snowiersnowballprojectile", () -> EntityType.Builder.<SnowierSnowballEntity>of(SnowierSnowballEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "snowiersnowballprojectile").toString()));
     public static final RegistryObject<EntityType<LightningSnowEntity>> LIGHTNINGSNOWBALLPROJECTILE = ENTITY_TYPES.register("lightningsnowprojectile", () -> EntityType.Builder.<LightningSnowEntity>of(LightningSnowEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "lightningsnowprojectile").toString()));
 
+
     public static final RegistryObject<SoundEvent> GIFTERATTACK = SOUND_EVENT.register("gifter_attack", () -> new SoundEvent(new ResourceLocation(ColdSnapHorde.MOD_ID, "gifter_attack")));
 
-    public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(BlockBehaviour.Properties.of(Material.BAMBOO).strength(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
-    public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of(Material.BAMBOO).strength(2).harvestTool(ToolType.PICKAXE).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     public static final RegistryObject<Block> SLUSH = BLOCKS.register("slush", () -> new SlushBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(0).sound(SoundType.SNOW)));
 
     public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new BlockItem(REDCANDYCANE.get(), new Item.Properties().tab(ColdSnapHorde.TAB)));

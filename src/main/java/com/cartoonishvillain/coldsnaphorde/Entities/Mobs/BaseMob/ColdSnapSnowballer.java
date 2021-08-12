@@ -1,6 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.RockSnowballEntity;
+import com.cartoonishvillain.coldsnaphorde.Entities.Projectiles.ThrownChorusEntity;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -19,6 +20,9 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
@@ -57,7 +61,10 @@ public class ColdSnapSnowballer extends GenericHordeMember implements RangedAtta
 
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
-        RockSnowballEntity snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE.get(), this.level, this);
+        ThrowableItemProjectile snowballentity;
+        if(getHordeVariant() == 2){snowballentity = new ThrownChorusEntity(Register.THROWNCHORUSPROJECTILE.get(), this.level, this);}
+        else{snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE.get(), this.level, this);}
+
         double d0 = target.getEyeY() - (double)1.1F;
         double d1 = target.getX() - this.getX();
         double d2 = d0 - snowballentity.getY();

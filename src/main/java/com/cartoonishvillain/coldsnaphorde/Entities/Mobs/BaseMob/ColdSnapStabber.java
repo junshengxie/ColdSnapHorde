@@ -78,8 +78,10 @@ public class ColdSnapStabber extends GenericHordeMember {
 
                 }
                 case 1 -> {
-                    int chance = random.nextInt(100);
-                    if (chance <= 75){entityIn.setSecondsOnFire(5);}
+                    int chance2 = random.nextInt(100);
+                    if (chance2 <= 75) {
+                        ((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*5, 1));
+                    }
 
                 }
                 case 2 -> {

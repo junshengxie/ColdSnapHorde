@@ -2,6 +2,10 @@ package com.cartoonishvillain.coldsnaphorde.Events;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.*;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.EndHorde;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.NetherHorde;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.PlagueHorde;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.StandardHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -100,37 +104,37 @@ public class Horde {
 
         switch (selected){
             case 0:
-                ColdSnapGunner coldSnapGunner = new ColdSnapGunner(Register.COLDSNAPGUNNER.get(), world);
+                ColdSnapGunner coldSnapGunner = gunnerSpawnRules(world, pos);
                 coldSnapGunner.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapGunner.toggleHordeMember(center);
                 world.addFreshEntity(coldSnapGunner);
                 break;
             case 1:
-                ColdSnapStabber coldSnapStabber = new ColdSnapStabber(Register.COLDSNAPSTABBER.get(), world);
+                ColdSnapStabber coldSnapStabber = stabberSpawnRules(world, pos);
                 coldSnapStabber.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapStabber.toggleHordeMember(center);
                 world.addFreshEntity(coldSnapStabber);
                 break;
             case 2:
-                ColdSnapSnowballer coldSnapSnowballer = new ColdSnapSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
+                ColdSnapSnowballer coldSnapSnowballer = snowballerSpawnRules(world, pos);
                 coldSnapSnowballer.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapSnowballer.toggleHordeMember(center);
                 world.addFreshEntity(coldSnapSnowballer);
                 break;
             case 3:
-                ColdSnapZapper coldSnapZapper = new ColdSnapZapper(Register.COLDSNAPZAPPER.get(), world);
+                ColdSnapZapper coldSnapZapper = zapperSpawnRules(world, pos);
                 coldSnapZapper.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapZapper.toggleHordeMember(center);
                 world.addFreshEntity(coldSnapZapper);
                 break;
             case 4:
-                ColdSnapGifter coldSnapGifter = new ColdSnapGifter(Register.COLDSNAPGIFTER.get(), world);
+                ColdSnapGifter coldSnapGifter = gifterSpawnRules(world, pos);
                 coldSnapGifter.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapGifter.toggleHordeMember(center);
                 world.addFreshEntity(coldSnapGifter);
                 break;
             case 5:
-                ColdSnapBrawler coldSnapBrawler = new ColdSnapBrawler(Register.COLDSNAPBRAWLER.get(), world);
+                ColdSnapBrawler coldSnapBrawler = brawlerSpawnRules(world, pos);
                 coldSnapBrawler.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapBrawler.toggleHordeMember(center);
                 world.addFreshEntity(coldSnapBrawler);
@@ -150,5 +154,138 @@ public class Horde {
         else if(temp >= 1.5){code = 3;}
 
         return code <= protlvl;
+    }
+
+    private boolean trueBiomeCheck(Level world, BlockPos pos){
+        int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
+        float temp = world.getBiome(pos).getBaseTemperature();
+        int code = -1;
+        if (temp < 0.3){code = 0;}
+        else if(temp >= 0.3 && temp < 0.9){code = 1;}
+        else if(temp >= 0.9 && temp < 1.5){code = 2;}
+        else if(temp >= 1.5){code = 3;}
+
+        return code <= protlvl;
+    }
+
+
+    private ColdSnapGunner gunnerSpawnRules(Level world, BlockPos pos){
+        ColdSnapGunner coldSnapGunner;
+        if (world.getBiome(pos).getRegistryName().toString().contains("swamp")){
+            coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
+        }else if(world.dimension().toString().contains("end")){
+            coldSnapGunner = new EndHorde.EndGunner(Register.ECOLDSNAPGUNNER.get(), world);
+        }else if(trueBiomeCheck(world, pos)){
+            Random random = new Random();
+            int chance = random.nextInt(100);
+            if(chance <= 5){coldSnapGunner = new NetherHorde.NetherGunner(Register.NCOLDSNAPGUNNER.get(), world);}
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapGunner = new EndHorde.EndGunner(Register.ECOLDSNAPGUNNER.get(), world);
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
+            else coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
+        }
+        else coldSnapGunner = new NetherHorde.NetherGunner(Register.NCOLDSNAPGUNNER.get(), world);
+        return coldSnapGunner;
+    }
+
+    private ColdSnapStabber stabberSpawnRules(Level world, BlockPos pos){
+        ColdSnapStabber coldSnapStabber;
+        if (world.getBiome(pos).toString().contains("swamp")){
+            coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
+        }else if(world.dimension().toString().contains("end")){
+            coldSnapStabber = new EndHorde.EndStabber(Register.ECOLDSNAPSTABBER.get(), world);
+        }else if(trueBiomeCheck(world, pos)){
+            Random random = new Random();
+            int chance = random.nextInt(100);
+            if(chance <= 5){coldSnapStabber = new NetherHorde.NetherStabber(Register.NCOLDSNAPSTABBER.get(), world);}
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapStabber = new EndHorde.EndStabber(Register.ECOLDSNAPSTABBER.get(), world);
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
+            else coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
+        }
+        else coldSnapStabber = new NetherHorde.NetherStabber(Register.NCOLDSNAPSTABBER.get(), world);
+        return coldSnapStabber;
+    }
+
+    private ColdSnapSnowballer snowballerSpawnRules(Level world, BlockPos pos){
+        ColdSnapSnowballer coldSnapSnowballer;
+        if (world.getBiome(pos).toString().contains("swamp")){
+            coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
+        }else if(world.dimension().toString().contains("end")){
+            coldSnapSnowballer = new EndHorde.EndSnowballer(Register.ECOLDSNAPSNOWBALLER.get(), world);
+        }else if(trueBiomeCheck(world, pos)){
+            Random random = new Random();
+            int chance = random.nextInt(100);
+            if(chance <= 5){coldSnapSnowballer = new NetherHorde.NetherSnowballer(Register.NCOLDSNAPSNOWBALLER.get(), world);}
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapSnowballer = new EndHorde.EndSnowballer(Register.ECOLDSNAPSNOWBALLER.get(), world);
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
+            else coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
+        }
+        else coldSnapSnowballer = new NetherHorde.NetherSnowballer(Register.NCOLDSNAPSNOWBALLER.get(), world);
+        return coldSnapSnowballer;
+    }
+
+    private ColdSnapGifter gifterSpawnRules(Level world, BlockPos pos){
+        ColdSnapGifter coldSnapGifter;
+        if (world.getBiome(pos).toString().contains("swamp")){
+            coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
+        }else if(world.dimension().toString().contains("end")){
+            coldSnapGifter = new EndHorde.EndGifter(Register.ECOLDSNAPGIFTER.get(), world);
+        }else if(trueBiomeCheck(world, pos)){
+            Random random = new Random();
+            int chance = random.nextInt(100);
+            if(chance <= 5){coldSnapGifter = new NetherHorde.NetherGifter(Register.NCOLDSNAPGIFTER.get(), world);}
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapGifter = new EndHorde.EndGifter(Register.ECOLDSNAPGIFTER.get(), world);
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
+            else coldSnapGifter = new StandardHorde.StandardGifter(Register.COLDSNAPGIFTER.get(), world);
+        }
+        else coldSnapGifter = new NetherHorde.NetherGifter(Register.NCOLDSNAPGIFTER.get(), world);
+        return coldSnapGifter;
+    }
+
+    private ColdSnapZapper zapperSpawnRules(Level world, BlockPos pos){
+        ColdSnapZapper coldSnapZapper;
+        if (world.getBiome(pos).toString().contains("swamp")){
+            coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
+        }else if(world.dimension().toString().contains("end")){
+            coldSnapZapper = new EndHorde.EndZapper(Register.ECOLDSNAPZAPPER.get(), world);
+        }else if(trueBiomeCheck(world, pos)){
+            Random random = new Random();
+            int chance = random.nextInt(100);
+            if(chance <= 5){coldSnapZapper = new NetherHorde.NetherZapper(Register.NCOLDSNAPZAPPER.get(), world);}
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapZapper = new EndHorde.EndZapper(Register.ECOLDSNAPZAPPER.get(), world);
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
+            else coldSnapZapper = new StandardHorde.StandardZapper(Register.COLDSNAPZAPPER.get(), world);
+        }
+        else coldSnapZapper = new NetherHorde.NetherZapper(Register.NCOLDSNAPZAPPER.get(), world);
+        return coldSnapZapper;
+    }
+
+    private ColdSnapBrawler brawlerSpawnRules(Level world, BlockPos pos){
+        ColdSnapBrawler coldSnapBrawler;
+        if (world.getBiome(pos).toString().contains("swamp")){
+            coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
+        }else if(world.dimension().toString().contains("end")){
+            coldSnapBrawler = new EndHorde.EndBrawler(Register.ECOLDSNAPBRAWLER.get(), world);
+        }else if(trueBiomeCheck(world, pos)){
+            Random random = new Random();
+            int chance = random.nextInt(100);
+            if(chance <= 5){coldSnapBrawler = new NetherHorde.NetherBrawler(Register.NCOLDSNAPBRAWLER.get(), world);}
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapBrawler = new EndHorde.EndBrawler(Register.ECOLDSNAPBRAWLER.get(), world);
+            chance = random.nextInt(100);
+            if(chance <= 5) coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
+            else coldSnapBrawler = new StandardHorde.StandardBrawler(Register.COLDSNAPBRAWLER.get(), world);
+        }
+        else coldSnapBrawler = new NetherHorde.NetherBrawler(Register.NCOLDSNAPBRAWLER.get(), world);
+        return coldSnapBrawler;
     }
 }

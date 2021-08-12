@@ -1,6 +1,8 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -48,7 +50,9 @@ public class ColdSnapBrawler extends GenericHordeMember{
             }
             case 1 -> {
                 int chance2 = random.nextInt(100);
-                if (chance2 <= 75){entityIn.setSecondsOnFire(3);}
+                if (chance2 <= 75) {
+                    ((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*5, 1));
+                }
 
             }
             case 2 -> {

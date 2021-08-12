@@ -87,6 +87,7 @@ public class RenderManager {
         event.registerEntityRenderer(Register.LIGHTNINGSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(Register.ROCKSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(Register.SNOWIERSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(Register.THROWNCHORUSPROJECTILE.get(), ThrownItemRenderer::new);
 
     }
     /*

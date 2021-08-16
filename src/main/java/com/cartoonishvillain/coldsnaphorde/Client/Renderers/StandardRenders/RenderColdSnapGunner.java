@@ -15,6 +15,7 @@ public class RenderColdSnapGunner extends MobRenderer<ColdSnapGunner, ColdSnapGu
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapgunner.png");
     protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/ecoldsnapgunner.png");
+    protected static final ResourceLocation PTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/pcoldsnapgunner.png");
 
     public RenderColdSnapGunner(EntityRendererProvider.Context p_174304_) {
         super(p_174304_, new ColdSnapGunnerModel<>(p_174304_.bakeLayer(COLDSNAPGUNNER)), 0.5f);
@@ -29,6 +30,7 @@ public class RenderColdSnapGunner extends MobRenderer<ColdSnapGunner, ColdSnapGu
         if (entity.getHordeVariant() == 0)
             return TEXTURE;
         else if(entity.getHordeVariant() == 2) return ETEXTURE;
+        else if(entity.getHordeVariant() == 3) {return PTEXTURE;}
         else return TEXTURE;
     }
 }

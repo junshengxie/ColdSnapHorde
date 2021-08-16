@@ -105,7 +105,7 @@ public class NetherColdSnapGifterModel <C extends GenericHordeMember> extends En
                 .texOffs(30,34).addBox(-5.0F, -8.0F, -5.0F, 10.0F, 2.0F, 10.0F, cubeDeformation5)
                 .texOffs(0,44).addBox(-4.0F, -13.0F, -4.0F, 8.0F, 6.0F, 8.0F, cubeDeformation5), PartPose.offsetAndRotation(0.0F, -13.1F, -3.0F, -1.3111F, 0.0338F, -0.1265F));
         partDefinition.addOrReplaceChild(LOWBODY, CubeListBuilder.create()
-                .texOffs(12,71).addBox(-6.0F, -10.17F, -6.0F, 12.0F, 12.0F, 12.0F, cubeDeformation5)
+                .texOffs(12,72).addBox(-6.0F, -10.17F, -6.0F, 12.0F, 12.0F, 12.0F, cubeDeformation5)
                 .texOffs(51,91).addBox(-6.0F, -12.0F, 0.4F, 12.0F, 12.0F, 12.0F, cubeDeformation5)
                 .texOffs(0,104).addBox(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, cubeDeformation5), PartPose.ZERO);
         return LayerDefinition.create(meshDefinition, 128,128);

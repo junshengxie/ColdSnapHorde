@@ -16,6 +16,7 @@ public class RenderColdSnapBrawler extends MobRenderer<ColdSnapBrawler, ColdSnap
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapbrawler.png");
     protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/ecoldsnapbrawler.png");
+    protected static final ResourceLocation PTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/pcoldsnapbrawler.png");
 
     public RenderColdSnapBrawler(EntityRendererProvider.Context p_174304_) {
         super(p_174304_, new ColdSnapBrawlerModel<>(p_174304_.bakeLayer(COLDSNAPBRAWLER)), 0.5f);
@@ -30,6 +31,7 @@ public class RenderColdSnapBrawler extends MobRenderer<ColdSnapBrawler, ColdSnap
         if (entity.getHordeVariant() == 0)
         {return TEXTURE;}
         else if(entity.getHordeVariant() == 2) {return ETEXTURE;}
+        else if(entity.getHordeVariant() == 3) {return PTEXTURE;}
         else return TEXTURE;
     }
     }

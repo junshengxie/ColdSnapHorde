@@ -16,6 +16,7 @@ public class RenderColdSnapStabber extends MobRenderer<ColdSnapStabber, ColdSnap
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapstabber.png");
     protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/ecoldsnapstabber.png");
+    protected static final ResourceLocation PTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/pcoldsnapstabber.png");
 
     public RenderColdSnapStabber(EntityRendererProvider.Context p_174304_) {
         super(p_174304_, new ColdSnapStabberModel<>(p_174304_.bakeLayer(COLDSNAPSTABBER)), 0.5f);
@@ -29,6 +30,7 @@ public class RenderColdSnapStabber extends MobRenderer<ColdSnapStabber, ColdSnap
     public ResourceLocation getTextureLocation(ColdSnapStabber entity) {
         if (entity.getHordeVariant() == 0) {return TEXTURE;}
         else if(entity.getHordeVariant() == 2) {return ETEXTURE;}
+        else if(entity.getHordeVariant() == 3) {return PTEXTURE;}
         else return TEXTURE;
     }
 }

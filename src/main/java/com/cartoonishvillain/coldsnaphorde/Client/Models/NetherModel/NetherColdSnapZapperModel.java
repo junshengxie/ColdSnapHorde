@@ -38,7 +38,7 @@ public class NetherColdSnapZapperModel <C extends GenericHordeMember> extends En
         this.bone = part.getChild(BONE);
         lowbody.setPos(0.0F, 24.0F, 0.0F);
         body.setPos(0.0F, 13.0F, 0.0F);
-        head.setPos(0.0F, 4.0F, 0.0F);
+        head.setPos(0.0F, 5.3F, 0.0F);
         bone.setPos(0.0F, 25.8F, 0.0F);
         head.children.put(HAT, hat);
         bone.children.put(LEFTHAND, left_hand);

@@ -15,6 +15,7 @@ import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.COLDSNAPS
 public class RenderColdSnapSnowballer extends MobRenderer<ColdSnapSnowballer, ColdSnapSnowballerModel<ColdSnapSnowballer>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapsnowballer.png");
+    protected static final ResourceLocation PTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/pcoldsnapsnowballer.png");
 
     public RenderColdSnapSnowballer(EntityRendererProvider.Context p_174304_) {
         super(p_174304_, new ColdSnapSnowballerModel<>(p_174304_.bakeLayer(COLDSNAPSNOWBALLER)), 0.5f);
@@ -26,6 +27,7 @@ public class RenderColdSnapSnowballer extends MobRenderer<ColdSnapSnowballer, Co
 
     @Override
     public ResourceLocation getTextureLocation(ColdSnapSnowballer entity) {
-        return TEXTURE;
+        if(entity.getHordeVariant() == 3) {return PTEXTURE;}
+        else return TEXTURE;
     }
 }

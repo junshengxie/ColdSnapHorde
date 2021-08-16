@@ -82,6 +82,14 @@ public class RenderManager {
         event.registerEntityRenderer(Register.ECOLDSNAPGIFTER.get(), RenderColdSnapGifter::new);
         event.registerEntityRenderer(Register.ECOLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
         event.registerEntityRenderer(Register.ECOLDSNAPBRAWLER.get(), RenderColdSnapBrawler::new);
+
+        event.registerEntityRenderer(Register.PCOLDSNAPSTABBER.get(), RenderColdSnapStabber::new);
+        event.registerEntityRenderer(Register.PCOLDSNAPGUNNER.get(), RenderColdSnapGunner::new);
+        event.registerEntityRenderer(Register.PCOLDSNAPSNOWBALLER.get(), RenderColdSnapSnowballer::new);
+        event.registerEntityRenderer(Register.PCOLDSNAPGIFTER.get(), RenderColdSnapGifter::new);
+        event.registerEntityRenderer(Register.PCOLDSNAPZAPPER.get(), RenderColdSnapZapper::new);
+        event.registerEntityRenderer(Register.PCOLDSNAPBRAWLER.get(), RenderColdSnapBrawler::new);
+
         event.registerEntityRenderer(Register.COLDSNAPCOW.get(), RenderColdSnapCow::new);
         event.registerEntityRenderer(Register.GUNNERPROJECTILE.get(), ThrownItemRenderer::new);
         event.registerEntityRenderer(Register.LIGHTNINGSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);

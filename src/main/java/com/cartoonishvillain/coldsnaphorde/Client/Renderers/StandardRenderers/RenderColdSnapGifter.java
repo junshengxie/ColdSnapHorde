@@ -11,6 +11,7 @@ public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGi
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapgifter.png");
     protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/ecoldsnapgifter.png");
+    protected static final ResourceLocation PTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/pcoldsnapgifter.png");
 
     public RenderColdSnapGifter(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ColdSnapGifterModel<>(), 0.5F);
@@ -20,6 +21,9 @@ public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGi
     public ResourceLocation getEntityTexture(ColdSnapGifter entity) {
         if(entity.getHordeVariant() == 0)
             return TEXTURE;
+
+        if(entity.getHordeVariant() == 3)
+            return PTEXTURE;
         else return ETEXTURE;
     }
 }

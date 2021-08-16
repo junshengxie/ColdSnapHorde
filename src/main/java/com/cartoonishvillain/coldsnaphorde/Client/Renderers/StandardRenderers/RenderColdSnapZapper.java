@@ -11,6 +11,7 @@ public class RenderColdSnapZapper extends MobRenderer<ColdSnapZapper, ColdSnapZa
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/coldsnapzapper.png");
     protected static final ResourceLocation ETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/ecoldsnapzapper.png");
+    protected static final ResourceLocation PTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/entity/pcoldsnapzapper.png");
 
     public RenderColdSnapZapper(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new ColdSnapZapperModel<>(), 0.5F);
@@ -20,6 +21,10 @@ public class RenderColdSnapZapper extends MobRenderer<ColdSnapZapper, ColdSnapZa
     public ResourceLocation getEntityTexture(ColdSnapZapper entity) {
         if(entity.getHordeVariant() == 0)
             return TEXTURE;
+
+        if(entity.getHordeVariant() == 3)
+            return PTEXTURE;
+
         else return ETEXTURE;
     }
 }

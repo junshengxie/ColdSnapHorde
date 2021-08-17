@@ -170,7 +170,8 @@ public class Horde {
 
     private ColdSnapGunner gunnerSpawnRules(World world, BlockPos pos){
         ColdSnapGunner coldSnapGunner;
-        if (world.getBiome(pos).getRegistryName().toString().contains("swamp")){
+        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        if (BiomeName.contains("swamp")){
             coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
         }else if(world.getDimensionKey().toString().contains("end")){
             coldSnapGunner = new EndHorde.EndGunner(Register.ECOLDSNAPGUNNER.get(), world);
@@ -190,7 +191,8 @@ public class Horde {
 
     private ColdSnapStabber stabberSpawnRules(World world, BlockPos pos){
         ColdSnapStabber coldSnapStabber;
-        if (world.getBiome(pos).toString().contains("swamp")){
+        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        if (BiomeName.contains("swamp")){
             coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
         }else if(world.getDimensionKey().toString().contains("end")){
             coldSnapStabber = new EndHorde.EndStabber(Register.ECOLDSNAPSTABBER.get(), world);
@@ -210,7 +212,8 @@ public class Horde {
 
     private ColdSnapSnowballer snowballerSpawnRules(World world, BlockPos pos){
         ColdSnapSnowballer coldSnapSnowballer;
-        if (world.getBiome(pos).toString().contains("swamp")){
+        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        if (BiomeName.contains("swamp")){
             coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
         }else if(world.getDimensionKey().toString().contains("end")){
             coldSnapSnowballer = new EndHorde.EndSnowballer(Register.ECOLDSNAPSNOWBALLER.get(), world);
@@ -230,7 +233,8 @@ public class Horde {
 
     private ColdSnapGifter gifterSpawnRules(World world, BlockPos pos){
         ColdSnapGifter coldSnapGifter;
-        if (world.getBiome(pos).toString().contains("swamp")){
+        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        if (BiomeName.contains("swamp")){
             coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
         }else if(world.getDimensionKey().toString().contains("end")){
             coldSnapGifter = new EndHorde.EndGifter(Register.ECOLDSNAPGIFTER.get(), world);
@@ -250,8 +254,8 @@ public class Horde {
 
     private ColdSnapZapper zapperSpawnRules(World world, BlockPos pos){
         ColdSnapZapper coldSnapZapper;
-        if (world.getBiome(pos).toString().contains("swamp")){
-            coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
+        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        if (BiomeName.contains("swamp")){            coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
         }else if(world.getDimensionKey().toString().contains("end")){
             coldSnapZapper = new EndHorde.EndZapper(Register.ECOLDSNAPZAPPER.get(), world);
         }else if(trueBiomeCheck(world, pos)){
@@ -270,7 +274,8 @@ public class Horde {
 
     private ColdSnapBrawler brawlerSpawnRules(World world, BlockPos pos){
         ColdSnapBrawler coldSnapBrawler;
-        if (world.getBiome(pos).toString().contains("swamp")){
+        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        if (BiomeName.contains("swamp")){
             coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
         }else if(world.getDimensionKey().toString().contains("end")){
             coldSnapBrawler = new EndHorde.EndBrawler(Register.ECOLDSNAPBRAWLER.get(), world);

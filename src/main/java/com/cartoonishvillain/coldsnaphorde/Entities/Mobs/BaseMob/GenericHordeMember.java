@@ -215,7 +215,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
         if(ColdSnapHorde.isCalyxLoaded && ColdSnapHorde.sconfig.PLAGUEIMMORTUOSCOMPAT.get()){
             entity.getCapability(InfectionManagerCapability.INSTANCE).ifPresent(h->{
                 if(entity.getRandom().nextInt(10) >= 4){
-                    h.setInfectionProgressIfLower(1);
+                    if(h.getInfectionProgress() < 0) h.setInfectionProgress(1);
                 }
             });
         }else{

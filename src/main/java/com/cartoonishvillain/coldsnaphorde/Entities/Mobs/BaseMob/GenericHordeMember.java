@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob;
 
+import com.cartoonishvillain.ImmortuosCalyx.ImmortuosCalyx;
 import com.cartoonishvillain.ImmortuosCalyx.Infection.InfectionManagerCapability;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.Behaviors.HordeMovementGoal;
@@ -207,7 +208,7 @@ public class GenericHordeMember extends MonsterEntity {
         if(ColdSnapHorde.isCalyxLoaded && ColdSnapHorde.sconfig.PLAGUEIMMORTUOSCOMPAT.get()){
             entity.getCapability(InfectionManagerCapability.INSTANCE).ifPresent(h->{
                 if(entity.getRNG().nextInt(10) >= 4){
-                    h.setInfectionProgressIfLower(1);
+                    if(h.getInfectionProgress() <= 0) h.setInfectionProgress(1);
                 }
             });
         }else{

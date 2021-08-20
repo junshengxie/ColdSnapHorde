@@ -18,8 +18,8 @@ public class TopHatModel<T extends LivingEntity> extends EntityModel<T> {
         texHeight = 128;
         brim.setPos(0, -7,0);
         brim.addChild(hat);
-        brim.addBox(-5.0F, -8.1F, -5.0F, 10.0F, 2.0F, 10.0F, -0.5F, false);
-        hat.addBox(-4.0F, -13.1F, -4.0F, 8.0F, 6.0F, 8.0F, -0.5F, false);
+        brim.addBox(-5.0F, -2.0F, -5.0F, 10.0F, 2.0F, 10.0F, -0.5F, false);
+        hat.addBox(-4.0F, -6.125F, -4.0F, 8.0F, 6.0F, 8.0F, -0.5F, false);
 
     }
 

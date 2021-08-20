@@ -8,6 +8,9 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.Net
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.PlagueHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.StandardHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.SpawnerBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -234,11 +237,53 @@ public class NewHorde {
                 l = randFinder(this.center.getZ(), f, i);
                 DISTANCE = center.distSqr(new BlockPos(j, center.getY(), l));}
 
-            int k = this.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, j, l);
-            blockPos.set(j, k, l);
-            if(this.world.isAreaLoaded(blockPos, 20)) return blockPos;
+//            int k = this.world.getHeight(Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, j, l);
+            int k = findYPosition(j, l);
+            if(k != -1) {
+                blockPos.set(j, k, l);
+                if (this.world.isAreaLoaded(blockPos, 20)) return blockPos;
+            }
         }
         return null;
+    }
+
+    private int findYPosition(int j, int l){
+        BlockPos.Mutable blockPos = new BlockPos.Mutable();
+        //Look Higher first, it is the preferable option
+        for(int i = center.getY(); i < center.getY()+25; i++){
+            blockPos.set(j, i-1, l);
+            BlockState blockstate = world.getBlockState(blockPos);
+            if (blockstate.canOcclude() && !(blockstate.getBlock() instanceof LeavesBlock) && !(blockstate.equals(Blocks.BEDROCK.defaultBlockState()))){
+                blockPos.set(j, i, l);
+                blockstate = world.getBlockState(blockPos);
+                if(blockstate.equals(Blocks.AIR.defaultBlockState())){
+                    blockPos.set(j, i+1, l);
+                    blockstate = world.getBlockState(blockPos);
+                    if(blockstate.equals(Blocks.AIR.defaultBlockState())){
+                        return i;
+                    }
+                }
+            }
+        }
+
+        //if no spot above, begrudgingly look below. Not too deep
+        for(int i = center.getY(); i > center.getY()-15; i--){
+            blockPos.set(j, i-1, l);
+            BlockState blockstate = world.getBlockState(blockPos);
+            if (blockstate.canOcclude() && !(blockstate.getBlock() instanceof LeavesBlock) && !(blockstate.equals(Blocks.BEDROCK.defaultBlockState()))){
+                blockPos.set(j, i, l);
+                blockstate = world.getBlockState(blockPos);
+                if(blockstate.equals(Blocks.AIR.defaultBlockState())){
+                    blockPos.set(j, i+1, l);
+                    blockstate = world.getBlockState(blockPos);
+                    if(blockstate.equals(Blocks.AIR.defaultBlockState())){
+                        return i;
+                    }
+                }
+            }
+        }
+
+        return -1;
     }
 
     private int randFinder(int centercoord, float f, int i){return centercoord + (this.world.random.nextInt(25+25) - 25);}
@@ -411,7 +456,7 @@ public class NewHorde {
         if (BiomeName.contains("swamp")){
             coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
         }else if(world.dimension().toString().contains("end")){
-            coldSnapSnowballer = new NetherHorde.NetherSnowballer(Register.ECOLDSNAPSNOWBALLER.get(), world);
+            coldSnapSnowballer = new EndHorde.EndSnowballer(Register.ECOLDSNAPSNOWBALLER.get(), world);
         }else if(world.dimension().toString().contains("nether")){
             coldSnapSnowballer = new NetherHorde.NetherSnowballer(Register.NCOLDSNAPSNOWBALLER.get(), world);
         }else if(trueBiomeCheck(world, pos)){

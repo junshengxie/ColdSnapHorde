@@ -10,29 +10,29 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import javax.annotation.Nullable;
 import java.util.concurrent.Callable;
 
-public class CooldownCapability {
-    @CapabilityInject(ICooldownManager.class)
-    public static Capability<ICooldownManager> INSTANCE = null;
+public class WorldCapability {
+    @CapabilityInject(IWorldCapability.class)
+    public static Capability<IWorldCapability> INSTANCE = null;
 
     public static void register(){
-        CapabilityManager.INSTANCE.register(ICooldownManager.class, new Capability.IStorage<ICooldownManager>() {
+        CapabilityManager.INSTANCE.register(IWorldCapability.class, new Capability.IStorage<IWorldCapability>() {
             @Nullable
             @Override
-            public INBT writeNBT(Capability<ICooldownManager> capability, ICooldownManager instance, Direction side) {
+            public INBT writeNBT(Capability<IWorldCapability> capability, IWorldCapability instance, Direction side) {
                 CompoundNBT tag = new CompoundNBT();
                 tag.putInt("cooldown", instance.getCooldownTicks());
                 return tag;
             }
 
             @Override
-            public void readNBT(Capability<ICooldownManager> capability, ICooldownManager instance, Direction side, INBT nbt) {
+            public void readNBT(Capability<IWorldCapability> capability, IWorldCapability instance, Direction side, INBT nbt) {
                 CompoundNBT tag = (CompoundNBT) nbt;
                 instance.setCooldownTicks(((CompoundNBT) nbt).getInt("cooldown"));
             }
-        }, new Callable<CooldownManager>(){
+        }, new Callable<WorldCapabilityManager>(){
             @Override
-            public CooldownManager call() throws Exception {
-                return new CooldownManager();
+            public WorldCapabilityManager call() throws Exception {
+                return new WorldCapabilityManager();
             }
 
         });

@@ -21,30 +21,22 @@ public class HordeMovementGoal<T extends GenericHordeMember> extends Goal {
 
     @Override
     public boolean canUse() {
-        return this.Member.getTarget() != null && this.Member.isHordeMember() && this.Member.getTarget() == null;
+        return this.Member.getLocTarget() != null && this.Member.isHordeMember() && this.Member.getTarget() == null;
     }
 
     @Override
     public boolean canContinueToUse() {
-        return this.Member.getTarget() != null && this.Member.isHordeMember() && this.Member.getTarget() == null;
+        return this.Member.getLocTarget() != null && this.Member.isHordeMember() && this.Member.getTarget() == null;
     }
 
     @Override
     public void tick() {
         super.tick();
-        if(this.Member.tickCount % 50 == 0){inviteNearbySnowmentoHorde();}
         if (!this.Member.isPathFinding()) {
             Vector3d vector3d = RandomPositionGenerator.getPosTowards(this.Member, 15, 4, Vector3d.atBottomCenterOf(Member.getLocTarget()));
             if (vector3d != null) {
                 this.Member.getNavigation().moveTo(vector3d.x, vector3d.y, vector3d.z, 0.5D);
             }
-        }
-    }
-
-    private void inviteNearbySnowmentoHorde(){
-        List<GenericHordeMember> list = this.Member.level.getEntitiesOfClass(GenericHordeMember.class, this.Member.getBoundingBox().inflate(8));
-        for(GenericHordeMember snowman : list){
-            if(snowman.getLocTarget() == null && !snowman.isHordeMember() && snowman.getTarget() == null) snowman.toggleHordeMember(Member.getLocTarget());
         }
     }
 }

@@ -1,8 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.Items;
 
-import com.cartoonishvillain.coldsnaphorde.Capabilities.CooldownCapability;
+import com.cartoonishvillain.coldsnaphorde.Capabilities.WorldCapability;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Events.Horde;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
@@ -12,11 +11,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 import java.util.concurrent.atomic.AtomicInteger;
-
-import net.minecraft.item.Item.Properties;
 
 public class Snowglobe extends Item {
     public Snowglobe(Properties properties) {
@@ -28,18 +24,19 @@ public class Snowglobe extends Item {
         if(handIn == Hand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null) {
             if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (biomeCheck(worldIn, playerIn.blockPosition()) || worldIn.getBiome(playerIn.blockPosition()).getRegistryName().toString().contains("swamp") || worldIn.dimension().toString().contains("end"))) {
                 AtomicInteger atomicInteger = new AtomicInteger(0);
-                worldIn.getCapability(CooldownCapability.INSTANCE).ifPresent(h->{
+                worldIn.getCapability(WorldCapability.INSTANCE).ifPresent(h->{
                     if(h.getCooldownTicks() > 0){
                         atomicInteger.set(h.getCooldownTicks());
                     }
                 });
 
-                if(!(atomicInteger.get() > 0)) {
-                    Horde horde = new Horde((ServerWorld) worldIn, playerIn.blockPosition(), (ServerPlayerEntity) playerIn);
-                    worldIn.getCapability(CooldownCapability.INSTANCE).ifPresent(h->{h.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);});
+                if(atomicInteger.get() == 0 && !ColdSnapHorde.Horde.getHordeActive()) {
+                    ColdSnapHorde.Horde.SetUpHorde((ServerPlayerEntity) playerIn);
                     playerIn.getMainHandItem().shrink(1);
-                }else{
+                }else if (!ColdSnapHorde.Horde.getHordeActive()){
                     playerIn.displayClientMessage(new StringTextComponent("Horde on cooldown! Returning in: " + TimeBuilder(atomicInteger.get())), false);
+                }else if(ColdSnapHorde.Horde.getHordeActive()){
+                    playerIn.displayClientMessage(new StringTextComponent("The Horde is busy elsewhere. Try again later!"), false);
                 }
             }else{
                 playerIn.displayClientMessage(new StringTextComponent("Temperature too hot for the horde to summon!"), false);

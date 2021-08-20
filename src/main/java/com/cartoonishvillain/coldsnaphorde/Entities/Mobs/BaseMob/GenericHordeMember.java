@@ -66,6 +66,11 @@ public class GenericHordeMember extends MonsterEntity {
     }
 
     @Override
+    public boolean canChangeDimensions() {
+        return false;
+    }
+
+    @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         this.setHordeVariant(compound.getInt("variant"));
@@ -128,7 +133,16 @@ public class GenericHordeMember extends MonsterEntity {
 
     public boolean isHordeMember(){return HordeMember;}
 
-    public void toggleHordeMember(BlockPos center) {this.target = center; HordeMember = true;}
+    public void toggleHordeMember(BlockPos center) {
+        this.target = center; HordeMember = true;
+        ColdSnapHorde.Horde.SpawnUnit();
+    }
+
+    public void updateHordeMember(BlockPos center) {this.target = center;}
+
+    public void cancelHordeMembership(){
+        this.target = null; this.HordeMember = false;
+    }
 
     @Override
     public void aiStep() {

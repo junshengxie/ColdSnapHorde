@@ -1,22 +1,25 @@
 package com.cartoonishvillain.coldsnaphorde;
 
-import com.cartoonishvillain.coldsnaphorde.Capabilities.CooldownCapability;
+import com.cartoonishvillain.coldsnaphorde.Capabilities.WorldCapability;
 import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.*;
-import net.minecraft.client.renderer.entity.PlayerRenderer;
+import com.cartoonishvillain.coldsnaphorde.Events.NewHorde;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
@@ -34,6 +37,7 @@ public class ColdSnapHorde
     public static SConfiguration sconfig;
     public static CConfiguration cconfig;
     public static boolean isCalyxLoaded;
+    public static NewHorde Horde;
 
 
     public ColdSnapHorde() {
@@ -55,7 +59,7 @@ public class ColdSnapHorde
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        CooldownCapability.register();
+        WorldCapability.register();
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
             GlobalEntityTypeAttributes.put(Register.COLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
@@ -102,10 +106,17 @@ public class ColdSnapHorde
 //
 //    }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
-//    @SubscribeEvent
-//    public void onServerStarting(FMLServerStartingEvent event) {
-//
-//    }
+    @SubscribeEvent
+    public void onServerStarting(FMLServerStartingEvent event) {
+        Horde = new NewHorde(event.getServer());
+
+        for(ServerWorld serverWorld : event.getServer().getAllLevels()){
+            serverWorld.getCapability(WorldCapability.INSTANCE).ifPresent(h->{
+                if(h.getCooldownTicks() <= 0){h.setCooldownTicks(sconfig.GLOBALHORDECOOLDOWN.get() * 20);}
+            });
+        }
+
+    }
 
 
     public void StartTopHatLayer(FMLLoadCompleteEvent event){
@@ -113,5 +124,6 @@ public class ColdSnapHorde
             if (FMLEnvironment.dist == Dist.CLIENT) AddTopHatLayer();
         });
     }
+
 
 }

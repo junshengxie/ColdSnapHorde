@@ -38,7 +38,7 @@ public class GunnerProjectileEntity extends ProjectileItemEntity {
 
     @OnlyIn(Dist.CLIENT)
     private IParticleData makeParticle() {
-        ItemStack itemstack = this.func_213882_k();
+        ItemStack itemstack = this.getItemRaw();
         return new ItemParticleData(ParticleTypes.ITEM, itemstack);
     }
 
@@ -52,45 +52,45 @@ public class GunnerProjectileEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult p_213868_1_) {
-        super.onEntityHit(p_213868_1_);
+    protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+        super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
-        int i = 1 + world.getDifficulty().getId();
-        entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), (float)i);
-        int chance = rand.nextInt(20);
-        if(this.getShooter() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.world.isRemote()){
-            GenericHordeMember member = (GenericHordeMember) this.getShooter();
+        int i = 1 + level.getDifficulty().getId();
+        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
+        int chance = random.nextInt(20);
+        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
+            GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
                 case 0 :
-                    if(chance <= 3)  {((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.BLINDNESS, 10*20, 0));}
+                    if(chance <= 3)  {((LivingEntity) entity).addEffect(new EffectInstance(Effects.BLINDNESS, 10*20, 0));}
                 break;
                 case 1:
-                    int chance2 = rand.nextInt(100);
+                    int chance2 = random.nextInt(100);
                     if (chance2 <= 75) {
-                        ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
+                        ((LivingEntity) entity).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*5, 1));
                     }
                     break;
                 case 2:
-                    int chance3 = rand.nextInt(20);
-                    if(chance3 <= 2) ((LivingEntity) entity).attemptTeleport(entity.getPosX() + rand.nextInt(5+5)-5,entity.getPosY() + rand.nextInt(5+5)-5,entity.getPosZ() + rand.nextInt(5+5)-5, true);
-                    else if(chance3 <=4) member.attemptTeleport(this.getPosX() + rand.nextInt(5+5)-5,this.getPosY() + rand.nextInt(5+5)-5,this.getPosZ() + rand.nextInt(5+5)-5, true);
+                    int chance3 = random.nextInt(20);
+                    if(chance3 <= 2) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
+                    else if(chance3 <=4) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 break;
                 case 3:
                     Infection((LivingEntity) entity);
                     break;
             }
         }
-        else if (entity instanceof LivingEntity && chance <= 3 && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.BLINDNESS, 10*20, 0));}
+        else if (entity instanceof LivingEntity && chance <= 3 && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new EffectInstance(Effects.BLINDNESS, 10*20, 0));}
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
+    protected void onHit(RayTraceResult result) {
+        super.onHit(result);
         this.remove();
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

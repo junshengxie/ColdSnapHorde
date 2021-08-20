@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 public class ColdSnapGunner extends GenericHordeMember implements IRangedAttackMob {
     public ColdSnapGunner(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
     }
 
     @Override
@@ -46,41 +46,41 @@ public class ColdSnapGunner extends GenericHordeMember implements IRangedAttackM
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2D);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.5D)
+                .add(Attributes.ATTACK_DAMAGE, 2D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem()) || (entity instanceof PlayerEntity && ((PlayerEntity) entity).isCreative())){
+        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem()) || (entity instanceof PlayerEntity && ((PlayerEntity) entity).isCreative())){
             return false;
         }return true;
     }
 
     @Nullable
     @Override
-    public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
+    public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        this.setItemSlot(EquipmentSlotType.MAINHAND, new ItemStack(Items.BOW));
         return spawnDataIn;
     }
 
-    public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        GunnerProjectileEntity snowballentity = new GunnerProjectileEntity(Register.GUNNERPROJECTILE.get(), this.world, this);
-        double d0 = target.getPosYEye() - (double)1.1F;
-        double d1 = target.getPosX() - this.getPosX();
-        double d2 = d0 - snowballentity.getPosY();
-        double d3 = target.getPosZ() - this.getPosZ();
+    public void performRangedAttack(LivingEntity target, float distanceFactor) {
+        GunnerProjectileEntity snowballentity = new GunnerProjectileEntity(Register.GUNNERPROJECTILE.get(), this.level, this);
+        double d0 = target.getEyeY() - (double)1.1F;
+        double d1 = target.getX() - this.getX();
+        double d2 = d0 - snowballentity.getY();
+        double d3 = target.getZ() - this.getZ();
         float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
         snowballentity.shoot(d1, d2 + (double)f, d3, 1.6F, 3.0F);
-        snowballentity.setShooter(this);
-        this.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 0.5F, 3.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.addEntity(snowballentity);
+        snowballentity.setOwner(this);
+        this.playSound(SoundEvents.GENERIC_EXPLODE, 0.5F, 3.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level.addFreshEntity(snowballentity);
     }
 
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
     }
 
 }

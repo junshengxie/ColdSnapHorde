@@ -41,7 +41,7 @@ public class GifterSurprise {
         this.Entz = z;
         this.exploder = exploder;
         this.radius = radius;
-        this.damageSource = DamageSource.causeExplosionDamage((LivingEntity) exploder);
+        this.damageSource = DamageSource.explosion((LivingEntity) exploder);
         this.position = new Vector3d(x, y, z);
         if(exploder instanceof GenericHordeMember){
             GenericHordeMember genericHordeMember = (GenericHordeMember) exploder;
@@ -80,7 +80,7 @@ public class GifterSurprise {
                 for (int z = (int) -radius - 1; z <= radius; z++) {
                     BlockPos blockPos = new BlockPos(Entx + x,Enty + y,Entz + z);
                     blockPosArrayList.add(blockPos);
-                    ArrayList<Entity> entities = (ArrayList<Entity>) world.getEntitiesInAABBexcluding(exploder, new AxisAlignedBB(Entx+x+2, Enty+y+2, Entz+z+2, Entx+x-2, Enty+y-2, Entz+z-2), null);
+                    ArrayList<Entity> entities = (ArrayList<Entity>) world.getEntities(exploder, new AxisAlignedBB(Entx+x+2, Enty+y+2, Entz+z+2, Entx+x-2, Enty+y-2, Entz+z-2), null);
                     for(Entity entity : entities){
                         if(!effectedEntities.contains(entity)) effectedEntities.add(entity);
                     }
@@ -91,28 +91,28 @@ public class GifterSurprise {
 
     public void DetonateTest(){
         for(BlockPos blockPos : blockPosArrayList){
-            world.setBlockState(blockPos, Blocks.WATER.getDefaultState());
+            world.setBlockAndUpdate(blockPos, Blocks.WATER.defaultBlockState());
         }
     }
 
     public void DetonateBlockDamage(){
-        if(net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(exploder.world, exploder) && hordeVariant != 2){
+        if(net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(exploder.level, exploder) && hordeVariant != 2){
             if(hordeVariant != 1){
                 for (BlockPos blockPos : blockPosArrayList){
-                    if((world.getBlockState(blockPos).equals(Blocks.AIR.getDefaultState()) || world.getBlockState(blockPos).equals(Blocks.GRASS.getDefaultState())) && !(world.getBlockState(blockPos.down()).equals(Blocks.AIR.getDefaultState()) || world.getBlockState(blockPos.down()).equals(Blocks.GRASS.getDefaultState()))){
-                        world.setBlockState(blockPos, Blocks.SNOW.getDefaultState());
-                    }else if(world.getBlockState(blockPos).equals(Blocks.WATER.getDefaultState())) world.setBlockState(blockPos, Blocks.ICE.getDefaultState());
-                    else if(world.getBlockState(blockPos).equals(Blocks.LAVA.getDefaultState())) world.setBlockState(blockPos, Blocks.OBSIDIAN.getDefaultState());
-                    else if(world.getBlockState(blockPos).getBlock().equals(Blocks.FARMLAND)) world.setBlockState(blockPos, Blocks.DIRT.getDefaultState());
-                    else if(world.getBlockState(blockPos).equals(Blocks.ICE.getDefaultState())) world.setBlockState(blockPos, Blocks.PACKED_ICE.getDefaultState());
-                    else if(world.getBlockState(blockPos).getBlock().equals(Blocks.FIRE)) world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
+                    if((world.getBlockState(blockPos).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos).equals(Blocks.GRASS.defaultBlockState())) && !(world.getBlockState(blockPos.below()).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos.below()).equals(Blocks.GRASS.defaultBlockState()))){
+                        world.setBlockAndUpdate(blockPos, Blocks.SNOW.defaultBlockState());
+                    }else if(world.getBlockState(blockPos).equals(Blocks.WATER.defaultBlockState())) world.setBlockAndUpdate(blockPos, Blocks.ICE.defaultBlockState());
+                    else if(world.getBlockState(blockPos).equals(Blocks.LAVA.defaultBlockState())) world.setBlockAndUpdate(blockPos, Blocks.OBSIDIAN.defaultBlockState());
+                    else if(world.getBlockState(blockPos).getBlock().equals(Blocks.FARMLAND)) world.setBlockAndUpdate(blockPos, Blocks.DIRT.defaultBlockState());
+                    else if(world.getBlockState(blockPos).equals(Blocks.ICE.defaultBlockState())) world.setBlockAndUpdate(blockPos, Blocks.PACKED_ICE.defaultBlockState());
+                    else if(world.getBlockState(blockPos).getBlock().equals(Blocks.FIRE)) world.setBlockAndUpdate(blockPos, Blocks.AIR.defaultBlockState());
                 }
             } else{
                 for (BlockPos blockPos : blockPosArrayList){
-                    if(world.getBlockState(blockPos).equals(Blocks.AIR.getDefaultState())){
-                        BlockState blockstate = Register.SLUSH.get().getDefaultState();
-                        if(blockstate.isValidPosition(world, blockPos)){
-                            world.setBlockState(blockPos, blockstate);
+                    if(world.getBlockState(blockPos).equals(Blocks.AIR.defaultBlockState())){
+                        BlockState blockstate = Register.SLUSH.get().defaultBlockState();
+                        if(blockstate.canSurvive(world, blockPos)){
+                            world.setBlockAndUpdate(blockPos, blockstate);
                         }
 
                     }
@@ -126,25 +126,25 @@ public class GifterSurprise {
         for(Entity entity : effectedEntities){
             if (entity instanceof LivingEntity){
                 float DamageRadius = radius * 1.5f;
-                if(!entity.isImmuneToExplosions()){
-                    double distanceFactor = Math.sqrt(entity.getDistanceSq(vec3)) / DamageRadius;
+                if(!entity.ignoreExplosion()){
+                    double distanceFactor = Math.sqrt(entity.distanceToSqr(vec3)) / DamageRadius;
                     if(distanceFactor <= 1){
-                        double directionalx = entity.getPosX() - this.Entx;
-                        double directionaly = entity.getPosY() - this.Enty;
-                        double directionalz = entity.getPosZ() - this.Entz;
-                        double percentSeen =  Explosion.getBlockDensity(vec3, entity);
+                        double directionalx = entity.getX() - this.Entx;
+                        double directionaly = entity.getY() - this.Enty;
+                        double directionalz = entity.getZ() - this.Entz;
+                        double percentSeen =  Explosion.getSeenPercent(vec3, entity);
                         double damage = (1.0D - distanceFactor) * percentSeen;
                         if(hordeVariant != 2) {
                             double knockback = damage;
                             if (entity instanceof LivingEntity) {
-                                knockback = ProtectionEnchantment.getBlastDamageReduction((LivingEntity) entity, damage);
+                                knockback = ProtectionEnchantment.getExplosionKnockbackAfterDampener((LivingEntity) entity, damage);
                             }
-                            entity.setMotion(entity.getMotion().add(directionalx * knockback, directionaly * knockback, directionalz * knockback));
+                            entity.setDeltaMovement(entity.getDeltaMovement().add(directionalx * knockback, directionaly * knockback, directionalz * knockback));
                             if(hordeVariant == 3){Infection((LivingEntity) entity);}
                         }else{
-                            ((LivingEntity) entity).attemptTeleport(entity.getPosX() + entity.world.rand.nextInt(10+10)-10,entity.getPosY() + entity.world.rand.nextInt(10+10)-10,entity.getPosZ() + entity.world.rand.nextInt(10+10)-10, true);
+                            ((LivingEntity) entity).randomTeleport(entity.getX() + entity.level.random.nextInt(10+10)-10,entity.getY() + entity.level.random.nextInt(10+10)-10,entity.getZ() + entity.level.random.nextInt(10+10)-10, true);
                         }
-                        entity.attackEntityFrom(this.damageSource, (float)((int)((damage * damage + damage) / 2.0D * 3.0D * (double)DamageRadius + 1.0D)));
+                        entity.hurt(this.damageSource, (float)((int)((damage * damage + damage) / 2.0D * 3.0D * (double)DamageRadius + 1.0D)));
                     }
                 }
             }

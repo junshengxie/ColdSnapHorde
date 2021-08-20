@@ -31,7 +31,7 @@ public class Horde {
         //Stage 0, get nearby players and include them into event
         this.world = world;
         this.center = center;
-        ArrayList<Entity> entities = (ArrayList<Entity>) world.getEntitiesWithinAABBExcludingEntity(playerEntity, new AxisAlignedBB(playerEntity.getPosX() - 25, playerEntity.getPosY() - 25, playerEntity.getPosZ() - 25, playerEntity.getPosX() + 25, playerEntity.getPosY() + 25, playerEntity.getPosZ() + 25 ));
+        ArrayList<Entity> entities = (ArrayList<Entity>) world.getEntities(playerEntity, new AxisAlignedBB(playerEntity.getX() - 25, playerEntity.getY() - 25, playerEntity.getZ() - 25, playerEntity.getX() + 25, playerEntity.getY() + 25, playerEntity.getZ() + 25 ));
         ArrayList<PlayerEntity> playerEntities = new ArrayList<>();
         playerEntities.add(playerEntity);
         for(Entity entity : entities){
@@ -40,7 +40,7 @@ public class Horde {
             }
         }
         //Stage 1, send message about incoming horde
-        for(PlayerEntity player : playerEntities){ player.sendStatusMessage(new StringTextComponent(TextFormatting.AQUA + "A cold snap horde approaches!"), true);}
+        for(PlayerEntity player : playerEntities){ player.displayClientMessage(new StringTextComponent(TextFormatting.AQUA + "A cold snap horde approaches!"), true);}
 
         //Stage 2, spawn a horde of enemies, send them towards the block center.
         for(int entityCount = 0; entityCount < ColdSnapHorde.sconfig.HORDESIZE.get(); entityCount++){
@@ -65,22 +65,22 @@ public class Horde {
         BlockPos.Mutable blockPos = new BlockPos.Mutable();
 
         for(int a = 0; a < loopvar; ++a){
-            float f = this.world.rand.nextFloat() * ((float)Math.PI * 2F);
+            float f = this.world.random.nextFloat() * ((float)Math.PI * 2F);
             double DISTANCE = -1;
             int j = Integer.MAX_VALUE, l = Integer.MAX_VALUE;
             while ((DISTANCE == -1 || !(DISTANCE > 450 && DISTANCE < 1250)) || !biomeCheck(world, new BlockPos(j, center.getY(), l))){ //check for appropriate distance from start and proper biome
             j = randFinder(this.center.getX(), f, i);
             l = randFinder(this.center.getZ(), f, i);
-            DISTANCE = center.distanceSq(new BlockPos(j, center.getY(), l));}
+            DISTANCE = center.distSqr(new BlockPos(j, center.getY(), l));}
 
             int k = this.world.getHeight(Heightmap.Type.WORLD_SURFACE, j, l);
-            blockPos.setPos(j, k, l);
+            blockPos.set(j, k, l);
             if(this.world.isAreaLoaded(blockPos, 20)) return blockPos;
         }
         return null;
     }
 
-    private int randFinder(int centercoord, float f, int i){return centercoord + (this.world.rand.nextInt(25+25) - 25);}
+    private int randFinder(int centercoord, float f, int i){return centercoord + (this.world.random.nextInt(25+25) - 25);}
 
     private void spawnSnowman(BlockPos pos){
         ArrayList<Integer> SpawnWeights = new ArrayList<>();
@@ -105,48 +105,48 @@ public class Horde {
         switch (selected){
             case 0:
                 ColdSnapGunner coldSnapGunner = gunnerSpawnRules(world, pos);
-                coldSnapGunner.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapGunner.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapGunner.toggleHordeMember(center);
-                world.addEntity(coldSnapGunner);
+                world.addFreshEntity(coldSnapGunner);
                 break;
             case 1:
                 ColdSnapStabber coldSnapStabber = stabberSpawnRules(world, pos);
-                coldSnapStabber.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapStabber.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapStabber.toggleHordeMember(center);
-                world.addEntity(coldSnapStabber);
+                world.addFreshEntity(coldSnapStabber);
                 break;
             case 2:
                 ColdSnapSnowballer coldSnapSnowballer = snowballerSpawnRules(world, pos);
-                coldSnapSnowballer.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapSnowballer.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapSnowballer.toggleHordeMember(center);
-                world.addEntity(coldSnapSnowballer);
+                world.addFreshEntity(coldSnapSnowballer);
                 break;
             case 3:
                 ColdSnapZapper coldSnapZapper = zapperSpawnRules(world, pos);
-                coldSnapZapper.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapZapper.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapZapper.toggleHordeMember(center);
-                world.addEntity(coldSnapZapper);
+                world.addFreshEntity(coldSnapZapper);
                 break;
             case 4:
                 ColdSnapGifter coldSnapGifter = gifterSpawnRules(world, pos);
-                coldSnapGifter.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapGifter.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapGifter.toggleHordeMember(center);
-                world.addEntity(coldSnapGifter);
+                world.addFreshEntity(coldSnapGifter);
                 break;
             case 5:
                 ColdSnapBrawler coldSnapBrawler = brawlerSpawnRules(world, pos);
-                coldSnapBrawler.setPosition(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
+                coldSnapBrawler.setPos(pos.getX()+0.5, pos.getY(), pos.getZ()+0.5);
                 coldSnapBrawler.toggleHordeMember(center);
-                world.addEntity(coldSnapBrawler);
+                world.addFreshEntity(coldSnapBrawler);
                 break;
         }
     }
 
     private boolean biomeCheck(World world, BlockPos pos){
         if(world.getBiome(pos).getRegistryName().toString().contains("swamp")){return true;}
-        if(!world.getDimensionKey().toString().contains("over")){return true;}
+        if(!world.dimension().toString().contains("over")){return true;}
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).getTemperature();
+        float temp = world.getBiome(pos).getBaseTemperature();
         int code = -1;
         if (temp < 0.3){code = 0;}
         else if(temp >= 0.3 && temp < 0.9){code = 1;}
@@ -158,7 +158,7 @@ public class Horde {
 
     private boolean trueBiomeCheck(World world, BlockPos pos){
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).getTemperature();
+        float temp = world.getBiome(pos).getBaseTemperature();
         int code = -1;
         if (temp < 0.3){code = 0;}
         else if(temp >= 0.3 && temp < 0.9){code = 1;}
@@ -173,7 +173,7 @@ public class Horde {
         String BiomeName = world.getBiome(pos).getRegistryName().toString();
         if (BiomeName.contains("swamp")){
             coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
-        }else if(world.getDimensionKey().toString().contains("end")){
+        }else if(world.dimension().toString().contains("end")){
             coldSnapGunner = new EndHorde.EndGunner(Register.ECOLDSNAPGUNNER.get(), world);
         }else if(trueBiomeCheck(world, pos)){
             Random random = new Random();
@@ -194,7 +194,7 @@ public class Horde {
         String BiomeName = world.getBiome(pos).getRegistryName().toString();
         if (BiomeName.contains("swamp")){
             coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
-        }else if(world.getDimensionKey().toString().contains("end")){
+        }else if(world.dimension().toString().contains("end")){
             coldSnapStabber = new EndHorde.EndStabber(Register.ECOLDSNAPSTABBER.get(), world);
         }else if(trueBiomeCheck(world, pos)){
             Random random = new Random();
@@ -215,7 +215,7 @@ public class Horde {
         String BiomeName = world.getBiome(pos).getRegistryName().toString();
         if (BiomeName.contains("swamp")){
             coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
-        }else if(world.getDimensionKey().toString().contains("end")){
+        }else if(world.dimension().toString().contains("end")){
             coldSnapSnowballer = new EndHorde.EndSnowballer(Register.ECOLDSNAPSNOWBALLER.get(), world);
         }else if(trueBiomeCheck(world, pos)){
             Random random = new Random();
@@ -236,7 +236,7 @@ public class Horde {
         String BiomeName = world.getBiome(pos).getRegistryName().toString();
         if (BiomeName.contains("swamp")){
             coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
-        }else if(world.getDimensionKey().toString().contains("end")){
+        }else if(world.dimension().toString().contains("end")){
             coldSnapGifter = new EndHorde.EndGifter(Register.ECOLDSNAPGIFTER.get(), world);
         }else if(trueBiomeCheck(world, pos)){
             Random random = new Random();
@@ -256,7 +256,7 @@ public class Horde {
         ColdSnapZapper coldSnapZapper;
         String BiomeName = world.getBiome(pos).getRegistryName().toString();
         if (BiomeName.contains("swamp")){            coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
-        }else if(world.getDimensionKey().toString().contains("end")){
+        }else if(world.dimension().toString().contains("end")){
             coldSnapZapper = new EndHorde.EndZapper(Register.ECOLDSNAPZAPPER.get(), world);
         }else if(trueBiomeCheck(world, pos)){
             Random random = new Random();
@@ -277,7 +277,7 @@ public class Horde {
         String BiomeName = world.getBiome(pos).getRegistryName().toString();
         if (BiomeName.contains("swamp")){
             coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
-        }else if(world.getDimensionKey().toString().contains("end")){
+        }else if(world.dimension().toString().contains("end")){
             coldSnapBrawler = new EndHorde.EndBrawler(Register.ECOLDSNAPBRAWLER.get(), world);
         }else if(trueBiomeCheck(world, pos)){
             Random random = new Random();

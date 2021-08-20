@@ -32,7 +32,7 @@ import javax.annotation.Nullable;
 public class GenericHordeMember extends MonsterEntity {
     private BlockPos target = null;
     private Boolean HordeMember = false;
-    public static final DataParameter<Integer> variant = EntityDataManager.createKey(GenericHordeMember.class, DataSerializers.VARINT);
+    public static final DataParameter<Integer> variant = EntityDataManager.defineId(GenericHordeMember.class, DataSerializers.INT);
 
 
     @Override
@@ -53,7 +53,7 @@ public class GenericHordeMember extends MonsterEntity {
     @Override
     public void tick() {
         super.tick();
-        if(this.ticksExisted == 2){
+        if(this.tickCount == 2){
             String check = this.getType().toString();
             int variantcheck = this.getHordeVariant();
             if(check.contains("ncoldsnap") && variantcheck != 1)
@@ -66,43 +66,43 @@ public class GenericHordeMember extends MonsterEntity {
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         this.setHordeVariant(compound.getInt("variant"));
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
         compound.putInt("variant", this.getHordeVariant());
     }
 
-    public void setHordeVariant(int hordeVariant) {this.dataManager.set(variant, hordeVariant);}
+    public void setHordeVariant(int hordeVariant) {this.entityData.set(variant, hordeVariant);}
 
     public int getHordeVariant() {
-        int variant = this.dataManager.get(GenericHordeMember.variant);
+        int variant = this.entityData.get(GenericHordeMember.variant);
         return variant;
     }
 
     @Override
-    public void onDeath(DamageSource cause) {
-        int random = world.rand.nextInt(100);
-        if(random > 80 && !world.isRemote() && isHordeMember()){
-            ItemEntity itemEntity = new ItemEntity(world, this.getPosX(), this.getPosY(), this.getPosZ(), new ItemStack(Register.PRESENT.get(), 1));
-            world.addEntity(itemEntity);
+    public void die(DamageSource cause) {
+        int random = level.random.nextInt(100);
+        if(random > 80 && !level.isClientSide() && isHordeMember()){
+            ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
+            level.addFreshEntity(itemEntity);
         }
-        super.onDeath(cause);
+        super.die(cause);
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+    public boolean hurt(DamageSource source, float amount) {
 
-        if(this.getDataManager().get(variant) == 2){
-            int chance = rand.nextInt(10);
-            if(chance <= 2) this.attemptTeleport(this.getPosX() + rand.nextInt(5+5)-5,this.getPosY() + rand.nextInt(5+5)-5,this.getPosZ() + rand.nextInt(5+5)-5, true);
+        if(this.getEntityData().get(variant) == 2){
+            int chance = random.nextInt(10);
+            if(chance <= 2) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
 
         }
-        return super.attackEntityFrom(source, amount);
+        return super.hurt(source, amount);
     }
 
     protected GenericHordeMember(EntityType<? extends MonsterEntity> type, World worldIn) {
@@ -111,89 +111,89 @@ public class GenericHordeMember extends MonsterEntity {
 
     @Nullable
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_SNOW_GOLEM_AMBIENT;
+        return SoundEvents.SNOW_GOLEM_AMBIENT;
     }
 
     @Nullable
     protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_SNOW_GOLEM_HURT;
+        return SoundEvents.SNOW_GOLEM_HURT;
     }
 
     @Nullable
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SNOW_GOLEM_DEATH;
+        return SoundEvents.SNOW_GOLEM_DEATH;
     }
 
-    public BlockPos getTarget() {return target;}
+    public BlockPos getLocTarget() {return target;}
 
     public boolean isHordeMember(){return HordeMember;}
 
     public void toggleHordeMember(BlockPos center) {this.target = center; HordeMember = true;}
 
     @Override
-    public void livingTick() {
-        super.livingTick();
-        if (!this.world.isRemote()) {
-            int i = MathHelper.floor(this.getPosX());
-            int j = MathHelper.floor(this.getPosY());
-            int k = MathHelper.floor(this.getPosZ());
-            if (shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
-                this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+    public void aiStep() {
+        super.aiStep();
+        if (!this.level.isClientSide()) {
+            int i = MathHelper.floor(this.getX());
+            int j = MathHelper.floor(this.getY());
+            int k = MathHelper.floor(this.getZ());
+            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
+                this.hurt(DamageSource.ON_FIRE, 1.0F);
             }
 
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this)) {
+            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 return;
             }
 
             BlockState blockstate = null;
-            if (this.dataManager.get(variant) == 0 || this.dataManager.get(variant) == 3) {
-                blockstate = Blocks.SNOW.getDefaultState();
+            if (this.entityData.get(variant) == 0 || this.entityData.get(variant) == 3) {
+                blockstate = Blocks.SNOW.defaultBlockState();
             }
-            if (this.dataManager.get(variant) == 1) {
-                blockstate = Register.SLUSH.get().getDefaultState();
+            if (this.entityData.get(variant) == 1) {
+                blockstate = Register.SLUSH.get().defaultBlockState();
             }
 
 
-            if (blockstate == Blocks.SNOW.getDefaultState()) {
+            if (blockstate == Blocks.SNOW.defaultBlockState()) {
                 for (int l = 0; l < 4; ++l) {
-                    i = MathHelper.floor(this.getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-                    j = MathHelper.floor(this.getPosY());
-                    k = MathHelper.floor(this.getPosZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+                    i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+                    j = MathHelper.floor(this.getY());
+                    k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.world.isAirBlock(blockpos) && !shouldOverHeat(this.world.getBiome(this.getPosition()).getTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.isValidPosition(this.world, blockpos)) {
-                        this.world.setBlockState(blockpos, blockstate);
+                    if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
+                        this.level.setBlockAndUpdate(blockpos, blockstate);
                     }
                 }
-            } else if (blockstate == Register.SLUSH.get().getDefaultState()) {
+            } else if (blockstate == Register.SLUSH.get().defaultBlockState()) {
                 for (int l = 0; l < 4; ++l) {
-                    i = MathHelper.floor(this.getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-                    j = MathHelper.floor(this.getPosY());
-                    k = MathHelper.floor(this.getPosZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
+                    i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+                    j = MathHelper.floor(this.getY());
+                    k = MathHelper.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if(this.world.isAirBlock(blockpos) && (blockstate.isValidPosition(this.world, blockpos)))this.world.setBlockState(blockpos, blockstate);
+                    if(this.level.isEmptyBlock(blockpos) && (blockstate.canSurvive(this.level, blockpos)))this.level.setBlockAndUpdate(blockpos, blockstate);
                 }
             }}
             }
 
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        getDataManager().register(variant, -1);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        getEntityData().define(variant, -1);
     }
 
     @Override
-    public boolean isImmuneToFire() {
+    public boolean fireImmune() {
         return (getHordeVariant() == 1);
     }
 
     @Override
-    public boolean isWaterSensitive() {
+    public boolean isSensitiveToWater() {
         return (getHordeVariant() == 1 || getHordeVariant() == 2);
     }
 
     public boolean shouldOverHeat(float currentTemp, int protectionlevel){
-        if(this.dataManager.get(variant) == 0) {
+        if(this.entityData.get(variant) == 0) {
             switch (protectionlevel) {
                 case 0: return currentTemp > 0.3f;
                 case 1: return currentTemp > 0.9f;
@@ -207,21 +207,21 @@ public class GenericHordeMember extends MonsterEntity {
     public static void Infection(LivingEntity entity){
         if(ColdSnapHorde.isCalyxLoaded && ColdSnapHorde.sconfig.PLAGUEIMMORTUOSCOMPAT.get()){
             entity.getCapability(InfectionManagerCapability.INSTANCE).ifPresent(h->{
-                if(entity.getRNG().nextInt(10) >= 4){
+                if(entity.getRandom().nextInt(10) >= 4){
                     if(h.getInfectionProgress() <= 0) h.setInfectionProgress(1);
                 }
             });
         }else{
-            int chance = entity.getRNG().nextInt(10);
+            int chance = entity.getRandom().nextInt(10);
             switch (chance){
                 default: break;
-                case 3: {entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*20, 0)); break;}
-                case 4: {entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*20, 0)); entity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 20*20, 0)); break;}
-                case 5: {entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*40, 0)); entity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 20*40, 0)); break;}
-                case 6: {entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*30, 0)); entity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 20*30, 0)); entity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 20*10, 0)); break;}
-                case 7: {entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*25, 1)); entity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 20*25, 1)); entity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 20*20, 0)); break;}
-                case 8: {entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*30, 1)); entity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 20*30, 1)); entity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 20*20, 0)); entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 20*30, 0)); break;}
-                case 9: {entity.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*30, 1)); entity.addPotionEffect(new EffectInstance(Effects.MINING_FATIGUE, 20*30, 1)); entity.addPotionEffect(new EffectInstance(Effects.NAUSEA, 20*20, 0)); entity.addPotionEffect(new EffectInstance(Effects.WEAKNESS, 20*30, 1)); break;}
+                case 3: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*20, 0)); break;}
+                case 4: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*20, 0)); break;}
+                case 5: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*40, 0)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*40, 0)); break;}
+                case 6: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 0)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 0)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*10, 0)); break;}
+                case 7: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*25, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*25, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); break;}
+                case 8: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.WEAKNESS, 20*30, 0)); break;}
+                case 9: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.WEAKNESS, 20*30, 1)); break;}
             }
         }
     }

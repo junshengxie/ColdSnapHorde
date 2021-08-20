@@ -46,35 +46,35 @@ public class ColdSnapSnowballer extends GenericHordeMember implements IRangedAtt
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2D);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.5D)
+                .add(Attributes.ATTACK_DAMAGE, 2D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity) {
-        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())) {
+        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())) {
             return false;
         } else return true;
     }
 
     @Override
-    public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
+    public void performRangedAttack(LivingEntity target, float distanceFactor) {
         ProjectileItemEntity snowballentity;
-        if(getHordeVariant() == 2){snowballentity = new ThrownChorusEntity(Register.THROWNCHORUSPROJECTILE.get(), this.world, this);}
-        else {snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE.get(), this.world, this);}
-        double d0 = target.getPosYEye() - (double)1.1F;
-        double d1 = target.getPosX() - this.getPosX();
-        double d2 = d0 - snowballentity.getPosY();
-        double d3 = target.getPosZ() - this.getPosZ();
+        if(getHordeVariant() == 2){snowballentity = new ThrownChorusEntity(Register.THROWNCHORUSPROJECTILE.get(), this.level, this);}
+        else {snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE.get(), this.level, this);}
+        double d0 = target.getEyeY() - (double)1.1F;
+        double d1 = target.getX() - this.getX();
+        double d2 = d0 - snowballentity.getY();
+        double d3 = target.getZ() - this.getZ();
         float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
         snowballentity.shoot(d1, d2 + (double)f, d3, 1.6F, 8.0F);
-        snowballentity.setShooter(this);
-        this.playSound(SoundEvents.ENTITY_SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.addEntity(snowballentity);
+        snowballentity.setOwner(this);
+        this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level.addFreshEntity(snowballentity);
     }
 
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
     }
 }

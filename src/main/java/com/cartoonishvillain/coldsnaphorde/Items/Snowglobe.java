@@ -16,15 +16,17 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import net.minecraft.item.Item.Properties;
+
 public class Snowglobe extends Item {
     public Snowglobe(Properties properties) {
         super(properties);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if(handIn == Hand.MAIN_HAND && !worldIn.isRemote() && playerIn != null) {
-            if (worldIn.isAreaLoaded(playerIn.getPosition(), 20) && (biomeCheck(worldIn, playerIn.getPosition()) || worldIn.getBiome(playerIn.getPosition()).getRegistryName().toString().contains("swamp") || worldIn.getDimensionKey().toString().contains("end"))) {
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        if(handIn == Hand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null) {
+            if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (biomeCheck(worldIn, playerIn.blockPosition()) || worldIn.getBiome(playerIn.blockPosition()).getRegistryName().toString().contains("swamp") || worldIn.dimension().toString().contains("end"))) {
                 AtomicInteger atomicInteger = new AtomicInteger(0);
                 worldIn.getCapability(CooldownCapability.INSTANCE).ifPresent(h->{
                     if(h.getCooldownTicks() > 0){
@@ -33,22 +35,22 @@ public class Snowglobe extends Item {
                 });
 
                 if(!(atomicInteger.get() > 0)) {
-                    Horde horde = new Horde((ServerWorld) worldIn, playerIn.getPosition(), (ServerPlayerEntity) playerIn);
+                    Horde horde = new Horde((ServerWorld) worldIn, playerIn.blockPosition(), (ServerPlayerEntity) playerIn);
                     worldIn.getCapability(CooldownCapability.INSTANCE).ifPresent(h->{h.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);});
-                    playerIn.getHeldItemMainhand().shrink(1);
+                    playerIn.getMainHandItem().shrink(1);
                 }else{
-                    playerIn.sendStatusMessage(new StringTextComponent("Horde on cooldown! Returning in: " + TimeBuilder(atomicInteger.get())), false);
+                    playerIn.displayClientMessage(new StringTextComponent("Horde on cooldown! Returning in: " + TimeBuilder(atomicInteger.get())), false);
                 }
             }else{
-                playerIn.sendStatusMessage(new StringTextComponent("Temperature too hot for the horde to summon!"), false);
+                playerIn.displayClientMessage(new StringTextComponent("Temperature too hot for the horde to summon!"), false);
             }
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.use(worldIn, playerIn, handIn);
     }
 
     private boolean biomeCheck(World world, BlockPos pos){
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).getTemperature();
+        float temp = world.getBiome(pos).getBaseTemperature();
         int code = -1;
         if (temp < 0.3){code = 0;}
         else if(temp >= 0.3 && temp < 0.9){code = 1;}

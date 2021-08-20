@@ -18,7 +18,7 @@ public class RenderColdSnapGifter extends MobRenderer<ColdSnapGifter, ColdSnapGi
     }
 
     @Override
-    public ResourceLocation getEntityTexture(ColdSnapGifter entity) {
+    public ResourceLocation getTextureLocation(ColdSnapGifter entity) {
         if(entity.getHordeVariant() == 0)
             return TEXTURE;
 

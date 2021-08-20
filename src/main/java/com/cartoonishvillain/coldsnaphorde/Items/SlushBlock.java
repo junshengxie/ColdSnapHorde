@@ -18,33 +18,35 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SlushBlock extends Block {
-    private static final VoxelShape voxelShape = Block.makeCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
+    private static final VoxelShape voxelShape = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
     public SlushBlock(Properties properties) {
         super(properties);
     }
     private int ticks = 0;
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockPos blockpos = pos.down();
-        return worldIn.getBlockState(blockpos).isSolidSide(worldIn, blockpos, Direction.UP);
+    public boolean canSurvive(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockPos blockpos = pos.below();
+        return worldIn.getBlockState(blockpos).isFaceSturdy(worldIn, blockpos, Direction.UP);
     }
 
     @Override
-    public boolean ticksRandomly(BlockState state) {
+    public boolean isRandomlyTicking(BlockState state) {
         return true;
     }
 
     @Override
     public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
         super.randomTick(state, worldIn, pos, random);
-        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState());
+        worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }
 
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+    public void entityInside(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
         if(!(entityIn instanceof GenericHordeMember))
-        entityIn.setMotionMultiplier(state, new Vector3d(0.85D, 0.5D, 0.85D));
+        entityIn.makeStuckInBlock(state, new Vector3d(0.85D, 0.5D, 0.85D));
     }
 
     @Override

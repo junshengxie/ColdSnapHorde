@@ -21,55 +21,55 @@ public class NetherColdSnapZapperModel<C extends GenericHordeMember> extends Ent
 	private final ModelRenderer left_hand;
 
 	public NetherColdSnapZapperModel() {
-		textureWidth = 128;
-		textureHeight = 128;
+		texWidth = 128;
+		texHeight = 128;
 
 		head = new ModelRenderer(this);
-		head.setRotationPoint(0.0F, 5.3F, 0.0F);
-		head.setTextureOffset(0, 0).addBox(-4.0F, -7.49F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, false);
+		head.setPos(0.0F, 5.3F, 0.0F);
+		head.texOffs(0, 0).addBox(-4.0F, -7.49F, -4.0F, 8.0F, 8.0F, 8.0F, -0.5F, false);
 
 		hat = new ModelRenderer(this);
-		hat.setRotationPoint(0.0F, 0.5F, 0.0F);
+		hat.setPos(0.0F, 0.5F, 0.0F);
 		head.addChild(hat);
-		hat.setTextureOffset(63, 13).addBox(-5.0F, -7.99F, -5.0F, 10.0F, 2.0F, 10.0F, -0.5F, false);
-		hat.setTextureOffset(31, 11).addBox(-4.0F, -12.99F, -4.0F, 8.0F, 6.0F, 8.0F, -0.5F, false);
-		hat.setTextureOffset(7, 69).addBox(-1.0F, -17.39F, -1.0F, 2.0F, 9.0F, 2.0F, -0.1F, false);
-		hat.setTextureOffset(15, 75).addBox(-2.0F, -20.99F, -2.0F, 4.0F, 4.0F, 4.0F, -0.3F, false);
+		hat.texOffs(63, 13).addBox(-5.0F, -7.99F, -5.0F, 10.0F, 2.0F, 10.0F, -0.5F, false);
+		hat.texOffs(31, 11).addBox(-4.0F, -12.99F, -4.0F, 8.0F, 6.0F, 8.0F, -0.5F, false);
+		hat.texOffs(7, 69).addBox(-1.0F, -17.39F, -1.0F, 2.0F, 9.0F, 2.0F, -0.1F, false);
+		hat.texOffs(15, 75).addBox(-2.0F, -20.99F, -2.0F, 4.0F, 4.0F, 4.0F, -0.3F, false);
 
 		lowbody = new ModelRenderer(this);
-		lowbody.setRotationPoint(0.0F, 24.0F, 0.0F);
-		lowbody.setTextureOffset(0, 36).addBox(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, -0.5F, false);
-		lowbody.setTextureOffset(51, 92).addBox(-6.0F, -12.0F, 0.4F, 12.0F, 12.0F, 12.0F, -0.5F, false);
+		lowbody.setPos(0.0F, 24.0F, 0.0F);
+		lowbody.texOffs(0, 36).addBox(-6.0F, -12.0F, -6.0F, 12.0F, 12.0F, 12.0F, -0.5F, false);
+		lowbody.texOffs(51, 92).addBox(-6.0F, -12.0F, 0.4F, 12.0F, 12.0F, 12.0F, -0.5F, false);
 
 		body = new ModelRenderer(this);
-		body.setRotationPoint(0.0F, 13.0F, 0.0F);
-		body.setTextureOffset(0, 108).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, -0.5F, false);
-		body.setTextureOffset(48, 46).addBox(-5.0F, -8.1F, -5.0F, 10.0F, 10.0F, 10.0F, -0.3F, false);
+		body.setPos(0.0F, 13.0F, 0.0F);
+		body.texOffs(0, 108).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, -0.5F, false);
+		body.texOffs(48, 46).addBox(-5.0F, -8.1F, -5.0F, 10.0F, 10.0F, 10.0F, -0.3F, false);
 
 		bone = new ModelRenderer(this);
-		bone.setRotationPoint(0.0F, 25.8F, 0.0F);
+		bone.setPos(0.0F, 25.8F, 0.0F);
 		
 
 		right_hand = new ModelRenderer(this);
-		right_hand.setRotationPoint(-5.0F, -18.0F, 0.0F);
+		right_hand.setPos(-5.0F, -18.0F, 0.0F);
 		bone.addChild(right_hand);
 		setRotationAngle(right_hand, 0.0F, 0.0F, -0.7854F);
-		right_hand.setTextureOffset(32, 0).addBox(-11.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+		right_hand.texOffs(32, 0).addBox(-11.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
 
 		left_hand = new ModelRenderer(this);
-		left_hand.setRotationPoint(5.0F, -18.0F, 0.0F);
+		left_hand.setPos(5.0F, -18.0F, 0.0F);
 		bone.addChild(left_hand);
 		setRotationAngle(left_hand, 0.0F, 0.0F, 0.7854F);
-		left_hand.setTextureOffset(32, 0).addBox(-1.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
+		left_hand.texOffs(32, 0).addBox(-1.0F, 0.0F, -1.0F, 12.0F, 2.0F, 2.0F, -0.5F, false);
 	}
 
 	@Override
-	public void setRotationAngles(ColdSnapZapper entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+	public void setupAnim(ColdSnapZapper entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
 		//previously the render function, render code was moved to a method below
 	}
 
 	@Override
-	public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+	public void renderToBuffer(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
 		head.render(matrixStack, buffer, packedLight, packedOverlay);
 		lowbody.render(matrixStack, buffer, packedLight, packedOverlay);
 		body.render(matrixStack, buffer, packedLight, packedOverlay);
@@ -77,8 +77,8 @@ public class NetherColdSnapZapperModel<C extends GenericHordeMember> extends Ent
 	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
-		modelRenderer.rotateAngleX = x;
-		modelRenderer.rotateAngleY = y;
-		modelRenderer.rotateAngleZ = z;
+		modelRenderer.xRot = x;
+		modelRenderer.yRot = y;
+		modelRenderer.zRot = z;
 	}
 }

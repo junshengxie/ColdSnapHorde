@@ -61,21 +61,21 @@ public class ColdSnapZapper extends GenericHordeMember {
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.4D)
+                .add(Attributes.ATTACK_DAMAGE, 1D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem()) || entity == ZapTarget){
+        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem()) || entity == ZapTarget){
             return false;
         }else return true;
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entityIn) {
-        int chance = rand.nextInt(100);
+    public boolean doHurtTarget(Entity entityIn) {
+        int chance = random.nextInt(100);
         if(chance >= ColdSnapHorde.sconfig.STICKTRANSPONDER.get() && entityIn instanceof LivingEntity && transponderprogress == 1){
             ZapTarget = (LivingEntity) entityIn;
             transponderprogress = 0;
@@ -84,32 +84,32 @@ public class ColdSnapZapper extends GenericHordeMember {
             case 0:
                 break;
             case 1:
-                int chance2 = this.rand.nextInt(100);
+                int chance2 = this.random.nextInt(100);
                 if (chance2 <= 75) {
-                    if (entityIn instanceof LivingEntity) ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
+                    if (entityIn instanceof LivingEntity) ((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*5, 1));
                 }
                 break;
             case 2:
-                int chance3 = rand.nextInt(20);
+                int chance3 = random.nextInt(20);
                 if (chance3 <= 2)
-                    ((LivingEntity) entityIn).attemptTeleport(entityIn.getPosX() + rand.nextInt(5 + 5) - 5, entityIn.getPosY() + rand.nextInt(5 + 5) - 5, entityIn.getPosZ() + rand.nextInt(5 + 5) - 5, true);
+                    ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5 + 5) - 5, entityIn.getY() + random.nextInt(5 + 5) - 5, entityIn.getZ() + random.nextInt(5 + 5) - 5, true);
                 else if (chance3 <= 4)
-                    this.attemptTeleport(this.getPosX() + rand.nextInt(5 + 5) - 5, this.getPosY() + rand.nextInt(5 + 5) - 5, this.getPosZ() + rand.nextInt(5 + 5) - 5, true);
+                    this.randomTeleport(this.getX() + random.nextInt(5 + 5) - 5, this.getY() + random.nextInt(5 + 5) - 5, this.getZ() + random.nextInt(5 + 5) - 5, true);
                 break;
             case 3:
                 Infection((LivingEntity) entityIn);
                 break;
         }
-        return super.attackEntityAsMob(entityIn);
+        return super.doHurtTarget(entityIn);
     }
 
-    public void livingTick() {
-        super.livingTick();
+    public void aiStep() {
+        super.aiStep();
 
-        if(ZapTarget != null && !this.world.isRemote()){
+        if(ZapTarget != null && !this.level.isClientSide()){
             timer -= 1;
             if (timer == 0){
-                EntityType.LIGHTNING_BOLT.spawn((ServerWorld) ZapTarget.getEntityWorld(), new ItemStack(Items.AIR), null, ZapTarget.getPosition(), SpawnReason.TRIGGERED, true, false);
+                EntityType.LIGHTNING_BOLT.spawn((ServerWorld) ZapTarget.getCommandSenderWorld(), new ItemStack(Items.AIR), null, ZapTarget.blockPosition(), SpawnReason.TRIGGERED, true, false);
                 ZapTarget = null;
                 timer = 60;
             }
@@ -129,9 +129,9 @@ class CustomMeleeAttackGoal extends MeleeAttackGoal {
     }
 
     @Override
-    public boolean shouldContinueExecuting() {
-        if(this.attacker instanceof ColdSnapZapper && this.attacker.getAttackTarget() == ((ColdSnapZapper) this.attacker).getZapTarget()){return false;}
-        return super.shouldContinueExecuting();
+    public boolean canContinueToUse() {
+        if(this.mob instanceof ColdSnapZapper && this.mob.getTarget() == ((ColdSnapZapper) this.mob).getZapTarget()){return false;}
+        return super.canContinueToUse();
     }
 }
 

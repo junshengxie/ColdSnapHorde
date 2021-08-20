@@ -42,7 +42,7 @@ public class RockSnowballEntity extends ProjectileItemEntity {
 
     @OnlyIn(Dist.CLIENT)
     private IParticleData makeParticle() {
-        ItemStack itemstack = this.func_213882_k();
+        ItemStack itemstack = this.getItemRaw();
         return new ItemParticleData(ParticleTypes.ITEM, itemstack);
     }
 
@@ -56,53 +56,53 @@ public class RockSnowballEntity extends ProjectileItemEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult p_213868_1_) {
-        super.onEntityHit(p_213868_1_);
+    protected void onHitEntity(EntityRayTraceResult p_213868_1_) {
+        super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
         int i = entity instanceof BlazeEntity ? 3 : 1;
-        entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), (float)i);
-        int chance = rand.nextInt(20);
-        if(this.getShooter() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.world.isRemote()){
-            GenericHordeMember member = (GenericHordeMember) this.getShooter();
+        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
+        int chance = random.nextInt(20);
+        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
+            GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
                 case 0:
-                    if(chance <= 2)  {((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5*20, 0));
-                        if(chance == 1) ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
+                    if(chance <= 2)  {((LivingEntity) entity).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 5*20, 0));
+                        if(chance == 1) ((LivingEntity) entity).addEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
                 break;
                 case 1:
-                    int chance2 = rand.nextInt(100);
+                    int chance2 = random.nextInt(100);
                     if (chance2 <= 75) {
-                        ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
+                        ((LivingEntity) entity).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*5, 1));
                     }
                     break;
                 case 2:
-                    int chance3 = rand.nextInt(20);
-                    if(chance3 <= 2) ((LivingEntity) entity).attemptTeleport(entity.getPosX() + rand.nextInt(5+5)-5,entity.getPosY() + rand.nextInt(5+5)-5,entity.getPosZ() + rand.nextInt(5+5)-5, true);
-                    else if(chance3 <=4) member.attemptTeleport(this.getPosX() + rand.nextInt(5+5)-5,this.getPosY() + rand.nextInt(5+5)-5,this.getPosZ() + rand.nextInt(5+5)-5, true);
+                    int chance3 = random.nextInt(20);
+                    if(chance3 <= 2) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
+                    else if(chance3 <=4) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 break;
                 case 3:
                     Infection((LivingEntity) entity);
                     break;
             }
         }
-        else if (chance <= 2 && entity instanceof LivingEntity && !this.world.isRemote()){((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 5*20, 0));
-            if (chance == 1) ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
+        else if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 5*20, 0));
+            if (chance == 1) ((LivingEntity) entity).addEffect(new EffectInstance(Effects.WEAKNESS, 5*20, 0));}
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
-        BlockState blockstate = Blocks.SNOW_BLOCK.getDefaultState();
-        int snowchance = rand.nextInt(20);
-        BlockPos blockpos = new BlockPos(result.getHitVec());
-        if (this.world.isAirBlock(blockpos) && this.world.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.isValidPosition(this.world, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) && snowchance == 1 && !world.isRemote()) {
-            this.world.setBlockState(blockpos, blockstate);
+    protected void onHit(RayTraceResult result) {
+        super.onHit(result);
+        BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
+        int snowchance = random.nextInt(20);
+        BlockPos blockpos = new BlockPos(result.getLocation());
+        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.canSurvive(this.level, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && snowchance == 1 && !level.isClientSide()) {
+            this.level.setBlockAndUpdate(blockpos, blockstate);
         }
         this.remove();
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

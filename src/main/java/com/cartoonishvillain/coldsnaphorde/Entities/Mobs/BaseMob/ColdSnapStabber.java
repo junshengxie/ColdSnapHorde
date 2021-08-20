@@ -25,7 +25,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class ColdSnapStabber extends GenericHordeMember {
-    private static final DataParameter<Float> ANITIMER = EntityDataManager.createKey(ColdSnapStabber.class, DataSerializers.FLOAT);
+    private static final DataParameter<Float> ANITIMER = EntityDataManager.defineId(ColdSnapStabber.class, DataSerializers.FLOAT);
 //    private AnimationFactory factory = new AnimationFactory(this);
 
     public ColdSnapStabber(EntityType<? extends MonsterEntity> type, World worldIn) { super(type, worldIn);}
@@ -48,67 +48,67 @@ public class ColdSnapStabber extends GenericHordeMember {
     }
 
     public float getANITIMER(){
-        return getDataManager().get(ANITIMER);
+        return getEntityData().get(ANITIMER);
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        getDataManager().register(ANITIMER, 0f);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        getEntityData().define(ANITIMER, 0f);
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 2D);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.5D)
+                .add(Attributes.ATTACK_DAMAGE, 2D);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
             return false;
         }else return true;
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entityIn) {
-        if (entityIn instanceof LivingEntity && !this.world.isRemote()) {
+    public boolean doHurtTarget(Entity entityIn) {
+        if (entityIn instanceof LivingEntity && !this.level.isClientSide()) {
             switch (this.getHordeVariant()) {
                 case 0:
-                    int chance = rand.nextInt(100);
+                    int chance = random.nextInt(100);
                     if (chance <= 6) {
-                        ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.NAUSEA, 10 * 20, 0));
+                        ((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.CONFUSION, 10 * 20, 0));
                     }
                     break;
                 case 1:
-                    int chance2 = this.rand.nextInt(100);
+                    int chance2 = this.random.nextInt(100);
                     if (chance2 <= 75) {
-                        ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
+                        ((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*5, 1));
                     }
                     break;
                 case 2:
-                    int chance3 = rand.nextInt(20);
+                    int chance3 = random.nextInt(20);
                     if (chance3 <= 2)
-                        ((LivingEntity) entityIn).attemptTeleport(entityIn.getPosX() + rand.nextInt(5 + 5) - 5, entityIn.getPosY() + rand.nextInt(5 + 5) - 5, entityIn.getPosZ() + rand.nextInt(5 + 5) - 5, true);
+                        ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5 + 5) - 5, entityIn.getY() + random.nextInt(5 + 5) - 5, entityIn.getZ() + random.nextInt(5 + 5) - 5, true);
                     else if (chance3 <= 4)
-                        this.attemptTeleport(this.getPosX() + rand.nextInt(5 + 5) - 5, this.getPosY() + rand.nextInt(5 + 5) - 5, this.getPosZ() + rand.nextInt(5 + 5) - 5, true);
+                        this.randomTeleport(this.getX() + random.nextInt(5 + 5) - 5, this.getY() + random.nextInt(5 + 5) - 5, this.getZ() + random.nextInt(5 + 5) - 5, true);
                     break;
                 case 3:
                     Infection((LivingEntity) entityIn);
                     break;
             }
             if(getANITIMER() <= 0){
-            this.getDataManager().set(ANITIMER, 20f);}
-            return super.attackEntityAsMob(entityIn);
+            this.getEntityData().set(ANITIMER, 20f);}
+            return super.doHurtTarget(entityIn);
         }
-        return super.attackEntityAsMob(entityIn);
+        return super.doHurtTarget(entityIn);
     }
 
-    public void livingTick() {
-        super.livingTick();
-        if(!this.world.isRemote()){
-        float timer = getDataManager().get(ANITIMER);
-        if (timer > -1) this.getDataManager().set(ANITIMER, timer -= 1f);
+    public void aiStep() {
+        super.aiStep();
+        if(!this.level.isClientSide()){
+        float timer = getEntityData().get(ANITIMER);
+        if (timer > -1) this.getEntityData().set(ANITIMER, timer -= 1f);
     }
     }
 

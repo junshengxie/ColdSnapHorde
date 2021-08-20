@@ -38,35 +38,35 @@ public class ColdSnapBrawler extends GenericHordeMember{
     }
 
     public static AttributeModifierMap.MutableAttribute customAttributes() {
-        return MobEntity.func_233666_p_()
-                .createMutableAttribute(Attributes.MAX_HEALTH, 20.0D)
-                .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.42D)
-                .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D)
-                .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3d);
+        return MobEntity.createMobAttributes()
+                .add(Attributes.MAX_HEALTH, 20.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.42D)
+                .add(Attributes.ATTACK_DAMAGE, 1D)
+                .add(Attributes.ATTACK_KNOCKBACK, 3d);
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entityIn) {
+    public boolean doHurtTarget(Entity entityIn) {
         switch(this.getHordeVariant()){
             case 0: break;
             case 1:
-                int chance2 = this.rand.nextInt(100);
+                int chance2 = this.random.nextInt(100);
                 if (chance2 <= 75){
-                    if (entityIn instanceof LivingEntity) ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20*5, 1));
+                    if (entityIn instanceof LivingEntity) ((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*5, 1));
                 }
                 break;
             case 2:
-                int chance3 = rand.nextInt(20);
-                if(chance3 <= 2) ((LivingEntity) entityIn).attemptTeleport(entityIn.getPosX() + rand.nextInt(5+5)-5,entityIn.getPosY() + rand.nextInt(5+5)-5,entityIn.getPosZ() + rand.nextInt(5+5)-5, true);
-                else if(chance3 <=4) this.attemptTeleport(this.getPosX() + rand.nextInt(5+5)-5,this.getPosY() + rand.nextInt(5+5)-5,this.getPosZ() + rand.nextInt(5+5)-5, true);
+                int chance3 = random.nextInt(20);
+                if(chance3 <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
+                else if(chance3 <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 break;
             case 3: Infection((LivingEntity) entityIn); break;
         }
-        return super.attackEntityAsMob(entityIn);
+        return super.doHurtTarget(entityIn);
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemStackFromSlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
             return false;
         }else return true;
     }

@@ -59,90 +59,90 @@ public class Spawns {
 
         if (BiomeExclusion(finalBiomeExclusion, event.getName()) && !event.getName().toString().contains("swamp") && !(event.getCategory() == Biome.Category.NETHER || event.getCategory() == Biome.Category.THEEND)){
             if(ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 0 && event.getClimate().temperature < 0.3f){
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners1);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners2);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners3);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners4);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners5);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners1);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners2);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners3);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners4);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners5);
             }
             else if (ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 1 && event.getClimate().temperature < 0.9f){
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners1);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners2);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners3);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners4);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners5);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners1);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners2);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners3);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners4);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners5);
             }
             else if (ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 2 && event.getClimate().temperature < 1.5f){
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners1);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners2);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners3);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners4);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners5);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners1);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners2);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners3);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners4);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners5);
 
             }
             else if (ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 3){
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners1);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners2);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners3);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners4);
-                event.getSpawns().withSpawner(EntityClassification.MONSTER, spawners5);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners1);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners2);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners3);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners4);
+                event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners5);
             }
         }
         else if(event.getName().toString().contains("swamp")){
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, pspawners);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, pspawners1);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, pspawners2);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, pspawners3);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, pspawners4);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, pspawners5);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, pspawners);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, pspawners1);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, pspawners2);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, pspawners3);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, pspawners4);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, pspawners5);
         }
         else if(event.getCategory() == Biome.Category.NETHER && ColdSnapHorde.cconfig.DSPAWN.get()){
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, nspawners);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, nspawners1);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, nspawners2);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, nspawners3);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, nspawners4);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, nspawners5);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, nspawners);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, nspawners1);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, nspawners2);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, nspawners3);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, nspawners4);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, nspawners5);
         }
         else if(event.getCategory() == Biome.Category.THEEND && ColdSnapHorde.cconfig.DSPAWN.get()){
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners1);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners2);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners3);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners4);
-            event.getSpawns().withSpawner(EntityClassification.MONSTER, espawners5);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, espawners);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, espawners1);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, espawners2);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, espawners3);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, espawners4);
+            event.getSpawns().addSpawn(EntityClassification.MONSTER, espawners5);
         }
     }
 
     public static void PlacementManager() {
-        EntitySpawnPlacementRegistry.register(Register.COLDSNAPSTABBER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.COLDSNAPSNOWBALLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.COLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.COLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.COLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.COLDSNAPBRAWLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPSTABBER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPSNOWBALLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPBRAWLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPSTABBER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPSNOWBALLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPBRAWLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPSTABBER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPSNOWBALLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPBRAWLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::canSpawnOn);
+        EntitySpawnPlacementRegistry.register(Register.COLDSNAPSTABBER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.COLDSNAPSNOWBALLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.COLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.COLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.COLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.COLDSNAPBRAWLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPSTABBER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPSNOWBALLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.NCOLDSNAPBRAWLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPSTABBER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPSNOWBALLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.ECOLDSNAPBRAWLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPSTABBER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPSNOWBALLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPGUNNER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPGIFTER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPZAPPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
+        EntitySpawnPlacementRegistry.register(Register.PCOLDSNAPBRAWLER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MobEntity::checkMobSpawnRules);
     }
 
 

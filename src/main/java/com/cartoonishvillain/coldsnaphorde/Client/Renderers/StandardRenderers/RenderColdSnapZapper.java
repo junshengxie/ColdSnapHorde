@@ -18,7 +18,7 @@ public class RenderColdSnapZapper extends MobRenderer<ColdSnapZapper, ColdSnapZa
     }
 
     @Override
-    public ResourceLocation getEntityTexture(ColdSnapZapper entity) {
+    public ResourceLocation getTextureLocation(ColdSnapZapper entity) {
         if(entity.getHordeVariant() == 0)
             return TEXTURE;
 

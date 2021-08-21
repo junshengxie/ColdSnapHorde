@@ -84,6 +84,9 @@ public class NewHorde {
 
     public void SetUpHorde(ServerPlayerEntity serverPlayerEntity){
         world = serverPlayerEntity.getLevel();
+        if(serverPlayerEntity.level.dimension().toString().contains("end")){bossInfo.setColor(BossInfo.Color.PURPLE); bossInfo.setName(new StringTextComponent("Cold Snap Horde").withStyle(TextFormatting.DARK_PURPLE, TextFormatting.BOLD));}
+        else if (serverPlayerEntity.level.dimension().toString().contains("nether")){bossInfo.setColor(BossInfo.Color.RED);  bossInfo.setName(new StringTextComponent("Cold Snap Horde").withStyle(TextFormatting.RED, TextFormatting.BOLD));}
+        else {bossInfo.setColor(BossInfo.Color.BLUE);}
         if(serverPlayerEntity.level.dimension().equals(world.dimension())){
             serverPlayer = serverPlayerEntity;
             hordeActive = true;
@@ -101,11 +104,16 @@ public class NewHorde {
         }
     }
 
+    //So when a player dies the serverPlayer would desync which is... a fun issue
+    //This checks for the desync, returns false if the player should not count any longer.
+    private boolean checkIfPlayerIsStillValid(ServerPlayerEntity serverPlayer){
+        return serverPlayer.getHealth() != 0.0f;
+    }
 
     public void tick(){
         if(hordeActive) {
             if (Alive > 0) {
-                if (hordeActive && serverPlayer.level.dimension().equals(world.dimension()) && !serverPlayer.isChangingDimension()) {
+                if (serverPlayer.level.dimensionType().equals(world.dimensionType()) && checkIfPlayerIsStillValid(serverPlayer) && !serverPlayer.isChangingDimension()) {
                     boolean flag = this.hordeActive;
                     if (this.world.getDifficulty() == Difficulty.PEACEFUL) {
                         this.Stop();
@@ -130,6 +138,15 @@ public class NewHorde {
                     if (updateCenter == 0) {
                         center = serverPlayer.blockPosition();
                         updateCenter = 100;
+                        if(!world.dimension().toString().contains("nether") && !world.dimension().toString().contains("end")) {
+                            if (world.getBiome(center).getRegistryName().toString().contains("swamp")) {
+                                bossInfo.setColor(BossInfo.Color.GREEN);
+                                bossInfo.setName(new StringTextComponent("Cold Snap Horde").withStyle(TextFormatting.GREEN, TextFormatting.BOLD));
+                            } else {
+                                bossInfo.setColor(BossInfo.Color.BLUE);
+                                bossInfo.setName(new StringTextComponent("Cold Snap Horde").withStyle(TextFormatting.AQUA, TextFormatting.BOLD));
+                            }
+                        }
                         updatePlayers();
                         updateHorde();
                     } else {
@@ -157,9 +174,11 @@ public class NewHorde {
 
     private void updatePlayers(){
         for(ServerPlayerEntity serverPlayer : server.getPlayerList().getPlayers()){
-            if(this.serverPlayer == serverPlayer){bossInfo.addPlayer(serverPlayer);continue;}
+            if(this.serverPlayer == serverPlayer){
+                bossInfo.addPlayer(serverPlayer);continue;
+            }
             //player is not the tracked player and is in the same world as the tracked world.
-            if(serverPlayer.level.dimension().equals(world.dimension())){
+            if(serverPlayer.level.dimensionType().equals(world.dimensionType()) && checkIfPlayerIsStillValid(serverPlayer)){
                 double distance = MathHelper.sqrt(serverPlayer.distanceToSqr(center.getX(), center.getY(), center.getZ()));
                 if(distance < 64) {
                     if(!players.contains(serverPlayer)) {

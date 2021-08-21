@@ -31,7 +31,7 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 import java.util.*;
 
-public class NewHorde {
+public class Horde {
     private Optional<BlockPos> hordeSpawn = Optional.empty();
     private ServerWorld world;
     private BlockPos center;
@@ -47,7 +47,7 @@ public class NewHorde {
     private final ServerBossInfo bossInfo = new ServerBossInfo(new StringTextComponent("Cold Snap Horde").withStyle(TextFormatting.AQUA, TextFormatting.BOLD), BossInfo.Color.BLUE, BossInfo.Overlay.NOTCHED_10);
 
 
-    public NewHorde(MinecraftServer server) {
+    public Horde(MinecraftServer server) {
         this.server = server;
         for(ServerWorld serverWorld : server.getAllLevels()){
             String Dimension = serverWorld.dimension().toString();
@@ -84,6 +84,7 @@ public class NewHorde {
 
     public void SetUpHorde(ServerPlayerEntity serverPlayerEntity){
         world = serverPlayerEntity.getLevel();
+        bossInfo.setCreateWorldFog(true);
         if(serverPlayerEntity.level.dimension().toString().contains("end")){bossInfo.setColor(BossInfo.Color.PURPLE); bossInfo.setName(new StringTextComponent("Cold Snap Horde").withStyle(TextFormatting.DARK_PURPLE, TextFormatting.BOLD));}
         else if (serverPlayerEntity.level.dimension().toString().contains("nether")){bossInfo.setColor(BossInfo.Color.RED);  bossInfo.setName(new StringTextComponent("Cold Snap Horde").withStyle(TextFormatting.RED, TextFormatting.BOLD));}
         else {bossInfo.setColor(BossInfo.Color.BLUE);}

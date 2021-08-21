@@ -4,16 +4,13 @@ import com.cartoonishvillain.coldsnaphorde.Capabilities.WorldCapability;
 import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.*;
-import com.cartoonishvillain.coldsnaphorde.Events.NewHorde;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import com.cartoonishvillain.coldsnaphorde.Events.Horde;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -37,7 +34,7 @@ public class ColdSnapHorde
     public static SConfiguration sconfig;
     public static CConfiguration cconfig;
     public static boolean isCalyxLoaded;
-    public static NewHorde Horde;
+    public static com.cartoonishvillain.coldsnaphorde.Events.Horde Horde;
 
 
     public ColdSnapHorde() {
@@ -82,7 +79,7 @@ public class ColdSnapHorde
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
-        Horde = new NewHorde(event.getServer());
+        Horde = new Horde(event.getServer());
 
         for(ServerWorld serverWorld : event.getServer().getAllLevels()){
             serverWorld.getCapability(WorldCapability.INSTANCE).ifPresent(h->{

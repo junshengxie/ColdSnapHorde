@@ -60,32 +60,6 @@ public class ColdSnapHorde
     private void setup(final FMLCommonSetupEvent event)
     {
         WorldCapability.register();
-        DeferredWorkQueue.runLater(() -> {
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-        });
         isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
 
     }

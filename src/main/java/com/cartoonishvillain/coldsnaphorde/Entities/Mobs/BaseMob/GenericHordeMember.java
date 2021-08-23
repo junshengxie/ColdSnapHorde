@@ -237,7 +237,7 @@ public class GenericHordeMember extends MonsterEntity {
                 case 6: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 0)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 0)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*10, 0)); break;}
                 case 7: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*25, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*25, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); break;}
                 case 8: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.WEAKNESS, 20*30, 0)); break;}
-                case 9: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.WEAKNESS, 20*30, 1)); break;}
+                case 9: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.WEAKNESS, 20*45, 0)); break;}
             }
         }
     }

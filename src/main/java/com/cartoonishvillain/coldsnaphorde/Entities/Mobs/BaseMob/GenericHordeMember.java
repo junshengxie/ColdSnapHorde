@@ -94,7 +94,7 @@ public class GenericHordeMember extends MonsterEntity {
     @Override
     public void die(DamageSource cause) {
         int random = level.random.nextInt(100);
-        if(random > 80 && !level.isClientSide() && isHordeMember()){
+        if(random > 67 && !level.isClientSide() && isHordeMember()){
             ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
             level.addFreshEntity(itemEntity);
         }

@@ -118,9 +118,6 @@ public class Present extends Item {
 
     private void RewardDispenser(World world, PlayerEntity playerEntity, String selected) {
         switch (selected) {
-            case "coal":
-                ItemSpawner(playerEntity.blockPosition(), world, Items.COAL, 6, 15);
-                break;
             case "snow":
                 ItemSpawner(playerEntity.blockPosition(), world, Items.SNOW_BLOCK, 12, 28);
                 break;

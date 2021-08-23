@@ -42,8 +42,6 @@ public class GenericHordeMember extends MonsterEntity {
         super.registerGoals();
         this.goalSelector.addGoal(3, new HordeMovementGoal<>(this));
         this.goalSelector.addGoal(1, new AvoidEntityGoal<>(this, ColdSnapGifter.class, 6.0F, 1.0D, 1.2D, this::avoid));
-        if(getHordeVariant() == 1 || getHordeVariant() == 2){
-        this.goalSelector.addGoal(0, new WaterAvoidingRandomWalkingGoal(this, 1));}
     }
 
     private boolean avoid(@Nullable LivingEntity entity) {

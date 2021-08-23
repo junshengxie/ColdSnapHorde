@@ -93,9 +93,9 @@ public class Horde {
             hordeActive = true;
             //Set alive counter based on difficulty
             switch (world.getDifficulty()){
-                case EASY: Alive = 50; initAlive = 50; break;
-                case NORMAL: Alive = 65; initAlive = 65; break;
-                case HARD: Alive = 80; initAlive = 80; break;
+                case EASY: Alive = ColdSnapHorde.sconfig.ALIVEEASY.get(); initAlive = ColdSnapHorde.sconfig.ALIVEEASY.get(); break;
+                case NORMAL: Alive = ColdSnapHorde.sconfig.ALIVENORMAL.get(); initAlive = ColdSnapHorde.sconfig.ALIVENORMAL.get(); break;
+                case HARD: Alive = ColdSnapHorde.sconfig.ALIVEHARD.get(); initAlive = ColdSnapHorde.sconfig.ALIVEHARD.get(); break;
             }
             center = serverPlayerEntity.blockPosition();
 
@@ -129,7 +129,7 @@ public class Horde {
 //                        this.bossInfo.setVisible(this.hordeActive);
 //                    }
 
-                    if (Active < 10) {
+                    if (Active < ColdSnapHorde.sconfig.HORDESIZE.get()) {
                         this.hordeSpawn = this.getValidSpawn(2);
                         if (!hordeSpawn.equals(Optional.empty()) && hordeSpawn.isPresent()) {
                             spawnSnowman(hordeSpawn.get());
@@ -138,7 +138,7 @@ public class Horde {
 
                     if (updateCenter == 0) {
                         center = serverPlayer.blockPosition();
-                        updateCenter = 100;
+                        updateCenter = ColdSnapHorde.sconfig.UPDATETICK.get();
                         if(!world.dimension().toString().contains("nether") && !world.dimension().toString().contains("end")) {
                             if (world.getBiome(center).getRegistryName().toString().contains("swamp")) {
                                 bossInfo.setColor(BossInfo.Color.GREEN);

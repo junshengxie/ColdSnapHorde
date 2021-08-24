@@ -8,6 +8,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -32,6 +34,7 @@ public class Snowglobe extends Item {
 
                 if(atomicInteger.get() == 0 && !ColdSnapHorde.Horde.getHordeActive()) {
                     ColdSnapHorde.Horde.SetUpHorde((ServerPlayerEntity) playerIn);
+                    worldIn.playSound(null, playerIn.blockPosition(), SoundEvents.TRIDENT_RIPTIDE_1, SoundCategory.PLAYERS, 0.5f, 1.5f);
                     playerIn.getMainHandItem().shrink(1);
                 }else if (!ColdSnapHorde.Horde.getHordeActive()){
                     playerIn.displayClientMessage(new StringTextComponent("Horde on cooldown! Returning in: " + TimeBuilder(atomicInteger.get())), false);

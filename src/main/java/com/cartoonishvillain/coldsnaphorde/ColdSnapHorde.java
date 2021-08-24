@@ -22,6 +22,10 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
+
 import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.AddTopHatLayer;
 
 
@@ -35,6 +39,7 @@ public class ColdSnapHorde
     public static CConfiguration cconfig;
     public static boolean isCalyxLoaded;
     public static com.cartoonishvillain.coldsnaphorde.Events.Horde Horde;
+    public static Boolean isInHolidayWindow;
 
 
     public ColdSnapHorde() {
@@ -58,7 +63,29 @@ public class ColdSnapHorde
     {
         WorldCapability.register();
         isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
+        Date date = Date.from(Instant.now());
+        Date december = Date.from(Instant.now());
+        december.setMonth(Calendar.DECEMBER);
+        december.setDate(15);
+        december.setHours(0);
+        december.setMinutes(0);
+        if(date.getMonth() == Calendar.JANUARY){
+            december.setYear(december.getYear()-1);
+        }
+        Date January = Date.from(Instant.now());
+        January.setMonth(Calendar.JANUARY);
+        January.setDate(5);
+        January.setHours(0);
+        January.setMinutes(0);
+        if(date.getMonth() != Calendar.JANUARY){
+            January.setYear(January.getYear() + 1);
+        }
 
+
+            isInHolidayWindow = ((date.compareTo(december) >= 0) && (date.compareTo(January) <= 0));
+        int x;
+        x = 2;
+        LOGGER.debug(isInHolidayWindow);
     }
 
 

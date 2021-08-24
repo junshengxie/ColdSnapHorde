@@ -86,6 +86,10 @@ public class GenericHordeMember extends Monster implements SnowCreature {
         return false;
     }
 
+    @Override
+    public boolean canChangeDimensions() {
+        return false;
+    }
 
     @Override
     public void die(DamageSource cause) {

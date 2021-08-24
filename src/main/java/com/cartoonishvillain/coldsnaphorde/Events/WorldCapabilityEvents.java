@@ -26,11 +26,9 @@ public class WorldCapabilityEvents {
                 if(h.getCooldownTicks() > 0){
                     h.addCooldownTicks(-1);
                 }
-
-                if(h.getCooldownTicks() < 0){
-                    h.setCooldownTicks(0);
-                }
             });
+
+            ColdSnapHorde.Horde.tick();
         }
     }
 }

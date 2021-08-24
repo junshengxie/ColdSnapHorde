@@ -212,19 +212,26 @@ public class Present extends Item {
             case "screamgoat":
                 Goat goat = new Goat(EntityType.GOAT, world);
                 SpawnDispenser(world, playerEntity, goat);
+                break;
             case "panda":
                 Panda panda = new Panda(EntityType.PANDA, world);
                 SpawnDispenser(world, playerEntity, panda);
+                break;
             case "icesword":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.ICESWORD.get(), 1, 1);
+                break;
             case "frostcore":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.ICECORE.get(), 1, 1);
+                break;
             case "transposer":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.LIGHTNINGTRANSPOSER.get(), 1, 1);
+                break;
             case "transposerpiece":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.LIGHTNINGTRANSPOSERPIECE.get(), 1, 2);
+                break;
             case "frostshard":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.ICESHARD.get(), 4, 10);
+                break;
         }
         world.playSound(null, playerEntity.blockPosition(), SoundEvents.CHICKEN_EGG, SoundSource.PLAYERS, 1f, 0.5f);
     }

@@ -80,11 +80,7 @@ public class ColdSnapHorde
         if(date.getMonth() != Calendar.JANUARY){
             January.setYear(January.getYear() + 1);
         }
-
-
-            isInHolidayWindow = ((date.compareTo(december) >= 0) && (date.compareTo(January) <= 0));
-        int x;
-        x = 2;
+        isInHolidayWindow = ((date.compareTo(december) >= 0) && (date.compareTo(January) <= 0));
         LOGGER.debug(isInHolidayWindow);
     }
 

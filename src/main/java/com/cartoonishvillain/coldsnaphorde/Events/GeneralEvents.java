@@ -5,9 +5,12 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapGifter;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.SnowCreature;
 import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -16,10 +19,14 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.UUID;
 
 import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.variant;
 
@@ -70,6 +77,25 @@ public class GeneralEvents {
                 if(ColdSnapHorde.sconfig.HORDETAKESMOREFIRE.get()){
                     event.setAmount(event.getAmount() * 2);
                 }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void Login(final PlayerEvent.PlayerLoggedInEvent event){
+        if(ColdSnapHorde.isInHolidayWindow){
+            event.getPlayer().sendMessage(new TranslatableComponent("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA), UUID.randomUUID());
+        }
+    }
+
+    @SubscribeEvent
+    public static void Death(LivingDeathEvent event){
+        if(event.getEntityLiving().getType() != EntityType.PLAYER && !event.getEntityLiving().level.isClientSide()){
+            int random = event.getEntityLiving().level.random.nextInt(150);
+            int check = 145;
+            if(random > check){
+                ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.PRESENT.get(), 1));
+                event.getEntityLiving().level.addFreshEntity(itemEntity);
             }
         }
     }

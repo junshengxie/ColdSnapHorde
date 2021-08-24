@@ -1,19 +1,27 @@
 package com.cartoonishvillain.coldsnaphorde;
 
-import com.cartoonishvillain.coldsnaphorde.Capabilities.CooldownCapability;
+import com.cartoonishvillain.coldsnaphorde.Capabilities.WorldCapability;
 import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
+import com.cartoonishvillain.coldsnaphorde.Events.Horde;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("coldsnaphorde")
@@ -24,6 +32,8 @@ public class ColdSnapHorde
     public static SConfiguration sconfig;
     public static CConfiguration cconfig;
     public static boolean isCalyxLoaded;
+    public static boolean isInHolidayWindow;
+    public static Horde Horde;
 
     public ColdSnapHorde() {
         // Register the setup method for modloading
@@ -42,8 +52,27 @@ public class ColdSnapHorde
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        CooldownCapability.register();
+        WorldCapability.register();
         isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
+        Date date = Date.from(Instant.now());
+        Date december = Date.from(Instant.now());
+        december.setMonth(Calendar.DECEMBER);
+        december.setDate(15);
+        december.setHours(0);
+        december.setMinutes(0);
+        if(date.getMonth() == Calendar.JANUARY){
+            december.setYear(december.getYear()-1);
+        }
+        Date January = Date.from(Instant.now());
+        January.setMonth(Calendar.JANUARY);
+        January.setDate(5);
+        January.setHours(0);
+        January.setMinutes(0);
+        if(date.getMonth() != Calendar.JANUARY){
+            January.setYear(January.getYear() + 1);
+        }
+        isInHolidayWindow = ((date.compareTo(december) >= 0) && (date.compareTo(January) <= 0));
+        LOGGER.debug(isInHolidayWindow);
     }
 
 
@@ -62,9 +91,16 @@ public class ColdSnapHorde
 //
 //    }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
-//    @SubscribeEvent
-//    public void onServerStarting(FMLServerStartingEvent event) {
-//
-//    }
+@SubscribeEvent
+public void onServerStarting(FMLServerStartingEvent event) {
+    Horde = new Horde(event.getServer());
+
+    for(ServerLevel serverWorld : event.getServer().getAllLevels()){
+        serverWorld.getCapability(WorldCapability.INSTANCE).ifPresent(h->{
+            if(h.getCooldownTicks() <= 0){h.setCooldownTicks(sconfig.GLOBALHORDECOOLDOWN.get() * 20);}
+        });
+    }
+
+}
 
 }

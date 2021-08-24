@@ -86,14 +86,30 @@ public class GenericHordeMember extends Monster implements SnowCreature {
         return false;
     }
 
+
     @Override
     public void die(DamageSource cause) {
         int random = level.random.nextInt(100);
-        if(random > 80 && !level.isClientSide() && isHordeMember()){
+        int check;
+        if(ColdSnapHorde.isInHolidayWindow) check = 67; else check = 75;
+        if(random > check && !level.isClientSide() && isHordeMember()){
             ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
             level.addFreshEntity(itemEntity);
         }
         super.die(cause);
+    }
+
+    public boolean isHordeMember(){return HordeMember;}
+
+    public void toggleHordeMember(BlockPos center) {
+        this.target = center; HordeMember = true;
+        ColdSnapHorde.Horde.SpawnUnit();
+    }
+
+    public void updateHordeMember(BlockPos center) {this.target = center;}
+
+    public void cancelHordeMembership(){
+        this.target = null; this.HordeMember = false;
     }
 
     protected GenericHordeMember(EntityType<? extends Monster> type, Level worldIn) {
@@ -146,10 +162,6 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     }
 
     public BlockPos getLoc() {return target;}
-
-    public boolean isHordeMember(){return HordeMember;}
-
-    public void toggleHordeMember(BlockPos center) {this.target = center; HordeMember = true;}
 
     @Override
     public void aiStep() {

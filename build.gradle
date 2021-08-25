@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 
-version = '1.17.1-1.4.3'
+version = '1.17.1-1.5'
 group = 'com.cartoonishvillain.coldsnaphorde' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'coldsnaphorde'
 
@@ -34,7 +34,6 @@ repositories {
         }
     }
 }
-
 
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.

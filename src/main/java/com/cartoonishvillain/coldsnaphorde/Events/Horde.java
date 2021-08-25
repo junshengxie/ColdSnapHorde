@@ -426,6 +426,7 @@ public class Horde {
             coldSnapGunner = new EndHorde.EndGunner(Register.NCOLDSNAPGUNNER.get(), world);
         }
         else if(trueBiomeCheck(world, pos)){
+            if(!world.isRainingAt(pos)){
             Random random = new Random();
             int chance = random.nextInt(100);
             if(chance <= 5){coldSnapGunner = new NetherHorde.NetherGunner(Register.NCOLDSNAPGUNNER.get(), world);}
@@ -434,6 +435,13 @@ public class Horde {
             chance = random.nextInt(100);
             if(chance <= 5 && coldSnapGunner == null) coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
             if(coldSnapGunner == null) coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
+            }else {
+                    Random random = new Random();
+                    int chance = random.nextInt(150);
+                    if(chance <= 10 && coldSnapGunner == null) coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
+                    if(coldSnapGunner == null) coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
+            }
+
         }
         else coldSnapGunner = new NetherHorde.NetherGunner(Register.NCOLDSNAPGUNNER.get(), world);
         return coldSnapGunner;

@@ -10,9 +10,9 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CooldownManager implements ICooldownManager, ICapabilityProvider, INBTSerializable<CompoundTag> {
+public class WorldCapabilityManager implements IWorldCapabilityManager, ICapabilityProvider, INBTSerializable<CompoundTag> {
     protected int ticks = 0;
-    public final LazyOptional<ICooldownManager> holder = LazyOptional.of(() -> this);
+    public final LazyOptional<IWorldCapabilityManager> holder = LazyOptional.of(() -> this);
     @Override
     public int getCooldownTicks() {return ticks;}
 
@@ -25,7 +25,7 @@ public class CooldownManager implements ICooldownManager, ICapabilityProvider, I
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if(cap == CooldownCapability.INSTANCE){ return CooldownCapability.INSTANCE.orEmpty(cap, this.holder); }
+        if(cap == WorldCapability.INSTANCE){ return WorldCapability.INSTANCE.orEmpty(cap, this.holder); }
         else return LazyOptional.empty();
     }
 

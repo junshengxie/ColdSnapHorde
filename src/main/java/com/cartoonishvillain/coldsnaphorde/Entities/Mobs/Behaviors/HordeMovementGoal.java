@@ -32,19 +32,11 @@ public class HordeMovementGoal<T extends GenericHordeMember> extends Goal {
     @Override
     public void tick() {
         super.tick();
-        if(this.Member.tickCount % 50 == 0){inviteNearbySnowmentoHorde();}
         if (!this.Member.isPathFinding()) {
             Vec3 vector3d = DefaultRandomPos.getPosTowards(this.Member, 15, 4, Vec3.atBottomCenterOf(Member.getLoc()), (double)((float)Math.PI / 10F));
             if (vector3d != null) {
                 this.Member.getNavigation().moveTo(vector3d.x, vector3d.y, vector3d.z, 0.5D);
             }
-        }
-    }
-
-    private void inviteNearbySnowmentoHorde(){
-        List<GenericHordeMember> list = this.Member.level.getEntitiesOfClass(GenericHordeMember.class, this.Member.getBoundingBox().inflate(8));
-        for(GenericHordeMember snowman : list){
-            if(snowman.getLoc() == null && !snowman.isHordeMember() && snowman.getTarget() == null) snowman.toggleHordeMember(Member.getLoc());
         }
     }
 }

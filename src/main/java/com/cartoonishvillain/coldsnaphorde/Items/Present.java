@@ -5,6 +5,8 @@ import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -53,6 +55,10 @@ public class Present extends Item {
         possibilities.add("screamgoat"); weights.add(5f);
         possibilities.add("panda"); weights.add(5f);
         possibilities.add("icesword"); weights.add(10f);
+        possibilities.add("transposerpiece"); weights.add(10f);
+        possibilities.add("frostshard"); weights.add(15f);
+        possibilities.add("transposer"); weights.add(5f);
+        possibilities.add("frostcore"); weights.add(5f);
 
         playerIn.getMainHandItem().shrink(1);
 
@@ -206,14 +212,28 @@ public class Present extends Item {
             case "screamgoat":
                 Goat goat = new Goat(EntityType.GOAT, world);
                 SpawnDispenser(world, playerEntity, goat);
+                break;
             case "panda":
                 Panda panda = new Panda(EntityType.PANDA, world);
                 SpawnDispenser(world, playerEntity, panda);
+                break;
             case "icesword":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.ICESWORD.get(), 1, 1);
-
-
+                break;
+            case "frostcore":
+                ItemSpawner(playerEntity.blockPosition(), world, Register.ICECORE.get(), 1, 1);
+                break;
+            case "transposer":
+                ItemSpawner(playerEntity.blockPosition(), world, Register.LIGHTNINGTRANSPOSER.get(), 1, 1);
+                break;
+            case "transposerpiece":
+                ItemSpawner(playerEntity.blockPosition(), world, Register.LIGHTNINGTRANSPOSERPIECE.get(), 1, 2);
+                break;
+            case "frostshard":
+                ItemSpawner(playerEntity.blockPosition(), world, Register.ICESHARD.get(), 4, 10);
+                break;
         }
+        world.playSound(null, playerEntity.blockPosition(), SoundEvents.CHICKEN_EGG, SoundSource.PLAYERS, 1f, 0.5f);
     }
     private Item MusicDisc(){
         ArrayList<Item> music = new ArrayList<Item>(Arrays.asList(Items.MUSIC_DISC_11, Items.MUSIC_DISC_13, Items.MUSIC_DISC_BLOCKS, Items.MUSIC_DISC_CAT, Items.MUSIC_DISC_CHIRP, Items.MUSIC_DISC_FAR, Items.MUSIC_DISC_MALL, Items.MUSIC_DISC_MELLOHI, Items.MUSIC_DISC_PIGSTEP, Items.MUSIC_DISC_STAL, Items.MUSIC_DISC_STRAD, Items.MUSIC_DISC_WAIT, Items.MUSIC_DISC_WARD));

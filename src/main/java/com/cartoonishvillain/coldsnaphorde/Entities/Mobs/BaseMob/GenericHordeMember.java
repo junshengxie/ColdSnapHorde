@@ -10,7 +10,9 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -66,6 +68,11 @@ public class GenericHordeMember extends MonsterEntity {
     }
 
     @Override
+    public boolean canChangeDimensions() {
+        return false;
+    }
+
+    @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
         this.setHordeVariant(compound.getInt("variant"));
@@ -87,7 +94,9 @@ public class GenericHordeMember extends MonsterEntity {
     @Override
     public void die(DamageSource cause) {
         int random = level.random.nextInt(100);
-        if(random > 80 && !level.isClientSide() && isHordeMember()){
+        int check;
+        if(ColdSnapHorde.isInHolidayWindow) check = 67; else check = 75;
+        if(random > check && !level.isClientSide() && isHordeMember()){
             ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
             level.addFreshEntity(itemEntity);
         }
@@ -128,7 +137,16 @@ public class GenericHordeMember extends MonsterEntity {
 
     public boolean isHordeMember(){return HordeMember;}
 
-    public void toggleHordeMember(BlockPos center) {this.target = center; HordeMember = true;}
+    public void toggleHordeMember(BlockPos center) {
+        this.target = center; HordeMember = true;
+        ColdSnapHorde.Horde.SpawnUnit();
+    }
+
+    public void updateHordeMember(BlockPos center) {this.target = center;}
+
+    public void cancelHordeMembership(){
+        this.target = null; this.HordeMember = false;
+    }
 
     @Override
     public void aiStep() {
@@ -221,7 +239,7 @@ public class GenericHordeMember extends MonsterEntity {
                 case 6: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 0)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 0)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*10, 0)); break;}
                 case 7: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*25, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*25, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); break;}
                 case 8: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.WEAKNESS, 20*30, 0)); break;}
-                case 9: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.WEAKNESS, 20*30, 1)); break;}
+                case 9: {entity.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.DIG_SLOWDOWN, 20*30, 1)); entity.addEffect(new EffectInstance(Effects.CONFUSION, 20*20, 0)); entity.addEffect(new EffectInstance(Effects.WEAKNESS, 20*45, 0)); break;}
             }
         }
     }

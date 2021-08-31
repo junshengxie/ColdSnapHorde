@@ -72,7 +72,7 @@ public class ColdSnapGifter extends GenericHordeMember {
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        if (entity == null || entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())){
+        if (entity == null || (entity.getItemBySlot(EquipmentSlotType.HEAD).getItem().equals(Register.TOPHAT.get().getItem())) && this.isHordeMember()){
             return false;
         }else return true;
     }

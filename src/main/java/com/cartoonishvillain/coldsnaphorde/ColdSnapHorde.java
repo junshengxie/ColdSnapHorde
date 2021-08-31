@@ -1,26 +1,30 @@
 package com.cartoonishvillain.coldsnaphorde;
 
-import com.cartoonishvillain.coldsnaphorde.Capabilities.CooldownCapability;
+import com.cartoonishvillain.coldsnaphorde.Capabilities.WorldCapability;
 import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.*;
-import net.minecraft.client.renderer.entity.PlayerRenderer;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import com.cartoonishvillain.coldsnaphorde.Events.Horde;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.DeferredWorkQueue;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.time.Instant;
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.cartoonishvillain.coldsnaphorde.Client.RenderManager.AddTopHatLayer;
 
@@ -34,6 +38,8 @@ public class ColdSnapHorde
     public static SConfiguration sconfig;
     public static CConfiguration cconfig;
     public static boolean isCalyxLoaded;
+    public static com.cartoonishvillain.coldsnaphorde.Events.Horde Horde;
+    public static Boolean isInHolidayWindow;
 
 
     public ColdSnapHorde() {
@@ -55,35 +61,27 @@ public class ColdSnapHorde
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        CooldownCapability.register();
-        DeferredWorkQueue.runLater(() -> {
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.COLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.PCOLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.NCOLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPGUNNER.get(), ColdSnapGunner.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPSTABBER.get(), ColdSnapStabber.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPSNOWBALLER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPGIFTER.get(), ColdSnapSnowballer.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
-            GlobalEntityTypeAttributes.put(Register.ECOLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-        });
+        WorldCapability.register();
         isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
-
+        Date date = Date.from(Instant.now());
+        Date december = Date.from(Instant.now());
+        december.setMonth(Calendar.DECEMBER);
+        december.setDate(15);
+        december.setHours(0);
+        december.setMinutes(0);
+        if(date.getMonth() == Calendar.JANUARY){
+            december.setYear(december.getYear()-1);
+        }
+        Date January = Date.from(Instant.now());
+        January.setMonth(Calendar.JANUARY);
+        January.setDate(5);
+        January.setHours(0);
+        January.setMinutes(0);
+        if(date.getMonth() != Calendar.JANUARY){
+            January.setYear(January.getYear() + 1);
+        }
+        isInHolidayWindow = ((date.compareTo(december) >= 0) && (date.compareTo(January) <= 0));
+        LOGGER.debug(isInHolidayWindow);
     }
 
 
@@ -102,10 +100,17 @@ public class ColdSnapHorde
 //
 //    }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
-//    @SubscribeEvent
-//    public void onServerStarting(FMLServerStartingEvent event) {
-//
-//    }
+    @SubscribeEvent
+    public void onServerStarting(FMLServerStartingEvent event) {
+        Horde = new Horde(event.getServer());
+
+        for(ServerWorld serverWorld : event.getServer().getAllLevels()){
+            serverWorld.getCapability(WorldCapability.INSTANCE).ifPresent(h->{
+                if(h.getCooldownTicks() <= 0){h.setCooldownTicks(sconfig.GLOBALHORDECOOLDOWN.get() * 20);}
+            });
+        }
+
+    }
 
 
     public void StartTopHatLayer(FMLLoadCompleteEvent event){
@@ -113,5 +118,6 @@ public class ColdSnapHorde
             if (FMLEnvironment.dist == Dist.CLIENT) AddTopHatLayer();
         });
     }
+
 
 }

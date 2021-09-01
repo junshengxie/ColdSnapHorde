@@ -1,6 +1,5 @@
 package com.cartoonishvillain.coldsnaphorde.Events;
 
-import com.cartoonishvillain.coldsnaphorde.Capabilities.WorldCapability;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.*;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.EndHorde;
@@ -69,7 +68,7 @@ public class Horde {
         center = null;
         players.clear();
 
-        world.getCapability(WorldCapability.INSTANCE).ifPresent(h -> {
+        world.getCapability(ModBusEvents.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
             h.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);
         });
     }
@@ -110,7 +109,7 @@ public class Horde {
             }
             center = serverPlayerEntity.blockPosition();
 
-            world.getCapability(WorldCapability.INSTANCE).ifPresent(h -> {
+            world.getCapability(ModBusEvents.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
                 h.setCooldownTicks(-1);
             });
         }

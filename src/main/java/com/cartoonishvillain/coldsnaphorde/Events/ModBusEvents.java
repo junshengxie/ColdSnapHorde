@@ -1,11 +1,15 @@
 package com.cartoonishvillain.coldsnaphorde.Events;
 
+import com.cartoonishvillain.coldsnaphorde.Capabilities.IWorldCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.*;
 import com.cartoonishvillain.coldsnaphorde.Entities.Spawns;
 import com.cartoonishvillain.coldsnaphorde.Items.ColdSpawnEggItem;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.entity.EntityType;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -13,6 +17,13 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBusEvents {
+    @CapabilityInject(IWorldCapabilityManager.class)
+    public static Capability<IWorldCapabilityManager> WORLDCAPABILITYINSTANCE = null;
+
+    @SubscribeEvent
+    public static void capabilitRegister(final RegisterCapabilitiesEvent event){
+        event.register(IWorldCapabilityManager.class);
+    }
 
     @SubscribeEvent
     public static void entityRegister(final RegistryEvent.Register<EntityType<?>> event){

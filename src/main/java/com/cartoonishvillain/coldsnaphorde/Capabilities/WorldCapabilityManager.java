@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Capabilities;
 
+import com.cartoonishvillain.coldsnaphorde.Events.ModBusEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -25,7 +26,7 @@ public class WorldCapabilityManager implements IWorldCapabilityManager, ICapabil
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        if(cap == WorldCapability.INSTANCE){ return WorldCapability.INSTANCE.orEmpty(cap, this.holder); }
+        if(cap == ModBusEvents.WORLDCAPABILITYINSTANCE){ return ModBusEvents.WORLDCAPABILITYINSTANCE.orEmpty(cap, this.holder); }
         else return LazyOptional.empty();
     }
 

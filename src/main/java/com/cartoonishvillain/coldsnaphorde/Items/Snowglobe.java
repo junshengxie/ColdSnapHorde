@@ -1,11 +1,9 @@
 package com.cartoonishvillain.coldsnaphorde.Items;
 
-import com.cartoonishvillain.coldsnaphorde.Capabilities.WorldCapability;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
-import com.cartoonishvillain.coldsnaphorde.Events.Horde;
+import com.cartoonishvillain.coldsnaphorde.Events.ModBusEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TextComponent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -28,7 +26,7 @@ public class Snowglobe extends Item {
         if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null) {
             if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (biomeCheck(worldIn, playerIn.blockPosition()) || worldIn.getBiome(playerIn.blockPosition()).getRegistryName().toString().contains("swamp") || worldIn.dimension().toString().contains("end") || worldIn.dimension().toString().contains("nether"))) {
                 AtomicInteger atomicInteger = new AtomicInteger(0);
-                worldIn.getCapability(WorldCapability.INSTANCE).ifPresent(h->{
+                worldIn.getCapability(ModBusEvents.WORLDCAPABILITYINSTANCE).ifPresent(h->{
                     if(h.getCooldownTicks() > 0){
                         atomicInteger.set(h.getCooldownTicks());
                     }

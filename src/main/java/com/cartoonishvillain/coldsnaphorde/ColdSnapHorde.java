@@ -1,10 +1,10 @@
 package com.cartoonishvillain.coldsnaphorde;
 
-import com.cartoonishvillain.coldsnaphorde.Capabilities.WorldCapability;
 import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Events.Horde;
+import com.cartoonishvillain.coldsnaphorde.Events.ModBusEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -52,7 +52,6 @@ public class ColdSnapHorde
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        WorldCapability.register();
         isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
         Date date = Date.from(Instant.now());
         Date december = Date.from(Instant.now());
@@ -96,7 +95,7 @@ public void onServerStarting(FMLServerStartingEvent event) {
     Horde = new Horde(event.getServer());
 
     for(ServerLevel serverWorld : event.getServer().getAllLevels()){
-        serverWorld.getCapability(WorldCapability.INSTANCE).ifPresent(h->{
+        serverWorld.getCapability(ModBusEvents.WORLDCAPABILITYINSTANCE).ifPresent(h->{
             if(h.getCooldownTicks() <= 0){h.setCooldownTicks(sconfig.GLOBALHORDECOOLDOWN.get() * 20);}
         });
     }

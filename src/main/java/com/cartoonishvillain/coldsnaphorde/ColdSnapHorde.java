@@ -58,9 +58,7 @@ public class ColdSnapHorde
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        //37.0.42 changes will eventually break support. Until cursemaven lets me download a new version with the issues fixed, Immortuos support is disabled for 1.17
-//        isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
-        isCalyxLoaded = false;
+        isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
         Date date = Date.from(Instant.now());
         Date december = Date.from(Instant.now());
         december.setMonth(Calendar.DECEMBER);

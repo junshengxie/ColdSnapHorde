@@ -68,7 +68,7 @@ public class Horde {
         center = null;
         players.clear();
 
-        world.getCapability(ModBusEvents.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
+        world.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
             h.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);
         });
     }
@@ -109,7 +109,7 @@ public class Horde {
             }
             center = serverPlayerEntity.blockPosition();
 
-            world.getCapability(ModBusEvents.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
+            world.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
                 h.setCooldownTicks(-1);
             });
         }

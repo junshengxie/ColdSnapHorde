@@ -17,8 +17,6 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBusEvents {
-    @CapabilityInject(IWorldCapabilityManager.class)
-    public static Capability<IWorldCapabilityManager> WORLDCAPABILITYINSTANCE = null;
 
     @SubscribeEvent
     public static void capabilitRegister(final RegisterCapabilitiesEvent event){

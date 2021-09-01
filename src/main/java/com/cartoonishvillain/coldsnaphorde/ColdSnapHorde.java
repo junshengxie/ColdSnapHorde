@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde;
 
+import com.cartoonishvillain.coldsnaphorde.Capabilities.IWorldCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
@@ -9,6 +10,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
@@ -27,6 +30,9 @@ import java.util.Date;
 @Mod("coldsnaphorde")
 public class ColdSnapHorde
 {
+    @CapabilityInject(IWorldCapabilityManager.class)
+    public static Capability<IWorldCapabilityManager> WORLDCAPABILITYINSTANCE = null;
+
     public static final String MOD_ID = "coldsnaphorde";
     private static final Logger LOGGER = LogManager.getLogger();
     public static SConfiguration sconfig;
@@ -52,7 +58,9 @@ public class ColdSnapHorde
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
+        //37.0.42 changes will eventually break support. Until cursemaven lets me download a new version with the issues fixed, Immortuos support is disabled for 1.17
+//        isCalyxLoaded = ModList.get().isLoaded("immortuoscalyx");
+        isCalyxLoaded = false;
         Date date = Date.from(Instant.now());
         Date december = Date.from(Instant.now());
         december.setMonth(Calendar.DECEMBER);
@@ -95,7 +103,7 @@ public void onServerStarting(FMLServerStartingEvent event) {
     Horde = new Horde(event.getServer());
 
     for(ServerLevel serverWorld : event.getServer().getAllLevels()){
-        serverWorld.getCapability(ModBusEvents.WORLDCAPABILITYINSTANCE).ifPresent(h->{
+        serverWorld.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h->{
             if(h.getCooldownTicks() <= 0){h.setCooldownTicks(sconfig.GLOBALHORDECOOLDOWN.get() * 20);}
         });
     }

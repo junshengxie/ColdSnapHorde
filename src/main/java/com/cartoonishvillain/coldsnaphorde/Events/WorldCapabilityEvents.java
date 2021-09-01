@@ -21,7 +21,7 @@ public class WorldCapabilityEvents {
     @SubscribeEvent
     public static void worldTick(TickEvent.WorldTickEvent event){
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START){
-            event.world.getCapability(ModBusEvents.WORLDCAPABILITYINSTANCE).ifPresent(h->{
+            event.world.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h->{
                 if(h.getCooldownTicks() > 0){
                     h.addCooldownTicks(-1);
                 }

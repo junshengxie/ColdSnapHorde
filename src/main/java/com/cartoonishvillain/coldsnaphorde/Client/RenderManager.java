@@ -43,19 +43,19 @@ public class RenderManager {
 
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event){
-        event.registerLayerDefinition(COLDSNAPSTABBER, ColdSnapStabberModel::createLayer);
-        event.registerLayerDefinition(COLDSNAPGUNNER, ColdSnapGunnerModel::createLayer);
-        event.registerLayerDefinition(COLDSNAPSNOWBALLER, ColdSnapSnowballerModel::createLayer);
-        event.registerLayerDefinition(COLDSNAPGIFTER, ColdSnapGifterModel::createLayer);
-        event.registerLayerDefinition(COLDSNAPZAPPER, ColdSnapZapperModel::createLayer);
-        event.registerLayerDefinition(COLDSNAPBRAWLER, ColdSnapBrawlerModel::createLayer);
-        event.registerLayerDefinition(ECOLDSNAPSNOWBALLER, EndColdSnapSnowballerModel::createLayer);
-        event.registerLayerDefinition(NCOLDSNAPSTABBER, NetherColdSnapStabberModel::createLayer);
-        event.registerLayerDefinition(NCOLDSNAPGUNNER, NetherColdSnapGunnerModel::createLayer);
-        event.registerLayerDefinition(NCOLDSNAPSNOWBALLER, NetherColdSnapSnowballerModel::createLayer);
-        event.registerLayerDefinition(NCOLDSNAPGIFTER, NetherColdSnapGifterModel::createLayer);
-        event.registerLayerDefinition(NCOLDSNAPZAPPER, NetherColdSnapZapperModel::createLayer);
-        event.registerLayerDefinition(NCOLDSNAPBRAWLER, NetherColdSnapBrawlerModel::createLayer);
+        event.registerLayerDefinition(COLDSNAPSTABBER, ColdSnapStabberModel::createBodyLayer);
+        event.registerLayerDefinition(COLDSNAPGUNNER, ColdSnapGunnerModel::createBodyLayer);
+        event.registerLayerDefinition(COLDSNAPSNOWBALLER, ColdSnapSnowballerModel::createBodyLayer);
+        event.registerLayerDefinition(COLDSNAPGIFTER, ColdSnapGifterModel::createBodyLayer);
+        event.registerLayerDefinition(COLDSNAPZAPPER, ColdSnapZapperModel::createBodyLayer);
+        event.registerLayerDefinition(COLDSNAPBRAWLER, ColdSnapBrawlerModel::createBodyLayer);
+        event.registerLayerDefinition(ECOLDSNAPSNOWBALLER, EndColdSnapSnowballerModel::createBodyLayer);
+        event.registerLayerDefinition(NCOLDSNAPSTABBER, NetherColdSnapStabberModel::createBodyLayer);
+        event.registerLayerDefinition(NCOLDSNAPGUNNER, NetherColdSnapGunnerModel::createBodyLayer);
+        event.registerLayerDefinition(NCOLDSNAPSNOWBALLER, NetherColdSnapSnowballerModel::createBodyLayer);
+        event.registerLayerDefinition(NCOLDSNAPGIFTER, NetherColdSnapGifterModel::createBodyLayer);
+        event.registerLayerDefinition(NCOLDSNAPZAPPER, NetherColdSnapZapperModel::createBodyLayer);
+        event.registerLayerDefinition(NCOLDSNAPBRAWLER, NetherColdSnapBrawlerModel::createBodyLayer);
         event.registerLayerDefinition(TOPHAT, TopHatModel::createLayer);
 
     }

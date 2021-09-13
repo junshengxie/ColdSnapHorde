@@ -473,23 +473,23 @@ public class Horde {
                 Random random = new Random();
                 int chance = random.nextInt(100);
                 if (chance <= 5) {
-                    coldSnapStabber = new NetherHorde.NetherStabber(Register.NCOLDSNAPGUNNER.get(), world);
+                    coldSnapStabber = new NetherHorde.NetherStabber(Register.NCOLDSNAPSTABBER.get(), world);
                 }
                 chance = random.nextInt(100);
                 if (chance <= 5 && coldSnapStabber == null)
-                    coldSnapStabber = new EndHorde.EndStabber(Register.ECOLDSNAPGUNNER.get(), world);
+                    coldSnapStabber = new EndHorde.EndStabber(Register.ECOLDSNAPSTABBER.get(), world);
                 chance = random.nextInt(100);
                 if (chance <= 5 && coldSnapStabber == null)
-                    coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPGUNNER.get(), world);
+                    coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
                 if (coldSnapStabber == null)
-                    coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPGUNNER.get(), world);
+                    coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
             } else {
                 Random random = new Random();
                 int chance = random.nextInt(150);
                 if (chance <= 10 && coldSnapStabber == null)
-                    coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPGUNNER.get(), world);
+                    coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
                 if (coldSnapStabber == null)
-                    coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPGUNNER.get(), world);
+                    coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
             }
 
         } else coldSnapStabber = new NetherHorde.NetherStabber(Register.NCOLDSNAPSTABBER.get(), world);
@@ -512,22 +512,22 @@ public class Horde {
                 Random random = new Random();
                 int chance = random.nextInt(100);
                 if (chance <= 5) {
-                    coldSnapSnowballer = new NetherHorde.NetherSnowballer(Register.NCOLDSNAPGUNNER.get(), world);}
+                    coldSnapSnowballer = new NetherHorde.NetherSnowballer(Register.NCOLDSNAPSNOWBALLER.get(), world);}
                 chance = random.nextInt(100);
                 if (chance <= 5 && coldSnapSnowballer == null)
-                    coldSnapSnowballer = new EndHorde.EndSnowballer(Register.ECOLDSNAPGUNNER.get(), world);
+                    coldSnapSnowballer = new EndHorde.EndSnowballer(Register.ECOLDSNAPSNOWBALLER.get(), world);
                 chance = random.nextInt(100);
                 if (chance <= 5 && coldSnapSnowballer == null)
-                    coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPGUNNER.get(), world);
+                    coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
                 if (coldSnapSnowballer == null)
-                    coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPGUNNER.get(), world);
+                    coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
             } else {
                 Random random = new Random();
                 int chance = random.nextInt(150);
                 if (chance <= 10 && coldSnapSnowballer == null)
-                    coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPGUNNER.get(), world);
+                    coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
                 if (coldSnapSnowballer == null)
-                    coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPGUNNER.get(), world);
+                    coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
             }
 
         } else coldSnapSnowballer = new NetherHorde.NetherSnowballer(Register.NCOLDSNAPSNOWBALLER.get(), world);
@@ -547,17 +547,17 @@ public class Horde {
             if(!world.isRainingAt(pos)){
                 Random random = new Random();
                 int chance = random.nextInt(100);
-                if(chance <= 5){coldSnapGifter = new NetherHorde.NetherGifter(Register.NCOLDSNAPGUNNER.get(), world);}
+                if(chance <= 5){coldSnapGifter = new NetherHorde.NetherGifter(Register.NCOLDSNAPGIFTER.get(), world);}
                 chance = random.nextInt(100);
-                if(chance <= 5 && coldSnapGifter == null) coldSnapGifter = new EndHorde.EndGifter(Register.ECOLDSNAPGUNNER.get(), world);
+                if(chance <= 5 && coldSnapGifter == null) coldSnapGifter = new EndHorde.EndGifter(Register.ECOLDSNAPGIFTER.get(), world);
                 chance = random.nextInt(100);
-                if(chance <= 5 && coldSnapGifter == null) coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGUNNER.get(), world);
-                if(coldSnapGifter == null) coldSnapGifter = new StandardHorde.StandardGifter(Register.COLDSNAPGUNNER.get(), world);
+                if(chance <= 5 && coldSnapGifter == null) coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
+                if(coldSnapGifter == null) coldSnapGifter = new StandardHorde.StandardGifter(Register.COLDSNAPGIFTER.get(), world);
             }else {
                 Random random = new Random();
                 int chance = random.nextInt(150);
-                if(chance <= 10 && coldSnapGifter == null) coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGUNNER.get(), world);
-                if(coldSnapGifter == null) coldSnapGifter = new StandardHorde.StandardGifter(Register.COLDSNAPGUNNER.get(), world);
+                if(chance <= 10 && coldSnapGifter == null) coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
+                if(coldSnapGifter == null) coldSnapGifter = new StandardHorde.StandardGifter(Register.PCOLDSNAPGIFTER.get(), world);
             }
 
         }
@@ -577,17 +577,17 @@ public class Horde {
             if(!world.isRainingAt(pos)){
                 Random random = new Random();
                 int chance = random.nextInt(100);
-                if(chance <= 5){coldSnapZapper = new NetherHorde.NetherZapper(Register.NCOLDSNAPGUNNER.get(), world);}
+                if(chance <= 5){coldSnapZapper = new NetherHorde.NetherZapper(Register.NCOLDSNAPZAPPER.get(), world);}
                 chance = random.nextInt(100);
-                if(chance <= 5 && coldSnapZapper == null) coldSnapZapper = new EndHorde.EndZapper(Register.ECOLDSNAPGUNNER.get(), world);
+                if(chance <= 5 && coldSnapZapper == null) coldSnapZapper = new EndHorde.EndZapper(Register.ECOLDSNAPZAPPER.get(), world);
                 chance = random.nextInt(100);
-                if(chance <= 5 && coldSnapZapper == null) coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPGUNNER.get(), world);
-                if(coldSnapZapper == null) coldSnapZapper = new StandardHorde.StandardZapper(Register.COLDSNAPGUNNER.get(), world);
+                if(chance <= 5 && coldSnapZapper == null) coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
+                if(coldSnapZapper == null) coldSnapZapper = new StandardHorde.StandardZapper(Register.COLDSNAPZAPPER.get(), world);
             }else {
                 Random random = new Random();
                 int chance = random.nextInt(150);
-                if(chance <= 10 && coldSnapZapper == null) coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPGUNNER.get(), world);
-                if(coldSnapZapper == null) coldSnapZapper = new StandardHorde.StandardZapper(Register.COLDSNAPGUNNER.get(), world);
+                if(chance <= 10 && coldSnapZapper == null) coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
+                if(coldSnapZapper == null) coldSnapZapper = new StandardHorde.StandardZapper(Register.COLDSNAPZAPPER.get(), world);
             }
 
         }
@@ -608,17 +608,17 @@ public class Horde {
             if(!world.isRainingAt(pos)){
                 Random random = new Random();
                 int chance = random.nextInt(100);
-                if(chance <= 5){coldSnapBrawler = new NetherHorde.NetherBrawler(Register.NCOLDSNAPGUNNER.get(), world);}
+                if(chance <= 5){coldSnapBrawler = new NetherHorde.NetherBrawler(Register.NCOLDSNAPBRAWLER.get(), world);}
                 chance = random.nextInt(100);
-                if(chance <= 5 && coldSnapBrawler == null) coldSnapBrawler = new EndHorde.EndBrawler(Register.ECOLDSNAPGUNNER.get(), world);
+                if(chance <= 5 && coldSnapBrawler == null) coldSnapBrawler = new EndHorde.EndBrawler(Register.ECOLDSNAPBRAWLER.get(), world);
                 chance = random.nextInt(100);
-                if(chance <= 5 && coldSnapBrawler == null) coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPGUNNER.get(), world);
-                if(coldSnapBrawler == null) coldSnapBrawler = new StandardHorde.StandardBrawler(Register.COLDSNAPGUNNER.get(), world);
+                if(chance <= 5 && coldSnapBrawler == null) coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
+                if(coldSnapBrawler == null) coldSnapBrawler = new StandardHorde.StandardBrawler(Register.COLDSNAPBRAWLER.get(), world);
             }else {
                 Random random = new Random();
                 int chance = random.nextInt(150);
-                if(chance <= 10 && coldSnapBrawler == null) coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPGUNNER.get(), world);
-                if(coldSnapBrawler == null) coldSnapBrawler = new StandardHorde.StandardBrawler(Register.COLDSNAPGUNNER.get(), world);
+                if(chance <= 10 && coldSnapBrawler == null) coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
+                if(coldSnapBrawler == null) coldSnapBrawler = new StandardHorde.StandardBrawler(Register.COLDSNAPBRAWLER.get(), world);
             }
 
         }

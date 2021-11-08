@@ -50,7 +50,7 @@ public class CConfiguration {
         this.GIFTER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Gifter in the Overworld").defineInRange("gifterOverworldWeight", 10, 0, 1000));
         this.ZAPPER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Zapper in the Overworld").defineInRange("zapperOverworldWeight", 6, 0, 1000));
         this.BRAWLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Brawler in the Overworld").defineInRange("brawlerOverworldWeight", 8, 0, 1000));
-        this.DSTABBER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Stabber in the nether and end").defineInRange("stabberOverworldWeight", 2, 0, 1000));
+        this.DSTABBER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Stabber in the nether and end").defineInRange("stabberDimensionWeight", 2, 0, 1000));
         this.DGUNNER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Gunner in the nether and end").defineInRange("gunnerDimensionWeight", 2, 0, 1000));
         this.DSNOWBALLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Snowballer in the nether and end").defineInRange("snowballerDimensionWeight", 2, 0, 1000));
         this.DGIFTER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Gifter in the nether and end").defineInRange("gifterDimensionWeight", 1, 0, 1000));

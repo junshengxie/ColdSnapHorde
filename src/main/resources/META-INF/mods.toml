@@ -29,7 +29,7 @@ displayName="Cold Snap Horde" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 #logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI
-credits="Commoble, and BottomTextCf28" #optional
+credits="Commoble, BottomTextCf28, and Glasus#5741" #optional
 # A text field displayed in the mod UI
 authors="Cartoonish Villain" #optional
 # The description text for the mod (multi line!) (#mandatory)
@@ -43,7 +43,7 @@ A frosty band of scoundrels now fill colder lands, attacking villagers, golems, 
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[37.0.42,)" #mandatory
+    versionRange="[37.0.74,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER

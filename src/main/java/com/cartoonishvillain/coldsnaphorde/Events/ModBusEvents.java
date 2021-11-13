@@ -7,9 +7,7 @@ import com.cartoonishvillain.coldsnaphorde.Entities.Spawns;
 import com.cartoonishvillain.coldsnaphorde.Items.ColdSpawnEggItem;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.entity.EntityType;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,20 +17,14 @@ import net.minecraftforge.fml.common.Mod;
 public class ModBusEvents {
 
     @SubscribeEvent
-    public static void capabilitRegister(final RegisterCapabilitiesEvent event){
+    public static void capabilityRegister(final RegisterCapabilitiesEvent event){
         event.register(IWorldCapabilityManager.class);
+
+        ColdSnapHorde.WORLDCAPABILITYINSTANCE = CapabilityManager.get(new CapabilityToken<IWorldCapabilityManager>() {});
     }
 
     @SubscribeEvent
     public static void entityRegister(final RegistryEvent.Register<EntityType<?>> event){
-        event.getRegistry().registerAll(
-                Register.COLDSNAPGUNNER.get(),
-                Register.COLDSNAPSNOWBALLER.get(),
-                Register.COLDSNAPSTABBER.get(),
-                Register.COLDSNAPZAPPER.get(),
-                Register.COLDSNAPGIFTER.get(),
-                Register.COLDSNAPBRAWLER.get()
-        );
         Spawns.PlacementManager();
     }
 
@@ -73,4 +65,5 @@ public class ModBusEvents {
         event.put(Register.ECOLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
 
     }
+
 }

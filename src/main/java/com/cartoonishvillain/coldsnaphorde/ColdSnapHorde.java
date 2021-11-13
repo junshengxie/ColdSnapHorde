@@ -30,7 +30,6 @@ import java.util.Date;
 @Mod("coldsnaphorde")
 public class ColdSnapHorde
 {
-    @CapabilityInject(IWorldCapabilityManager.class)
     public static Capability<IWorldCapabilityManager> WORLDCAPABILITYINSTANCE = null;
 
     public static final String MOD_ID = "coldsnaphorde";

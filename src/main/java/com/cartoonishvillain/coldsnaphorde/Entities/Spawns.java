@@ -6,7 +6,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.Heightmap;
@@ -57,7 +56,7 @@ public class Spawns {
         MobSpawnInfo.Spawners pspawners4 = new MobSpawnInfo.Spawners(Register.PCOLDSNAPZAPPER.get(), ColdSnapHorde.cconfig.ZAPPER.get(), 1, 1);
         MobSpawnInfo.Spawners pspawners5 = new MobSpawnInfo.Spawners(Register.PCOLDSNAPBRAWLER.get(), ColdSnapHorde.cconfig.BRAWLER.get(), 1, 1);
 
-        if (BiomeExclusion(finalBiomeExclusion, event.getName()) && !event.getName().toString().contains("swamp") && !(event.getCategory() == Biome.Category.NETHER || event.getCategory() == Biome.Category.THEEND)){
+        if (BiomeExclusion(finalBiomeExclusion, event.getName()) && !event.getName().toString().contains("swamp") && !(event.getCategory() == Biome.Category.NETHER || event.getCategory() == Biome.Category.THEEND || event.getCategory() == Biome.Category.MUSHROOM)){
             if(ColdSnapHorde.cconfig.SPAWNTEMPS.get() == 0 && event.getClimate().temperature < 0.3f){
                 event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners);
                 event.getSpawns().addSpawn(EntityClassification.MONSTER, spawners1);

@@ -1,7 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember;
-import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
@@ -25,7 +24,7 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
 
 import static com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.GenericHordeMember.Infection;
 
@@ -96,7 +95,7 @@ public class ThrownChorusEntity extends ThrowableItemProjectile {
         BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
         int snowchance = random.nextInt(20);
         BlockPos blockpos = new BlockPos(result.getLocation());
-        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.canSurvive(this.level, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && snowchance == 1 && !level.isClientSide()) {
+        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && snowchance == 1 && !level.isClientSide()) {
             this.level.setBlockAndUpdate(blockpos, blockstate);
         }
         this.remove(RemovalReason.DISCARDED);

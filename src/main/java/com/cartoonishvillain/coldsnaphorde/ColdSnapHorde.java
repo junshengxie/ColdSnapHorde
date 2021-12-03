@@ -5,20 +5,18 @@ import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.Events.Horde;
-import com.cartoonishvillain.coldsnaphorde.Events.ModBusEvents;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmlserverevents.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -96,7 +94,7 @@ public class ColdSnapHorde
 //    }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
 @SubscribeEvent
-public void onServerStarting(FMLServerStartingEvent event) {
+public void onServerStarting(ServerStartingEvent event) {
     Horde = new Horde(event.getServer());
 
     for(ServerLevel serverWorld : event.getServer().getAllLevels()){

@@ -1,8 +1,11 @@
 package com.cartoonishvillain.coldsnaphorde.Entities.Projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -10,17 +13,14 @@ import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
 
 public class SnowierSnowballEntity extends ThrowableItemProjectile {
 
@@ -56,7 +56,7 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
         super.onHit(result);
         BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
         BlockPos blockpos = new BlockPos(result.getLocation());
-        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
+        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
             this.level.setBlockAndUpdate(blockpos, blockstate);
         } else if(this.level.getBlockState(blockpos) == Blocks.LAVA.defaultBlockState() && !level.isClientSide()){
             this.level.setBlockAndUpdate(blockpos, Blocks.OBSIDIAN.defaultBlockState());

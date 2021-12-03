@@ -1,6 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde;
 
-import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.*;
+import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.BaseMob.ColdSnapCow;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.EndHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.NetherHorde;
 import com.cartoonishvillain.coldsnaphorde.Entities.Mobs.HordeVariantManager.PlagueHorde;
@@ -30,11 +30,10 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class Register {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, ColdSnapHorde.MOD_ID);

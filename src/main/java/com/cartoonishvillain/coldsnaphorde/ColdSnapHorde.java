@@ -1,10 +1,10 @@
 package com.cartoonishvillain.coldsnaphorde;
 
-import com.cartoonishvillain.coldsnaphorde.Capabilities.IWorldCapabilityManager;
-import com.cartoonishvillain.coldsnaphorde.Configs.CConfiguration;
-import com.cartoonishvillain.coldsnaphorde.Configs.ConfigHelper;
-import com.cartoonishvillain.coldsnaphorde.Configs.SConfiguration;
-import com.cartoonishvillain.coldsnaphorde.Events.Horde;
+import com.cartoonishvillain.coldsnaphorde.capabilities.IWorldCapabilityManager;
+import com.cartoonishvillain.coldsnaphorde.configs.CConfiguration;
+import com.cartoonishvillain.coldsnaphorde.configs.ConfigHelper;
+import com.cartoonishvillain.coldsnaphorde.configs.SConfiguration;
+import com.cartoonishvillain.coldsnaphorde.events.Horde;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;

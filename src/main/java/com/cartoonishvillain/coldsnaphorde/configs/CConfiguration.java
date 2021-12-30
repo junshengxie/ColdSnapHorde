@@ -14,6 +14,7 @@ public class CConfiguration {
     public ConfigHelper.ConfigValueListener<Integer> HEATPROT;
     public ConfigHelper.ConfigValueListener<Integer> SNOWTRAIL;
 
+    public ConfigHelper.ConfigValueListener<Integer> SNOWCOW;
     public ConfigHelper.ConfigValueListener<Integer> STABBER;
     public ConfigHelper.ConfigValueListener<Integer> GUNNER;
     public ConfigHelper.ConfigValueListener<Integer> SNOWBALLER;
@@ -56,6 +57,6 @@ public class CConfiguration {
         this.DGIFTER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Gifter in the nether and end").defineInRange("gifterDimensionWeight", 1, 0, 1000));
         this.DZAPPER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Zapper in the nether and end").defineInRange("zapperDimensionWeight", 1, 0, 1000));
         this.DBRAWLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Brawler in the nether and end").defineInRange("brawlerDimensionWeight", 1, 0, 1000));
-
+        this.SNOWCOW = subscriber.subscribe(builder.comment("Changes the spawn weight of the Frosty Cow.").defineInRange("frostyCownSpawnWeight", 4, 0, 1000));
     }
 }

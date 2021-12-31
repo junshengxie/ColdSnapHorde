@@ -1,6 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.events;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
+import com.cartoonishvillain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGifter;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.SnowCreature;
 import com.cartoonishvillain.coldsnaphorde.Register;
@@ -16,6 +17,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -28,6 +30,8 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GeneralEvents {
+
+
     @SubscribeEvent
     public static void CheckThermometer(PlayerInteractEvent.RightClickItem event){
         if(event.getItemStack().getItem().equals(Register.THERMOMETER.get())){

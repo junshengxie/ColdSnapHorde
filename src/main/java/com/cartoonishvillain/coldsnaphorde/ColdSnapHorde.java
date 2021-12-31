@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde;
 
+import com.cartoonishvillain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.configs.ConfigHelper;
@@ -29,6 +30,7 @@ import java.util.Date;
 public class ColdSnapHorde
 {
     public static Capability<IWorldCapabilityManager> WORLDCAPABILITYINSTANCE = null;
+    public static Capability<IPlayerCapabilityManager> PLAYERCAPABILITYINSTANCE = null;
 
     public static final String MOD_ID = "coldsnaphorde";
     private static final Logger LOGGER = LogManager.getLogger();

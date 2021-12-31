@@ -1,7 +1,9 @@
 package com.cartoonishvillain.coldsnaphorde.events;
 
+import com.cartoonishvillain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
+import com.cartoonishvillain.coldsnaphorde.capabilities.PlayerCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.*;
 import com.cartoonishvillain.coldsnaphorde.entities.Spawns;
 import com.cartoonishvillain.coldsnaphorde.items.ColdSpawnEggItem;
@@ -19,7 +21,8 @@ public class ModBusEvents {
     @SubscribeEvent
     public static void capabilityRegister(final RegisterCapabilitiesEvent event){
         event.register(IWorldCapabilityManager.class);
-
+        event.register(PlayerCapabilityManager.class);
+        ColdSnapHorde.PLAYERCAPABILITYINSTANCE = CapabilityManager.get(new CapabilityToken<IPlayerCapabilityManager>() {});
         ColdSnapHorde.WORLDCAPABILITYINSTANCE = CapabilityManager.get(new CapabilityToken<IWorldCapabilityManager>() {});
     }
 

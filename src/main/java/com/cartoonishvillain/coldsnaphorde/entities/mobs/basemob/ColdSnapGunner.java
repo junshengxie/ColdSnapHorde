@@ -25,6 +25,8 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 import javax.annotation.Nullable;
 
+import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.TOPHATS;
+
 public class ColdSnapGunner extends GenericHordeMember implements RangedAttackMob {
     public ColdSnapGunner(EntityType<? extends Monster> type, Level worldIn) {
         super(type, worldIn);
@@ -54,7 +56,7 @@ public class ColdSnapGunner extends GenericHordeMember implements RangedAttackMo
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null && (!entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get()) || this.isHordeMember());
+        return entity != null && (!TOPHATS.contains(entity.getItemBySlot(EquipmentSlot.HEAD).getItem()) || this.isHordeMember());
 }
 
 

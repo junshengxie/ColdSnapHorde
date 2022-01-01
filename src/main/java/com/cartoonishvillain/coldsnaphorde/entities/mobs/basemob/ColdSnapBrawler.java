@@ -17,6 +17,8 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
+import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.TOPHATS;
+
 public class ColdSnapBrawler extends GenericHordeMember{
     public ColdSnapBrawler(EntityType<? extends Monster> type, Level worldIn) { super(type, worldIn);}
 
@@ -68,7 +70,7 @@ public class ColdSnapBrawler extends GenericHordeMember{
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null && (!entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get()) || this.isHordeMember());
+        return entity != null && (!TOPHATS.contains(entity.getItemBySlot(EquipmentSlot.HEAD).getItem()) || this.isHordeMember());
     }
 
 }

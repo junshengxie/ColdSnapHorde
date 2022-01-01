@@ -21,6 +21,8 @@ import net.minecraft.world.level.Level;
 
 import javax.annotation.Nullable;
 
+import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.TOPHATS;
+
 public class ColdSnapStabber extends GenericHordeMember {
     private static final EntityDataAccessor<Float> ANITIMER = SynchedEntityData.defineId(ColdSnapStabber.class, EntityDataSerializers.FLOAT);
 //    private AnimationFactory factory = new AnimationFactory(this);
@@ -53,9 +55,6 @@ public class ColdSnapStabber extends GenericHordeMember {
         getEntityData().define(ANITIMER, 0f);
     }
 
-    public float getANITIMER() {
-        return getEntityData().get(ANITIMER);
-    }
 
     public static AttributeSupplier.Builder customAttributes() {
         return Mob.createMobAttributes()
@@ -66,7 +65,7 @@ public class ColdSnapStabber extends GenericHordeMember {
 
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null && (!entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.TOPHAT.get()) || this.isHordeMember());}
+        return entity != null && (!TOPHATS.contains(entity.getItemBySlot(EquipmentSlot.HEAD).getItem()) || this.isHordeMember());}
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {

@@ -8,6 +8,7 @@ import com.cartoonishvillain.coldsnaphorde.configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.events.Horde;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
@@ -22,8 +23,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("coldsnaphorde")
@@ -31,6 +34,7 @@ public class ColdSnapHorde
 {
     public static Capability<IWorldCapabilityManager> WORLDCAPABILITYINSTANCE = null;
     public static Capability<IPlayerCapabilityManager> PLAYERCAPABILITYINSTANCE = null;
+    public static ArrayList<Item> TOPHATS = new ArrayList<>();
 
     public static final String MOD_ID = "coldsnaphorde";
     private static final Logger LOGGER = LogManager.getLogger();

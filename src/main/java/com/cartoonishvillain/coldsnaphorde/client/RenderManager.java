@@ -57,6 +57,10 @@ public class RenderManager {
         event.registerLayerDefinition(NCOLDSNAPZAPPER, NetherColdSnapZapperModel::createBodyLayer);
         event.registerLayerDefinition(NCOLDSNAPBRAWLER, NetherColdSnapBrawlerModel::createBodyLayer);
         event.registerLayerDefinition(TOPHAT, TopHatModel::createLayer);
+        event.registerLayerDefinition(TOPHAT, TopHatModel::createLayer);
+        event.registerLayerDefinition(TOPHAT, TopHatModel::createLayer);
+        event.registerLayerDefinition(TOPHAT, TopHatModel::createLayer);
+        event.registerLayerDefinition(TOPHAT, TopHatModel::createLayer);
 
     }
 
@@ -145,17 +149,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         }
     }
 
-    @SubscribeEvent
-    public static void onClientSetup(FMLClientSetupEvent event){
-        // do something that can only be done on the client
-//        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPGUNNER.get(), RenderNetherColdSnapGunner::new);
-//        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPSNOWBALLER.get(), RenderEndColdSnapSnowballer::new);
-//        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPGIFTER.get(), ColdSnapGifterModel::new);
-//        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPZAPPER.get(), RenderNetherColdSnapZapper::new);
-//        RenderingRegistry.registerEntityRenderingHandler(Register.COLDSNAPBRAWLER.get(), RenderNetherColdSnapBrawler::new);
-//        RenderingRegistry.registerEntityRenderingHandler(Register.GUNNERPROJECTILE.get(), new GunnerProjectileRenderFactory());
-//        RenderingRegistry.registerEntityRenderingHandler(Register.ROCKSNOWBALLPROJECTILE.get(), new RockySnowballRenderFactory());
-//        RenderingRegistry.registerEntityRenderingHandler(Register.SNOWIERSNOWBALLPROJECTILE.get(), new SnowierSnowballRenderFactory());
-//        RenderingRegistry.registerEntityRenderingHandler(Register.LIGHTNINGSNOWBALLPROJECTILE.get(), new LightningSnowballRenderFactory());
-    }
+
 }

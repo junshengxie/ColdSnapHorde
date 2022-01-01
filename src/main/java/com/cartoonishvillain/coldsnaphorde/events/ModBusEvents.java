@@ -9,11 +9,15 @@ import com.cartoonishvillain.coldsnaphorde.entities.Spawns;
 import com.cartoonishvillain.coldsnaphorde.items.ColdSpawnEggItem;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.capabilities.*;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBusEvents {
@@ -34,6 +38,11 @@ public class ModBusEvents {
     @SubscribeEvent
     public static void onRegisterEntities(final RegistryEvent.Register<EntityType<?>> event){
         ColdSpawnEggItem.initSpawnEggs();
+    }
+
+    @SubscribeEvent
+    public static void itemRegister(final RegistryEvent.Register<Item> event){
+        ColdSnapHorde.TOPHATS = new ArrayList<>(List.of(Register.TOPHAT.get(), Register.REDTOPHAT.get(), Register.BLUETOPHAT.get(), Register.GREENTOPHAT.get(), Register.PURPLETOPHAT.get()));
     }
 
     @SubscribeEvent

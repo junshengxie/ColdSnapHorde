@@ -15,12 +15,18 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ArmorItem;
 
 import static com.cartoonishvillain.coldsnaphorde.client.RenderManager.TOPHAT;
 
 public class TopHatLayer <T extends LivingEntity, M extends HumanoidModel<T>> extends RenderLayer<T, M> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/armor/tophat.png");
+    private static final ResourceLocation REDTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/armor/redtophat.png");
+    private static final ResourceLocation BLUETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/armor/bluetophat.png");
+    private static final ResourceLocation PURPLETEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/armor/purpletophat.png");
+    private static final ResourceLocation GREENTEXTURE = new ResourceLocation(ColdSnapHorde.MOD_ID, "textures/armor/greentophat.png");
+
     private final TopHatModel<T> topHatModel;
 
     public TopHatLayer(RenderLayerParent<T, M> wearer) {
@@ -34,6 +40,30 @@ public class TopHatLayer <T extends LivingEntity, M extends HumanoidModel<T>> ex
             p_117349_.pushPose();
             this.getParentModel().hat.translateAndRotate(p_117349_);
             VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(p_117350_, RenderType.armorCutoutNoCull(TEXTURE), false, entity.getItemBySlot(EquipmentSlot.HEAD).hasFoil());
+            this.topHatModel.renderToBuffer(p_117349_, vertexconsumer, p_117351_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            p_117349_.popPose();
+        } else if(entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.REDTOPHAT.get())){
+            p_117349_.pushPose();
+            this.getParentModel().hat.translateAndRotate(p_117349_);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(p_117350_, RenderType.armorCutoutNoCull(REDTEXTURE), false, entity.getItemBySlot(EquipmentSlot.HEAD).hasFoil());
+            this.topHatModel.renderToBuffer(p_117349_, vertexconsumer, p_117351_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            p_117349_.popPose();
+        } else if(entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.BLUETOPHAT.get())){
+            p_117349_.pushPose();
+            this.getParentModel().hat.translateAndRotate(p_117349_);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(p_117350_, RenderType.armorCutoutNoCull(BLUETEXTURE), false, entity.getItemBySlot(EquipmentSlot.HEAD).hasFoil());
+            this.topHatModel.renderToBuffer(p_117349_, vertexconsumer, p_117351_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            p_117349_.popPose();
+        } else if(entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.GREENTOPHAT.get())){
+            p_117349_.pushPose();
+            this.getParentModel().hat.translateAndRotate(p_117349_);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(p_117350_, RenderType.armorCutoutNoCull(GREENTEXTURE), false, entity.getItemBySlot(EquipmentSlot.HEAD).hasFoil());
+            this.topHatModel.renderToBuffer(p_117349_, vertexconsumer, p_117351_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            p_117349_.popPose();
+        } else if(entity.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(Register.PURPLETOPHAT.get())){
+            p_117349_.pushPose();
+            this.getParentModel().hat.translateAndRotate(p_117349_);
+            VertexConsumer vertexconsumer = ItemRenderer.getArmorFoilBuffer(p_117350_, RenderType.armorCutoutNoCull(PURPLETEXTURE), false, entity.getItemBySlot(EquipmentSlot.HEAD).hasFoil());
             this.topHatModel.renderToBuffer(p_117349_, vertexconsumer, p_117351_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
             p_117349_.popPose();
         }

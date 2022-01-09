@@ -90,7 +90,7 @@ public class GeneralEvents {
 
     @SubscribeEvent
     public static void Death(LivingDeathEvent event){
-        if(event.getEntityLiving().getType() != EntityType.PLAYER && !event.getEntityLiving().level.isClientSide()){
+        if(event.getEntityLiving().getType() != EntityType.PLAYER && !event.getEntityLiving().level.isClientSide() && ColdSnapHorde.isInHolidayWindow){
             int random = event.getEntityLiving().level.random.nextInt(150);
             int check = 145;
             if(random > check){

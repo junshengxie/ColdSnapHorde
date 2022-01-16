@@ -1,27 +1,26 @@
 {
     "display": {
         "title": {
-            "text": "Slicing Snowmen"
+            "text": "Cold Snap Horde",
+            "color": "aqua"
         },
         "description": {
-            "text": "Defeat the Cold Snap Horde",
-            "italic": true
+            "text": "A band of frosty marauders declare the cold regions their homes. ",
+            "color": "aqua",
+            "italic": false
         },
         "icon": {
-            "item": "coldsnaphorde:ice_sword"
+            "item": "coldsnaphorde:icecore"
         },
-        "frame": "challenge",
-        "show_toast": true,
-        "announce_to_chat": true,
+        "frame": "task",
+        "show_toast": false,
+        "announce_to_chat": false,
         "hidden": false,
         "background": "coldsnaphorde:textures/blocks/slush.png"
     },
     "criteria": {
-        "Impossible": {
-            "trigger": "minecraft:impossible"
+        "Login": {
+            "trigger": "minecraft:tick"
         }
-    },
-    "rewards": {
-        "experience": 20
     }
 }

@@ -6,17 +6,16 @@ import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.Net
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.PlagueHorde;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import com.cartoonishvillain.coldsnaphorde.entities.projectiles.*;
+import com.cartoonishvillain.coldsnaphorde.items.*;
 import com.cartoonishvillain.coldsnaphorde.items.armor.ArmorMaterials;
 import com.cartoonishvillain.coldsnaphorde.items.armor.TopHat;
-import com.cartoonishvillain.coldsnaphorde.items.ColdSpawnEggItem;
-import com.cartoonishvillain.coldsnaphorde.items.Present;
 import com.cartoonishvillain.coldsnaphorde.items.projectiles.LightningSnowball;
 import com.cartoonishvillain.coldsnaphorde.items.projectiles.RockySnowball;
 import com.cartoonishvillain.coldsnaphorde.items.projectiles.SnowierSnowball;
-import com.cartoonishvillain.coldsnaphorde.items.SlushBlock;
-import com.cartoonishvillain.coldsnaphorde.items.Snowglobe;
 import com.cartoonishvillain.coldsnaphorde.items.toolsorother.IceSword;
 import com.cartoonishvillain.coldsnaphorde.items.toolsorother.Materials;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
@@ -142,8 +141,8 @@ public class Register {
     public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     public static final RegistryObject<Block> SLUSH = BLOCKS.register("slush", () -> new SlushBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(0).sound(SoundType.SNOW)));
 
-    public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new BlockItem(REDCANDYCANE.get(), new Item.Properties().tab(ColdSnapHorde.TAB)));
-    public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new BlockItem(GREENCANDYCANE.get(), new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new LoredBlockItem(REDCANDYCANE.get(), new Item.Properties().tab(ColdSnapHorde.TAB), new TranslatableComponent("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), new TranslatableComponent("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
+    public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new LoredBlockItem(GREENCANDYCANE.get(), new Item.Properties().tab(ColdSnapHorde.TAB), new TranslatableComponent("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), new TranslatableComponent("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
     public static final RegistryObject<BlockItem> SLUSHITEM = ITEMS.register("slush", ()-> new BlockItem(SLUSH.get(), new Item.Properties().tab(ColdSnapHorde.TAB)));
 
     public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", ()->new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().tab(ColdSnapHorde.TAB).rarity(Rarity.UNCOMMON)));

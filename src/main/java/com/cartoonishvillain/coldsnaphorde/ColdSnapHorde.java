@@ -6,7 +6,12 @@ import com.cartoonishvillain.coldsnaphorde.configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.events.Horde;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -89,16 +94,6 @@ public class ColdSnapHorde
         public ItemStack makeIcon() {return new ItemStack(Register.ROCKYSNOWBALL.get());}
     };
 
-//    private void enqueueIMC(final InterModEnqueueEvent event)
-//    {
-//        // some example code to dispatch IMC to another mod
-//    }
-
-//    private void processIMC(final InterModProcessEvent event)
-//    {
-//
-//    }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
 @SubscribeEvent
 public void onServerStarting(ServerStartingEvent event) {
     Horde = new Horde(event.getServer());
@@ -108,7 +103,17 @@ public void onServerStarting(ServerStartingEvent event) {
             if(h.getCooldownTicks() <= 0){h.setCooldownTicks(sconfig.GLOBALHORDECOOLDOWN.get() * 20);}
         });
     }
-
 }
 
+    public static void giveAdvancement(ServerPlayer player, MinecraftServer server, ResourceLocation advancementResource){
+        Advancement advancement = server.getAdvancements().getAdvancement(advancementResource);
+        if(advancement != null) {
+            AdvancementProgress advancementprogress = player.getAdvancements().getOrStartProgress(advancement);
+            if (!advancementprogress.isDone()) {
+                for(String s : advancementprogress.getRemainingCriteria()) {
+                    player.getAdvancements().award(advancement, s);
+                }
+            }
+        }
+    }
 }

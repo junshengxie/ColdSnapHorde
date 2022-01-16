@@ -10,7 +10,9 @@ import com.cartoonishvillain.coldsnaphorde.Register;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.ChatType;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
@@ -42,22 +44,16 @@ public class Horde {
 
     public Horde(MinecraftServer server) {
         this.server = server;
-        for (ServerLevel serverWorld : server.getAllLevels()) {
-            String Dimension = serverWorld.dimension().toString();
-            //LOCKS CODE TO OVERWORLD
-//            if(Dimension.contains("overworld")) {
-//                serverWorld.getCapability(WorldCapability.INSTANCE).ifPresent(h -> {
-//                    hordeActive = h.getCooldownTicks() == -1;
-//                    if (hordeActive) {Alive = h.getAlive();}
-//                    world = serverWorld;
-//                });
-//            }
-        }
     }
 
     public void Stop() {
         this.bossInfo.setVisible(false);
         bossInfo.removeAllPlayers();
+        if(Alive <= 0) {
+            broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
+        } else {
+            broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
+        }
         hordeActive = false;
         Alive = 0;
         initAlive = 0;
@@ -111,13 +107,15 @@ public class Horde {
             world.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
                 h.setCooldownTicks(-1);
             });
+
+            broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
         }
     }
 
     //So when a player dies the serverPlayer would desync which is... a fun issue
     //This checks for the desync, returns false if the player should not count any longer.
     private boolean checkIfPlayerIsStillValid(ServerPlayer serverPlayer) {
-        return serverPlayer.getHealth() != 0.0f;
+        return serverPlayer.getHealth() != 0.0f && !serverPlayer.hasDisconnected() && !serverPlayer.isRemoved();
     }
 
     public void tick() {
@@ -667,7 +665,7 @@ public class Horde {
 
 
 
-    private void broadcast(MinecraftServer server, TextComponent translationTextComponent){
+    private void broadcast(MinecraftServer server, Component translationTextComponent){
         server.getPlayerList().broadcastMessage(translationTextComponent, ChatType.CHAT, UUID.randomUUID());
     }
 

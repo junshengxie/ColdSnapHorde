@@ -9,7 +9,7 @@
             "color": "aqua"
         },
         "icon": {
-            "item": "minecraft:shulker_box"
+            "item": "coldsnaphorde:present"
         },
         "frame": "task",
         "show_toast": true,

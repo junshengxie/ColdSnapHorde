@@ -25,12 +25,10 @@ import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.TOPHATS;
 
 public class ColdSnapStabber extends GenericHordeMember {
     private static final EntityDataAccessor<Float> ANITIMER = SynchedEntityData.defineId(ColdSnapStabber.class, EntityDataSerializers.FLOAT);
-//    private AnimationFactory factory = new AnimationFactory(this);
 
     public ColdSnapStabber(EntityType<? extends Monster> type, Level worldIn) {
         super(type, worldIn);
     }
-
 
     @Override
     protected void registerGoals() {
@@ -38,15 +36,13 @@ public class ColdSnapStabber extends GenericHordeMember {
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(7, new WaterAvoidingRandomStrollGoal(this, 0.5D));
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, false));
-        this.goalSelector.addGoal(2, new LeapAtTargetGoal(this, 0.5F));
+        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1D, false));
+        this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.5F));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Villager.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(5, new NearestAttackableTargetGoal<>(this, SnowGolem.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, IronGolem.class, 10, true, false, this::shouldAttack));
         this.targetSelector.addGoal(7, new NearestAttackableTargetGoal<>(this, Blaze.class, 10, true, false, this::shouldAttack));
-
     }
 
     @Override
@@ -106,23 +102,5 @@ public class ColdSnapStabber extends GenericHordeMember {
         if (timer > -1) this.getEntityData().set(ANITIMER, timer -= 1f);
     }
     }
-
-    //Old geckolib dependency stuff
-//    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event){
-//        if(getEntityData().get(ANITIMER) > 0){
-//            event.getController().setAnimation(new AnimationBuilder().addAnimation("stab", true));
-//            return PlayState.CONTINUE; }
-//            event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
-//            return PlayState.CONTINUE;
-//    }
-//
-//    @Override
-//    public void registerControllers(AnimationData animationData) {
-//        animationData.addAnimationController(new AnimationController(this, "controller", 10, this::predicate));
-//    }
-//
-//    @Override
-//    public AnimationFactory getFactory() {
-//        return this.factory;
-//    }
+    
 }

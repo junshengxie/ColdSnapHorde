@@ -7,13 +7,19 @@ import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.Net
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.PlagueHorde;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
+import com.google.gson.JsonObject;
 import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.commands.AdvancementCommands;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -46,11 +52,28 @@ public class Horde {
         this.server = server;
     }
 
+    private void giveAdvancement(ServerPlayer player){
+        ResourceLocation resourcelocation = new ResourceLocation("coldsnaphorde:root");
+        Advancement advancement = server.getAdvancements().getAdvancement(resourcelocation);
+        if(advancement != null) {
+            AdvancementProgress advancementprogress = player.getAdvancements().getOrStartProgress(advancement);
+            if (!advancementprogress.isDone()) {
+                for(String s : advancementprogress.getRemainingCriteria()) {
+                    player.getAdvancements().award(advancement, s);
+                }
+            }
+        }
+    }
+
     public void Stop() {
         this.bossInfo.setVisible(false);
         bossInfo.removeAllPlayers();
         if(Alive <= 0) {
             broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
+            for(ServerPlayer player : players) {
+                giveAdvancement(player);
+            }
+            giveAdvancement(serverPlayer);
         } else {
             broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
         }

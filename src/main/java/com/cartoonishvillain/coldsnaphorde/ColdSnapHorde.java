@@ -1,11 +1,13 @@
 package com.cartoonishvillain.coldsnaphorde;
 
+import com.cartoonishvillain.cartoonishhorde.EntityHordeData;
 import com.cartoonishvillain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.configs.CConfiguration;
 import com.cartoonishvillain.coldsnaphorde.configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.configs.SConfiguration;
-import com.cartoonishvillain.coldsnaphorde.events.Horde;
+import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
+import com.cartoonishvillain.coldsnaphorde.events.ColdSnapHordeEvent;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.resources.ResourceLocation;
@@ -31,7 +33,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("coldsnaphorde")
@@ -47,7 +48,11 @@ public class ColdSnapHorde
     public static CConfiguration cconfig;
     public static boolean isCalyxLoaded;
     public static boolean isInHolidayWindow;
-    public static Horde Horde;
+    public static ColdSnapHordeEvent Horde;
+    public static EntityHordeData defaultHordeData;
+
+    public static ArrayList<String> presentPossibilities = new ArrayList<>();
+    public static ArrayList<Float> presentWeights = new ArrayList<>();
 
     public ColdSnapHorde() {
         // Register the setup method for modloading
@@ -55,11 +60,6 @@ public class ColdSnapHorde
         cconfig = ConfigHelper.register(ModConfig.Type.COMMON, CConfiguration::new);
         Register.init();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-//        // Register the processIMC method for modloading
-//        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -96,22 +96,48 @@ public class ColdSnapHorde
 
 @SubscribeEvent
 public void onServerStarting(ServerStartingEvent event) {
-    Horde = new Horde(event.getServer());
+    defaultHordeData = new EntityHordeData(3, 0.5D, 1, Register.COLDSNAPGUNNER.get(), ColdSnapGunner.class);
+    Horde = new ColdSnapHordeEvent(event.getServer());
 
     for(ServerLevel serverWorld : event.getServer().getAllLevels()){
         serverWorld.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h->{
             if(h.getCooldownTicks() <= 0){h.setCooldownTicks(sconfig.GLOBALHORDECOOLDOWN.get() * 20);}
         });
     }
+
+    presentPossibilities.add("coal"); presentWeights.add(30f);
+    presentPossibilities.add("snow"); presentWeights.add(15f);
+    presentPossibilities.add("ice"); presentWeights.add(20f);
+    presentPossibilities.add("packedice"); presentWeights.add(15f);
+    presentPossibilities.add("blueice"); presentWeights.add(10f);
+    presentPossibilities.add("doggo"); presentWeights.add(10f);
+    presentPossibilities.add("cats"); presentWeights.add(10f);
+    presentPossibilities.add("birb"); presentWeights.add(10f);
+    presentPossibilities.add("friendsnowman"); presentWeights.add(10f);
+    presentPossibilities.add("music"); presentWeights.add(15f);
+    presentPossibilities.add("rollercoaster"); presentWeights.add(10f);
+    presentPossibilities.add("horse"); presentWeights.add(10f);
+    presentPossibilities.add("pig"); presentWeights.add(10f);
+    presentPossibilities.add("candycane"); presentWeights.add(20f);
+    presentPossibilities.add("axolotl"); presentWeights.add(10f);
+    presentPossibilities.add("screamgoat"); presentWeights.add(5f);
+    presentPossibilities.add("panda"); presentWeights.add(5f);
+    presentPossibilities.add("icesword"); presentWeights.add(10f);
+    presentPossibilities.add("transposerpiece"); presentWeights.add(10f);
+    presentPossibilities.add("frostshard"); presentWeights.add(15f);
+    presentPossibilities.add("transposer"); presentWeights.add(5f);
+    presentPossibilities.add("frostcore"); presentWeights.add(5f);
 }
 
-    public static void giveAdvancement(ServerPlayer player, MinecraftServer server, ResourceLocation advancementResource){
-        Advancement advancement = server.getAdvancements().getAdvancement(advancementResource);
-        if(advancement != null) {
-            AdvancementProgress advancementprogress = player.getAdvancements().getOrStartProgress(advancement);
-            if (!advancementprogress.isDone()) {
-                for(String s : advancementprogress.getRemainingCriteria()) {
-                    player.getAdvancements().award(advancement, s);
+    public static void giveAdvancement(ServerPlayer player, MinecraftServer server, ResourceLocation advancementResource) {
+        if (player != null) {
+            Advancement advancement = server.getAdvancements().getAdvancement(advancementResource);
+            if (advancement != null) {
+                AdvancementProgress advancementprogress = player.getAdvancements().getOrStartProgress(advancement);
+                if (!advancementprogress.isDone()) {
+                    for (String s : advancementprogress.getRemainingCriteria()) {
+                        player.getAdvancements().award(advancement, s);
+                    }
                 }
             }
         }

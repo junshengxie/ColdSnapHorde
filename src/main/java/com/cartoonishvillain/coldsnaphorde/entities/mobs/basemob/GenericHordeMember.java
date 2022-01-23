@@ -1,9 +1,9 @@
 package com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob;
 
 import com.cartoonishvillain.ImmortuosCalyx.infection.InfectionManagerCapability;
+import com.cartoonishvillain.cartoonishhorde.CartoonishHorde;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Register;
-import com.cartoonishvillain.coldsnaphorde.entities.mobs.behaviors.HordeMovementGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -38,7 +38,6 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(1, new HurtByTargetGoal(this, GenericHordeMember.class).setAlertOthers(GenericHordeMember.class));
-        this.goalSelector.addGoal(3, new HordeMovementGoal<>(this));
         this.goalSelector.addGoal(1, new FloatGoal(this));
         this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, ColdSnapGifter.class, 6.0F, 1.0D, 1.2D, this::avoid));
     }
@@ -48,6 +47,14 @@ public class GenericHordeMember extends Monster implements SnowCreature {
             return ((ColdSnapGifter) entity).isExploding();
         }
         return false;
+    }
+
+    public void setHordeStatus(boolean status) {
+        HordeMember = status;
+    }
+
+    public Boolean getHordeMember() {
+        return HordeMember;
     }
 
     @Override
@@ -98,19 +105,13 @@ public class GenericHordeMember extends Monster implements SnowCreature {
         int random = level.random.nextInt(100);
         int check;
         if(ColdSnapHorde.isInHolidayWindow) check = 67; else check = 75;
-        if(random > check && !level.isClientSide() && isHordeMember()){
+        if(random > check && !level.isClientSide() && CartoonishHorde.isHordeMember(this)){
             ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
             level.addFreshEntity(itemEntity);
         }
         super.die(cause);
     }
 
-    public boolean isHordeMember(){return HordeMember;}
-
-    public void toggleHordeMember(BlockPos center) {
-        this.target = center; HordeMember = true;
-        ColdSnapHorde.Horde.SpawnUnit();
-    }
 
     public void updateHordeMember(BlockPos center) {this.target = center;}
 

@@ -6,7 +6,6 @@ import com.cartoonishvillain.coldsnaphorde.capabilities.WorldCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;

@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob;
 
+import com.cartoonishvillain.cartoonishhorde.CartoonishHorde;
 import com.cartoonishvillain.coldsnaphorde.entities.projectiles.RockSnowballEntity;
 import com.cartoonishvillain.coldsnaphorde.entities.projectiles.ThrownChorusEntity;
 import com.cartoonishvillain.coldsnaphorde.Register;
@@ -55,7 +56,7 @@ public class ColdSnapSnowballer extends GenericHordeMember implements RangedAtta
     }
 
     public boolean shouldAttack(@Nullable LivingEntity entity){
-        return entity != null && (!TOPHATS.contains(entity.getItemBySlot(EquipmentSlot.HEAD).getItem()) || this.isHordeMember());
+        return entity != null && (!TOPHATS.contains(entity.getItemBySlot(EquipmentSlot.HEAD).getItem()) || getHordeMember());
     }
 
     @Override

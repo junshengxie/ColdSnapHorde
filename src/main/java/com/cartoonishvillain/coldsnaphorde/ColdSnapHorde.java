@@ -4,6 +4,7 @@ import com.cartoonishvillain.cartoonishhorde.EntityHordeData;
 import com.cartoonishvillain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.configs.CConfiguration;
+import com.cartoonishvillain.coldsnaphorde.configs.ClientConfig;
 import com.cartoonishvillain.coldsnaphorde.configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
@@ -46,6 +47,7 @@ public class ColdSnapHorde
     private static final Logger LOGGER = LogManager.getLogger();
     public static SConfiguration sconfig;
     public static CConfiguration cconfig;
+    public static ClientConfig clientConfig;
     public static boolean isCalyxLoaded;
     public static boolean isInHolidayWindow;
     public static ColdSnapHordeEvent Horde;
@@ -56,6 +58,7 @@ public class ColdSnapHorde
 
     public ColdSnapHorde() {
         // Register the setup method for modloading
+        clientConfig = ConfigHelper.register(ModConfig.Type.CLIENT, ClientConfig::new);
         sconfig = ConfigHelper.register(ModConfig.Type.SERVER, SConfiguration::new);
         cconfig = ConfigHelper.register(ModConfig.Type.COMMON, CConfiguration::new);
         Register.init();

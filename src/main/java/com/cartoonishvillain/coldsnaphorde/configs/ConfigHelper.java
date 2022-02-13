@@ -20,6 +20,7 @@ SOFTWARE.
 
 package com.cartoonishvillain.coldsnaphorde.configs;
 
+import com.cartoonishvillain.coldsnaphorde.client.RenderManager;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -80,8 +81,12 @@ public class ConfigHelper
         final Consumer<ModConfigEvent> configUpdate = event ->
         {
             if(event.getConfig().getSpec() == spec)
-                for(ConfigValueListener<?> value : subscriptionList)
+                for(ConfigValueListener<?> value : subscriptionList) {
                     value.update();
+                    if (value.configValue.getPath().get(1).equals("old_snow")) {
+                        RenderManager.registerRenderers();
+                    }
+                }
         };
 
         fmlContext.getModEventBus().addListener(configUpdate);

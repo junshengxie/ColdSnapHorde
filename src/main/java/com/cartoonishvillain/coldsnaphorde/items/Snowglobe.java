@@ -29,7 +29,7 @@ public class Snowglobe extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null) {
-            if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (biomeCheck(worldIn, playerIn.blockPosition()) || worldIn.getBiome(playerIn.blockPosition()).getRegistryName().toString().contains("swamp") || worldIn.dimension().toString().contains("end") || worldIn.dimension().toString().contains("nether"))) {
+            if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (biomeCheck(worldIn, playerIn.blockPosition()) || worldIn.getBiome(playerIn.blockPosition()).value().getRegistryName().toString().contains("swamp") || worldIn.dimension().toString().contains("end") || worldIn.dimension().toString().contains("nether"))) {
                 AtomicInteger atomicInteger = new AtomicInteger(0);
                 worldIn.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h->{
                     if(h.getCooldownTicks() > 0){
@@ -55,7 +55,7 @@ public class Snowglobe extends Item {
 
     private boolean biomeCheck(Level world, BlockPos pos){
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).getBaseTemperature();
+        float temp = world.getBiome(pos).value().getBaseTemperature();
         int code = -1;
         if (temp < 0.3){code = 0;}
         else if(temp >= 0.3 && temp < 0.9){code = 1;}

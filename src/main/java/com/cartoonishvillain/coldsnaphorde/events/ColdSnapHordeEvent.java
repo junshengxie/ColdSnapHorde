@@ -76,7 +76,7 @@ public class ColdSnapHordeEvent extends Horde {
             bossInfo.setColor(BossEvent.BossBarColor.RED);
             bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
         } else {
-            if (world.getBiome(center).getRegistryName().toString().contains("swamp")) {
+            if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
                 bossInfo.setColor(BossEvent.BossBarColor.GREEN);
                 bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
             } else {
@@ -112,7 +112,7 @@ public class ColdSnapHordeEvent extends Horde {
             center = hordeAnchorPlayer.blockPosition();
             updateCenter = ColdSnapHorde.sconfig.UPDATETICK.get();
             if (!world.dimension().toString().contains("nether") && !world.dimension().toString().contains("end")) {
-                if (world.getBiome(center).getRegistryName().toString().contains("swamp")) {
+                if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
                     bossInfo.setColor(BossEvent.BossBarColor.GREEN);
                     bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
                 } else {
@@ -133,14 +133,14 @@ public class ColdSnapHordeEvent extends Horde {
 
 
     private boolean biomeCheck(ServerLevel world, BlockPos pos) {
-        if (world.getBiome(pos).getRegistryName().toString().contains("swamp")) {
+        if (world.getBiome(pos).value().getRegistryName().toString().contains("swamp")) {
             return true;
         }
         if (!world.dimension().toString().contains("over")) {
             return true;
         }
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).getBaseTemperature();
+        float temp = world.getBiome(pos).value().getBaseTemperature();
         int code = -1;
         if (temp < 0.3) {
             code = 0;
@@ -157,7 +157,7 @@ public class ColdSnapHordeEvent extends Horde {
 
     private boolean trueBiomeCheck(ServerLevel world, BlockPos pos) {
         int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).getBaseTemperature();
+        float temp = world.getBiome(pos).value().getBaseTemperature();
         int code = -1;
         if (temp < 0.3) {
             code = 0;
@@ -282,7 +282,7 @@ public class ColdSnapHordeEvent extends Horde {
 
     private ColdSnapGunner gunnerSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapGunner coldSnapGunner = null;
-        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
         if (BiomeName.contains("swamp")) {
             coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
         } else if (world.dimension().toString().contains("end")) {
@@ -319,7 +319,7 @@ public class ColdSnapHordeEvent extends Horde {
 
     private ColdSnapStabber stabberSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapStabber coldSnapStabber = null;
-        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
         if (BiomeName.contains("swamp")) {
             coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
         } else if (world.dimension().toString().contains("end")) {
@@ -357,7 +357,7 @@ public class ColdSnapHordeEvent extends Horde {
 
     private ColdSnapSnowballer snowballerSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapSnowballer coldSnapSnowballer = null;
-        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
         if (BiomeName.contains("swamp")) {
             coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
         } else if (world.dimension().toString().contains("end")) {
@@ -394,7 +394,7 @@ public class ColdSnapHordeEvent extends Horde {
 
     private ColdSnapGifter gifterSpawnRules(ServerLevel world, BlockPos pos){
         ColdSnapGifter coldSnapGifter = null;
-        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
         if (BiomeName.contains("swamp")){
             coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
         }else if(world.dimension().toString().contains("end")){
@@ -425,7 +425,7 @@ public class ColdSnapHordeEvent extends Horde {
 
     private ColdSnapZapper zapperSpawnRules(ServerLevel world, BlockPos pos){
         ColdSnapZapper coldSnapZapper = null;
-        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
         if (BiomeName.contains("swamp")){coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
         }else if(world.dimension().toString().contains("end")){
             coldSnapZapper = new EndHorde.EndZapper(Register.ECOLDSNAPZAPPER.get(), world);
@@ -455,7 +455,7 @@ public class ColdSnapHordeEvent extends Horde {
 
     private ColdSnapBrawler brawlerSpawnRules(ServerLevel world, BlockPos pos){
         ColdSnapBrawler coldSnapBrawler = null;
-        String BiomeName = world.getBiome(pos).getRegistryName().toString();
+        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
         if (BiomeName.contains("swamp")){
             coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
         }else if(world.dimension().toString().contains("end")){

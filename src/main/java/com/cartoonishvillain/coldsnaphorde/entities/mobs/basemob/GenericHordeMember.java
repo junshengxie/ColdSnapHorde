@@ -177,7 +177,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
             int i = Mth.floor(this.getX());
             int j = Mth.floor(this.getY());
             int k = Mth.floor(this.getZ());
-            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
+            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), ColdSnapHorde.cconfig.HEATPROT.get())) {
                 this.hurt(DamageSource.ON_FIRE, 1.0F);
             }
 
@@ -200,7 +200,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                     j = Mth.floor(this.getY());
                     k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
+                    if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), ColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
                         this.level.setBlockAndUpdate(blockpos, blockstate);
                     }
                 }

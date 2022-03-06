@@ -34,7 +34,7 @@ public class GeneralEvents {
     public static void CheckThermometer(PlayerInteractEvent.RightClickItem event){
         if(event.getItemStack().getItem().equals(Register.THERMOMETER.get())){
             Player player = event.getPlayer();
-            float temp = player.level.getBiomeManager().getBiome(player.blockPosition()).getBaseTemperature();
+            float temp = player.level.getBiomeManager().getBiome(player.blockPosition()).value().getBaseTemperature();
             String code = "MISSING";
             if (temp < 0.3){code = "Cold";}
             else if(temp >= 0.3 && temp < 0.9){code = "Neutral";}

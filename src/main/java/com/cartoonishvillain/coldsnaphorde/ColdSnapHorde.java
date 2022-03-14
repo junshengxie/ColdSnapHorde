@@ -8,7 +8,7 @@ import com.cartoonishvillain.coldsnaphorde.configs.ClientConfig;
 import com.cartoonishvillain.coldsnaphorde.configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
-import com.cartoonishvillain.coldsnaphorde.events.ColdSnapHordeEvent;
+import com.cartoonishvillain.coldsnaphorde.events.HordeEventTier3;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.resources.ResourceLocation;
@@ -50,11 +50,13 @@ public class ColdSnapHorde
     public static ClientConfig clientConfig;
     public static boolean isCalyxLoaded;
     public static boolean isInHolidayWindow;
-    public static ColdSnapHordeEvent Horde;
+    public static HordeEventTier3 Horde;
     public static EntityHordeData defaultHordeData;
 
     public static ArrayList<String> presentPossibilities = new ArrayList<>();
     public static ArrayList<Float> presentWeights = new ArrayList<>();
+
+    public static HordeDataManager hordeDataManager = null;
 
     public ColdSnapHorde() {
         // Register the setup method for modloading
@@ -94,19 +96,17 @@ public class ColdSnapHorde
 
     public static final CreativeModeTab TAB = new CreativeModeTab("ColdSnapHorde"){
         @Override
-        public ItemStack makeIcon() {return new ItemStack(Register.ROCKYSNOWBALL.get());}
+        public ItemStack makeIcon() {return new ItemStack(Register.SNOWGLOBE.get());}
     };
 
 @SubscribeEvent
 public void onServerStarting(ServerStartingEvent event) {
     defaultHordeData = new EntityHordeData(3, 0.5D, 1, Register.COLDSNAPGUNNER.get(), ColdSnapGunner.class);
-    Horde = new ColdSnapHordeEvent(event.getServer());
+    Horde = new HordeEventTier3(event.getServer());
 
-    for(ServerLevel serverWorld : event.getServer().getAllLevels()){
-        serverWorld.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h->{
-            if(h.getCooldownTicks() <= 0){h.setCooldownTicks(sconfig.GLOBALHORDECOOLDOWN.get() * 20);}
-        });
-    }
+    hordeDataManager = HordeDataManager.getInstance();
+
+    hordeDataManager.setupHighestLevelBeaten(event.getServer());
 
     presentPossibilities.add("coal"); presentWeights.add(30f);
     presentPossibilities.add("snow"); presentWeights.add(15f);

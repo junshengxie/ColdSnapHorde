@@ -37,12 +37,7 @@ public class CapabilityEvents {
     @SubscribeEvent
     public static void worldTick(TickEvent.WorldTickEvent event){
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START){
-            event.world.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h->{
-                if(h.getCooldownTicks() > 0){
-                    h.addCooldownTicks(-1);
-                }
-            });
-
+            ColdSnapHorde.hordeDataManager.tickCooldown();
             ColdSnapHorde.Horde.tick();
         }
     }

@@ -30,20 +30,15 @@ public class Snowglobe extends Item {
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null) {
             if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (biomeCheck(worldIn, playerIn.blockPosition()) || worldIn.getBiome(playerIn.blockPosition()).value().getRegistryName().toString().contains("swamp") || worldIn.dimension().toString().contains("end") || worldIn.dimension().toString().contains("nether"))) {
-                AtomicInteger atomicInteger = new AtomicInteger(0);
-                worldIn.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h->{
-                    if(h.getCooldownTicks() > 0){
-                        atomicInteger.set(h.getCooldownTicks());
-                    }
-                });
+                int cooldown = ColdSnapHorde.hordeDataManager.getCooldownTicks();
 
-                if(atomicInteger.get() == 0 && !ColdSnapHorde.Horde.getHordeActive()) {
+                if(cooldown == 0 && !ColdSnapHorde.Horde.getHordeActive()) {
                     ColdSnapHorde.Horde.SetUpHorde((ServerPlayer) playerIn);
                     worldIn.playSound(null, playerIn.blockPosition(), SoundEvents.TRIDENT_RIPTIDE_1, SoundSource.PLAYERS, 0.5f, 1.5f);
                     playerIn.getMainHandItem().shrink(1);
-                }else if (!ColdSnapHorde.Horde.getHordeActive()){
-                    playerIn.displayClientMessage(new TextComponent("Horde on cooldown! Returning in: " + TimeBuilder(atomicInteger.get())), false);
-                }else if(ColdSnapHorde.Horde.getHordeActive()){
+                }else if (cooldown > 0){
+                    playerIn.displayClientMessage(new TextComponent("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
+                }else if(cooldown < 0){
                     playerIn.displayClientMessage(new TextComponent("The Horde is busy elsewhere. Try again later!"), false);
                 }
             }else{

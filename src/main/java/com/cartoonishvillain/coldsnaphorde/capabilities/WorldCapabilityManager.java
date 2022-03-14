@@ -12,16 +12,18 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class WorldCapabilityManager implements IWorldCapabilityManager, ICapabilityProvider, INBTSerializable<CompoundTag> {
-    protected int ticks = 0;
+    int levelBeaten = 0;
     public final LazyOptional<IWorldCapabilityManager> holder = LazyOptional.of(() -> this);
-    @Override
-    public int getCooldownTicks() {return ticks;}
 
     @Override
-    public void setCooldownTicks(int ticks) {this.ticks = ticks;}
+    public void setLevelBeaten(int level) {
+        if(levelBeaten < level) levelBeaten = level;
+    }
 
     @Override
-    public void addCooldownTicks(int ticks) {this.ticks += ticks;}
+    public int getLevelBeaten() {
+        return levelBeaten;
+    }
 
     @Nonnull
     @Override
@@ -33,12 +35,12 @@ public class WorldCapabilityManager implements IWorldCapabilityManager, ICapabil
     @Override
     public CompoundTag serializeNBT() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("cooldown", ticks);
+        tag.putInt("levelbeaten", levelBeaten);
         return tag;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
-        ticks = nbt.getInt("cooldown");
+        levelBeaten = nbt.getInt("levelbeaten");
     }
 }

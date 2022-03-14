@@ -29,10 +29,11 @@ import java.util.Random;
 import java.util.UUID;
 
 import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.giveAdvancement;
+import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.hordeDataManager;
 
 
-public class ColdSnapHordeEvent extends Horde {
-    public ColdSnapHordeEvent(MinecraftServer server) {
+public class HordeEventTier3 extends Horde {
+    public HordeEventTier3(MinecraftServer server) {
         super(server);
     }
 
@@ -50,9 +51,7 @@ public class ColdSnapHordeEvent extends Horde {
             case PEACEFUL -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
             case SPAWN_ERROR -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.confused").withStyle(ChatFormatting.RED));
         }
-        world.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
-            h.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);
-        });
+        hordeDataManager.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);
         super.Stop(stopReason);
     }
 
@@ -64,24 +63,23 @@ public class ColdSnapHordeEvent extends Horde {
     @Override
     public void SetUpHorde(ServerPlayer serverPlayer) {
         super.SetUpHorde(serverPlayer);
-        world.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
-            if (h.getCooldownTicks() > 0) return;
-            h.setCooldownTicks(-1);
-        });
+        if(hordeDataManager.getCooldownTicks() > 0) return;
+        hordeDataManager.setCooldownTicks(0);
+
         bossInfo.setCreateWorldFog(true);
         if (hordeAnchorPlayer.level.dimension().toString().contains("end")) {
             bossInfo.setColor(BossEvent.BossBarColor.PURPLE);
-            bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
+            bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
         } else if (hordeAnchorPlayer.level.dimension().toString().contains("nether")) {
             bossInfo.setColor(BossEvent.BossBarColor.RED);
-            bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
+            bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
         } else {
             if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
                 bossInfo.setColor(BossEvent.BossBarColor.GREEN);
-                bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
             } else {
                 bossInfo.setColor(BossEvent.BossBarColor.BLUE);
-                bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+                bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
             }
         }
         giveAdvancement(serverPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "snow_day"));
@@ -129,30 +127,6 @@ public class ColdSnapHordeEvent extends Horde {
 
     private void broadcast(MinecraftServer server, Component translationTextComponent) {
         server.getPlayerList().broadcastMessage(translationTextComponent, ChatType.CHAT, UUID.randomUUID());
-    }
-
-
-    private boolean biomeCheck(ServerLevel world, BlockPos pos) {
-        if (world.getBiome(pos).value().getRegistryName().toString().contains("swamp")) {
-            return true;
-        }
-        if (!world.dimension().toString().contains("over")) {
-            return true;
-        }
-        int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).value().getBaseTemperature();
-        int code = -1;
-        if (temp < 0.3) {
-            code = 0;
-        } else if (temp >= 0.3 && temp < 0.9) {
-            code = 1;
-        } else if (temp >= 0.9 && temp < 1.5) {
-            code = 2;
-        } else if (temp >= 1.5) {
-            code = 3;
-        }
-
-        return code <= protlvl;
     }
 
     private boolean trueBiomeCheck(ServerLevel world, BlockPos pos) {

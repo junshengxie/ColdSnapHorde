@@ -6,6 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 public class HordeDataManager {
     int highestLevelBeaten = 0;
     int cooldownTicks = 0;
+    int currentHordeLevel = 0;
 
     private static HordeDataManager instance = null;
 
@@ -51,6 +52,14 @@ public class HordeDataManager {
     }
 
     public void tickCooldown() {
-        if(cooldownTicks > 0) cooldownTicks -= 1;
+        if(cooldownTicks > 0) cooldownTicks--;
+    }
+
+    public void setCurrentHordeLevel(int level) {
+        currentHordeLevel = level;
+    }
+
+    public int getCurrentHordeLevel() {
+        return currentHordeLevel;
     }
 }

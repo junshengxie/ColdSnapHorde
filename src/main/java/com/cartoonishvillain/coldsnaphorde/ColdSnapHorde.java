@@ -9,12 +9,10 @@ import com.cartoonishvillain.coldsnaphorde.configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
 import com.cartoonishvillain.coldsnaphorde.events.HordeEventTier1;
-import com.cartoonishvillain.coldsnaphorde.events.HordeEventTier3;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -51,11 +49,13 @@ public class ColdSnapHorde
     public static ClientConfig clientConfig;
     public static boolean isCalyxLoaded;
     public static boolean isInHolidayWindow;
-    public static HordeEventTier1 Horde;
+    public static HordeEventTier1 hordeTier1;
     public static EntityHordeData defaultHordeData;
 
-    public static ArrayList<String> presentPossibilities = new ArrayList<>();
-    public static ArrayList<Float> presentWeights = new ArrayList<>();
+    public static ArrayList<String> tier1PresentPossibilities = new ArrayList<>();
+    public static ArrayList<Float> tier1PresentWeights = new ArrayList<>();
+    public static ArrayList<String> tier2PresentPossibilities = new ArrayList<>();
+    public static ArrayList<Float> tier2PresentWeights = new ArrayList<>();
 
     public static HordeDataManager hordeDataManager = null;
 
@@ -103,34 +103,42 @@ public class ColdSnapHorde
 @SubscribeEvent
 public void onServerStarting(ServerStartingEvent event) {
     defaultHordeData = new EntityHordeData(3, 0.5D, 1, Register.COLDSNAPGUNNER.get(), ColdSnapGunner.class);
-    Horde = new HordeEventTier1(event.getServer());
+    hordeTier1 = new HordeEventTier1(event.getServer());
 
     hordeDataManager = HordeDataManager.getInstance();
 
     hordeDataManager.setupHighestLevelBeaten(event.getServer());
+    
+    tier1PresentPossibilities.add("coal"); tier1PresentWeights.add(15f);
+    tier1PresentPossibilities.add("snow"); tier1PresentWeights.add(15f);
+    tier1PresentPossibilities.add("ice"); tier1PresentWeights.add(20f);
+    tier1PresentPossibilities.add("packedice"); tier1PresentWeights.add(15f);
+    tier1PresentPossibilities.add("blueice"); tier1PresentWeights.add(5f);
+    tier1PresentPossibilities.add("candycane"); tier1PresentWeights.add(20f);
+    tier1PresentPossibilities.add("frostshard"); tier1PresentWeights.add(10f);
 
-    presentPossibilities.add("coal"); presentWeights.add(30f);
-    presentPossibilities.add("snow"); presentWeights.add(15f);
-    presentPossibilities.add("ice"); presentWeights.add(20f);
-    presentPossibilities.add("packedice"); presentWeights.add(15f);
-    presentPossibilities.add("blueice"); presentWeights.add(10f);
-    presentPossibilities.add("doggo"); presentWeights.add(10f);
-    presentPossibilities.add("cats"); presentWeights.add(10f);
-    presentPossibilities.add("birb"); presentWeights.add(10f);
-    presentPossibilities.add("friendsnowman"); presentWeights.add(10f);
-    presentPossibilities.add("music"); presentWeights.add(15f);
-    presentPossibilities.add("rollercoaster"); presentWeights.add(10f);
-    presentPossibilities.add("horse"); presentWeights.add(10f);
-    presentPossibilities.add("pig"); presentWeights.add(10f);
-    presentPossibilities.add("candycane"); presentWeights.add(20f);
-    presentPossibilities.add("axolotl"); presentWeights.add(10f);
-    presentPossibilities.add("screamgoat"); presentWeights.add(5f);
-    presentPossibilities.add("panda"); presentWeights.add(5f);
-    presentPossibilities.add("icesword"); presentWeights.add(10f);
-    presentPossibilities.add("transposerpiece"); presentWeights.add(10f);
-    presentPossibilities.add("frostshard"); presentWeights.add(15f);
-    presentPossibilities.add("transposer"); presentWeights.add(5f);
-    presentPossibilities.add("frostcore"); presentWeights.add(5f);
+    tier2PresentPossibilities.add("coal"); tier2PresentWeights.add(30f);
+    tier2PresentPossibilities.add("snow"); tier2PresentWeights.add(15f);
+    tier2PresentPossibilities.add("ice"); tier2PresentWeights.add(20f);
+    tier2PresentPossibilities.add("packedice"); tier2PresentWeights.add(15f);
+    tier2PresentPossibilities.add("blueice"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("doggo"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("cats"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("birb"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("friendsnowman"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("music"); tier2PresentWeights.add(15f);
+    tier2PresentPossibilities.add("rollercoaster"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("horse"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("pig"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("candycane"); tier2PresentWeights.add(20f);
+    tier2PresentPossibilities.add("axolotl"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("screamgoat"); tier2PresentWeights.add(5f);
+    tier2PresentPossibilities.add("panda"); tier2PresentWeights.add(5f);
+    tier2PresentPossibilities.add("icesword"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("transposerpiece"); tier2PresentWeights.add(10f);
+    tier2PresentPossibilities.add("frostshard"); tier2PresentWeights.add(15f);
+    tier2PresentPossibilities.add("transposer"); tier2PresentWeights.add(5f);
+    tier2PresentPossibilities.add("frostcore"); tier2PresentWeights.add(5f);
 }
 
     public static void giveAdvancement(ServerPlayer player, MinecraftServer server, ResourceLocation advancementResource) {

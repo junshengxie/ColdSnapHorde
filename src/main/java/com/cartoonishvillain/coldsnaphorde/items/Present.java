@@ -35,29 +35,59 @@ import java.util.Random;
 import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.*;
 
 public class Present extends Item {
-    public Present(Properties properties) {super(properties);}
+    PresentTier tier;
+    public Present(Properties properties, PresentTier tier) {
+        super(properties);
+        this.tier = tier;
+    }
+
+    public enum PresentTier {
+        SMALL,
+        STANDARD,
+        LARGE
+    }
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        if(!worldIn.isClientSide() && handIn == InteractionHand.MAIN_HAND){
-        playerIn.getCooldowns().addCooldown(this, 20);
+        if(!worldIn.isClientSide() && handIn == InteractionHand.MAIN_HAND) {
+            playerIn.getCooldowns().addCooldown(this, 20);
 
-        playerIn.getMainHandItem().shrink(1);
+            playerIn.getMainHandItem().shrink(1);
 
-        float Total = 0f;
-        for(float totaling : presentWeights) Total += totaling;
-        float randomized = 0 + worldIn.random.nextFloat() * (Total-0);
-        int select = 0;
+            if(tier == PresentTier.SMALL) {
+                float Total = 0f;
+                for (float totaling : tier1PresentWeights) Total += totaling;
+                float randomized = 0 + worldIn.random.nextFloat() * (Total - 0);
+                int select = 0;
 
-        for(Float percentage : presentWeights){
-            randomized -= percentage;
-            if(randomized <= 0) break;
-            else select++;
+                for (Float percentage : tier1PresentWeights) {
+                    randomized -= percentage;
+                    if (randomized <= 0) break;
+                    else select++;
+                }
+
+                if (select == tier1PresentPossibilities.size()) select = select - 1;
+                String selected = tier1PresentPossibilities.get(select);
+                RewardDispenser(worldIn, playerIn, selected);
+            }
+
+            if (tier == PresentTier.STANDARD) {
+                float Total = 0f;
+                for (float totaling : tier2PresentWeights) Total += totaling;
+                float randomized = 0 + worldIn.random.nextFloat() * (Total - 0);
+                int select = 0;
+
+                for (Float percentage : tier2PresentWeights) {
+                    randomized -= percentage;
+                    if (randomized <= 0) break;
+                    else select++;
+                }
+
+                if (select == tier2PresentPossibilities.size()) select = select - 1;
+                String selected = tier2PresentPossibilities.get(select);
+                RewardDispenser(worldIn, playerIn, selected);
+            }
         }
-
-        if(select == presentPossibilities.size()) select = select - 1;
-        String selected = presentPossibilities.get(select);
-        RewardDispenser(worldIn, playerIn, selected);}
 
         if(playerIn.getServer() != null) {
             giveAdvancement((ServerPlayer) playerIn, playerIn.getServer(), new ResourceLocation(ColdSnapHorde.MOD_ID, "unboxing"));

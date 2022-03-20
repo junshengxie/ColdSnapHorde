@@ -3,12 +3,10 @@ package com.cartoonishvillain.coldsnaphorde.events;
 import com.cartoonishvillain.cartoonishhorde.EntityHordeData;
 import com.cartoonishvillain.cartoonishhorde.Horde;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
+import com.cartoonishvillain.coldsnaphorde.HordeDataManager;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import com.cartoonishvillain.coldsnaphorde.Utils;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.*;
-import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.EndHorde;
-import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.NetherHorde;
-import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.PlagueHorde;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -47,6 +45,7 @@ public class HordeEventTier1 extends Horde {
                     giveAdvancement(player, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
                 }
                 giveAdvancement(hordeAnchorPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
+                HordeDataManager.getInstance().updateHighestLevelBeaten(server, 1);
             }
             case DEFEAT -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
             case PEACEFUL -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
@@ -58,14 +57,14 @@ public class HordeEventTier1 extends Horde {
 
     @Override
     public void setActiveMemberCount() {
-        allowedActive = ColdSnapHorde.sconfig.HORDESIZE.get();
+        allowedActive = ColdSnapHorde.sconfig.TIER1HORDESIZE.get();
     }
 
     @Override
     public void SetUpHorde(ServerPlayer serverPlayer) {
         super.SetUpHorde(serverPlayer);
-        if(hordeDataManager.getCooldownTicks() > 0 || !trueBiomeCheck(world,  center) || !Utils.tier1Valid(world, center)) return;
-        hordeDataManager.setCooldownTicks(0);
+        if(hordeDataManager.getCooldownTicks() != 0 || !trueBiomeCheck(world,  center) || !Utils.tier1Valid(world, center)) return;
+        hordeDataManager.setCooldownTicks(-1);
 
         bossInfo.setCreateWorldFog(true);
         bossInfo.setColor(BossEvent.BossBarColor.BLUE);
@@ -76,25 +75,25 @@ public class HordeEventTier1 extends Horde {
 
     @Override
     public void setEasyDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.ALIVEEASY.get();
-        initAlive = ColdSnapHorde.sconfig.ALIVEEASY.get();
+        Alive = ColdSnapHorde.sconfig.TIER1ALIVEEASY.get();
+        initAlive = ColdSnapHorde.sconfig.TIER1ALIVEEASY.get();
     }
 
     @Override
     public void setNormalDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.ALIVENORMAL.get();
-        initAlive = ColdSnapHorde.sconfig.ALIVENORMAL.get();
+        Alive = ColdSnapHorde.sconfig.TIER1ALIVENORMAL.get();
+        initAlive = ColdSnapHorde.sconfig.TIER1ALIVENORMAL.get();
     }
 
     @Override
     public void setHardDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.ALIVEHARD.get();
-        initAlive = ColdSnapHorde.sconfig.ALIVEHARD.get();
+        Alive = ColdSnapHorde.sconfig.TIER1ALIVEHARD.get();
+        initAlive = ColdSnapHorde.sconfig.TIER1ALIVEHARD.get();
     }
 
     @Override
     protected void updateCenter() {
-        if (updateCenter == 0 && hordeAnchorPlayer != null) {
+        if (updateCenter <= 0 && hordeAnchorPlayer != null) {
             center = hordeAnchorPlayer.blockPosition();
             updateCenter = ColdSnapHorde.sconfig.UPDATETICK.get();
             updatePlayers();

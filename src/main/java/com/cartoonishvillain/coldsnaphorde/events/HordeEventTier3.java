@@ -57,7 +57,7 @@ public class HordeEventTier3 extends Horde {
 
     @Override
     public void setActiveMemberCount() {
-        allowedActive = ColdSnapHorde.sconfig.HORDESIZE.get();
+        allowedActive = ColdSnapHorde.sconfig.TIER1HORDESIZE.get();
     }
 
     @Override
@@ -88,20 +88,20 @@ public class HordeEventTier3 extends Horde {
 
     @Override
     public void setEasyDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.ALIVEEASY.get();
-        initAlive = ColdSnapHorde.sconfig.ALIVEEASY.get();
+        Alive = ColdSnapHorde.sconfig.TIER1ALIVEEASY.get();
+        initAlive = ColdSnapHorde.sconfig.TIER1ALIVEEASY.get();
     }
 
     @Override
     public void setNormalDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.ALIVENORMAL.get();
-        initAlive = ColdSnapHorde.sconfig.ALIVENORMAL.get();
+        Alive = ColdSnapHorde.sconfig.TIER1ALIVENORMAL.get();
+        initAlive = ColdSnapHorde.sconfig.TIER1ALIVENORMAL.get();
     }
 
     @Override
     public void setHardDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.ALIVEHARD.get();
-        initAlive = ColdSnapHorde.sconfig.ALIVEHARD.get();
+        Alive = ColdSnapHorde.sconfig.TIER1ALIVEHARD.get();
+        initAlive = ColdSnapHorde.sconfig.TIER1ALIVEHARD.get();
     }
 
     @Override

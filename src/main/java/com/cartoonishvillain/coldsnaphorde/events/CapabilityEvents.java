@@ -35,10 +35,10 @@ public class CapabilityEvents {
     }
 
     @SubscribeEvent
-    public static void worldTick(TickEvent.WorldTickEvent event){
-        if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.START){
+    public static void worldTick(TickEvent.ServerTickEvent event){
+        if (event.phase == TickEvent.Phase.END) {
             ColdSnapHorde.hordeDataManager.tickCooldown();
-            ColdSnapHorde.Horde.tick();
+            ColdSnapHorde.hordeTier1.tick();
         }
     }
 }

@@ -3,7 +3,6 @@ package com.cartoonishvillain.coldsnaphorde.items;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.Utils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -20,7 +19,6 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Snowglobe extends Item {
     public Snowglobe(Properties properties) {
@@ -33,8 +31,8 @@ public class Snowglobe extends Item {
             if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (Utils.tier1Valid(worldIn, playerIn.blockPosition()))) {
                 int cooldown = ColdSnapHorde.hordeDataManager.getCooldownTicks();
 
-                if(cooldown == 0 && !ColdSnapHorde.Horde.getHordeActive()) {
-                    ColdSnapHorde.Horde.SetUpHorde((ServerPlayer) playerIn);
+                if(cooldown == 0 && !ColdSnapHorde.hordeTier1.getHordeActive()) {
+                    ColdSnapHorde.hordeTier1.SetUpHorde((ServerPlayer) playerIn);
                     worldIn.playSound(null, playerIn.blockPosition(), SoundEvents.TRIDENT_RIPTIDE_1, SoundSource.PLAYERS, 0.5f, 1.5f);
                     playerIn.getMainHandItem().shrink(1);
                 } else if (cooldown > 0) {
@@ -43,7 +41,8 @@ public class Snowglobe extends Item {
                     playerIn.displayClientMessage(new TextComponent("The Horde is busy elsewhere. Try again later!"), false);
                 }
             } else {
-                playerIn.displayClientMessage(new TextComponent("This tier of horde can not be summoned in this climate! Can not spawn in swamps, nether, or the end. It may also be too hot in your current biome!"), false);
+                playerIn.displayClientMessage(new TextComponent("This tier of horde can not be summoned in this " +
+                        "climate! Can not spawn in swamps, nether, or the end. It may also be too hot in your current biome!"), false);
             }
         }
         return super.use(worldIn, playerIn, handIn);

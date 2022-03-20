@@ -1,6 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.items;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
+import com.cartoonishvillain.coldsnaphorde.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -29,35 +30,23 @@ public class Snowglobe extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
         if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null) {
-            if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (biomeCheck(worldIn, playerIn.blockPosition()) || worldIn.getBiome(playerIn.blockPosition()).value().getRegistryName().toString().contains("swamp") || worldIn.dimension().toString().contains("end") || worldIn.dimension().toString().contains("nether"))) {
+            if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (Utils.tier1Valid(worldIn, playerIn.blockPosition()))) {
                 int cooldown = ColdSnapHorde.hordeDataManager.getCooldownTicks();
 
                 if(cooldown == 0 && !ColdSnapHorde.Horde.getHordeActive()) {
                     ColdSnapHorde.Horde.SetUpHorde((ServerPlayer) playerIn);
                     worldIn.playSound(null, playerIn.blockPosition(), SoundEvents.TRIDENT_RIPTIDE_1, SoundSource.PLAYERS, 0.5f, 1.5f);
                     playerIn.getMainHandItem().shrink(1);
-                }else if (cooldown > 0){
+                } else if (cooldown > 0) {
                     playerIn.displayClientMessage(new TextComponent("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
-                }else if(cooldown < 0){
+                } else if(cooldown < 0) {
                     playerIn.displayClientMessage(new TextComponent("The Horde is busy elsewhere. Try again later!"), false);
                 }
-            }else{
-                playerIn.displayClientMessage(new TextComponent("Temperature too hot for the horde to summon!"), false);
+            } else {
+                playerIn.displayClientMessage(new TextComponent("This tier of horde can not be summoned in this climate! Can not spawn in swamps, nether, or the end. It may also be too hot in your current biome!"), false);
             }
         }
         return super.use(worldIn, playerIn, handIn);
-    }
-
-    private boolean biomeCheck(Level world, BlockPos pos){
-        int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
-        float temp = world.getBiome(pos).value().getBaseTemperature();
-        int code = -1;
-        if (temp < 0.3){code = 0;}
-        else if(temp >= 0.3 && temp < 0.9){code = 1;}
-        else if(temp >= 0.9 && temp < 1.5){code = 2;}
-        else if(temp >= 1.5){code = 3;}
-
-        return code <= protlvl;
     }
 
     private String TimeBuilder(int duration){

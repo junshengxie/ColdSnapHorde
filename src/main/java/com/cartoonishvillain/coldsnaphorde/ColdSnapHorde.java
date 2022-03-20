@@ -8,6 +8,7 @@ import com.cartoonishvillain.coldsnaphorde.configs.ClientConfig;
 import com.cartoonishvillain.coldsnaphorde.configs.ConfigHelper;
 import com.cartoonishvillain.coldsnaphorde.configs.SConfiguration;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
+import com.cartoonishvillain.coldsnaphorde.events.HordeEventTier1;
 import com.cartoonishvillain.coldsnaphorde.events.HordeEventTier3;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
@@ -50,7 +51,7 @@ public class ColdSnapHorde
     public static ClientConfig clientConfig;
     public static boolean isCalyxLoaded;
     public static boolean isInHolidayWindow;
-    public static HordeEventTier3 Horde;
+    public static HordeEventTier1 Horde;
     public static EntityHordeData defaultHordeData;
 
     public static ArrayList<String> presentPossibilities = new ArrayList<>();
@@ -102,7 +103,7 @@ public class ColdSnapHorde
 @SubscribeEvent
 public void onServerStarting(ServerStartingEvent event) {
     defaultHordeData = new EntityHordeData(3, 0.5D, 1, Register.COLDSNAPGUNNER.get(), ColdSnapGunner.class);
-    Horde = new HordeEventTier3(event.getServer());
+    Horde = new HordeEventTier1(event.getServer());
 
     hordeDataManager = HordeDataManager.getInstance();
 

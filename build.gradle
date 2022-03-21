@@ -13,7 +13,6 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-
 version = '1.18.2-1.7.3'
 group = 'com.cartoonishvillain.coldsnaphorde' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'coldsnaphorde'
@@ -32,6 +31,10 @@ repositories {
         content {
             includeGroup "curse.maven"
         }
+    }
+
+    maven {
+        url = "https://maven.theillusivec4.top/"
     }
 }
 
@@ -58,6 +61,9 @@ minecraft {
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+
             mods {
                 examplemod {
                     source sourceSets.main
@@ -73,6 +79,9 @@ minecraft {
 
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
+
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
                 examplemod {
@@ -124,6 +133,9 @@ dependencies {
     compileOnly fg.deobf("curse.maven:immortuoscalyx-411857:3544376")
 
     implementation fg.deobf("curse.maven:hordelib-571315:3620533")
+
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}:api")
 
     // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
     // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'

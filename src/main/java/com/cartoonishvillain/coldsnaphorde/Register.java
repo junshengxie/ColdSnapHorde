@@ -51,20 +51,24 @@ public class Register {
     public static final RegistryObject<Item> ROCKYSNOWBALL = ITEMS.register("rockysnowball", RockySnowball::new);
     public static final RegistryObject<Item> SNOWIERSNOWBALL = ITEMS.register("freezeball", SnowierSnowball::new);
 
-    public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));    public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<ArmorItem> REDTOPHAT = ITEMS.register("redtophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<ArmorItem> BLUETOPHAT = ITEMS.register("bluetophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<ArmorItem> GREENTOPHAT = ITEMS.register("greentophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<ArmorItem> PURPLETOPHAT = ITEMS.register("purpletophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
 
-    public static final RegistryObject<Item> ICECORE = ITEMS.register("icecore", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> THERMOMETER = ITEMS.register("thermometer", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> FROSTWALLCHARM = ITEMS.register("frost_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> SNOWGLOBE = ITEMS.register("snowglobe", () -> new Snowglobe(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.ONE));
+    public static final RegistryObject<Item> SMALLPRESENT = ITEMS.register("small_present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.ONE));
+
+    public static final RegistryObject<Item> FROSTCORE = ITEMS.register("frostcore", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
+
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSERPIECE = ITEMS.register("transposerpiece", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSER = ITEMS.register("lightningtransposer", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> LIGHTNINGSNOWBALL = ITEMS.register("lightningsnowball", LightningSnowball::new);
-    public static final RegistryObject<Item> THERMOMETER = ITEMS.register("thermometer", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> SNOWGLOBE = ITEMS.register("snowglobe", () -> new Snowglobe(new Item.Properties().tab(ColdSnapHorde.TAB)));
-    public static final RegistryObject<Item> SMALLPRESENT = ITEMS.register("small_present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Present.PresentTier.SMALL));
-    public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Present.PresentTier.STANDARD));
+    public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.TWO));
 
     public static final RegistryObject<Item> GUNNERSPAWN = ITEMS.register("gunner_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPGUNNER, 14804727, 0, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> STABBERSPAWN = ITEMS.register("stabber_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPSTABBER, 14804727, 8585216, new Item.Properties().tab(ColdSnapHorde.TAB)));

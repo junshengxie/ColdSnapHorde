@@ -35,16 +35,10 @@ import java.util.Random;
 import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.*;
 
 public class Present extends Item {
-    PresentTier tier;
-    public Present(Properties properties, PresentTier tier) {
+    Tier tier;
+    public Present(Properties properties, Tier tier) {
         super(properties);
         this.tier = tier;
-    }
-
-    public enum PresentTier {
-        SMALL,
-        STANDARD,
-        LARGE
     }
 
     @Override
@@ -54,7 +48,7 @@ public class Present extends Item {
 
             playerIn.getMainHandItem().shrink(1);
 
-            if(tier == PresentTier.SMALL) {
+            if(tier == Tier.ONE) {
                 float Total = 0f;
                 for (float totaling : tier1PresentWeights) Total += totaling;
                 float randomized = 0 + worldIn.random.nextFloat() * (Total - 0);
@@ -71,7 +65,7 @@ public class Present extends Item {
                 RewardDispenser(worldIn, playerIn, selected);
             }
 
-            if (tier == PresentTier.STANDARD) {
+            if (tier == Tier.TWO) {
                 float Total = 0f;
                 for (float totaling : tier2PresentWeights) Total += totaling;
                 float randomized = 0 + worldIn.random.nextFloat() * (Total - 0);
@@ -236,7 +230,7 @@ public class Present extends Item {
                 ItemSpawner(playerEntity.blockPosition(), world, Register.ICESWORD.get(), 1, 1);
                 break;
             case "frostcore":
-                ItemSpawner(playerEntity.blockPosition(), world, Register.ICECORE.get(), 1, 1);
+                ItemSpawner(playerEntity.blockPosition(), world, Register.FROSTCORE.get(), 1, 1);
                 break;
             case "transposer":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.LIGHTNINGTRANSPOSER.get(), 1, 1);

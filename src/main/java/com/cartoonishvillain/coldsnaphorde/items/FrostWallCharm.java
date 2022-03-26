@@ -19,6 +19,10 @@ public class FrostWallCharm extends Item implements ICurioItem {
         this.tier = tier;
     }
 
+    public Tier getTier() {
+        return tier;
+    }
+
     @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();

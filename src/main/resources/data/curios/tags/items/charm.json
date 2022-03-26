@@ -1,4 +1,4 @@
 {
   "replace": false,
-  "values": ["coldsnaphorde:frost_wall_charm"]
+  "values": ["coldsnaphorde:snow_wall_charm", "coldsnaphorde:frost_charm"]
 }

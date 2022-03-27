@@ -105,14 +105,21 @@ public class GeneralEvents {
                     }
                 }
 
+                //Handled this way to calculate the highest level... For when another mod adds another charm slot, and the user decides to add both a frost and arctic wind charm, the arctic wind charm will overrule.
                 switch (level) {
                     default -> {
                     }
 
                     case 1 -> {
                         int chance = event.getEntityLiving().level.random.nextInt(5);
-                        if(chance == 1) {
+                        if (chance == 1) {
                             attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 0));
+                        }
+                    }
+                    case 2 -> {
+                        int chance = event.getEntityLiving().level.random.nextInt(3);
+                        if (chance == 1) {
+                            attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1));
                         }
                     }
                 }

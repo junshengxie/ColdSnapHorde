@@ -135,6 +135,7 @@ public class RenderManager {
         EntityRenderers.register(Register.ROCKSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
         EntityRenderers.register(Register.SNOWIERSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
         EntityRenderers.register(Register.THROWNCHORUSPROJECTILE.get(), ThrownItemRenderer::new);
+        EntityRenderers.register(Register.HEALINGSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
 
     }
     /*

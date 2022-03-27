@@ -44,11 +44,16 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
-        Entity entity = p_213868_1_.getEntity();
-        int i = entity instanceof Blaze ? 5 : 0;
-        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
-        int chance = random.nextInt(20);
-        if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 7*20, 0));}
+        if(p_213868_1_.getEntity() instanceof LivingEntity entity) {
+            int i = entity instanceof Blaze ? 5 : 0;
+            entity.hurt(DamageSource.thrown(this, this.getOwner()), (float) i);
+            entity.setIsInPowderSnow(true);
+            entity.setTicksFrozen(getTicksFrozen() + 40);
+            int chance = random.nextInt(20);
+            if (chance <= 2 && !this.level.isClientSide()) {
+                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 7 * 20, 0));
+            }
+        }
     }
 
     @Override

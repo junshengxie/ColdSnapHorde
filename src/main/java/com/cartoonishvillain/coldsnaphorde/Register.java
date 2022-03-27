@@ -10,6 +10,7 @@ import com.cartoonishvillain.coldsnaphorde.items.*;
 import com.cartoonishvillain.coldsnaphorde.items.Tier;
 import com.cartoonishvillain.coldsnaphorde.items.armor.ArmorMaterials;
 import com.cartoonishvillain.coldsnaphorde.items.armor.TopHat;
+import com.cartoonishvillain.coldsnaphorde.items.projectiles.HealingSnowball;
 import com.cartoonishvillain.coldsnaphorde.items.projectiles.LightningSnowball;
 import com.cartoonishvillain.coldsnaphorde.items.projectiles.RockySnowball;
 import com.cartoonishvillain.coldsnaphorde.items.projectiles.SnowierSnowball;
@@ -55,17 +56,21 @@ public class Register {
     public static final RegistryObject<ArmorItem> PURPLETOPHAT = ITEMS.register("purpletophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(ColdSnapHorde.TAB)));
 
     public static final RegistryObject<Item> THERMOMETER = ITEMS.register("thermometer", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
+
     public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> SNOWWALLCHARM = ITEMS.register("snow_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.ONE));
     public static final RegistryObject<Item> SNOWGLOBE = ITEMS.register("snowglobe", () -> new Snowglobe(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.ONE));
     public static final RegistryObject<Item> SMALLPRESENT = ITEMS.register("small_present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.ONE));
+    public static final RegistryObject<Item> LESSERHEALINGBALL = ITEMS.register("lesser_healing_ball", () -> new HealingSnowball(Tier.ONE));
 
+    public static final RegistryObject<Item> FROSTCORE = ITEMS.register("frostcore", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> GLACIERWALLCHARM = ITEMS.register("glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.TWO));
     public static final RegistryObject<Item> FROSTCHARM = ITEMS.register("frost_charm", () -> new FrostCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.TWO));
-    public static final RegistryObject<Item> FROSTCORE = ITEMS.register("frostcore", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
+    public static final RegistryObject<Item> HEALINGBALL = ITEMS.register("healing_ball", () -> new HealingSnowball(Tier.TWO));
 
     public static final RegistryObject<Item> REINFOCEDGLACIERCHARM = ITEMS.register("reinforced_glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.THREE));
     public static final RegistryObject<Item> ARCTICCHARM = ITEMS.register("arctic_wind_charm", () -> new FrostCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.THREE));
+    public static final RegistryObject<Item> GREATERHEALINGBALL = ITEMS.register("greater_healing_ball", () -> new HealingSnowball(Tier.THREE));
 
     public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
     public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
@@ -140,6 +145,7 @@ public class Register {
     public static final RegistryObject<EntityType<ThrownChorusEntity>> THROWNCHORUSPROJECTILE = ENTITY_TYPES.register("thrownchorusprojectile", () -> EntityType.Builder.<ThrownChorusEntity>of(ThrownChorusEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "thrownchorusprojectile").toString()));
     public static final RegistryObject<EntityType<SnowierSnowballEntity>> SNOWIERSNOWBALLPROJECTILE = ENTITY_TYPES.register("snowiersnowballprojectile", () -> EntityType.Builder.<SnowierSnowballEntity>of(SnowierSnowballEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "snowiersnowballprojectile").toString()));
     public static final RegistryObject<EntityType<LightningSnowEntity>> LIGHTNINGSNOWBALLPROJECTILE = ENTITY_TYPES.register("lightningsnowprojectile", () -> EntityType.Builder.<LightningSnowEntity>of(LightningSnowEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "lightningsnowprojectile").toString()));
+    public static final RegistryObject<EntityType<HealingSnowballEntity>> HEALINGSNOWBALLPROJECTILE = ENTITY_TYPES.register("healingsnowprojectile", () -> EntityType.Builder.<HealingSnowballEntity>of(HealingSnowballEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "healingsnowprojectile").toString()));
 
 
     public static final RegistryObject<SoundEvent> GIFTERATTACK = SOUND_EVENT.register("gifter_attack", () -> new SoundEvent(new ResourceLocation(ColdSnapHorde.MOD_ID, "gifter_attack")));

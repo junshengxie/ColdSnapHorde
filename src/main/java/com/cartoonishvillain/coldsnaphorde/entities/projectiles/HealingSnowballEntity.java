@@ -72,19 +72,19 @@ public class HealingSnowballEntity extends ThrowableItemProjectile {
     public HealingSnowballEntity(EntityType<? extends ThrowableItemProjectile> type, Level worldIn, LivingEntity livingEntityIn, Tier tier) {
         super(type, livingEntityIn, worldIn);
         this.tier = tier;
-        setTierordinal(tier.ordinal());
+        setTierOrdinal(tier.ordinal());
     }
 
     public HealingSnowballEntity(EntityType<HealingSnowballEntity> healingSnowballEntityEntityType, Level level) {
         super(healingSnowballEntityEntityType, level);
         this.tier = Tier.ONE;
-        setTierordinal(tier.ordinal());
+        setTierOrdinal(tier.ordinal());
     }
 
     @Override
     protected void onHitEntity(EntityHitResult p_37259_) {
         super.onHitEntity(p_37259_);
-        if (p_37259_.getEntity() instanceof LivingEntity entity) {
+        if (!p_37259_.getEntity().level.isClientSide && p_37259_.getEntity() instanceof LivingEntity entity) {
             switch (tier) {
                 default -> {
                     entity.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 0));
@@ -99,7 +99,9 @@ public class HealingSnowballEntity extends ThrowableItemProjectile {
         }
     }
 
-    public void setTierordinal(int tierordinal) {this.entityData.set(TIERORDINAL, tierordinal);}
+    public void setTierOrdinal(int tierOrdinal) {
+        this.entityData.set(TIERORDINAL, tierOrdinal);
+    }
 
 
     @Override

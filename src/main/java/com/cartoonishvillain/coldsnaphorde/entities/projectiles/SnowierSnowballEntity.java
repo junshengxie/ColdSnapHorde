@@ -44,7 +44,7 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
-        if(p_213868_1_.getEntity() instanceof LivingEntity entity) {
+        if (!p_213868_1_.getEntity().level.isClientSide && p_213868_1_.getEntity() instanceof LivingEntity entity) {
             int i = entity instanceof Blaze ? 5 : 0;
             entity.hurt(DamageSource.thrown(this, this.getOwner()), (float) i);
             entity.setIsInPowderSnow(true);

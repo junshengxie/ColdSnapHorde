@@ -7,6 +7,7 @@ import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.Pla
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import com.cartoonishvillain.coldsnaphorde.entities.projectiles.*;
 import com.cartoonishvillain.coldsnaphorde.items.*;
+import com.cartoonishvillain.coldsnaphorde.items.Tier;
 import com.cartoonishvillain.coldsnaphorde.items.armor.ArmorMaterials;
 import com.cartoonishvillain.coldsnaphorde.items.armor.TopHat;
 import com.cartoonishvillain.coldsnaphorde.items.projectiles.LightningSnowball;
@@ -21,10 +22,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -39,7 +37,6 @@ public class Register {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ColdSnapHorde.MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENT = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, ColdSnapHorde.MOD_ID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ColdSnapHorde.MOD_ID);
-
 
     public static void init(){
         ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -70,6 +67,8 @@ public class Register {
     public static final RegistryObject<Item> REINFOCEDGLACIERCHARM = ITEMS.register("reinforced_glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.THREE));
     public static final RegistryObject<Item> ARCTICCHARM = ITEMS.register("arctic_wind_charm", () -> new FrostCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.THREE));
 
+    public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
+    public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
 
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSERPIECE = ITEMS.register("transposerpiece", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSER = ITEMS.register("lightningtransposer", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
@@ -104,9 +103,6 @@ public class Register {
     public static final RegistryObject<Item> PZAPPERSPAWN = ITEMS.register("pzapper_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPZAPPER, 7444, 9802549, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> PBRAWLERPAWN = ITEMS.register("pbrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPBRAWLER, 7444, 6229378, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> COWSPAWN = ITEMS.register("frostcow_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPCOW, 14804727, 1840384, new Item.Properties().tab(ColdSnapHorde.TAB)));
-
-
-
 
     public static final RegistryObject<EntityType<ColdSnapCow>> COLDSNAPCOW = ENTITY_TYPES.register("frostycow", () -> EntityType.Builder.of(ColdSnapCow::new, MobCategory.CREATURE).sized(0.9F, 1.4F).build(new ResourceLocation(ColdSnapHorde.MOD_ID, "frostycow").toString()));
 
@@ -147,6 +143,8 @@ public class Register {
 
 
     public static final RegistryObject<SoundEvent> GIFTERATTACK = SOUND_EVENT.register("gifter_attack", () -> new SoundEvent(new ResourceLocation(ColdSnapHorde.MOD_ID, "gifter_attack")));
+    public static final RegistryObject<SoundEvent> NOVEMBERSNOW = SOUND_EVENT.register("novemember_snow", () -> new SoundEvent(new ResourceLocation(ColdSnapHorde.MOD_ID, "november_snow")));
+    public static final RegistryObject<SoundEvent> ARCTICBEAT = SOUND_EVENT.register("arctic_beat", () -> new SoundEvent(new ResourceLocation(ColdSnapHorde.MOD_ID, "arctic_beat")));
 
     public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));

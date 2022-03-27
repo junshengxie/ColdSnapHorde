@@ -92,5 +92,9 @@
   "itemtooltip.candycane.1": "Decorative Block",
   "itemtooltip.candycane.2": "Can be obtained from presents!",
   "message.coldsnaphorde.peaceful": "The horde melts around the challengers, as peaceful mode was enabled.",
-  "message.coldsnaphorde.confused": "The horde is confused by the challengers surroundings, and decides to leave."
+  "message.coldsnaphorde.confused": "The horde is confused by the challengers surroundings, and decides to leave.",
+  "item.coldsnaphorde.november_snow": "November Snow",
+  "item.coldsnaphorde.november_snow.desc": "November Snow - The Cynic Project",
+  "item.coldsnaphorde.arctic_beat": "Arctic Beat",
+  "item.coldsnaphorde.arctic_beat.desc": "Arctic Beat - Ted Kerr"
 }

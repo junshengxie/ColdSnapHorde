@@ -34,7 +34,9 @@ credits="Commoble, BottomTextCf28, and Glasus#5741" #optional
 authors="Cartoonish Villain" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A frosty band of scoundrels now fill colder lands, attacking villagers, golems, and humans alike. Can you persevere through their madness? Or will you fall and hide in their wake?'''
+A frosty band of scoundrels now fill colder lands, attacking villagers, golems, and humans alike. Can you persevere through their madness? Or will you fall and hide in their wake?
+
+Music Credits: https://gist.github.com/CartoonishVillain/29dcc4623906f3d68b6c807ed12f9aaa'''
 
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.coldsnaphorde]] #optional

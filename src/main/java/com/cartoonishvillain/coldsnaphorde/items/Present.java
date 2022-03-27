@@ -81,6 +81,23 @@ public class Present extends Item {
                 String selected = tier2PresentPossibilities.get(select);
                 RewardDispenser(worldIn, playerIn, selected);
             }
+
+            if (tier == Tier.THREE) {
+                float Total = 0f;
+                for (float totaling : tier3PresentWeights) Total += totaling;
+                float randomized = 0 + worldIn.random.nextFloat() * (Total - 0);
+                int select = 0;
+
+                for (Float percentage : tier3PresentWeights) {
+                    randomized -= percentage;
+                    if (randomized <= 0) break;
+                    else select++;
+                }
+
+                if (select == tier3PresentPossibilities.size()) select = select - 1;
+                String selected = tier3PresentPossibilities.get(select);
+                RewardDispenser(worldIn, playerIn, selected);
+            }
         }
 
         if(playerIn.getServer() != null) {
@@ -238,7 +255,7 @@ public class Present extends Item {
             case "transposerpiece":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.LIGHTNINGTRANSPOSERPIECE.get(), 1, 2);
                 break;
-            case "frostshard":
+            case "iceshard":
                 ItemSpawner(playerEntity.blockPosition(), world, Register.ICESHARD.get(), 4, 10);
                 break;
         }

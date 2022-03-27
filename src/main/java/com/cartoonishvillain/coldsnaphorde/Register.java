@@ -67,10 +67,12 @@ public class Register {
     public static final RegistryObject<Item> GLACIERWALLCHARM = ITEMS.register("glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.TWO));
     public static final RegistryObject<Item> FROSTCHARM = ITEMS.register("frost_charm", () -> new FrostCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.TWO));
     public static final RegistryObject<Item> HEALINGBALL = ITEMS.register("healing_ball", () -> new HealingSnowball(Tier.TWO));
+    public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.TWO));
 
     public static final RegistryObject<Item> REINFOCEDGLACIERCHARM = ITEMS.register("reinforced_glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.THREE));
     public static final RegistryObject<Item> ARCTICCHARM = ITEMS.register("arctic_wind_charm", () -> new FrostCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.THREE));
     public static final RegistryObject<Item> GREATERHEALINGBALL = ITEMS.register("greater_healing_ball", () -> new HealingSnowball(Tier.THREE));
+    public static final RegistryObject<Item> LARGEPRESENT = ITEMS.register("large_present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.THREE));
 
     public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
     public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
@@ -78,7 +80,6 @@ public class Register {
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSERPIECE = ITEMS.register("transposerpiece", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSER = ITEMS.register("lightningtransposer", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> LIGHTNINGSNOWBALL = ITEMS.register("lightningsnowball", LightningSnowball::new);
-    public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.TWO));
 
     public static final RegistryObject<Item> GUNNERSPAWN = ITEMS.register("gunner_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPGUNNER, 14804727, 0, new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> STABBERSPAWN = ITEMS.register("stabber_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPSTABBER, 14804727, 8585216, new Item.Properties().tab(ColdSnapHorde.TAB)));

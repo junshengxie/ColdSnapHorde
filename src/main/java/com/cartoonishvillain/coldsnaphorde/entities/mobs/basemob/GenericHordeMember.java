@@ -105,11 +105,11 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     public void die(DamageSource cause) {
         if(CartoonishHorde.isHordeMember(this)) {
             switch (HordeDataManager.getInstance().getCurrentHordeLevel()) {
-                default -> { // 1
+                case 1 -> { // 1
                     tier1Check();
                 }
                 case 2 -> { //TODO: fill out other cases when available.
-
+                    tier2Check();
                 }
                 case 3 -> {
 
@@ -138,6 +138,18 @@ public class GenericHordeMember extends Monster implements SnowCreature {
         }
     }
 
+    private void tier2Check() {
+        int chance = level.random.nextInt(5);
+        if(chance == 1) {
+            if(level.random.nextBoolean()) {
+                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
+                level.addFreshEntity(itemEntity);
+            } else {
+                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.FROSTESSENCE.get(), level.random.nextInt(2)+1));
+                level.addFreshEntity(itemEntity);
+            }
+        }
+    }
 
     public void updateHordeMember(BlockPos center) {this.target = center;}
 

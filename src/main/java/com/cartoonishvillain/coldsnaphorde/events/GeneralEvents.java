@@ -5,7 +5,6 @@ import com.cartoonishvillain.coldsnaphorde.Register;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGifter;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.SnowCreature;
 import com.cartoonishvillain.coldsnaphorde.items.FrostCharm;
-import com.cartoonishvillain.coldsnaphorde.items.FrostWallCharm;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -28,13 +27,9 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
-import top.theillusivec4.curios.api.SlotTypeMessage;
-import top.theillusivec4.curios.api.SlotTypePreset;
 
 import java.util.UUID;
 

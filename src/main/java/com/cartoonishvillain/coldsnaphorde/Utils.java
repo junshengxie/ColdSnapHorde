@@ -18,7 +18,29 @@ public class Utils {
         return BiomeName.contains("swamp");
     }
 
+    public static boolean heatCheck(Level serverLevel, BlockPos pos) {
+        if(isEnd(serverLevel) || isNether(serverLevel) || isSwamp(serverLevel.getBiome(pos).value())) return true;
+        int protlvl = ColdSnapHorde.cconfig.HEATPROT.get();
+        float temp = serverLevel.getBiome(pos).value().getBaseTemperature();
+        int code = -1;
+        if (temp < 0.3) {
+            code = 0;
+        } else if (temp >= 0.3 && temp < 0.9) {
+            code = 1;
+        } else if (temp >= 0.9 && temp < 1.5) {
+            code = 2;
+        } else if (temp >= 1.5) {
+            code = 3;
+        }
+
+        return code <= protlvl;
+    }
+
     public static boolean tier1Valid(Level serverLevel, BlockPos pos) {
-        return !isEnd(serverLevel) && !isNether(serverLevel) && !isSwamp(serverLevel.getBiome(pos).value());
+        return !isEnd(serverLevel) && !isNether(serverLevel) && !isSwamp(serverLevel.getBiome(pos).value()) && heatCheck(serverLevel, pos);
+    }
+
+    public static boolean tier2Valid(Level serverLevel, BlockPos pos) {
+        return !isEnd(serverLevel) && !isNether(serverLevel) && heatCheck(serverLevel, pos);
     }
 }

@@ -72,6 +72,8 @@ public class Register {
     public static final RegistryObject<Item> HEALINGBALL = ITEMS.register("healing_ball", () -> new HealingSnowball(Tier.TWO));
     public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.TWO));
     public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", () -> new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().tab(ColdSnapHorde.TAB).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> FROSTEDSNOWGLOBE = ITEMS.register("frosted_snowglobe", () -> new Snowglobe(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.TWO));
+
 
     public static final RegistryObject<Item> ICEESSENCE = ITEMS.register("iceessence", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
     public static final RegistryObject<Item> ICECORE = ITEMS.register("icecore", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));

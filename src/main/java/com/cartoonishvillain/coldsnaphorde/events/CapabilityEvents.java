@@ -39,6 +39,7 @@ public class CapabilityEvents {
         if (event.phase == TickEvent.Phase.END) {
             ColdSnapHorde.hordeDataManager.tickCooldown();
             ColdSnapHorde.hordeTier1.tick();
+            ColdSnapHorde.hordeTier2.tick();
         }
     }
 }

@@ -7,6 +7,7 @@ import com.cartoonishvillain.coldsnaphorde.HordeDataManager;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import com.cartoonishvillain.coldsnaphorde.Utils;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.*;
+import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.PlagueHorde;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
@@ -31,8 +32,8 @@ import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.giveAdvancement;
 import static com.cartoonishvillain.coldsnaphorde.ColdSnapHorde.hordeDataManager;
 
 
-public class HordeEventTier1 extends Horde {
-    public HordeEventTier1(MinecraftServer server) {
+public class HordeEventTier2 extends Horde {
+    public HordeEventTier2 (MinecraftServer server) {
         super(server);
     }
 
@@ -58,39 +59,45 @@ public class HordeEventTier1 extends Horde {
 
     @Override
     public void setActiveMemberCount() {
-        allowedActive = ColdSnapHorde.sconfig.TIER1HORDESIZE.get();
+        allowedActive = ColdSnapHorde.sconfig.TIER2HORDESIZE.get();
     }
 
     @Override
     public void SetUpHorde(ServerPlayer serverPlayer) {
         super.SetUpHorde(serverPlayer);
-        if(hordeDataManager.getCooldownTicks() != 0 || !trueBiomeCheck(world,  center) || !Utils.tier1Valid(world, center)) return;
+        if(hordeDataManager.getCooldownTicks() != 0 || !trueBiomeCheck(world,  center) || !Utils.tier2Valid(world, center)) return;
         hordeDataManager.setCooldownTicks(-1);
 
         bossInfo.setCreateWorldFog(true);
         bossInfo.setColor(BossEvent.BossBarColor.BLUE);
-        bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 1)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+        if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
+            bossInfo.setColor(BossEvent.BossBarColor.GREEN);
+            bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 2)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+        } else {
+            bossInfo.setColor(BossEvent.BossBarColor.BLUE);
+            bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 2)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+        }
         giveAdvancement(serverPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "snow_day"));
         broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
-        hordeDataManager.setCurrentHordeLevel(1);
+        hordeDataManager.setCurrentHordeLevel(2);
     }
 
     @Override
     public void setEasyDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.TIER1ALIVEEASY.get();
-        initAlive = ColdSnapHorde.sconfig.TIER1ALIVEEASY.get();
+        Alive = ColdSnapHorde.sconfig.TIER2ALIVEEASY.get();
+        initAlive = ColdSnapHorde.sconfig.TIER2ALIVEEASY.get();
     }
 
     @Override
     public void setNormalDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.TIER1ALIVENORMAL.get();
-        initAlive = ColdSnapHorde.sconfig.TIER1ALIVENORMAL.get();
+        Alive = ColdSnapHorde.sconfig.TIER2ALIVENORMAL.get();
+        initAlive = ColdSnapHorde.sconfig.TIER2ALIVENORMAL.get();
     }
 
     @Override
     public void setHardDifficultyStats() {
-        Alive = ColdSnapHorde.sconfig.TIER1ALIVEHARD.get();
-        initAlive = ColdSnapHorde.sconfig.TIER1ALIVEHARD.get();
+        Alive = ColdSnapHorde.sconfig.TIER2ALIVEHARD.get();
+        initAlive = ColdSnapHorde.sconfig.TIER2ALIVEHARD.get();
     }
 
     @Override
@@ -98,6 +105,13 @@ public class HordeEventTier1 extends Horde {
         if (updateCenter <= 0 && hordeAnchorPlayer != null) {
             center = hordeAnchorPlayer.blockPosition();
             updateCenter = ColdSnapHorde.sconfig.UPDATETICK.get();
+            if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
+                bossInfo.setColor(BossEvent.BossBarColor.GREEN);
+                bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 2)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+            } else {
+                bossInfo.setColor(BossEvent.BossBarColor.BLUE);
+                bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 2)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+            }
             updatePlayers();
             updateHorde();
         } else {
@@ -144,7 +158,7 @@ public class HordeEventTier1 extends Horde {
     }
 
     protected boolean additionalHordeCheck(BlockPos pos, ServerLevel world) {
-        return trueBiomeCheck(world, pos) && Utils.tier1Valid(world, pos);
+        return trueBiomeCheck(world, pos) && Utils.tier2Valid(world, center);
     }
 
     @Override
@@ -153,6 +167,9 @@ public class HordeEventTier1 extends Horde {
         SpawnWeights.add(ColdSnapHorde.cconfig.GUNNER.get());
         SpawnWeights.add(ColdSnapHorde.cconfig.STABBER.get());
         SpawnWeights.add(ColdSnapHorde.cconfig.SNOWBALLER.get());
+        SpawnWeights.add(ColdSnapHorde.cconfig.GIFTER.get());
+        SpawnWeights.add(ColdSnapHorde.cconfig.ZAPPER.get());
+        SpawnWeights.add(ColdSnapHorde.cconfig.BRAWLER.get());
         int combined = 0;
         for (Integer weight : SpawnWeights) combined += weight;
         Random random = new Random();
@@ -198,6 +215,36 @@ public class HordeEventTier1 extends Horde {
                 world.addFreshEntity(coldSnapSnowballer);
                 activeHordeMembers.add(coldSnapSnowballer);
             }
+            case 3 -> {
+                ColdSnapGifter coldSnapGifter = new StandardHorde.StandardGifter(Register.COLDSNAPGIFTER.get(), world);
+                BlockPos pos = hordeSpawnAttempter(coldSnapGifter.getType());
+                if (pos == null) return;
+                coldSnapGifter = gifterSpawnRules(world, pos);
+                coldSnapGifter.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                injectGoal(coldSnapGifter, ColdSnapHorde.defaultHordeData, ColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                world.addFreshEntity(coldSnapGifter);
+                activeHordeMembers.add(coldSnapGifter);
+            }
+            case 4 -> {
+                ColdSnapZapper coldSnapZapper = new StandardHorde.StandardZapper(Register.COLDSNAPSNOWBALLER.get(), world);
+                BlockPos pos = hordeSpawnAttempter(coldSnapZapper.getType());
+                if (pos == null) return;
+                coldSnapZapper = zapperSpawnRules(world, pos);
+                coldSnapZapper.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                injectGoal(coldSnapZapper, ColdSnapHorde.defaultHordeData, ColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                world.addFreshEntity(coldSnapZapper);
+                activeHordeMembers.add(coldSnapZapper);
+            }
+            case 5 -> {
+                ColdSnapBrawler coldSnapBrawler = new StandardHorde.StandardBrawler(Register.COLDSNAPSNOWBALLER.get(), world);
+                BlockPos pos = hordeSpawnAttempter(coldSnapBrawler.getType());
+                if (pos == null) return;
+                coldSnapBrawler = brawlerSpawnRules(world, pos);
+                coldSnapBrawler.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+                injectGoal(coldSnapBrawler, ColdSnapHorde.defaultHordeData, ColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                world.addFreshEntity(coldSnapBrawler);
+                activeHordeMembers.add(coldSnapBrawler);
+            }
         }
     }
 
@@ -211,7 +258,13 @@ public class HordeEventTier1 extends Horde {
     private ColdSnapGunner gunnerSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapGunner coldSnapGunner = null;
         if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
-            coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
+            if (world.random.nextInt(20) == 1) {
+                coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
+            } else {
+                coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
+            }
+        } else if (!Utils.isEnd(world) && !Utils.isNether(world) && Utils.isSwamp(world.getBiome(pos).value())) {
+            coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
         }
         return coldSnapGunner;
     }
@@ -219,7 +272,13 @@ public class HordeEventTier1 extends Horde {
     private ColdSnapStabber stabberSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapStabber coldSnapStabber = null;
         if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
-            coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
+            if (world.random.nextInt(20) == 1) {
+                coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
+            } else {
+                coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
+            }
+        } else if (!Utils.isEnd(world) && !Utils.isNether(world) && Utils.isSwamp(world.getBiome(pos).value())) {
+            coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
         }
         return coldSnapStabber;
     }
@@ -228,8 +287,56 @@ public class HordeEventTier1 extends Horde {
     private ColdSnapSnowballer snowballerSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapSnowballer coldSnapSnowballer = null;
         if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
-            coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
+            if (world.random.nextInt(20) == 1) {
+                coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
+            } else {
+                coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
+            }
+        } else if (!Utils.isEnd(world) && !Utils.isNether(world) && Utils.isSwamp(world.getBiome(pos).value())) {
+            coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
         }
         return coldSnapSnowballer;
+    }
+
+    private ColdSnapGifter gifterSpawnRules(ServerLevel world, BlockPos pos) {
+        ColdSnapGifter coldSnapGifter = null;
+        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
+            if (world.random.nextInt(20) == 1) {
+                coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
+            } else {
+                coldSnapGifter = new StandardHorde.StandardGifter(Register.COLDSNAPGIFTER.get(), world);
+            }
+        } else if (!Utils.isEnd(world) && !Utils.isNether(world) && Utils.isSwamp(world.getBiome(pos).value())) {
+            coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
+        }
+        return coldSnapGifter;
+    }
+
+    private ColdSnapZapper zapperSpawnRules(ServerLevel world, BlockPos pos) {
+        ColdSnapZapper coldSnapZapper = null;
+        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
+            if (world.random.nextInt(20) == 1) {
+                coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
+            } else {
+                coldSnapZapper = new StandardHorde.StandardZapper(Register.COLDSNAPZAPPER.get(), world);
+            }
+        } else if (!Utils.isEnd(world) && !Utils.isNether(world) && Utils.isSwamp(world.getBiome(pos).value())) {
+            coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
+        }
+        return coldSnapZapper;
+    }
+
+    private ColdSnapBrawler brawlerSpawnRules(ServerLevel world, BlockPos pos) {
+        ColdSnapBrawler coldSnapBrawler = null;
+        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
+            if (world.random.nextInt(20) == 1) {
+                coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
+            } else {
+                coldSnapBrawler = new StandardHorde.StandardBrawler(Register.COLDSNAPBRAWLER.get(), world);
+            }
+        } else if (!Utils.isEnd(world) && !Utils.isNether(world) && Utils.isSwamp(world.getBiome(pos).value())) {
+            coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
+        }
+        return coldSnapBrawler;
     }
 }

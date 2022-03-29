@@ -136,7 +136,7 @@ public class RenderManager {
         EntityRenderers.register(Register.SNOWIERSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
         EntityRenderers.register(Register.THROWNCHORUSPROJECTILE.get(), ThrownItemRenderer::new);
         EntityRenderers.register(Register.HEALINGSNOWBALLPROJECTILE.get(), ThrownItemRenderer::new);
-
+        EntityRenderers.register(Register.ICEPROJECTILE.get(), ThrownItemRenderer::new);
     }
     /*
 For the functions: ConstructLayers and addLayertoPlayer, the following copyright notice applies.

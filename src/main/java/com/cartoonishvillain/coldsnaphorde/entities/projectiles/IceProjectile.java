@@ -1,38 +1,26 @@
 package com.cartoonishvillain.coldsnaphorde.entities.projectiles;
 
-import com.cartoonishvillain.coldsnaphorde.Register;
-import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.GenericHordeMember;
 import com.cartoonishvillain.coldsnaphorde.items.Tier;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
-
-import static com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.GenericHordeMember.Infection;
 
 public class IceProjectile extends ThrowableItemProjectile {
     Tier tier;
@@ -115,7 +103,7 @@ public class IceProjectile extends ThrowableItemProjectile {
             }
         }
     }
-    
+
     @Override
     protected void onHit(HitResult result) {
         super.onHit(result);

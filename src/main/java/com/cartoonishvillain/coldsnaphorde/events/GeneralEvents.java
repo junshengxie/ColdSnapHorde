@@ -1,6 +1,7 @@
 package com.cartoonishvillain.coldsnaphorde.events;
 
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
+import com.cartoonishvillain.coldsnaphorde.FrostEffect;
 import com.cartoonishvillain.coldsnaphorde.Register;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGifter;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.SnowCreature;
@@ -19,9 +20,12 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -149,6 +153,13 @@ public class GeneralEvents {
                 ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.PRESENT.get(), 1));
                 event.getEntityLiving().level.addFreshEntity(itemEntity);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void frostEffect (TickEvent.PlayerTickEvent event) {
+        if (event.phase.equals(TickEvent.Phase.END) && event.player.tickCount % 2 == 0 && !event.player.level.isClientSide && event.player.hasEffect(FrostEffect.froststep)) {
+            FrostWalkerEnchantment.onEntityMoved(event.player, event.player.getLevel(), event.player.blockPosition(), event.player.getEffect(FrostEffect.froststep).getAmplifier()+1);
         }
     }
 }

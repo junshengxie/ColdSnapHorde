@@ -1,5 +1,6 @@
 package com.cartoonishvillain.coldsnaphorde.events;
 
+import com.cartoonishvillain.coldsnaphorde.FrostEffect;
 import com.cartoonishvillain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
@@ -8,6 +9,7 @@ import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.*;
 import com.cartoonishvillain.coldsnaphorde.entities.Spawns;
 import com.cartoonishvillain.coldsnaphorde.items.ColdSpawnEggItem;
 import com.cartoonishvillain.coldsnaphorde.Register;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.capabilities.*;
@@ -36,8 +38,13 @@ public class ModBusEvents {
     public static void capabilityRegister(final RegisterCapabilitiesEvent event){
         event.register(IWorldCapabilityManager.class);
         event.register(PlayerCapabilityManager.class);
-        ColdSnapHorde.PLAYERCAPABILITYINSTANCE = CapabilityManager.get(new CapabilityToken<IPlayerCapabilityManager>() {});
-        ColdSnapHorde.WORLDCAPABILITYINSTANCE = CapabilityManager.get(new CapabilityToken<IWorldCapabilityManager>() {});
+        ColdSnapHorde.PLAYERCAPABILITYINSTANCE = CapabilityManager.get(new CapabilityToken<>() {});
+        ColdSnapHorde.WORLDCAPABILITYINSTANCE = CapabilityManager.get(new CapabilityToken<>() {});
+    }
+
+    @SubscribeEvent
+    public static void effect(final RegistryEvent.Register<MobEffect> event){
+        FrostEffect.init();
     }
 
     @SubscribeEvent

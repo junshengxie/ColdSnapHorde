@@ -2,7 +2,6 @@ package com.cartoonishvillain.coldsnaphorde.items.projectiles;
 
 import com.cartoonishvillain.coldsnaphorde.Register;
 import com.cartoonishvillain.coldsnaphorde.entities.projectiles.IceProjectile;
-import com.cartoonishvillain.coldsnaphorde.entities.projectiles.LightningSnowEntity;
 import com.cartoonishvillain.coldsnaphorde.items.Tier;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;

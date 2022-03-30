@@ -34,6 +34,8 @@ public class Snowglobe extends Item {
             startTier1(worldIn, playerIn);
         } else if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null && tier.equals(Tier.TWO)) {
             startTier2(worldIn, playerIn);
+        } else if(handIn == InteractionHand.MAIN_HAND && !worldIn.isClientSide() && playerIn != null && tier.equals(Tier.THREE)) {
+            startTier3(worldIn, playerIn);
         }
         return super.use(worldIn, playerIn, handIn);
     }
@@ -73,6 +75,25 @@ public class Snowglobe extends Item {
         } else {
             playerIn.displayClientMessage(new TextComponent("This tier of horde can not be summoned in this " +
                     "climate! Can not spawn in the nether, or the end. It may also be too hot in your current biome!"), false);
+        }
+    }
+
+    private void startTier3(Level worldIn, Player playerIn) {
+        if (worldIn.isAreaLoaded(playerIn.blockPosition(), 20) && (Utils.tier3Valid(worldIn, playerIn.blockPosition()))) {
+            int cooldown = ColdSnapHorde.hordeDataManager.getCooldownTicks();
+
+            if(cooldown == 0 && !ColdSnapHorde.hordeTier3.getHordeActive()) {
+                ColdSnapHorde.hordeTier3.SetUpHorde((ServerPlayer) playerIn);
+                worldIn.playSound(null, playerIn.blockPosition(), SoundEvents.TRIDENT_RIPTIDE_1, SoundSource.PLAYERS, 0.5f, 1.5f);
+                playerIn.getMainHandItem().shrink(1);
+            } else if (cooldown > 0) {
+                playerIn.displayClientMessage(new TextComponent("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
+            } else if(cooldown < 0) {
+                playerIn.displayClientMessage(new TextComponent("The Horde is busy elsewhere. Try again later!"), false);
+            }
+        } else {
+            playerIn.displayClientMessage(new TextComponent("This tier of horde can not be summoned in this " +
+                    "climate! Your biome may be too too hot in your current biome!"), false);
         }
     }
 

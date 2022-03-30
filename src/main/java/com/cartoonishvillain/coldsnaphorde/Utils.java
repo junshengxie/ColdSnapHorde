@@ -43,4 +43,8 @@ public class Utils {
     public static boolean tier2Valid(Level serverLevel, BlockPos pos) {
         return !isEnd(serverLevel) && !isNether(serverLevel) && heatCheck(serverLevel, pos);
     }
+
+    public static boolean tier3Valid(Level serverLevel, BlockPos pos) {
+        return heatCheck(serverLevel, pos);
+    }
 }

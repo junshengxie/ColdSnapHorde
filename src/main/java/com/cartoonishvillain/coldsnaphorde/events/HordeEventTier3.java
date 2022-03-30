@@ -46,12 +46,14 @@ public class HordeEventTier3 extends Horde {
                     giveAdvancement(player, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
                 }
                 giveAdvancement(hordeAnchorPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
+                hordeDataManager.updateHighestLevelBeaten(server, 3);
             }
             case DEFEAT -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
             case PEACEFUL -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
             case SPAWN_ERROR -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.confused").withStyle(ChatFormatting.RED));
         }
         hordeDataManager.setCooldownTicks(ColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);
+        hordeDataManager.setCurrentHordeLevel(0);
         super.Stop(stopReason);
     }
 
@@ -84,6 +86,7 @@ public class HordeEventTier3 extends Horde {
         }
         giveAdvancement(serverPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "snow_day"));
         broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
+        hordeDataManager.setCurrentHordeLevel(3);
     }
 
     @Override
@@ -112,10 +115,10 @@ public class HordeEventTier3 extends Horde {
             if (!world.dimension().toString().contains("nether") && !world.dimension().toString().contains("end")) {
                 if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
                     bossInfo.setColor(BossEvent.BossBarColor.GREEN);
-                    bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                    bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
                 } else {
                     bossInfo.setColor(BossEvent.BossBarColor.BLUE);
-                    bossInfo.setName(new TextComponent("Cold Snap Horde").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+                    bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
                 }
             }
             updatePlayers();

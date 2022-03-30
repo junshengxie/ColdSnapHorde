@@ -46,7 +46,7 @@ public class HordeEventTier2 extends Horde {
                     giveAdvancement(player, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
                 }
                 giveAdvancement(hordeAnchorPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
-                HordeDataManager.getInstance().updateHighestLevelBeaten(server, 1);
+                HordeDataManager.getInstance().updateHighestLevelBeaten(server, 2);
             }
             case DEFEAT -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
             case PEACEFUL -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));

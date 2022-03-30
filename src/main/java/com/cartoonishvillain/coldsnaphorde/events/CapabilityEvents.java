@@ -40,6 +40,7 @@ public class CapabilityEvents {
             ColdSnapHorde.hordeDataManager.tickCooldown();
             ColdSnapHorde.hordeTier1.tick();
             ColdSnapHorde.hordeTier2.tick();
+            ColdSnapHorde.hordeTier3.tick();
         }
     }
 }

@@ -6,14 +6,15 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.level.Level;
 
-public class FrostWalkStaff extends Item {
+public class FrostWalkStaff extends TieredItem {
     Tier tier;
-    public FrostWalkStaff(Properties p_41383_, Tier tier) {
-        super(p_41383_);
+
+    public FrostWalkStaff(net.minecraft.world.item.Tier itemTier, Properties p_41383_, Tier tier) {
+        super(itemTier, p_41383_);
         this.tier = tier;
     }
 

@@ -10,7 +10,9 @@ import java.util.function.Supplier;
 public enum Materials implements Tier {
 
     ICE(1, 512, 10f, 6.0f, 8, ()->{return Ingredient.of(Register.FROSTESSENCE.get());}),
-    ICICLE(1, 256, 10f, 1.0f, 8, ()->{return Ingredient.of(Register.ICESHARD.get());});
+    ICICLE(1, 256, 10f, 1.0f, 8, ()->{return Ingredient.of(Register.ICESHARD.get());}),
+    ICEESSENCE(1, 768, 10f, 1.0f, 8, ()->{return Ingredient.of(Register.ICEESSENCE.get());}),
+    FROSTESSENCE(1, 256, 10f, 1.0f, 8, ()->{return Ingredient.of(Register.FROSTESSENCE.get());});
 
     private final int harvestLevel;
     private final int maxUses;

@@ -68,10 +68,10 @@ public class Register {
     public static final RegistryObject<Item> FROSTCHARM = ITEMS.register("frost_charm", () -> new FrostCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.TWO));
     public static final RegistryObject<Item> HEALINGBALL = ITEMS.register("healing_ball", () -> new HealingSnowball(Tier.TWO));
     public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.TWO));
-    public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", () -> new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().tab(ColdSnapHorde.TAB).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", () -> new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().tab(ColdSnapHorde.TAB).rarity(Rarity.UNCOMMON).stacksTo(1)));
     public static final RegistryObject<Item> FROSTEDSNOWGLOBE = ITEMS.register("frosted_snowglobe", () -> new Snowglobe(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.TWO));
-    public static final RegistryObject<Item> ICESTAFF = ITEMS.register("ice_staff", () -> new IceStaff(new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(256), Tier.TWO));
-    public static final RegistryObject<Item> WANDOFTHEFROSTWALKER = ITEMS.register("wand_of_frost_walker", () -> new FrostWalkStaff(new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(256), Tier.TWO));
+    public static final RegistryObject<Item> ICESTAFF = ITEMS.register("ice_staff", () -> new IceStaff(Materials.FROSTESSENCE, new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(256), Tier.TWO));
+    public static final RegistryObject<Item> WANDOFTHEFROSTWALKER = ITEMS.register("wand_of_frost_walker", () -> new FrostWalkStaff(Materials.FROSTESSENCE, new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(256), Tier.TWO));
 
 
     public static final RegistryObject<Item> ICEESSENCE = ITEMS.register("iceessence", () -> new Item(new Item.Properties().tab(ColdSnapHorde.TAB)));
@@ -80,8 +80,10 @@ public class Register {
     public static final RegistryObject<Item> ARCTICCHARM = ITEMS.register("arctic_wind_charm", () -> new FrostCharm(new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1), Tier.THREE));
     public static final RegistryObject<Item> GREATERHEALINGBALL = ITEMS.register("greater_healing_ball", () -> new HealingSnowball(Tier.THREE));
     public static final RegistryObject<Item> LARGEPRESENT = ITEMS.register("large_present", () -> new Present(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.THREE));
-    public static final RegistryObject<Item> GLACIERSTAFF = ITEMS.register("glacier_staff", () -> new IceStaff(new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(256), Tier.THREE));
-    public static final RegistryObject<Item> STAFFOFICEFROSTWALKER = ITEMS.register("staff_of_ice_walker", () -> new FrostWalkStaff(new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(768), Tier.THREE));
+    public static final RegistryObject<Item> GLACIERSTAFF = ITEMS.register("glacier_staff", () -> new IceStaff(Materials.ICEESSENCE, new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(256), Tier.THREE));
+    public static final RegistryObject<Item> STAFFOFICEFROSTWALKER = ITEMS.register("staff_of_ice_walker", () -> new FrostWalkStaff(Materials.ICEESSENCE, new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(768), Tier.THREE));
+    public static final RegistryObject<Item> FROZENSNOWGLOBE = ITEMS.register("frozen_snowglobe", () -> new Snowglobe(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.THREE));
+
 
     public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
     public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));

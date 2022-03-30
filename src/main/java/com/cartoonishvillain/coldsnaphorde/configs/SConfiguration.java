@@ -22,6 +22,10 @@ public class SConfiguration {
     public ConfigHelper.ConfigValueListener<Integer> TIER2ALIVEEASY;
     public ConfigHelper.ConfigValueListener<Integer> TIER2ALIVENORMAL;
     public ConfigHelper.ConfigValueListener<Integer> TIER2ALIVEHARD;
+    public ConfigHelper.ConfigValueListener<Integer> TIER3HORDESIZE;
+    public ConfigHelper.ConfigValueListener<Integer> TIER3ALIVEEASY;
+    public ConfigHelper.ConfigValueListener<Integer> TIER3ALIVENORMAL;
+    public ConfigHelper.ConfigValueListener<Integer> TIER3ALIVEHARD;
     public ConfigHelper.ConfigValueListener<Integer> UPDATETICK;
 
     public ConfigHelper.ConfigValueListener<Integer> FROSTYHARVESTCOOLDOWN;
@@ -45,6 +49,10 @@ public class SConfiguration {
         this.TIER2ALIVEEASY = subscriber.subscribe(builder.comment("Default amount of horde members needed to be killed in a tier 2 horde on easy difficulty before the horde deactivates with a player victory").defineInRange("tier2EasyAliveCount", 35, 1, 20000));
         this.TIER2ALIVENORMAL = subscriber.subscribe(builder.comment("Default amount of horde members needed to be killed in a tier 2 horde on normal difficulty before the horde deactivates with a player victory").defineInRange("tier2NormalAliveCount", 50, 1, 20000));
         this.TIER2ALIVEHARD = subscriber.subscribe(builder.comment("Default amount of horde members needed to be killed in a tier 2 horde on hard difficulty before the horde deactivates with a player victory").defineInRange("tier2HardAliveCount", 65, 1, 20000));
+        this.TIER3HORDESIZE = subscriber.subscribe(builder.comment("How many horde members will a tier 3 horde attempt to spawn at once. Once this limit is reached, the horde will not spawn more members until the amount of members alive or in range fall below this number").defineInRange("tier2SnowmanHordeSize", 10, 5, 50));
+        this.TIER3ALIVEEASY = subscriber.subscribe(builder.comment("Default amount of horde members needed to be killed in a tier 3 horde on easy difficulty before the horde deactivates with a player victory").defineInRange("tier2EasyAliveCount", 50, 1, 20000));
+        this.TIER3ALIVENORMAL = subscriber.subscribe(builder.comment("Default amount of horde members needed to be killed in a tier 3 horde on normal difficulty before the horde deactivates with a player victory").defineInRange("tier2NormalAliveCount", 65, 1, 20000));
+        this.TIER3ALIVEHARD = subscriber.subscribe(builder.comment("Default amount of horde members needed to be killed in a tier 3 horde on hard difficulty before the horde deactivates with a player victory").defineInRange("tier2HardAliveCount", 80, 1, 20000));
         this.UPDATETICK = subscriber.subscribe(builder.comment("How often more expensive update ticks occur. This allows new in range players to get the bossbar, and updates the horde with the position of their main target. Higher reduces frequency of these more expensive ticks, but lowers horde responsiveness.").defineInRange("hordeUpdateCooldown", 100, 20, 3600));
         builder.pop();
     }

@@ -105,14 +105,14 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     public void die(DamageSource cause) {
         if(CartoonishHorde.isHordeMember(this)) {
             switch (HordeDataManager.getInstance().getCurrentHordeLevel()) {
-                case 1 -> { // 1
+                case 1 -> {
                     tier1Check();
                 }
-                case 2 -> { //TODO: fill out other cases when available.
+                case 2 -> {
                     tier2Check();
                 }
                 case 3 -> {
-
+                    tier3Check();
                 }
             }
         } else if (ColdSnapHorde.isInHolidayWindow) {
@@ -146,6 +146,19 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                 level.addFreshEntity(itemEntity);
             } else {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.FROSTESSENCE.get(), level.random.nextInt(2)+1));
+                level.addFreshEntity(itemEntity);
+            }
+        }
+    }
+
+    private void tier3Check() {
+        int chance = level.random.nextInt(4);
+        if(chance == 1) {
+            if(level.random.nextBoolean()) {
+                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.LARGEPRESENT.get(), 1));
+                level.addFreshEntity(itemEntity);
+            } else {
+                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.ICEESSENCE.get(), level.random.nextInt(2)+1));
                 level.addFreshEntity(itemEntity);
             }
         }

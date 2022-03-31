@@ -66,7 +66,7 @@ public class HordeEventTier3 extends Horde {
     public void SetUpHorde(ServerPlayer serverPlayer) {
         super.SetUpHorde(serverPlayer);
         if(hordeDataManager.getCooldownTicks() > 0) return;
-        hordeDataManager.setCooldownTicks(0);
+        hordeDataManager.setCooldownTicks(-1);
 
         bossInfo.setCreateWorldFog(true);
         if (hordeAnchorPlayer.level.dimension().toString().contains("end")) {

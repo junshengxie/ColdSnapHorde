@@ -84,7 +84,6 @@ public class Register {
     public static final RegistryObject<Item> STAFFOFICEFROSTWALKER = ITEMS.register("staff_of_ice_walker", () -> new FrostWalkStaff(Materials.ICEESSENCE, new Item.Properties().tab(ColdSnapHorde.TAB).defaultDurability(768), Tier.THREE));
     public static final RegistryObject<Item> FROZENSNOWGLOBE = ITEMS.register("frozen_snowglobe", () -> new Snowglobe(new Item.Properties().tab(ColdSnapHorde.TAB), Tier.THREE));
 
-
     public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
     public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().tab(ColdSnapHorde.TAB).stacksTo(1)));
 

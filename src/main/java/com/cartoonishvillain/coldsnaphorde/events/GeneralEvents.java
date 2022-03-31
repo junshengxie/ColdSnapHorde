@@ -147,11 +147,22 @@ public class GeneralEvents {
     @SubscribeEvent
     public static void Death(LivingDeathEvent event){
         if(event.getEntityLiving().getType() != EntityType.PLAYER && !event.getEntityLiving().level.isClientSide() && ColdSnapHorde.isInHolidayWindow){
-            int random = event.getEntityLiving().level.random.nextInt(150);
-            int check = 145;
-            if(random > check){
-                ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.PRESENT.get(), 1));
-                event.getEntityLiving().level.addFreshEntity(itemEntity);
+            int random = event.getEntityLiving().level.random.nextInt(15);
+            if(random == 1) {
+                switch (ColdSnapHorde.hordeDataManager.getHighestLevelBeaten()) {
+                    default -> {
+                        ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.SMALLPRESENT.get(), 1));
+                        event.getEntityLiving().level.addFreshEntity(itemEntity);
+                    }
+                    case 2 -> {
+                        ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.PRESENT.get(), 1));
+                        event.getEntityLiving().level.addFreshEntity(itemEntity);
+                    }
+                    case 3 -> {
+                        ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.LARGEPRESENT.get(), 1));
+                        event.getEntityLiving().level.addFreshEntity(itemEntity);
+                    }
+                }
             }
         }
     }

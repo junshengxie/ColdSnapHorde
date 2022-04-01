@@ -2,25 +2,25 @@
     "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
     "display": {
         "title": {
-            "text": "Snow Day",
+            "text": "The Horde at the End of the Game",
             "color": "aqua"
         },
         "description": {
-            "text": "Anger the Cold Snap Horde by shaking a Snow Globe!",
+            "text": "Defeat a Tier 3 Horde in the end",
             "color": "aqua"
         },
         "icon": {
-            "item": "coldsnaphorde:snowglobe"
+            "item": "minecraft:ender_eye"
         },
-        "frame": "task",
+        "frame": "challenge",
         "show_toast": true,
         "announce_to_chat": true,
-        "hidden": false
+        "hidden": true
     },
     "criteria": {
         "Impossible": {
             "trigger": "minecraft:impossible"
         }
     },
-    "parent": "coldsnaphorde:root"
+    "parent": "coldsnaphorde:hail_storm"
 }

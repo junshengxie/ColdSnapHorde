@@ -43,9 +43,9 @@ public class HordeEventTier2 extends Horde {
             case VICTORY -> {
                 broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
                 for (ServerPlayer player : players) {
-                    giveAdvancement(player, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
+                    giveAdvancement(player, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "diced_snowmen"));
                 }
-                giveAdvancement(hordeAnchorPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
+                giveAdvancement(hordeAnchorPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "diced_snowmen"));
                 HordeDataManager.getInstance().updateHighestLevelBeaten(server, 2);
             }
             case DEFEAT -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
@@ -77,7 +77,7 @@ public class HordeEventTier2 extends Horde {
             bossInfo.setColor(BossEvent.BossBarColor.BLUE);
             bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 2)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
         }
-        giveAdvancement(serverPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "snow_day"));
+        giveAdvancement(serverPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "snow_storm"));
         broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
         hordeDataManager.setCurrentHordeLevel(2);
     }

@@ -37,15 +37,33 @@ public class HordeEventTier3 extends Horde {
         super(server);
     }
 
+    boolean isSwamp;
+    boolean isEnd;
+    boolean isNether;
+
     @Override
     public void Stop(HordeStopReasons stopReason) {
         switch (stopReason) {
             case VICTORY -> {
                 broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
-                for (ServerPlayer player : players) {
-                    giveAdvancement(player, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
+                ResourceLocation extraAchievement = null;
+                if (isSwamp) {
+                    extraAchievement = new ResourceLocation(ColdSnapHorde.MOD_ID, "pestilence");
+                } else if (isEnd) {
+                    extraAchievement = new ResourceLocation(ColdSnapHorde.MOD_ID, "horde_end");
+                } else if (isNether) {
+                    extraAchievement = new ResourceLocation(ColdSnapHorde.MOD_ID, "meltdown");
                 }
-                giveAdvancement(hordeAnchorPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "sliced_snowmen"));
+
+                for (ServerPlayer player : players) {
+                    giveAdvancement(player, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "horde_breaker"));
+                    if (extraAchievement != null) {
+                        giveAdvancement(player, server, extraAchievement);
+                    }
+                }
+
+                giveAdvancement(hordeAnchorPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "horde_breaker"));
+                giveAdvancement(hordeAnchorPlayer, server, extraAchievement);
                 hordeDataManager.updateHighestLevelBeaten(server, 3);
             }
             case DEFEAT -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
@@ -68,23 +86,30 @@ public class HordeEventTier3 extends Horde {
         if(hordeDataManager.getCooldownTicks() > 0) return;
         hordeDataManager.setCooldownTicks(-1);
 
+        isSwamp = false;
+        isEnd = false;
+        isNether = false;
+
         bossInfo.setCreateWorldFog(true);
         if (hordeAnchorPlayer.level.dimension().toString().contains("end")) {
             bossInfo.setColor(BossEvent.BossBarColor.PURPLE);
             bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
+            isEnd = true;
         } else if (hordeAnchorPlayer.level.dimension().toString().contains("nether")) {
             bossInfo.setColor(BossEvent.BossBarColor.RED);
             bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
+            isNether = true;
         } else {
             if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
                 bossInfo.setColor(BossEvent.BossBarColor.GREEN);
                 bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                isSwamp = true;
             } else {
                 bossInfo.setColor(BossEvent.BossBarColor.BLUE);
                 bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
             }
         }
-        giveAdvancement(serverPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "snow_day"));
+        giveAdvancement(serverPlayer, server, new ResourceLocation(ColdSnapHorde.MOD_ID, "hail_storm"));
         broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
         hordeDataManager.setCurrentHordeLevel(3);
     }
@@ -119,6 +144,7 @@ public class HordeEventTier3 extends Horde {
                 } else {
                     bossInfo.setColor(BossEvent.BossBarColor.BLUE);
                     bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+                    isSwamp = false;
                 }
             }
             updatePlayers();

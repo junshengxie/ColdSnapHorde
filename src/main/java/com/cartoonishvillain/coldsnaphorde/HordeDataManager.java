@@ -37,7 +37,10 @@ public class HordeDataManager {
         for(ServerLevel serverWorld : server.getAllLevels()){
             if(serverWorld.dimension().location().getPath().contains("overworld")) {
                 serverWorld.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
-                    h.setLevelBeaten(level);
+                    if (h.getLevelBeaten() < level) {
+                        h.setLevelBeaten(level);
+                        highestLevelBeaten = level;
+                    }
                 });
             }
         }

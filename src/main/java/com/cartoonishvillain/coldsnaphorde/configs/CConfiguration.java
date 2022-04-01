@@ -13,6 +13,7 @@ public class CConfiguration {
     public ConfigHelper.ConfigValueListener<Integer> SPAWNTEMPS;
     public ConfigHelper.ConfigValueListener<Integer> HEATPROT;
     public ConfigHelper.ConfigValueListener<Integer> SNOWTRAIL;
+    public ConfigHelper.ConfigValueListener<Boolean> PROGRESSIVESPAWNS;
 
     public ConfigHelper.ConfigValueListener<Integer> SNOWCOW;
     public ConfigHelper.ConfigValueListener<Integer> STABBER;
@@ -42,6 +43,7 @@ public class CConfiguration {
         this.HEATPROT = subscriber.subscribe(builder.comment("Defines how hot a cold snap snowman can get before it melts. 0: Cold, 1: Neutral, 2: Warm, 3: Hot (Recommend matching or being higher than spawnTempRange, or being 3 if snowmanInNether").defineInRange("snowSunScreen", 1, 0, 3));
         this.SNOWTRAIL = subscriber.subscribe(builder.comment("Defines how hot a cold snap snowman can be and still leave a snow trail. 0: Cold, 1: Neutral, 2: Warm, 3: Hot").defineInRange("snowTrailTemperature", 1, 0, 3));
         this.BiomeExclusion = subscriber.subscribe(builder.comment("EXPERIMENTAL! MUST BE ALL CHARACTERS FROM [a-z0-9/._-] OR THE GAME WILL CRASH. List the biome names seperated by commas that you want to absolutely exclude the horde from. (eg: minecraft:desert,minecraft:jungle)").define("hordeBiomeExclusion", "notabiome"));
+        this.PROGRESSIVESPAWNS = subscriber.subscribe(builder.comment("If true, cold snap horde mobs will be restricted to spawning only when unlocked by horde completion. If false, entities will spawn as if the world was through tier 3 already.").define("progressiveSpawns", true));
         this.DSPAWN = subscriber.subscribe(builder.comment("Natural spawning of horde members in the nether or end with their variants.").define("dimensionalHordeSpawn", true));
         builder.pop();
         builder.comment("Modify spawn chances per horde member. Higher values makes them more likely to spawn").push(CCATEGORY_NUMBERS);

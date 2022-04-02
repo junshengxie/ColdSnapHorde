@@ -64,7 +64,7 @@ public class HordeEventTier1 extends Horde {
     @Override
     public void SetUpHorde(ServerPlayer serverPlayer) {
         super.SetUpHorde(serverPlayer);
-        if(hordeDataManager.getCooldownTicks() != 0 || !trueBiomeCheck(world,  center) || !Utils.tier1Valid(world, center)) return;
+        if(!trueBiomeCheck(world,  center) || !Utils.tier1Valid(world, center)) return;
         hordeDataManager.setCooldownTicks(-1);
 
         bossInfo.setCreateWorldFog(true);

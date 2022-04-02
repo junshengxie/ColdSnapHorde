@@ -46,6 +46,17 @@ public class HordeDataManager {
         }
     }
 
+    public void setHighestLevelBeaten(MinecraftServer server, int level) {
+        for(ServerLevel serverWorld : server.getAllLevels()){
+            if(serverWorld.dimension().location().getPath().contains("overworld")) {
+                serverWorld.getCapability(ColdSnapHorde.WORLDCAPABILITYINSTANCE).ifPresent(h -> {
+                        h.setLevelBeaten(level);
+                        highestLevelBeaten = level;
+                });
+            }
+        }
+    }
+
     public void setCooldownTicks(int ticks) {
         cooldownTicks = ticks;
     }

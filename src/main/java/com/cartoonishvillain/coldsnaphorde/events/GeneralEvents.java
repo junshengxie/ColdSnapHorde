@@ -3,6 +3,10 @@ package com.cartoonishvillain.coldsnaphorde.events;
 import com.cartoonishvillain.coldsnaphorde.ColdSnapHorde;
 import com.cartoonishvillain.coldsnaphorde.FrostEffect;
 import com.cartoonishvillain.coldsnaphorde.Register;
+import com.cartoonishvillain.coldsnaphorde.commands.GetHordeDefeatedLevel;
+import com.cartoonishvillain.coldsnaphorde.commands.SetHordeDefeatedLevel;
+import com.cartoonishvillain.coldsnaphorde.commands.StartHorde;
+import com.cartoonishvillain.coldsnaphorde.commands.StopHorde;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.ColdSnapGifter;
 import com.cartoonishvillain.coldsnaphorde.entities.mobs.basemob.SnowCreature;
 import com.cartoonishvillain.coldsnaphorde.items.FrostCharm;
@@ -22,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.FrostWalkerEnchantment;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -39,6 +44,14 @@ import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = ColdSnapHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GeneralEvents {
+
+    @SubscribeEvent
+    public static void commands(RegisterCommandsEvent event){
+        GetHordeDefeatedLevel.register(event.getDispatcher());
+        SetHordeDefeatedLevel.register(event.getDispatcher());
+        StartHorde.register(event.getDispatcher());
+        StopHorde.register(event.getDispatcher());
+    }
 
     @SubscribeEvent
     public static void CheckThermometer(PlayerInteractEvent.RightClickItem event){

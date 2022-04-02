@@ -83,7 +83,6 @@ public class HordeEventTier3 extends Horde {
     @Override
     public void SetUpHorde(ServerPlayer serverPlayer) {
         super.SetUpHorde(serverPlayer);
-        if(hordeDataManager.getCooldownTicks() > 0) return;
         hordeDataManager.setCooldownTicks(-1);
 
         isSwamp = false;

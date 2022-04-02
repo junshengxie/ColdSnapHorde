@@ -81,7 +81,7 @@
   "item.coldsnaphorde.glacier_wall_charm": "Glacier Wall Charm",
   "item.coldsnaphorde.frost_charm": "Frost Charm",
   "item.coldsnaphorde.healing_ball": "Ball of Healing",
-  "item.coldsnaphorde.frosted_snowglobe": "Frosted Snowglobe",
+  "item.coldsnaphorde.frosted_snowglobe": "Frosted Snow Globe",
   "item.coldsnaphorde.ice_staff": "Ice Staff",
   "item.coldsnaphorde.wand_of_frost_walker": "Wand of the Frost Walker",
   "item.coldsnaphorde.iceessence": "Ice Essence",
@@ -92,7 +92,7 @@
   "item.coldsnaphorde.large_present": "Large Present",
   "item.coldsnaphorde.glacier_staff": "Glacier Staff",
   "item.coldsnaphorde.staff_of_ice_walker": "Staff of the Ice Walker",
-  "item.coldsnaphorde.frozen_snowglobe": "Frozen Snowglobe",
+  "item.coldsnaphorde.frozen_snowglobe": "Frozen Snow Globe",
   "item.coldsnaphorde.frostessence": "Frost Essence",
   "itemGroup.ColdSnapHorde": "Cold Snap Horde",
   "info.coldsnaphorde.holiday": "Happy Holidays! All entities now have a low chance to drop presents, and horde members have a higher chance of dropping presents!",
@@ -127,5 +127,12 @@
   "item.coldsnaphorde.november_snow": "Music Disc",
   "item.coldsnaphorde.november_snow.desc": "November Snow - The Cynic Project",
   "item.coldsnaphorde.arctic_beat": "Music Disc",
-  "item.coldsnaphorde.arctic_beat.desc": "Arctic Beat - Ted Kerr"
+  "item.coldsnaphorde.arctic_beat.desc": "Arctic Beat - Ted Kerr",
+  "command.coldsnaphorde.startsuccess": "Successfully started a tier %1$s horde!",
+  "command.coldsnaphorde.startfailure": "Horde failed to start. One is probably already running, try again later!",
+  "command.coldsnaphorde.stopsuccess": "Horde has been stopped!",
+  "command.coldsnaphorde.stopfailure": "Horde failed to end. Is one running?",
+  "command.coldsnaphorde.setsuccess": "Successfully set the highest tier of horde defeated to %1$s!",
+  "command.coldsnaphorde.getsuccess": "Highest tier horde defeated: %1$s!"
+
 }

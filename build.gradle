@@ -36,7 +36,14 @@ repositories {
     maven {
         url = "https://maven.theillusivec4.top/"
     }
+
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
 }
+
 
 minecraft {
     // The mappings can be changed at any time, and must be in the following format.
@@ -136,6 +143,8 @@ dependencies {
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}:api")
+
+    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.174")
 
     // The 'provided' configuration is for optional dependencies that exist at compile-time but might not at runtime.
     // provided 'com.mod-buildcraft:buildcraft:6.0.8:dev'

@@ -7,11 +7,11 @@
   ],
   "key": {
     "#": {
-      "item": "coldsnaphorde:iceessence"
+      "item": "coldsnaphorde:frostessence"
     }
   },
   "result": {
-    "item": "coldsnaphorde:icecore",
+    "item": "coldsnaphorde:frostcore",
     "count": 1
   }
 }

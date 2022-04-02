@@ -65,4 +65,11 @@ Music Credits: https://gist.github.com/CartoonishVillain/29dcc4623906f3d68b6c807
     versionRange="[0.2.1-1.18,)"
     ordering="NONE"
     side="BOTH"
+[[dependencies.coldsnaphorde]]
+    modId="curios"
+     mandatory=true
+# This version range declares a minimum of the current minecraft version up to but not including the next major version
+    versionRange="[1.18.2-5.0.6.3,)"
+    ordering="NONE"
+    side="BOTH"
 

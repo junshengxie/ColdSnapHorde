@@ -115,12 +115,6 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                     tier3Check();
                 }
             }
-        } else if (ColdSnapHorde.isInHolidayWindow) {
-            int chance = level.random.nextInt(20);
-            if (chance == 1) {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
-                level.addFreshEntity(itemEntity);
-            }
         }
         super.die(cause);
     }

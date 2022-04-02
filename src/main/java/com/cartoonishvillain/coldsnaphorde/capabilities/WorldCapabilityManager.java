@@ -17,7 +17,7 @@ public class WorldCapabilityManager implements IWorldCapabilityManager, ICapabil
 
     @Override
     public void setLevelBeaten(int level) {
-        if(levelBeaten < level) levelBeaten = level;
+        levelBeaten = level;
     }
 
     @Override

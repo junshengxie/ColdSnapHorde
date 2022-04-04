@@ -120,7 +120,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     }
 
     private void tier1Check() {
-        int chance = level.random.nextInt(6);
+        int chance = level.random.nextInt(4);
         if(chance == 1) {
             if(level.random.nextBoolean()) {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.SMALLPRESENT.get(), 1));
@@ -133,7 +133,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     }
 
     private void tier2Check() {
-        int chance = level.random.nextInt(5);
+        int chance = level.random.nextInt(4);
         if(chance == 1) {
             if(level.random.nextBoolean()) {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));

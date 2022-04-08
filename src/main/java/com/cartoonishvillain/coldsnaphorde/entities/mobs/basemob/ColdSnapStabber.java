@@ -48,7 +48,7 @@ public class ColdSnapStabber extends GenericHordeMember {
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
-        getEntityData().define(ANITIMER, 0f);
+        getEntityData().define(ANITIMER, 10f);
     }
 
 
@@ -88,19 +88,24 @@ public class ColdSnapStabber extends GenericHordeMember {
                     Infection((LivingEntity) entityIn);
                 }
             }
-            this.getEntityData().set(ANITIMER, 50f);
+
+            if(getANITIMER() >= 10)
+            this.getEntityData().set(ANITIMER, 0f);
 
         }
         return super.doHurtTarget(entityIn);
     }
 
+    public Float getANITIMER() {
+        return getEntityData().get(ANITIMER);
+    }
 
     public void aiStep() {
         super.aiStep();
-        if(!this.level.isClientSide()){
-        float timer = getEntityData().get(ANITIMER);
-        if (timer > -1) this.getEntityData().set(ANITIMER, timer -= 1f);
-    }
+        if (!this.level.isClientSide()) {
+            float timer = getEntityData().get(ANITIMER);
+            if (timer < 11) this.getEntityData().set(ANITIMER, timer += 1f);
+        }
     }
     
 }

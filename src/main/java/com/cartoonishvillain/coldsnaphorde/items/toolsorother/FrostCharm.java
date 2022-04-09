@@ -1,5 +1,6 @@
-package com.cartoonishvillain.coldsnaphorde.items;
+package com.cartoonishvillain.coldsnaphorde.items.toolsorother;
 
+import com.cartoonishvillain.coldsnaphorde.items.Tier;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.ChatFormatting;
@@ -19,9 +20,9 @@ import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import java.util.List;
 import java.util.UUID;
 
-public class FrostWallCharm extends Item implements ICurioItem {
+public class FrostCharm extends Item implements ICurioItem {
     Tier tier;
-    public FrostWallCharm(Properties p_41383_, Tier tier) {
+    public FrostCharm(Properties p_41383_, Tier tier) {
         super(p_41383_);
         this.tier = tier;
     }
@@ -31,26 +32,9 @@ public class FrostWallCharm extends Item implements ICurioItem {
     }
 
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> atts = LinkedHashMultimap.create();
-        switch (tier) {
-            default -> {
-                atts.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "knockback_res", 0.15, AttributeModifier.Operation.ADDITION));
-            }
-            case TWO -> {
-                atts.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "knockback_res", 0.45, AttributeModifier.Operation.ADDITION));
-            }
-            case THREE -> {
-                atts.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "knockback_res", 1, AttributeModifier.Operation.ADDITION));
-            }
-        }
-        return atts;
-    }
-
-    @Override
     public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-        p_41423_.add(new TranslatableComponent("itemtooltip.wallcharm.1").withStyle(ChatFormatting.AQUA));
+        p_41423_.add(new TranslatableComponent("itemtooltip.frostcharm.1").withStyle(ChatFormatting.AQUA));
         switch (tier) {
             default -> {
                 p_41423_.add(new TranslatableComponent("itemtooltip.coldsnaphorde.tier.1").withStyle(ChatFormatting.AQUA));
@@ -63,4 +47,5 @@ public class FrostWallCharm extends Item implements ICurioItem {
             }
         }
     }
+
 }

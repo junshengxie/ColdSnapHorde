@@ -14,6 +14,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -141,7 +142,7 @@ public class GeneralEvents {
 
     @SubscribeEvent
     public static void playerAttackEvent(AttackEntityEvent event) {
-        if (!event.getEntityLiving().level.isClientSide && event.getTarget() instanceof LivingEntity target) {
+        if (!event.getEntityLiving().level.isClientSide && event.getTarget() instanceof LivingEntity target && event.getPlayer().getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(Register.ICICLE.get())) {
             float value = event.getPlayer().getAttackStrengthScale(1);
             if(event.getPlayer().getRandom().nextBoolean() && value == 1) {
                 target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 0));

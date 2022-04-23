@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "id": "coldsnaphorde",
+  "version": "${version}",
+
+  "custom": {
+    "cardinal-components": [
+      "coldsnaphorde:cooldown",
+      "coldsnaphorde:playercooldown"
+    ]
+  },
+
+  "accessWidener" : "coldsnaphorde.accesswidener",
+
+
+  "name": "Cold Snap Horde",
+  "description": "A frosty band of scoundrels now fill colder lands, attacking villagers, golems, and humans alike. Art by: BottomTextCf28, and Glasus#5741. Music License details under the \"Website\" button",
+  "authors": [
+    "Cartoonish Villain"
+  ],
+  "contact": {
+    "homepage": "https://gist.github.com/CartoonishVillain/29dcc4623906f3d68b6c807ed12f9aaa",
+    "sources": ""
+  },
+
+  "license": "MIT",
+  "icon": "assets/coldsnaphorde/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.villain.coldsnaphorde.FabricColdSnapHorde"
+    ],
+    "client": [
+      "com.villain.coldsnaphorde.client.ColdSnapClientInitializer"
+    ],
+    "cardinal-components-world": [
+      "com.villain.coldsnaphorde.component.ComponentStarter"
+    ],
+    "cardinal-components-entity": [
+      "com.villain.coldsnaphorde.component.ComponentStarter"
+    ]
+  },
+  "mixins": [
+    "coldsnaphorde.fabric.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.12.5",
+    "fabric": ">=0.42.0",
+    "minecraft": "1.18.x",
+    "java": ">=17",
+    "cloth-config2": "*",
+    "trinkets": "*"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

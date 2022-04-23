@@ -2,6 +2,8 @@ package com.villain.coldsnaphorde.entities.mobs.basemob;
 
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -105,6 +107,9 @@ public class ColdSnapZapper extends GenericHordeMember {
 
         if(ZapTarget != null && !this.level.isClientSide()){
             timer -= 1;
+            if (timer % 20 == 0) {
+                level.playSound(null, ZapTarget.blockPosition(), SoundEvents.NOTE_BLOCK_SNARE, SoundSource.HOSTILE, 2f, 1);
+            }
             if (timer == 0){
                 EntityType.LIGHTNING_BOLT.spawn((ServerLevel) ZapTarget.getCommandSenderWorld(), new ItemStack(Items.AIR), null, ZapTarget.blockPosition(), MobSpawnType.TRIGGERED, true, false);
                 ZapTarget = null;

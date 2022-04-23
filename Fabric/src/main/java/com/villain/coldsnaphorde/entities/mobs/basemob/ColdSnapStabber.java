@@ -56,7 +56,7 @@ public class ColdSnapStabber extends GenericHordeMember {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.5D)
-                .add(Attributes.ATTACK_DAMAGE, 2D);
+                .add(Attributes.ATTACK_DAMAGE, 3D);
     }
 
 

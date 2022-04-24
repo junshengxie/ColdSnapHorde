@@ -180,7 +180,7 @@ public class HordeEventTier3 extends Horde {
         while (hordeSpawn.isEmpty()) {
             hordeSpawn = this.getValidSpawn(2, type);
             attempts++;
-            if (hordeSpawn.isEmpty() && attempts >= 5) {
+            if (hordeSpawn.isEmpty() && attempts >= 25) {
                 this.Stop(HordeStopReasons.SPAWN_ERROR);
                 return null;
             }

@@ -146,7 +146,7 @@ public class HordeEventTier2 extends Horde {
             if (hordeSpawn.isPresent() && !additionalHordeCheck(hordeSpawn.get(), world))
                 hordeSpawn = Optional.empty();
             attempts++;
-            if (hordeSpawn.isEmpty() && attempts >= 10) {
+            if (hordeSpawn.isEmpty() && attempts >= 25) {
                 this.Stop(HordeStopReasons.SPAWN_ERROR);
                 return null;
             }

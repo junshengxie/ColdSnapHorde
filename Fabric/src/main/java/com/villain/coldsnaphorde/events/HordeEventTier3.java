@@ -16,8 +16,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -29,7 +27,6 @@ import net.minecraft.world.entity.PathfinderMob;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Random;
-import java.util.UUID;
 
 import static com.villain.coldsnaphorde.CommonColdSnapHorde.giveAdvancement;
 import static com.villain.coldsnaphorde.FabricColdSnapHorde.hordeDataManager;
@@ -48,7 +45,7 @@ public class HordeEventTier3 extends Horde {
     public void Stop(HordeStopReasons stopReason) {
         switch (stopReason) {
             case VICTORY -> {
-                broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
+                broadcast(server, Component.translatable("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
                 ResourceLocation extraAchievement = null;
                 if (isSwamp) {
                     extraAchievement = new ResourceLocation(Constants.MOD_ID, "pestilence");
@@ -69,18 +66,18 @@ public class HordeEventTier3 extends Horde {
                 giveAdvancement(hordeAnchorPlayer, server, extraAchievement);
                 hordeDataManager.updateHighestLevelBeaten(server, 3);
             }
-            case DEFEAT -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
-            case PEACEFUL -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
-            case SPAWN_ERROR -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.confused").withStyle(ChatFormatting.RED));
+            case DEFEAT -> broadcast(server, Component.translatable("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
+            case PEACEFUL -> broadcast(server, Component.translatable("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
+            case SPAWN_ERROR -> broadcast(server, Component.translatable("message.coldsnaphorde.confused").withStyle(ChatFormatting.RED));
         }
-        hordeDataManager.setCooldownTicks(FabricColdSnapHorde.config.coldSnapSettings.GLOBALHORDECOOLDOWN * 20);
+        hordeDataManager.setCooldownTicks(FabricColdSnapHorde.config.getOrDefault("GLOBALHORDECOOLDOWN", 60) * 20);
         hordeDataManager.setCurrentHordeLevel(0);
         super.Stop(stopReason);
     }
 
     @Override
     public void setActiveMemberCount() {
-        allowedActive = FabricColdSnapHorde.config.coldSnapSettings.TIER3HORDESIZE;
+        allowedActive = FabricColdSnapHorde.config.getOrDefault("TIER3HORDESIZE", 10);
     }
 
     @Override
@@ -95,57 +92,57 @@ public class HordeEventTier3 extends Horde {
         bossInfo.setCreateWorldFog(true);
         if (hordeAnchorPlayer.level.dimension().toString().contains("end")) {
             bossInfo.setColor(BossEvent.BossBarColor.PURPLE);
-            bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
+            bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
             isEnd = true;
         } else if (hordeAnchorPlayer.level.dimension().toString().contains("nether")) {
             bossInfo.setColor(BossEvent.BossBarColor.RED);
-            bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
+            bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
             isNether = true;
         } else {
             if (Utils.isSwamp(world.getBiome(center))) {
                 bossInfo.setColor(BossEvent.BossBarColor.GREEN);
-                bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
                 isSwamp = true;
             } else {
                 bossInfo.setColor(BossEvent.BossBarColor.BLUE);
-                bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+                bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
             }
         }
         giveAdvancement(serverPlayer, server, new ResourceLocation(Constants.MOD_ID, "hail_storm"));
-        broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
+        broadcast(server, Component.translatable("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
         hordeDataManager.setCurrentHordeLevel(3);
     }
 
     @Override
     public void setEasyDifficultyStats() {
-        Alive = FabricColdSnapHorde.config.coldSnapSettings.TIER3ALIVEEASY;
-        initAlive = FabricColdSnapHorde.config.coldSnapSettings.TIER3ALIVEEASY;
+        Alive = FabricColdSnapHorde.config.getOrDefault("TIER3ALIVEEASY", 50);
+        initAlive = FabricColdSnapHorde.config.getOrDefault("TIER3ALIVEEASY", 50);
     }
 
     @Override
     public void setNormalDifficultyStats() {
-        Alive = FabricColdSnapHorde.config.coldSnapSettings.TIER3ALIVENORMAL;
-        initAlive = FabricColdSnapHorde.config.coldSnapSettings.TIER3ALIVENORMAL;
+        Alive = FabricColdSnapHorde.config.getOrDefault("TIER3ALIVENORMAL", 65);
+        initAlive = FabricColdSnapHorde.config.getOrDefault("TIER3ALIVENORMAL", 65);
     }
 
     @Override
     public void setHardDifficultyStats() {
-        Alive = FabricColdSnapHorde.config.coldSnapSettings.TIER3ALIVEHARD;
-        initAlive = FabricColdSnapHorde.config.coldSnapSettings.TIER3ALIVEHARD;
+        Alive = FabricColdSnapHorde.config.getOrDefault("TIER3ALIVEHARD", 80);
+        initAlive = FabricColdSnapHorde.config.getOrDefault("TIER3ALIVEHARD", 80);
     }
 
     @Override
     protected void updateCenter() {
         if (updateCenter == 0) {
             center = hordeAnchorPlayer.blockPosition();
-            updateCenter = FabricColdSnapHorde.config.coldSnapSettings.UPDATETICK;
+            updateCenter = FabricColdSnapHorde.config.getOrDefault("UPDATETICK", 100);
             if (!world.dimension().toString().contains("nether") && !world.dimension().toString().contains("end")) {
                 if (Utils.isSwamp(world.getBiome(center))) {
                     bossInfo.setColor(BossEvent.BossBarColor.GREEN);
-                    bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                    bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
                 } else {
                     bossInfo.setColor(BossEvent.BossBarColor.BLUE);
-                    bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+                    bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
                     isSwamp = false;
                 }
             }
@@ -161,11 +158,11 @@ public class HordeEventTier3 extends Horde {
     }
 
     private void broadcast(MinecraftServer server, Component translationTextComponent) {
-        server.getPlayerList().broadcastMessage(translationTextComponent, ChatType.CHAT, UUID.randomUUID());
+        server.getPlayerList().broadcastSystemMessage(translationTextComponent, ChatType.CHAT);
     }
 
     private boolean trueBiomeCheck(ServerLevel world, BlockPos pos) {
-        int protlvl = FabricColdSnapHorde.config.spawnconfig.HEATPROT;
+        int protlvl = FabricColdSnapHorde.config.getOrDefault("HEATPROT", 1);
         float temp = world.getBiome(pos).value().getBaseTemperature();
         int code = -1;
         if (temp < 0.3) {
@@ -198,12 +195,12 @@ public class HordeEventTier3 extends Horde {
     @Override
     protected void spawnHordeMember() {
         ArrayList<Integer> SpawnWeights = new ArrayList<>();
-        SpawnWeights.add(FabricColdSnapHorde.config.spawnconfig.GUNNER);
-        SpawnWeights.add(FabricColdSnapHorde.config.spawnconfig.STABBER);
-        SpawnWeights.add(FabricColdSnapHorde.config.spawnconfig.SNOWBALLER);
-        SpawnWeights.add(FabricColdSnapHorde.config.spawnconfig.ZAPPER);
-        SpawnWeights.add(FabricColdSnapHorde.config.spawnconfig.GIFTER);
-        SpawnWeights.add(FabricColdSnapHorde.config.spawnconfig.BRAWLER);
+        SpawnWeights.add(FabricColdSnapHorde.config.getOrDefault("GUNNER", 20));
+        SpawnWeights.add(FabricColdSnapHorde.config.getOrDefault("STABBER", 20));
+        SpawnWeights.add(FabricColdSnapHorde.config.getOrDefault("SNOWBALLER", 20));
+        SpawnWeights.add(FabricColdSnapHorde.config.getOrDefault("GIFTER", 10));
+        SpawnWeights.add(FabricColdSnapHorde.config.getOrDefault("ZAPPER", 6));
+        SpawnWeights.add(FabricColdSnapHorde.config.getOrDefault("BRAWLER", 8));
         int combined = 0;
         for (Integer weight : SpawnWeights) combined += weight;
         Random random = new Random();

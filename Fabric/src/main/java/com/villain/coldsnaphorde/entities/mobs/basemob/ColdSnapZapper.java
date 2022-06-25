@@ -73,7 +73,7 @@ public class ColdSnapZapper extends GenericHordeMember {
     @Override
     public boolean doHurtTarget(Entity entityIn) {
         int chance = random.nextInt(100);
-        if(chance >= FabricColdSnapHorde.config.coldSnapSettings.STICKTRANSPONDER && entityIn instanceof LivingEntity && transponderprogress == 1){
+        if(chance >= FabricColdSnapHorde.config.getOrDefault("STICKTRANSPONDER", 20) && entityIn instanceof LivingEntity && transponderprogress == 1){
             ZapTarget = (LivingEntity) entityIn;
             transponderprogress = 0;
         }

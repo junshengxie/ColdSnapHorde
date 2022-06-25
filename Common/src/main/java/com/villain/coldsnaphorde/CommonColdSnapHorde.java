@@ -4,15 +4,16 @@ import com.villain.coldsnaphorde.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 
 public class CommonColdSnapHorde {
 
@@ -104,7 +105,7 @@ public class CommonColdSnapHorde {
 
     public static void PlayerJoin(Player player) {
         if(isInHolidayWindow){
-            player.sendMessage(new TranslatableComponent("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA), UUID.randomUUID());
+            player.sendSystemMessage(Component.translatable("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA));
         }
     }
 

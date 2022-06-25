@@ -1,11 +1,10 @@
 package com.villain.coldsnaphorde.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.villain.coldsnaphorde.CommonColdSnapHorde;
 import com.villain.coldsnaphorde.FabricColdSnapHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 public class GetHordeDefeatedLevel {
 
@@ -15,7 +14,7 @@ public class GetHordeDefeatedLevel {
     }
 
     private static int getHorde(CommandSourceStack sourceStack) {
-        sourceStack.sendSuccess(new TranslatableComponent("command.coldsnaphorde.getsuccess", FabricColdSnapHorde.hordeDataManager.getHighestLevelBeaten()), false);
+        sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.getsuccess", FabricColdSnapHorde.hordeDataManager.getHighestLevelBeaten()), false);
         return 0;
     }
 }

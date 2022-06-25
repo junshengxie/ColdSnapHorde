@@ -42,7 +42,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
 
     @Override
     public boolean hurt(DamageSource damageSource, float f) {
-        if((damageSource.equals(DamageSource.ON_FIRE) || damageSource.equals(DamageSource.IN_FIRE) || damageSource.equals(DamageSource.LAVA)) && FabricColdSnapHorde.config.coldSnapSettings.HORDETAKESMOREFIRE)
+        if((damageSource.equals(DamageSource.ON_FIRE) || damageSource.equals(DamageSource.IN_FIRE) || damageSource.equals(DamageSource.LAVA)) && FabricColdSnapHorde.config.getOrDefault("HORDETAKESMOREFIRE", true))
             f = f * 2;
         return super.hurt(damageSource, f);
     }
@@ -231,7 +231,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
             int i = Mth.floor(this.getX());
             int j = Mth.floor(this.getY());
             int k = Mth.floor(this.getZ());
-            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.spawnconfig.HEATPROT)) {
+            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.getOrDefault("HEATPROT", 1))) {
                 this.hurt(DamageSource.ON_FIRE, 1.0F);
             }
 
@@ -254,7 +254,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                     j = Mth.floor(this.getY());
                     k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.spawnconfig.SNOWTRAIL) && blockstate.canSurvive(this.level, blockpos)) {
+                    if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.getOrDefault("SNOWTRAIL", 1)) && blockstate.canSurvive(this.level, blockpos)) {
                         this.level.setBlockAndUpdate(blockpos, blockstate);
                     }
                 }

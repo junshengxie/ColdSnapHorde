@@ -10,7 +10,6 @@ import com.villain.coldsnaphorde.mixin.GoatAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
@@ -126,7 +125,7 @@ public class Present extends Item {
         }
         if(entity instanceof Cat catEntity){
             catEntity.tame(playerEntity);
-            catEntity.setCatType(-1);
+            catEntity.setCatVariant(CatVariant.JELLIE);
             catEntity.setBaby(true);
             catEntity.setCollarColor(DyeColor.byId(world.random.nextInt(15)));
             catEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
@@ -273,19 +272,19 @@ public class Present extends Item {
     @Override
     public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-        p_41423_.add(new TranslatableComponent("itemtooltip.present.1").withStyle(ChatFormatting.AQUA));
+        p_41423_.add(Component.translatable("itemtooltip.present.1").withStyle(ChatFormatting.AQUA));
         if(CommonColdSnapHorde.isInHolidayWindow) {
-            p_41423_.add(new TranslatableComponent("itemtooltip.present.special").withStyle(ChatFormatting.BLUE));
+            p_41423_.add(Component.translatable("itemtooltip.present.special").withStyle(ChatFormatting.BLUE));
         }
         switch (tier) {
             default -> {
-                p_41423_.add(new TranslatableComponent("itemtooltip.coldsnaphorde.tier.1").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.coldsnaphorde.tier.1").withStyle(ChatFormatting.AQUA));
             }
             case TWO -> {
-                p_41423_.add(new TranslatableComponent("itemtooltip.coldsnaphorde.tier.2").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.coldsnaphorde.tier.2").withStyle(ChatFormatting.AQUA));
             }
             case THREE -> {
-                p_41423_.add(new TranslatableComponent("itemtooltip.coldsnaphorde.tier.3").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.coldsnaphorde.tier.3").withStyle(ChatFormatting.AQUA));
             }
         }
     }

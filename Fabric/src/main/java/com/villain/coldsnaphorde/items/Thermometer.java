@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.items;
 
 import com.villain.coldsnaphorde.FabricColdSnapHorde;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -23,11 +23,11 @@ public class Thermometer extends Item {
             else if(temp >= 0.3 && temp < 0.9){code = "Neutral";}
             else if(temp >= 0.9 && temp < 1.5){code = "Warm";}
             else if(temp >= 1.5){code = "Hot";}
-            if(FabricColdSnapHorde.config.coldSnapSettings.TECHNICALTHERMOMETER){
-                player.displayClientMessage(new TextComponent("Temperature: " + Float.toString(temp) + " (" + code + ")"), true);
+            if(FabricColdSnapHorde.config.getOrDefault("TECHNICALTHERMOMETER", false)){
+                player.displayClientMessage(Component.literal("Temperature: " + Float.toString(temp) + " (" + code + ")"), true);
             }
             else{
-                player.displayClientMessage(new TextComponent("Temperature: " + code), true);
+                player.displayClientMessage(Component.literal("Temperature: " + code), true);
             }
         }
         return super.use(level, player, interactionHand);

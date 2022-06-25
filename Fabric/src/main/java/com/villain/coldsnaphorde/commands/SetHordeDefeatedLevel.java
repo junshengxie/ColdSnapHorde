@@ -2,11 +2,10 @@ package com.villain.coldsnaphorde.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.villain.coldsnaphorde.CommonColdSnapHorde;
 import com.villain.coldsnaphorde.FabricColdSnapHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 public class SetHordeDefeatedLevel {
 
@@ -18,7 +17,7 @@ public class SetHordeDefeatedLevel {
 
     private static int setHorde(CommandSourceStack sourceStack, int level) {
         FabricColdSnapHorde.hordeDataManager.setHighestLevelBeaten(sourceStack.getServer(), level);
-        sourceStack.sendSuccess(new TranslatableComponent("command.coldsnaphorde.setsuccess", level), false);
+        sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.setsuccess", level), false);
         return 0;
     }
 }

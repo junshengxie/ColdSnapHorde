@@ -41,7 +41,7 @@ public class ColdSnapClientInitializer implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        if(!FabricColdSnapHorde.config.coldSnapClientSettings.OLD_SNOW) {
+        if(!FabricColdSnapHorde.config.getOrDefault("OLD_SNOW", false)) {
             EntityRendererRegistry.register(Register.COLDSNAPSTABBER, RenderColdSnapStabber::new);
             EntityRendererRegistry.register(Register.COLDSNAPGUNNER, RenderColdSnapGunner::new);
             EntityRendererRegistry.register(Register.COLDSNAPSNOWBALLER, RenderColdSnapSnowballer::new);

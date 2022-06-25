@@ -8,7 +8,7 @@ import net.fabricmc.loader.impl.util.log.Log;
 import net.fabricmc.loader.impl.util.log.LogCategory;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 public class StartHorde {
 
@@ -33,12 +33,12 @@ public class StartHorde {
                     }
                 }
                 FabricColdSnapHorde.hordeDataManager.setCurrentHordeLevel(level);
-                sourceStack.sendSuccess(new TranslatableComponent("command.coldsnaphorde.startsuccess", level), false);
+                sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.startsuccess", level), false);
             } catch (CommandSyntaxException e) {
                 Log.error(LogCategory.LOG, "startHorde can only be run by live players. Apologies for the inconvenience!");
             }
         } else {
-            sourceStack.sendFailure(new TranslatableComponent("command.coldsnaphorde.startfailure"));
+            sourceStack.sendFailure(Component.translatable("command.coldsnaphorde.startfailure"));
         }
 
         return 0;

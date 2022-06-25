@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'fabric-loom' version '0.12-SNAPSHOT'
     id 'maven-publish'
     id 'idea'
 }
@@ -39,12 +39,12 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation project(":Common")
 
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:4.1.1"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:4.1.1"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:4.1.1"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:4.1.1"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-world:4.1.1"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-world:4.1.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.0-beta.1"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:5.0.0-beta.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.0-beta.1"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:5.0.0-beta.1"
+    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-world:5.0.0-beta.1"
+    include "dev.onyxstudios.cardinal-components-api:cardinal-components-world:5.0.0-beta.1"
 
 
 
@@ -52,10 +52,10 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-//		modImplementation ("curse.maven:immortuos-411857:3542021")
-    modCompileOnly ("curse.maven:immortuos-411857:3542021")
+//		modImplementation ("curse.maven:immortuos-411857:3828246")
+    modCompileOnly ("curse.maven:immortuos-411857:3828246")
 
-    modImplementation ("curse.maven:hordelib-571315:3761073")
+    modImplementation ("curse.maven:hordelib-571315:3837444")
 
     modImplementation "dev.emi:trinkets:${project.trinkets_version}"
 }

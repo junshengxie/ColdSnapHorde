@@ -5,7 +5,7 @@ import com.villain.cartoonishhorde.Horde;
 import com.villain.coldsnaphorde.FabricColdSnapHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 public class StopHorde {
 
@@ -27,10 +27,10 @@ public class StopHorde {
                     FabricColdSnapHorde.hordeTier3.Stop(Horde.HordeStopReasons.DEFEAT);
                 }
             }
-            sourceStack.sendSuccess(new TranslatableComponent("command.coldsnaphorde.stopsuccess"), false);
+            sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.stopsuccess"), false);
             FabricColdSnapHorde.hordeDataManager.setCurrentHordeLevel(0);
         } else {
-            sourceStack.sendFailure(new TranslatableComponent("command.coldsnaphorde.stopfailure"));
+            sourceStack.sendFailure(Component.translatable("command.coldsnaphorde.stopfailure"));
         }
 
         return 0;

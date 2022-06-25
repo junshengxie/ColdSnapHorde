@@ -2,7 +2,6 @@ package com.villain.coldsnaphorde.items.ToolsOrOther;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -30,7 +29,7 @@ public class IceSword extends SwordItem {
     @Override
     public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-        p_41423_.add(new TranslatableComponent("itemtooltip.icesword.1").withStyle(ChatFormatting.AQUA));
+        p_41423_.add(Component.translatable("itemtooltip.icesword.1").withStyle(ChatFormatting.AQUA));
     }
 
 }

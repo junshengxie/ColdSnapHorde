@@ -43,7 +43,7 @@ public class ColdSnapCow extends Cow implements SnowCreature {
             p_28298_.playSound(SoundEvents.POWDER_SNOW_FALL, 1.0F, 1.0F);
             ItemStack newBucket = ItemUtils.createFilledResult(itemStack, p_28298_, Items.POWDER_SNOW_BUCKET.getDefaultInstance());
             p_28298_.setItemInHand(p_28299_, newBucket);
-            setHarvestTimer(FabricColdSnapHorde.config.coldSnapSettings.FROSTYHARVESTCOOLDOWN);
+            setHarvestTimer(FabricColdSnapHorde.config.getOrDefault("FROSTYHARVESTCOOLDOWN", 1800));
             if(p_28298_.getServer() != null) {
                 giveAdvancement((ServerPlayer) p_28298_, p_28298_.getServer(), new ResourceLocation(Constants.MOD_ID, "snow_farmer"));
             }
@@ -101,7 +101,7 @@ public class ColdSnapCow extends Cow implements SnowCreature {
     @Override
     public void tick() {
         super.tick();
-        if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.spawnconfig.HEATPROT)) {
+        if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.getOrDefault("HEATPROT", 1))) {
             this.hurt(DamageSource.ON_FIRE, 1.0F);
         }
 

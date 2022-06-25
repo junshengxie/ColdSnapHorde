@@ -7,6 +7,8 @@ import com.villain.coldsnaphorde.commands.StartHorde;
 import com.villain.coldsnaphorde.commands.StopHorde;
 import com.villain.coldsnaphorde.component.WorldCooldownComponent;
 import com.villain.coldsnaphorde.config.ColdSnapConfig;
+import com.villain.coldsnaphorde.config.SimpleConfig;
+import com.villain.coldsnaphorde.entities.Spawns;
 import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
 import com.villain.coldsnaphorde.events.HordeEventTier1;
 import com.villain.coldsnaphorde.events.HordeEventTier2;
@@ -14,21 +16,19 @@ import com.villain.coldsnaphorde.events.HordeEventTier3;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.item.Item;
 
-
 import java.util.ArrayList;
-import java.util.UUID;
 
 import static com.villain.coldsnaphorde.component.ComponentStarter.WORLDCOMPONENT;
 
@@ -38,7 +38,8 @@ public class FabricColdSnapHorde implements ModInitializer {
     public static HordeEventTier1 hordeTier1;
     public static HordeEventTier2 hordeTier2;
     public static HordeEventTier3 hordeTier3;
-    public static ColdSnapConfig config;
+    public static SimpleConfig config = SimpleConfig.of( "coldsnaphorde" ).provider( ColdSnapConfig::provider ).request();
+
     public static HordeDataManager hordeDataManager = null;
     public static ArrayList<Item> TOPHATS = new ArrayList<>();
     
@@ -46,9 +47,7 @@ public class FabricColdSnapHorde implements ModInitializer {
     public void onInitialize() {
         CommonColdSnapHorde.init();
         Register.init();
-        AutoConfig.register(ColdSnapConfig.class, JanksonConfigSerializer::new);
-        config = AutoConfig.getConfigHolder(ColdSnapConfig.class).getConfig();
-        CommandRegistrationCallback.EVENT.register(((dispatcher, dedicated) -> {
+        CommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess, dedicated) -> {
             GetHordeDefeatedLevel.register(dispatcher);
             SetHordeDefeatedLevel.register(dispatcher);
             StartHorde.register(dispatcher);
@@ -62,7 +61,7 @@ public class FabricColdSnapHorde implements ModInitializer {
         ServerPlayConnectionEvents.JOIN.register(JoinListener.getInstance());
 
 
-        com.villain.FabricColdSnapHorde.entities.Spawns.addSpawns();
+        Spawns.addSpawns();
     }
 
     public static class ServerStartListener implements ServerLifecycleEvents.ServerStarting {
@@ -76,7 +75,7 @@ public class FabricColdSnapHorde implements ModInitializer {
 
             for(ServerLevel serverWorld : server.getAllLevels()){
                 WorldCooldownComponent h = WORLDCOMPONENT.get(serverWorld);
-                if(h.getLevelBeaten() <= 0){h.setLevelBeaten(config.coldSnapSettings.GLOBALHORDECOOLDOWN * 20);}
+                if(h.getLevelBeaten() <= 0){h.setLevelBeaten(FabricColdSnapHorde.config.getOrDefault("GLOBALHORDECOOLDOWN", 60) * 20);}
             }
 
             hordeTier1 = new HordeEventTier1(server);
@@ -92,7 +91,7 @@ public class FabricColdSnapHorde implements ModInitializer {
         @Override
         public void onPlayReady(ServerGamePacketListenerImpl handler, PacketSender sender, MinecraftServer server) {
             if(CommonColdSnapHorde.isInHolidayWindow){
-                handler.player.sendMessage(new TranslatableComponent("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA), UUID.randomUUID());
+                handler.player.sendSystemMessage(Component.translatable("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA));
             }
         }
         public static JoinListener getInstance() {return INSTANCE;}

@@ -46,14 +46,11 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.12.5",
-    "fabric": ">=0.42.0",
-    "minecraft": "1.18.x",
+    "fabricloader": ">=0.14.0",
+    "fabric": ">=0.44.0",
+    "minecraft": "1.19.x",
     "java": ">=17",
     "cloth-config2": "*",
     "trinkets": "*"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

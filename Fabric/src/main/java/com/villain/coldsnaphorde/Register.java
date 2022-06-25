@@ -16,7 +16,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.EntityDimensions;
@@ -172,8 +172,8 @@ public class Register {
         Registry.register(Registry.BLOCK, new ResourceLocation(MOD_ID, "greencandycane"), GREENCANDYCANEBLOCK);
         Registry.register(Registry.BLOCK, new ResourceLocation(MOD_ID, "redcandycane"), REDCANDYCANEBLOCK);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "slush"), new BlockItem(SLUSH, new Item.Properties().tab(Services.PLATFORM.TAB())));
-        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "greencandycane"), new LoredBlockItem(GREENCANDYCANEBLOCK, new Item.Properties().tab(Services.PLATFORM.TAB()), new TranslatableComponent("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), new TranslatableComponent("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
-        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "redcandycane"), new LoredBlockItem(REDCANDYCANEBLOCK, new Item.Properties().tab(Services.PLATFORM.TAB()), new TranslatableComponent("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), new TranslatableComponent("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "greencandycane"), new LoredBlockItem(GREENCANDYCANEBLOCK, new Item.Properties().tab(Services.PLATFORM.TAB()), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "redcandycane"), new LoredBlockItem(REDCANDYCANEBLOCK, new Item.Properties().tab(Services.PLATFORM.TAB()), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "rockysnowball"), ROCKYSNOWBALL);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "freezeball"), SNOWIERSNOWBALL);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "iceshard"), ICESHARD);

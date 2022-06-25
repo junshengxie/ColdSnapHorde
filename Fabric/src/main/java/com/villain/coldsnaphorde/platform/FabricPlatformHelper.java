@@ -35,7 +35,7 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
     public boolean PLAGUEIMMORTUOSCOMPAT() {
-        return FabricColdSnapHorde.config.coldSnapSettings.PLAGUEIMMORTUOSCOMPAT;
+        return FabricColdSnapHorde.config.getOrDefault("PLAGUEIMMORTUOSCOMPAT", true);
     }
 
     @Override

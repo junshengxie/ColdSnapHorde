@@ -24,8 +24,8 @@ public class TopHatModel<T extends LivingEntity> extends EntityModel<T> {
         PartDefinition partdefinition = meshdefinition.getRoot();
         CubeDeformation cubeDeformation = new CubeDeformation(-0.5f);
         partdefinition.addOrReplaceChild(HAT, CubeListBuilder.create()
-                .texOffs(0, 12).addBox(-4.0F, -6.125F, -4.0F, 8.0F, 6.0F, 8.0F, cubeDeformation)
-                .texOffs(0,0).addBox(-5.0F, -2.0F, -5.0F, 10.0F, 2.0F, 10.0F, cubeDeformation), PartPose.ZERO);
+                .texOffs(0, 36).addBox(-4.0F, -6.125F, -4.0F, 8.0F, 6.0F, 8.0F, cubeDeformation)
+                .texOffs(0,24).addBox(-5.0F, -2.0F, -5.0F, 10.0F, 2.0F, 10.0F, cubeDeformation), PartPose.ZERO);
         return LayerDefinition.create(meshdefinition, 64, 64);
     }
 

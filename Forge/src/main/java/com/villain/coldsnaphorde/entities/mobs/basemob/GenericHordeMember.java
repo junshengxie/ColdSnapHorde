@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.entities.mobs.basemob;
 
-import com.cartoonishvillain.ImmortuosCalyx.infection.InfectionManagerCapability;
-import com.cartoonishvillain.cartoonishhorde.CartoonishHorde;
+import com.cartoonishvillain.immortuoscalyx.infection.InfectionManagerCapability;
+import com.villain.cartoonishhorde.CommonCartoonishHorde;
 import com.villain.coldsnaphorde.CommonColdSnapHorde;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import com.villain.coldsnaphorde.HordeDataManager;
@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class GenericHordeMember extends Monster implements SnowCreature {
     private BlockPos target = null;
@@ -90,6 +91,10 @@ public class GenericHordeMember extends Monster implements SnowCreature {
             else if(check.contains("pcoldsnap") && variantcheck != 3)
             {setHordeVariant(3);}
         }
+
+        if (ForgeColdSnapHorde.TOPHATS.isEmpty()) {
+            ForgeColdSnapHorde.TOPHATS.addAll(List.of(Register.TOPHAT.get(), Register.REDTOPHAT.get(), Register.BLUETOPHAT.get(), Register.GREENTOPHAT.get(), Register.PURPLETOPHAT.get()));
+        }
     }
 
     @Override
@@ -104,7 +109,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
 
     @Override
     public void die(DamageSource cause) {
-        if(CartoonishHorde.isHordeMember(this)) {
+        if(CommonCartoonishHorde.isHordeMember(this)) {
             switch (HordeDataManager.getInstance().getCurrentHordeLevel()) {
                 case 1 -> {
                     tier1Check();

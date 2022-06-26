@@ -47,18 +47,11 @@ public class CConfiguration {
         this.DSPAWN = subscriber.subscribe(builder.comment("Natural spawning of horde members in the nether or end with their variants.").define("dimensionalHordeSpawn", true));
         builder.pop();
         builder.comment("Modify spawn chances per horde member. Higher values makes them more likely to spawn").push(CCATEGORY_NUMBERS);
-        this.STABBER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Stabber in the Overworld").defineInRange("stabberOverworldWeight", 20, 0, 1000));
-        this.GUNNER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Gunner in the Overworld").defineInRange("gunnerOverworldWeight", 20, 0, 1000));
-        this.SNOWBALLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Snowballer in the Overworld").defineInRange("snowballerOverworldWeight", 20, 0, 1000));
-        this.GIFTER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Gifter in the Overworld").defineInRange("gifterOverworldWeight", 10, 0, 1000));
-        this.ZAPPER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Zapper in the Overworld").defineInRange("zapperOverworldWeight", 6, 0, 1000));
-        this.BRAWLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Brawler in the Overworld").defineInRange("brawlerOverworldWeight", 8, 0, 1000));
-        this.DSTABBER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Stabber in the nether and end").defineInRange("stabberDimensionWeight", 2, 0, 1000));
-        this.DGUNNER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Gunner in the nether and end").defineInRange("gunnerDimensionWeight", 2, 0, 1000));
-        this.DSNOWBALLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Snowballer in the nether and end").defineInRange("snowballerDimensionWeight", 2, 0, 1000));
-        this.DGIFTER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Gifter in the nether and end").defineInRange("gifterDimensionWeight", 1, 0, 1000));
-        this.DZAPPER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Zapper in the nether and end").defineInRange("zapperDimensionWeight", 1, 0, 1000));
-        this.DBRAWLER = subscriber.subscribe(builder.comment("Changes the spawn weight of the Brawler in the nether and end").defineInRange("brawlerDimensionWeight", 1, 0, 1000));
-        this.SNOWCOW = subscriber.subscribe(builder.comment("Changes the spawn weight of the Frosty Cow.").defineInRange("frostyCownSpawnWeight", 4, 0, 1000));
+        this.STABBER = subscriber.subscribe(builder.comment("Changes the horde spawn weight of the Stabber in the Overworld").defineInRange("stabberOverworldWeight", 20, 0, 1000));
+        this.GUNNER = subscriber.subscribe(builder.comment("Changes the horde spawn weight of the Gunner in the Overworld").defineInRange("gunnerOverworldWeight", 20, 0, 1000));
+        this.SNOWBALLER = subscriber.subscribe(builder.comment("Changes horde the spawn weight of the Snowballer in the Overworld").defineInRange("snowballerOverworldWeight", 20, 0, 1000));
+        this.GIFTER = subscriber.subscribe(builder.comment("Changes the horde spawn weight of the Gifter in the Overworld").defineInRange("gifterOverworldWeight", 10, 0, 1000));
+        this.ZAPPER = subscriber.subscribe(builder.comment("Changes the horde spawn weight of the Zapper in the Overworld").defineInRange("zapperOverworldWeight", 6, 0, 1000));
+        this.BRAWLER = subscriber.subscribe(builder.comment("Changes the horde spawn weight of the Brawler in the Overworld").defineInRange("brawlerOverworldWeight", 8, 0, 1000));
     }
 }

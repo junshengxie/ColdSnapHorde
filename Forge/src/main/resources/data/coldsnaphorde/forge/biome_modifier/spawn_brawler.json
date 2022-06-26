@@ -1,0 +1,10 @@
+{
+  "type": "coldsnaphorde:spawnmodifiers",
+  "biomes": "#minecraft:is_overworld",
+  "spawn": {
+    "type": "coldsnaphorde:coldsnapbrawler",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 8
+  }
+}

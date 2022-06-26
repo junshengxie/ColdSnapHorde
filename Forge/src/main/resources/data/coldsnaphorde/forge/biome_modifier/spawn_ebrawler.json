@@ -1,0 +1,10 @@
+{
+  "type": "coldsnaphorde:spawnmodifiers",
+  "biomes": "#minecraft:is_end",
+  "spawn": {
+    "type": "coldsnaphorde:ecoldsnapbrawler",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 1
+  }
+}

@@ -1,6 +1,7 @@
 package com.villain.coldsnaphorde;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -11,7 +12,7 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 
-import java.util.Random;
+import net.minecraft.util.RandomSource;
 
 public class Utils {
     public static boolean isEnd(Level serverLevel) {
@@ -22,13 +23,12 @@ public class Utils {
         return serverLevel.dimension().toString().contains("nether");
     }
 
-    public static boolean isSwamp(Biome biome) {
-        String BiomeName = biome.getRegistryName().toString();
-        return BiomeName.contains("swamp");
+    public static boolean isSwamp(Holder<Biome> biome) {
+        return biome.is(ColdSnapBiomeTags.Swamps);
     }
 
     public static boolean heatCheck(Level serverLevel, BlockPos pos) {
-        if(isEnd(serverLevel) || isNether(serverLevel) || isSwamp(serverLevel.getBiome(pos).value())) return true;
+        if(isEnd(serverLevel) || isNether(serverLevel) || isSwamp(serverLevel.getBiome(pos))) return true;
         int protlvl = ForgeColdSnapHorde.cconfig.HEATPROT.get();
         float temp = serverLevel.getBiome(pos).value().getBaseTemperature();
         int code = -1;
@@ -46,7 +46,7 @@ public class Utils {
     }
 
     public static boolean tier1Valid(Level serverLevel, BlockPos pos) {
-        return !isEnd(serverLevel) && !isNether(serverLevel) && !isSwamp(serverLevel.getBiome(pos).value()) && heatCheck(serverLevel, pos);
+        return !isEnd(serverLevel) && !isNether(serverLevel) && !isSwamp(serverLevel.getBiome(pos)) && heatCheck(serverLevel, pos);
     }
 
     public static boolean tier2Valid(Level serverLevel, BlockPos pos) {
@@ -57,15 +57,15 @@ public class Utils {
         return heatCheck(serverLevel, pos);
     }
 
-    public static boolean tier1(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, Random p_33022_) {
+    public static boolean tier1(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, RandomSource p_33022_) {
         return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 1;
     }
 
-    public static boolean tier2(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, Random p_33022_) {
+    public static boolean tier2(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, RandomSource p_33022_) {
         return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 2;
     }
 
-    public static boolean tier3(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, Random p_33022_) {
+    public static boolean tier3(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, RandomSource p_33022_) {
         return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 3;
     }
 }

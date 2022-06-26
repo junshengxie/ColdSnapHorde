@@ -1,0 +1,10 @@
+{
+  "type": "coldsnaphorde:spawnmodifiers",
+  "biomes": "#coldsnaphorde:swamp",
+  "spawn": {
+    "type": "coldsnaphorde:pcoldsnapgunner",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 20
+  }
+}

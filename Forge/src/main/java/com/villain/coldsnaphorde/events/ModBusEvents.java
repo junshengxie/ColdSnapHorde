@@ -13,12 +13,12 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.capabilities.*;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
+import net.minecraftforge.registries.RegisterEvent;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
@@ -43,23 +43,8 @@ public class ModBusEvents {
     }
 
     @SubscribeEvent
-    public static void effect(final RegistryEvent.Register<MobEffect> event){
-        FrostEffect.init();
-    }
-
-    @SubscribeEvent
-    public static void entityRegister(final RegistryEvent.Register<EntityType<?>> event){
-        Spawns.PlacementManager();
-    }
-
-    @SubscribeEvent
-    public static void onRegisterEntities(final RegistryEvent.Register<EntityType<?>> event){
+    public static void effect(RegisterEvent event){
         ColdSpawnEggItem.initSpawnEggs();
-    }
-
-    @SubscribeEvent
-    public static void itemRegister(final RegistryEvent.Register<Item> event){
-        ForgeColdSnapHorde.TOPHATS = new ArrayList<>(List.of(Register.TOPHAT.get(), Register.REDTOPHAT.get(), Register.BLUETOPHAT.get(), Register.GREENTOPHAT.get(), Register.PURPLETOPHAT.get()));
     }
 
     @SubscribeEvent
@@ -92,7 +77,6 @@ public class ModBusEvents {
         event.put(Register.ECOLDSNAPGIFTER.get(), ColdSnapGifter.customAttributes().build());
         event.put(Register.ECOLDSNAPZAPPER.get(), ColdSnapZapper.customAttributes().build());
         event.put(Register.ECOLDSNAPBRAWLER.get(), ColdSnapBrawler.customAttributes().build());
-
     }
 
 }

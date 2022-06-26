@@ -26,11 +26,11 @@ public class TopHatLayer <T extends LivingEntity, M extends HumanoidModel<T>> ex
     private static final ResourceLocation PURPLETEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/armor/purpletophat.png");
     private static final ResourceLocation GREENTEXTURE = new ResourceLocation(Constants.MOD_ID, "textures/armor/greentophat.png");
 
-    private final TopHatModel<T> topHatModel;
+    private final TopHatModel topHatModel;
 
     public TopHatLayer(RenderLayerParent<T, M> wearer) {
         super(wearer);
-        topHatModel = new TopHatModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(TOPHAT));
+        topHatModel = new TopHatModel(Minecraft.getInstance().getEntityModels().bakeLayer(TOPHAT));
     }
 
     @Override
@@ -67,6 +67,4 @@ public class TopHatLayer <T extends LivingEntity, M extends HumanoidModel<T>> ex
             p_117349_.popPose();
         }
     }
-
-
 }

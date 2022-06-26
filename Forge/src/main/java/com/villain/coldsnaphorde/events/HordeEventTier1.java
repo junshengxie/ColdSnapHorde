@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.events;
 
-import com.cartoonishvillain.cartoonishhorde.EntityHordeData;
-import com.cartoonishvillain.cartoonishhorde.Horde;
+import com.villain.cartoonishhorde.EntityHordeData;
+import com.villain.cartoonishhorde.Horde;
 import com.villain.coldsnaphorde.*;
 import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
 import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapSnowballer;
@@ -12,8 +12,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -39,16 +37,16 @@ public class HordeEventTier1 extends Horde {
     public void Stop(HordeStopReasons stopReason) {
         switch (stopReason) {
             case VICTORY -> {
-                broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
+                broadcast(server, Component.translatable("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
                 for (ServerPlayer player : players) {
                     giveAdvancement(player, server, new ResourceLocation(Constants.MOD_ID, "sliced_snowmen"));
                 }
                 giveAdvancement(hordeAnchorPlayer, server, new ResourceLocation(Constants.MOD_ID, "sliced_snowmen"));
                 HordeDataManager.getInstance().updateHighestLevelBeaten(server, 1);
             }
-            case DEFEAT -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
-            case PEACEFUL -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
-            case SPAWN_ERROR -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.confused").withStyle(ChatFormatting.RED));
+            case DEFEAT -> broadcast(server, Component.translatable("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
+            case PEACEFUL -> broadcast(server, Component.translatable("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
+            case SPAWN_ERROR -> broadcast(server, Component.translatable("message.coldsnaphorde.confused").withStyle(ChatFormatting.RED));
         }
         hordeDataManager.setCooldownTicks(ForgeColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);
         hordeDataManager.setCurrentHordeLevel(0);
@@ -68,9 +66,9 @@ public class HordeEventTier1 extends Horde {
 
         bossInfo.setCreateWorldFog(true);
         bossInfo.setColor(BossEvent.BossBarColor.BLUE);
-        bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 1)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+        bossInfo.setName(Component.literal("Cold Snap Horde (Tier 1)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
         giveAdvancement(serverPlayer, server, new ResourceLocation(Constants.MOD_ID, "snow_day"));
-        broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
+        broadcast(server, Component.translatable("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
         hordeDataManager.setCurrentHordeLevel(1);
     }
 
@@ -105,7 +103,7 @@ public class HordeEventTier1 extends Horde {
     }
 
     private void broadcast(MinecraftServer server, Component translationTextComponent) {
-        server.getPlayerList().broadcastMessage(translationTextComponent, ChatType.CHAT, UUID.randomUUID());
+        server.getPlayerList().broadcastSystemMessage(translationTextComponent, ChatType.CHAT);
     }
 
     private boolean trueBiomeCheck(ServerLevel world, BlockPos pos) {
@@ -209,7 +207,7 @@ public class HordeEventTier1 extends Horde {
 
     private ColdSnapGunner gunnerSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapGunner coldSnapGunner = null;
-        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
+        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos))) {
             coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
         }
         return coldSnapGunner;
@@ -217,7 +215,7 @@ public class HordeEventTier1 extends Horde {
 
     private ColdSnapStabber stabberSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapStabber coldSnapStabber = null;
-        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
+        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos))) {
             coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
         }
         return coldSnapStabber;
@@ -226,7 +224,7 @@ public class HordeEventTier1 extends Horde {
 
     private ColdSnapSnowballer snowballerSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapSnowballer coldSnapSnowballer = null;
-        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos).value())) {
+        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos))) {
             coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
         }
         return coldSnapSnowballer;

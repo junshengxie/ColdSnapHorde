@@ -9,8 +9,7 @@ import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapGifter;
 import com.villain.coldsnaphorde.entities.mobs.basemob.SnowCreature;
 import com.villain.coldsnaphorde.items.toolsorother.FrostCharm;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -38,8 +37,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import top.theillusivec4.curios.api.CuriosApi;
 
-import java.util.UUID;
-
 @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GeneralEvents {
 
@@ -62,10 +59,10 @@ public class GeneralEvents {
             else if(temp >= 0.9 && temp < 1.5){code = "Warm";}
             else if(temp >= 1.5){code = "Hot";}
             if(ForgeColdSnapHorde.sconfig.TECHNICALTHERMOMETER.get()){
-                player.displayClientMessage(new TextComponent("Temperature: " + Float.toString(temp) + " (" + code + ")"), true);
+                player.displayClientMessage(Component.literal("Temperature: " + Float.toString(temp) + " (" + code + ")"), true);
             }
             else{
-                player.displayClientMessage(new TextComponent("Temperature: " + code), true);
+                player.displayClientMessage(Component.literal("Temperature: " + code), true);
             }
         }
     }
@@ -151,7 +148,7 @@ public class GeneralEvents {
     @SubscribeEvent
     public static void Login(final PlayerEvent.PlayerLoggedInEvent event){
         if(CommonColdSnapHorde.isInHolidayWindow){
-            event.getPlayer().sendMessage(new TranslatableComponent("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA), UUID.randomUUID());
+            event.getPlayer().sendSystemMessage(Component.translatable("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA));
         }
     }
 

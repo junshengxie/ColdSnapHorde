@@ -6,7 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import org.jline.utils.Log;
 
 public class StartHorde {
@@ -32,12 +32,12 @@ public class StartHorde {
                     }
                 }
                 ForgeColdSnapHorde.hordeDataManager.setCurrentHordeLevel(level);
-                sourceStack.sendSuccess(new TranslatableComponent("command.coldsnaphorde.startsuccess", level), false);
+                sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.startsuccess", level), false);
             } catch (CommandSyntaxException e) {
                 Log.error("startHorde can only be run by live players. Apologies for the inconvenience!");
             }
         } else {
-            sourceStack.sendFailure(new TranslatableComponent("command.coldsnaphorde.startfailure"));
+            sourceStack.sendFailure(Component.translatable("command.coldsnaphorde.startfailure"));
         }
 
         return 0;

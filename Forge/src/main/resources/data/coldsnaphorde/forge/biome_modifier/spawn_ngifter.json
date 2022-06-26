@@ -1,0 +1,10 @@
+{
+  "type": "coldsnaphorde:spawnmodifiers",
+  "biomes": "#minecraft:is_nether",
+  "spawn": {
+    "type": "coldsnaphorde:ncoldsnapgifter",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 1
+  }
+}

@@ -1,7 +1,8 @@
 package com.villain.coldsnaphorde.events;
 
-import com.cartoonishvillain.cartoonishhorde.EntityHordeData;
-import com.cartoonishvillain.cartoonishhorde.Horde;
+import com.villain.cartoonishhorde.EntityHordeData;
+import com.villain.cartoonishhorde.Horde;
+import com.villain.coldsnaphorde.ColdSnapBiomeTags;
 import com.villain.coldsnaphorde.Constants;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import com.villain.coldsnaphorde.Register;
@@ -14,8 +15,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -45,7 +44,7 @@ public class HordeEventTier3 extends Horde {
     public void Stop(HordeStopReasons stopReason) {
         switch (stopReason) {
             case VICTORY -> {
-                broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
+                broadcast(server, Component.translatable("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));
                 ResourceLocation extraAchievement = null;
                 if (isSwamp) {
                     extraAchievement = new ResourceLocation(Constants.MOD_ID, "pestilence");
@@ -66,9 +65,9 @@ public class HordeEventTier3 extends Horde {
                 giveAdvancement(hordeAnchorPlayer, server, extraAchievement);
                 hordeDataManager.updateHighestLevelBeaten(server, 3);
             }
-            case DEFEAT -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
-            case PEACEFUL -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
-            case SPAWN_ERROR -> broadcast(server, new TranslatableComponent("message.coldsnaphorde.confused").withStyle(ChatFormatting.RED));
+            case DEFEAT -> broadcast(server, Component.translatable("message.coldsnaphorde.hordedefeat").withStyle(ChatFormatting.RED));
+            case PEACEFUL -> broadcast(server, Component.translatable("message.coldsnaphorde.peaceful").withStyle(ChatFormatting.YELLOW));
+            case SPAWN_ERROR -> broadcast(server, Component.translatable("message.coldsnaphorde.confused").withStyle(ChatFormatting.RED));
         }
         hordeDataManager.setCooldownTicks(ForgeColdSnapHorde.sconfig.GLOBALHORDECOOLDOWN.get() * 20);
         hordeDataManager.setCurrentHordeLevel(0);
@@ -92,24 +91,24 @@ public class HordeEventTier3 extends Horde {
         bossInfo.setCreateWorldFog(true);
         if (hordeAnchorPlayer.level.dimension().toString().contains("end")) {
             bossInfo.setColor(BossEvent.BossBarColor.PURPLE);
-            bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
+            bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
             isEnd = true;
         } else if (hordeAnchorPlayer.level.dimension().toString().contains("nether")) {
             bossInfo.setColor(BossEvent.BossBarColor.RED);
-            bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
+            bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
             isNether = true;
         } else {
-            if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
+            if (world.getBiome(center).is(ColdSnapBiomeTags.Swamps)) {
                 bossInfo.setColor(BossEvent.BossBarColor.GREEN);
-                bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
                 isSwamp = true;
             } else {
                 bossInfo.setColor(BossEvent.BossBarColor.BLUE);
-                bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+                bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
             }
         }
         giveAdvancement(serverPlayer, server, new ResourceLocation(Constants.MOD_ID, "hail_storm"));
-        broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
+        broadcast(server, Component.translatable("message.coldsnaphorde.hordestart", serverPlayer.getDisplayName()).withStyle(ChatFormatting.AQUA));
         hordeDataManager.setCurrentHordeLevel(3);
     }
 
@@ -137,12 +136,12 @@ public class HordeEventTier3 extends Horde {
             center = hordeAnchorPlayer.blockPosition();
             updateCenter = ForgeColdSnapHorde.sconfig.UPDATETICK.get();
             if (!world.dimension().toString().contains("nether") && !world.dimension().toString().contains("end")) {
-                if (world.getBiome(center).value().getRegistryName().toString().contains("swamp")) {
+                if (world.getBiome(center).is(ColdSnapBiomeTags.Swamps)) {
                     bossInfo.setColor(BossEvent.BossBarColor.GREEN);
-                    bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
+                    bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.GREEN, ChatFormatting.BOLD));
                 } else {
                     bossInfo.setColor(BossEvent.BossBarColor.BLUE);
-                    bossInfo.setName(new TextComponent("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+                    bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
                     isSwamp = false;
                 }
             }
@@ -154,7 +153,7 @@ public class HordeEventTier3 extends Horde {
     }
 
     private void broadcast(MinecraftServer server, Component translationTextComponent) {
-        server.getPlayerList().broadcastMessage(translationTextComponent, ChatType.CHAT, UUID.randomUUID());
+        server.getPlayerList().broadcastSystemMessage(translationTextComponent, ChatType.CHAT);
     }
 
     private boolean trueBiomeCheck(ServerLevel world, BlockPos pos) {
@@ -284,8 +283,7 @@ public class HordeEventTier3 extends Horde {
 
     private ColdSnapGunner gunnerSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapGunner coldSnapGunner = null;
-        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
-        if (BiomeName.contains("swamp")) {
+        if (world.getBiome(center).is(ColdSnapBiomeTags.Swamps)) {
             coldSnapGunner = new PlagueHorde.PlagueGunner(Register.PCOLDSNAPGUNNER.get(), world);
         } else if (world.dimension().toString().contains("end")) {
             coldSnapGunner = new EndHorde.EndGunner(Register.ECOLDSNAPGUNNER.get(), world);
@@ -321,8 +319,7 @@ public class HordeEventTier3 extends Horde {
 
     private ColdSnapStabber stabberSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapStabber coldSnapStabber = null;
-        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
-        if (BiomeName.contains("swamp")) {
+        if (world.getBiome(center).is(ColdSnapBiomeTags.Swamps)) {
             coldSnapStabber = new PlagueHorde.PlagueStabber(Register.PCOLDSNAPSTABBER.get(), world);
         } else if (world.dimension().toString().contains("end")) {
             coldSnapStabber = new EndHorde.EndStabber(Register.ECOLDSNAPSTABBER.get(), world);
@@ -359,8 +356,7 @@ public class HordeEventTier3 extends Horde {
 
     private ColdSnapSnowballer snowballerSpawnRules(ServerLevel world, BlockPos pos) {
         ColdSnapSnowballer coldSnapSnowballer = null;
-        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
-        if (BiomeName.contains("swamp")) {
+        if (world.getBiome(center).is(ColdSnapBiomeTags.Swamps)) {
             coldSnapSnowballer = new PlagueHorde.PlagueSnowballer(Register.PCOLDSNAPSNOWBALLER.get(), world);
         } else if (world.dimension().toString().contains("end")) {
             coldSnapSnowballer = new EndHorde.EndSnowballer(Register.ECOLDSNAPSNOWBALLER.get(), world);
@@ -396,8 +392,7 @@ public class HordeEventTier3 extends Horde {
 
     private ColdSnapGifter gifterSpawnRules(ServerLevel world, BlockPos pos){
         ColdSnapGifter coldSnapGifter = null;
-        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
-        if (BiomeName.contains("swamp")){
+        if (world.getBiome(center).is(ColdSnapBiomeTags.Swamps)){
             coldSnapGifter = new PlagueHorde.PlagueGifter(Register.PCOLDSNAPGIFTER.get(), world);
         }else if(world.dimension().toString().contains("end")){
             coldSnapGifter = new EndHorde.EndGifter(Register.ECOLDSNAPGIFTER.get(), world);
@@ -427,8 +422,7 @@ public class HordeEventTier3 extends Horde {
 
     private ColdSnapZapper zapperSpawnRules(ServerLevel world, BlockPos pos){
         ColdSnapZapper coldSnapZapper = null;
-        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
-        if (BiomeName.contains("swamp")){coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
+        if (world.getBiome(center).is(ColdSnapBiomeTags.Swamps)){coldSnapZapper = new PlagueHorde.PlagueZapper(Register.PCOLDSNAPZAPPER.get(), world);
         }else if(world.dimension().toString().contains("end")){
             coldSnapZapper = new EndHorde.EndZapper(Register.ECOLDSNAPZAPPER.get(), world);
         }else if(world.dimension().toString().contains("nether")){
@@ -457,8 +451,7 @@ public class HordeEventTier3 extends Horde {
 
     private ColdSnapBrawler brawlerSpawnRules(ServerLevel world, BlockPos pos){
         ColdSnapBrawler coldSnapBrawler = null;
-        String BiomeName = world.getBiome(pos).value().getRegistryName().toString();
-        if (BiomeName.contains("swamp")){
+        if (world.getBiome(center).is(ColdSnapBiomeTags.Swamps)){
             coldSnapBrawler = new PlagueHorde.PlagueBrawler(Register.PCOLDSNAPBRAWLER.get(), world);
         }else if(world.dimension().toString().contains("end")){
             coldSnapBrawler = new EndHorde.EndBrawler(Register.ECOLDSNAPBRAWLER.get(), world);

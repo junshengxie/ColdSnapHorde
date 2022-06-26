@@ -1,36 +1,44 @@
 package com.villain.coldsnaphorde;
 
-import com.cartoonishvillain.cartoonishhorde.EntityHordeData;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.villain.cartoonishhorde.EntityHordeData;
 import com.villain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.villain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.villain.coldsnaphorde.configs.CConfiguration;
 import com.villain.coldsnaphorde.configs.ClientConfig;
 import com.villain.coldsnaphorde.configs.ConfigHelper;
 import com.villain.coldsnaphorde.configs.SConfiguration;
+import com.villain.coldsnaphorde.entities.Spawns;
 import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
 import com.villain.coldsnaphorde.events.HordeEventTier1;
 import com.villain.coldsnaphorde.events.HordeEventTier2;
 import com.villain.coldsnaphorde.events.HordeEventTier3;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Mod(Constants.MOD_ID)
 public class ForgeColdSnapHorde {
 
     public static Capability<IWorldCapabilityManager> WORLDCAPABILITYINSTANCE = null;
     public static Capability<IPlayerCapabilityManager> PLAYERCAPABILITYINSTANCE = null;
-    public static ArrayList<Item> TOPHATS = new ArrayList<>();
+    public static ArrayList<ArmorItem> TOPHATS = new ArrayList<>();
 
     public static SConfiguration sconfig;
     public static CConfiguration cconfig;
@@ -41,9 +49,23 @@ public class ForgeColdSnapHorde {
     public static EntityHordeData defaultHordeData;
     public static HordeDataManager hordeDataManager = null;
 
+    static DeferredRegister<Codec<? extends BiomeModifier>> serializers = DeferredRegister
+            .create(ForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, Constants.MOD_ID);
+
+    public static RegistryObject<Codec<Spawns.SpawnModifiers>> SPAWNCODEC = serializers.register("spawnmodifiers", () ->
+            RecordCodecBuilder.create(builder -> builder.group(
+                    // declare fields
+                    Biome.LIST_CODEC.fieldOf("biomes").forGetter(Spawns.SpawnModifiers::biomes),
+                    MobSpawnSettings.SpawnerData.CODEC.fieldOf("spawn").forGetter(Spawns.SpawnModifiers::spawn)
+                    // declare constructor
+            ).apply(builder, Spawns.SpawnModifiers::new)));
+
     public ForgeColdSnapHorde() {
+        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        serializers.register(modEventBus);
         CommonColdSnapHorde.init();
         Register.init();
+        FrostEffect.init();
         clientConfig = ConfigHelper.register(ModConfig.Type.CLIENT, ClientConfig::new);
         sconfig = ConfigHelper.register(ModConfig.Type.SERVER, SConfiguration::new);
         cconfig = ConfigHelper.register(ModConfig.Type.COMMON, CConfiguration::new);

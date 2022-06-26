@@ -1,11 +1,11 @@
 package com.villain.coldsnaphorde.commands;
 
-import com.cartoonishvillain.cartoonishhorde.Horde;
 import com.mojang.brigadier.CommandDispatcher;
+import com.villain.cartoonishhorde.Horde;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 public class StopHorde {
 
@@ -27,10 +27,10 @@ public class StopHorde {
                     ForgeColdSnapHorde.hordeTier3.Stop(Horde.HordeStopReasons.DEFEAT);
                 }
             }
-            sourceStack.sendSuccess(new TranslatableComponent("command.coldsnaphorde.stopsuccess"), false);
+            sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.stopsuccess"), false);
             ForgeColdSnapHorde.hordeDataManager.setCurrentHordeLevel(0);
         } else {
-            sourceStack.sendFailure(new TranslatableComponent("command.coldsnaphorde.stopfailure"));
+            sourceStack.sendFailure(Component.translatable("command.coldsnaphorde.stopfailure"));
         }
 
         return 0;

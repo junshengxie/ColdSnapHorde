@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 public class GetHordeDefeatedLevel {
 
@@ -14,7 +14,7 @@ public class GetHordeDefeatedLevel {
     }
 
     private static int getHorde(CommandSourceStack sourceStack) {
-        sourceStack.sendSuccess(new TranslatableComponent("command.coldsnaphorde.getsuccess", ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten()), false);
+        sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.getsuccess", ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten()), false);
         return 0;
     }
 }

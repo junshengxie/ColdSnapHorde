@@ -4,8 +4,6 @@ import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import com.villain.coldsnaphorde.Utils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -49,12 +47,12 @@ public class Snowglobe extends Item {
                 worldIn.playSound(null, playerIn.blockPosition(), SoundEvents.TRIDENT_RIPTIDE_1, SoundSource.PLAYERS, 0.5f, 1.5f);
                 playerIn.getMainHandItem().shrink(1);
             } else if (cooldown > 0) {
-                playerIn.displayClientMessage(new TextComponent("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
+                playerIn.displayClientMessage(Component.literal("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
             } else if(cooldown < 0) {
-                playerIn.displayClientMessage(new TextComponent("The Horde is busy elsewhere. Try again later!"), false);
+                playerIn.displayClientMessage(Component.literal("The Horde is busy elsewhere. Try again later!"), false);
             }
         } else {
-            playerIn.displayClientMessage(new TextComponent("This tier of horde can not be summoned in this " +
+            playerIn.displayClientMessage(Component.literal("This tier of horde can not be summoned in this " +
                     "climate! Can not spawn in swamps, nether, or the end. It may also be too hot in your current biome!"), false);
         }
     }
@@ -68,12 +66,12 @@ public class Snowglobe extends Item {
                 worldIn.playSound(null, playerIn.blockPosition(), SoundEvents.TRIDENT_RIPTIDE_1, SoundSource.PLAYERS, 0.5f, 1.5f);
                 playerIn.getMainHandItem().shrink(1);
             } else if (cooldown > 0) {
-                playerIn.displayClientMessage(new TextComponent("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
+                playerIn.displayClientMessage(Component.literal("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
             } else if(cooldown < 0) {
-                playerIn.displayClientMessage(new TextComponent("The Horde is busy elsewhere. Try again later!"), false);
+                playerIn.displayClientMessage(Component.literal("The Horde is busy elsewhere. Try again later!"), false);
             }
         } else {
-            playerIn.displayClientMessage(new TextComponent("This tier of horde can not be summoned in this " +
+            playerIn.displayClientMessage(Component.literal("This tier of horde can not be summoned in this " +
                     "climate! Can not spawn in the nether, or the end. It may also be too hot in your current biome!"), false);
         }
     }
@@ -87,12 +85,12 @@ public class Snowglobe extends Item {
                 worldIn.playSound(null, playerIn.blockPosition(), SoundEvents.TRIDENT_RIPTIDE_1, SoundSource.PLAYERS, 0.5f, 1.5f);
                 playerIn.getMainHandItem().shrink(1);
             } else if (cooldown > 0) {
-                playerIn.displayClientMessage(new TextComponent("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
+                playerIn.displayClientMessage(Component.literal("Horde on cooldown! Returning in: " + TimeBuilder(cooldown)), false);
             } else if(cooldown < 0) {
-                playerIn.displayClientMessage(new TextComponent("The Horde is busy elsewhere. Try again later!"), false);
+                playerIn.displayClientMessage(Component.literal("The Horde is busy elsewhere. Try again later!"), false);
             }
         } else {
-            playerIn.displayClientMessage(new TextComponent("This tier of horde can not be summoned in this " +
+            playerIn.displayClientMessage(Component.literal("This tier of horde can not be summoned in this " +
                     "climate! Your biome may be too too hot in your current biome!"), false);
         }
     }
@@ -121,24 +119,24 @@ public class Snowglobe extends Item {
     @Override
     public void appendHoverText(ItemStack p_41421_, @Nullable Level p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-        p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.1").withStyle(ChatFormatting.AQUA));
+        p_41423_.add(Component.translatable("itemtooltip.snowglobe.1").withStyle(ChatFormatting.AQUA));
         switch (tier) {
             default -> {
-                p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.2.1").withStyle(ChatFormatting.AQUA));
-                p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.3").withStyle(ChatFormatting.RED));
-                p_41423_.add(new TranslatableComponent("itemtooltip.coldsnaphorde.tier.1").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.snowglobe.2.1").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.snowglobe.3").withStyle(ChatFormatting.RED));
+                p_41423_.add(Component.translatable("itemtooltip.coldsnaphorde.tier.1").withStyle(ChatFormatting.AQUA));
             }
             case TWO -> {
-                p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.2.2").withStyle(ChatFormatting.AQUA));
-                p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.3").withStyle(ChatFormatting.RED));
-                p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.4.2").withStyle(ChatFormatting.BLUE));
-                p_41423_.add(new TranslatableComponent("itemtooltip.coldsnaphorde.tier.2").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.snowglobe.2.2").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.snowglobe.3").withStyle(ChatFormatting.RED));
+                p_41423_.add(Component.translatable("itemtooltip.snowglobe.4.2").withStyle(ChatFormatting.BLUE));
+                p_41423_.add(Component.translatable("itemtooltip.coldsnaphorde.tier.2").withStyle(ChatFormatting.AQUA));
             }
             case THREE -> {
-                p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.2.3").withStyle(ChatFormatting.AQUA));
-                p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.3").withStyle(ChatFormatting.RED));
-                p_41423_.add(new TranslatableComponent("itemtooltip.snowglobe.4.3").withStyle(ChatFormatting.BLUE));
-                p_41423_.add(new TranslatableComponent("itemtooltip.coldsnaphorde.tier.3").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.snowglobe.2.3").withStyle(ChatFormatting.AQUA));
+                p_41423_.add(Component.translatable("itemtooltip.snowglobe.3").withStyle(ChatFormatting.RED));
+                p_41423_.add(Component.translatable("itemtooltip.snowglobe.4.3").withStyle(ChatFormatting.BLUE));
+                p_41423_.add(Component.translatable("itemtooltip.coldsnaphorde.tier.3").withStyle(ChatFormatting.AQUA));
             }
         }
     }

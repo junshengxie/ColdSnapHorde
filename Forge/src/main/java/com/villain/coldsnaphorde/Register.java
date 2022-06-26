@@ -1,27 +1,26 @@
 package com.villain.coldsnaphorde;
 
-
 import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapCow;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.EndHorde;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.NetherHorde;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.PlagueHorde;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import com.villain.coldsnaphorde.entities.projectiles.*;
+import com.villain.coldsnaphorde.items.Tier;
 import com.villain.coldsnaphorde.items.*;
+import com.villain.coldsnaphorde.items.armor.ArmorMaterials;
 import com.villain.coldsnaphorde.items.armor.TopHat;
 import com.villain.coldsnaphorde.items.projectiles.*;
 import com.villain.coldsnaphorde.items.toolsorother.*;
 import com.villain.coldsnaphorde.platform.Services;
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import com.villain.coldsnaphorde.items.armor.ArmorMaterials;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.*;
-import com.villain.coldsnaphorde.items.Tier;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -167,8 +166,8 @@ public class Register {
     public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     public static final RegistryObject<Block> SLUSH = BLOCKS.register("slush", () -> new SlushBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(0).sound(SoundType.SNOW)));
 
-    public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new LoredBlockItem(REDCANDYCANE.get(), new Item.Properties().tab(Services.PLATFORM.TAB()), new TranslatableComponent("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), new TranslatableComponent("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
-    public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new LoredBlockItem(GREENCANDYCANE.get(), new Item.Properties().tab(Services.PLATFORM.TAB()), new TranslatableComponent("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), new TranslatableComponent("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
+    public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new LoredBlockItem(REDCANDYCANE.get(), new Item.Properties().tab(Services.PLATFORM.TAB()), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
+    public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new LoredBlockItem(GREENCANDYCANE.get(), new Item.Properties().tab(Services.PLATFORM.TAB()), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
     public static final RegistryObject<BlockItem> SLUSHITEM = ITEMS.register("slush", ()-> new BlockItem(SLUSH.get(), new Item.Properties().tab(Services.PLATFORM.TAB())));
 
     public static ResourceLocation location(String name)

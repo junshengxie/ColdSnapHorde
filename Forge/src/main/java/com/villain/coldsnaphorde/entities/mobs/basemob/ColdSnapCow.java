@@ -30,7 +30,7 @@ import static com.villain.coldsnaphorde.CommonColdSnapHorde.giveAdvancement;
 
 public class ColdSnapCow extends Cow implements SnowCreature {
 
-    private static final EntityDataAccessor<Integer> HARVESTTIMER = SynchedEntityData.defineId(ColdSnapStabber.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> HARVESTTIMER = SynchedEntityData.defineId(ColdSnapCow.class, EntityDataSerializers.INT);
 
     public ColdSnapCow(EntityType<? extends Cow> p_28285_, Level p_28286_) {
         super(p_28285_, p_28286_);

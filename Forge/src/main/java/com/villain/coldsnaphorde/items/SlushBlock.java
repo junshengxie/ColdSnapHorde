@@ -4,6 +4,7 @@ import com.villain.coldsnaphorde.entities.mobs.basemob.GenericHordeMember;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -40,7 +41,7 @@ public class SlushBlock extends Block {
 
 
     @Override
-    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, Random random) {
+    public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
         super.randomTick(state, worldIn, pos, random);
         worldIn.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
     }

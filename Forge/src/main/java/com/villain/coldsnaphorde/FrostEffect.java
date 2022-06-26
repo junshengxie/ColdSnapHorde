@@ -19,7 +19,7 @@ public class FrostEffect {
 
         protected ModdedPotionEffects(MobEffectCategory p_19451_, int p_19452_, ResourceLocation location) {
             super(p_19451_, p_19452_);
-            ForgeRegistries.MOB_EFFECTS.register(this.setRegistryName(location));
+            ForgeRegistries.MOB_EFFECTS.register(location, this);
         }
     }
 }

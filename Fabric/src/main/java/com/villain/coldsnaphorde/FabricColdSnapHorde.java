@@ -74,16 +74,13 @@ public class FabricColdSnapHorde implements ModInitializer {
         public void onServerStarting(MinecraftServer server) {
             defaultHordeData = new EntityHordeData(3, 0.5D, 1, Register.COLDSNAPGUNNER, ColdSnapGunner.class);
 
-            for(ServerLevel serverWorld : server.getAllLevels()){
-                WorldCooldownComponent h = WORLDCOMPONENT.get(serverWorld);
-                if(h.getLevelBeaten() <= 0){h.setLevelBeaten(config.coldSnapSettings.GLOBALHORDECOOLDOWN * 20);}
-            }
-
             hordeTier1 = new HordeEventTier1(server);
             hordeTier2 = new HordeEventTier2(server);
             hordeTier3 = new HordeEventTier3(server);
 
             hordeDataManager = HordeDataManager.getInstance();
+            hordeDataManager.setupHighestLevelBeaten(server);
+            hordeDataManager.setCooldownTicks(config.coldSnapSettings.GLOBALHORDECOOLDOWN * 20);
         }
     }
 

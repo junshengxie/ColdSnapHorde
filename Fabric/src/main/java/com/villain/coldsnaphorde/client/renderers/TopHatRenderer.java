@@ -32,7 +32,7 @@ public class TopHatRenderer implements ArmorRenderer {
             contextModel.copyPropertiesTo(topHatModel);
             topHatModel.setAllVisible(false);
             topHatModel.head.visible = slot == EquipmentSlot.HEAD;
-            if(stack.getItem().equals(TOPHAT)) {
+            if(stack.getItem().equals(Register.TOPHAT)) {
                 ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, topHatModel, TEXTURE);
             } else if (stack.getItem().equals(Register.REDTOPHAT)){
                 ArmorRenderer.renderPart(matrices, vertexConsumers, light, stack, topHatModel, REDTEXTURE);

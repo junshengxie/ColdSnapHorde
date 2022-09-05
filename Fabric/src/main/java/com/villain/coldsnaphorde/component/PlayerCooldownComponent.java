@@ -11,9 +11,6 @@ public class PlayerCooldownComponent implements ComponentV3 {
         this.provider = provider;
     }
 
-
-
-
     public int getCooldownTicks() {return ticks;}
 
 

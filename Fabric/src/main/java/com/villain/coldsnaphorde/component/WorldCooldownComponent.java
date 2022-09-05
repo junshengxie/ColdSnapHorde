@@ -5,11 +5,10 @@ import net.minecraft.nbt.CompoundTag;
 
 public class WorldCooldownComponent implements ComponentV3 {
     int levelBeaten = 0;
-
     public int getLevelBeaten() {return levelBeaten;}
 
 
-    public void setLevelBeaten(int ticks) {this.levelBeaten = ticks;}
+    public void setLevelBeaten(int level) {this.levelBeaten = level;}
 
 
     @Override

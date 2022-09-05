@@ -58,14 +58,23 @@ public class Utils {
     }
 
     public static boolean tier1(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, RandomSource p_33022_) {
-        return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 1;
+        if(ForgeColdSnapHorde.cconfig.PROGRESSIVESPAWNS.get()) {
+            return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 1;
+        }
+        else return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_);
     }
 
     public static boolean tier2(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, RandomSource p_33022_) {
-        return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 2;
+        if(ForgeColdSnapHorde.cconfig.PROGRESSIVESPAWNS.get()) {
+            return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 2;
+        }
+        else return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_);
     }
 
     public static boolean tier3(EntityType<? extends Monster> p_33018_, LevelAccessor p_33019_, MobSpawnType p_33020_, BlockPos p_33021_, RandomSource p_33022_) {
-        return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 3;
+        if(ForgeColdSnapHorde.cconfig.PROGRESSIVESPAWNS.get()) {
+            return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_) && ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten() >= 3;
+        }
+        else return Monster.checkMonsterSpawnRules(p_33018_, (ServerLevelAccessor) p_33019_, p_33020_, p_33021_, p_33022_);
     }
 }

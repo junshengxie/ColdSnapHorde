@@ -13,8 +13,6 @@ import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
 import com.villain.coldsnaphorde.events.HordeEventTier1;
 import com.villain.coldsnaphorde.events.HordeEventTier2;
 import com.villain.coldsnaphorde.events.HordeEventTier3;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;

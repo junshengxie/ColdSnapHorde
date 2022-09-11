@@ -1,4 +1,4 @@
-package com.villain.FabricColdSnapHorde.entities;
+package com.villain.coldsnaphorde.entities;
 
 import com.villain.coldsnaphorde.FabricColdSnapHorde;
 import com.villain.coldsnaphorde.Register;

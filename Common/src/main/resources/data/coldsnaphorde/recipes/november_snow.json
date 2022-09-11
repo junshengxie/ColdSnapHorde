@@ -10,10 +10,10 @@
       "tag": "minecraft:music_discs"
     },
     "I": {
-      "item": "coldsnaphorde:frostessence"
+      "item": "coldsnaphorde:iceessence"
     },
     "f": {
-      "item": "coldsnaphorde:frostcore"
+      "item": "coldsnaphorde:icecore"
     }
   },
   "result": {

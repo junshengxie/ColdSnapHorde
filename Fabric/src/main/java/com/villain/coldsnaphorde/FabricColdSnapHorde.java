@@ -7,6 +7,7 @@ import com.villain.coldsnaphorde.commands.StartHorde;
 import com.villain.coldsnaphorde.commands.StopHorde;
 import com.villain.coldsnaphorde.component.WorldCooldownComponent;
 import com.villain.coldsnaphorde.config.ColdSnapConfig;
+import com.villain.coldsnaphorde.entities.Spawns;
 import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
 import com.villain.coldsnaphorde.events.HordeEventTier1;
 import com.villain.coldsnaphorde.events.HordeEventTier2;
@@ -62,7 +63,7 @@ public class FabricColdSnapHorde implements ModInitializer {
         ServerPlayConnectionEvents.JOIN.register(JoinListener.getInstance());
 
 
-        com.villain.FabricColdSnapHorde.entities.Spawns.addSpawns();
+        Spawns.addSpawns();
     }
 
     public static class ServerStartListener implements ServerLifecycleEvents.ServerStarting {

@@ -10,10 +10,10 @@
       "item": "minecraft:diamond"
     },
     "I": {
-      "item": "coldsnaphorde:frostessence"
+      "item": "coldsnaphorde:iceessence"
     },
     "f": {
-      "item": "coldsnaphorde:icecore"
+      "item": "coldsnaphorde:frostcore"
     }
   },
   "result": {

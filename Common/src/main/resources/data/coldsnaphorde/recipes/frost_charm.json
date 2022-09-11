@@ -10,10 +10,10 @@
       "item": "minecraft:iron_ingot"
     },
     "I": {
-      "item": "coldsnaphorde:frostessence"
+      "item": "coldsnaphorde:iceessence"
     },
     "f": {
-      "item": "coldsnaphorde:frostcore"
+      "item": "coldsnaphorde:icecore"
     }
   },
   "result": {

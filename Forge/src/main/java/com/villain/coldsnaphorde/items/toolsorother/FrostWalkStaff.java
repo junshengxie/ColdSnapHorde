@@ -6,6 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -38,7 +39,7 @@ public class FrostWalkStaff extends TieredItem {
             ItemStack itemStack = player.getItemInHand(hand);
 
             itemStack.hurtAndBreak(1, player, (p_32290_) -> p_32290_.broadcastBreakEvent(hand));
-            player.playSound(SoundEvents.FIRECHARGE_USE, 1, 1);
+            level.playSound(null, player.getX(), player.getY(1), player.getZ(), SoundEvents.POWDER_SNOW_STEP, SoundSource.PLAYERS, 0.5f, 2);
 
             player.getCooldowns().addCooldown(this, 50);
         }

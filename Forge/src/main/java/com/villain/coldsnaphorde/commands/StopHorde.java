@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.commands;
 
-import com.cartoonishvillain.cartoonishhorde.Horde;
 import com.mojang.brigadier.CommandDispatcher;
+import com.villain.cartoonishhorde.Horde;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;

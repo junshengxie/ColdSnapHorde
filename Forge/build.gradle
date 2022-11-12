@@ -106,7 +106,7 @@ dependencies {
     //    implementation fg.deobf("curse.maven:immortuoscalyx-411857:3544376")
     compileOnly fg.deobf("curse.maven:immortuoscalyx-411857:3544376")
 
-    implementation fg.deobf("curse.maven:hordelib-571315:3620533")
+    implementation fg.deobf("curse.maven:hordelib-571315:3761071")
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}:api")

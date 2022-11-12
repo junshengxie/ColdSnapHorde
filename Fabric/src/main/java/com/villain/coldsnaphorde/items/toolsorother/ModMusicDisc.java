@@ -1,4 +1,4 @@
-package com.villain.coldsnaphorde.items.ToolsOrOther;
+package com.villain.coldsnaphorde.items.toolsorother;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.RecordItem;

@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.events;
 
-import com.cartoonishvillain.cartoonishhorde.EntityHordeData;
-import com.cartoonishvillain.cartoonishhorde.Horde;
+import com.villain.cartoonishhorde.EntityHordeData;
+import com.villain.cartoonishhorde.Horde;
 import com.villain.coldsnaphorde.Constants;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import com.villain.coldsnaphorde.Register;
@@ -42,7 +42,7 @@ public class HordeEventTier3 extends Horde {
     boolean isNether;
 
     @Override
-    public void Stop(HordeStopReasons stopReason) {
+    public void Stop(Horde.HordeStopReasons stopReason) {
         switch (stopReason) {
             case VICTORY -> {
                 broadcast(server, new TranslatableComponent("message.coldsnaphorde.hordevictory").withStyle(ChatFormatting.AQUA));

@@ -1,4 +1,4 @@
-package com.villain.coldsnaphorde.items.ToolsOrOther;
+package com.villain.coldsnaphorde.items.toolsorother;
 
 import com.google.common.collect.Multimap;
 import com.villain.coldsnaphorde.items.Tier;

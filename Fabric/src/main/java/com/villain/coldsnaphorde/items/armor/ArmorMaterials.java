@@ -1,4 +1,4 @@
-package com.villain.coldsnaphorde.items.Armor;
+package com.villain.coldsnaphorde.items.armor;
 
 import com.villain.coldsnaphorde.Constants;
 import net.minecraft.sounds.SoundEvent;

@@ -1,4 +1,4 @@
-package com.villain.coldsnaphorde.items.Projectiles;
+package com.villain.coldsnaphorde.items.projectiles;
 
 import com.villain.coldsnaphorde.Register;
 import com.villain.coldsnaphorde.entities.projectiles.SnowierSnowballEntity;

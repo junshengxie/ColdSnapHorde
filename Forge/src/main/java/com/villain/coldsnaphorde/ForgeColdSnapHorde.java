@@ -1,6 +1,6 @@
 package com.villain.coldsnaphorde;
 
-import com.cartoonishvillain.cartoonishhorde.EntityHordeData;
+import com.villain.cartoonishhorde.EntityHordeData;
 import com.villain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.villain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.villain.coldsnaphorde.configs.CConfiguration;
@@ -14,14 +14,10 @@ import com.villain.coldsnaphorde.events.HordeEventTier3;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 

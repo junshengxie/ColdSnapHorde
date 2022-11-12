@@ -1,4 +1,4 @@
-package com.villain.coldsnaphorde.items.ToolsOrOther;
+package com.villain.coldsnaphorde.items.toolsorother;
 
 import com.villain.coldsnaphorde.items.Tier;
 import dev.emi.trinkets.api.TrinketItem;

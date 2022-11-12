@@ -1,7 +1,7 @@
-package com.villain.coldsnaphorde.items.Projectiles;
+package com.villain.coldsnaphorde.items.projectiles;
 
 import com.villain.coldsnaphorde.Register;
-import com.villain.coldsnaphorde.entities.projectiles.RockSnowballEntity;
+import com.villain.coldsnaphorde.entities.projectiles.LightningSnowEntity;
 import com.villain.coldsnaphorde.platform.Services;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -13,8 +13,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-public class RockySnowball extends Item {
-    public RockySnowball() {
+public class LightningSnowball extends Item {
+    public LightningSnowball() {
         super(new Properties().tab(Services.PLATFORM.TAB()));
     }
 
@@ -23,7 +23,7 @@ public class RockySnowball extends Item {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         worldIn.playSound((Player)null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.SNOWBALL_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (playerIn.getRandom().nextFloat() * 0.4F + 0.8F));
         if (!worldIn.isClientSide) {
-            RockSnowballEntity snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE, worldIn, playerIn);
+            LightningSnowEntity snowballentity = new LightningSnowEntity(Register.LIGHTNINGSNOWBALLPROJECTILE, worldIn, playerIn);
             snowballentity.setItem(itemstack);
             snowballentity.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 1.5F, 1.0F);
             worldIn.addFreshEntity(snowballentity);

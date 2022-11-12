@@ -1,4 +1,4 @@
-package com.villain.coldsnaphorde.items.ToolsOrOther;
+package com.villain.coldsnaphorde.items.toolsorother;
 
 import com.villain.coldsnaphorde.Register;
 import net.minecraft.world.item.Tier;

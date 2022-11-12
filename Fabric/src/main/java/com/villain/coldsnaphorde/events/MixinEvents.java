@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.events;
 
 import com.villain.coldsnaphorde.Register;
-import com.villain.coldsnaphorde.items.ToolsOrOther.FrostCharm;
+import com.villain.coldsnaphorde.items.toolsorother.FrostCharm;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
 import net.minecraft.server.level.ServerPlayer;

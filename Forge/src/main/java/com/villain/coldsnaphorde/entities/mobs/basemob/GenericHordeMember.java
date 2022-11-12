@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.entities.mobs.basemob;
 
 import com.cartoonishvillain.ImmortuosCalyx.infection.InfectionManagerCapability;
-import com.cartoonishvillain.cartoonishhorde.CartoonishHorde;
+import com.villain.cartoonishhorde.CommonCartoonishHorde;
 import com.villain.coldsnaphorde.CommonColdSnapHorde;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import com.villain.coldsnaphorde.HordeDataManager;
@@ -104,7 +104,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
 
     @Override
     public void die(DamageSource cause) {
-        if(CartoonishHorde.isHordeMember(this)) {
+        if(CommonCartoonishHorde.isHordeMember(this)) {
             switch (HordeDataManager.getInstance().getCurrentHordeLevel()) {
                 case 1 -> {
                     tier1Check();

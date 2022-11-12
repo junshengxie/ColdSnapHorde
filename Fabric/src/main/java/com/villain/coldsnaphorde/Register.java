@@ -6,10 +6,10 @@ import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.NetherHorde;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.PlagueHorde;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import com.villain.coldsnaphorde.entities.projectiles.*;
-import com.villain.coldsnaphorde.items.Armor.TopHat;
+import com.villain.coldsnaphorde.items.armor.TopHat;
 import com.villain.coldsnaphorde.items.*;
-import com.villain.coldsnaphorde.items.Projectiles.*;
-import com.villain.coldsnaphorde.items.ToolsOrOther.*;
+import com.villain.coldsnaphorde.items.projectiles.*;
+import com.villain.coldsnaphorde.items.toolsorother.*;
 import com.villain.coldsnaphorde.platform.Services;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.villain.coldsnaphorde.Constants.MOD_ID;
-import static com.villain.coldsnaphorde.items.Armor.ArmorMaterials.HAT;
+import static com.villain.coldsnaphorde.items.armor.ArmorMaterials.HAT;
 
 public class Register {
 
@@ -201,14 +201,14 @@ public class Register {
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "healing_ball"), HEALINGBALL);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "frosted_snowglobe"), FROSTEDSNOWGLOBE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "ice_staff"), ICESTAFF);
-        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "wand_of_frost_walker"), WANDOFTHEFROSTWALKER);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "wand_of_ice_walker"), WANDOFTHEFROSTWALKER);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "iceessence"), ICEESSENCE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "reinforced_glacier_wall_charm"), REINFOCEDGLACIERCHARM);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "arctic_wind_charm"), ARCTICCHARM);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "greater_healing_ball"), GREATERHEALINGBALL);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "large_present"), LARGEPRESENT);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "glacier_staff"), GLACIERSTAFF);
-        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "staff_of_ice_walker"), STAFFOFICEFROSTWALKER);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "staff_of_frost_walker"), STAFFOFICEFROSTWALKER);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "frozen_snowglobe"), FROZENSNOWGLOBE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "november_snow"), NOVEMBERSNOWDISC);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "arctic_beat"), ARCTICBEATDISC);

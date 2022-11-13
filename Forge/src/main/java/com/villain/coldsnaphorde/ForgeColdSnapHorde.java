@@ -31,7 +31,6 @@ import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @Mod(Constants.MOD_ID)
 public class ForgeColdSnapHorde {

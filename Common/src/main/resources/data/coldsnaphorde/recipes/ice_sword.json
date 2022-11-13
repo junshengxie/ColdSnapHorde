@@ -10,10 +10,10 @@
       "item": "minecraft:iron_sword"
     },
     "I": {
-      "item": "coldsnaphorde:frostcore"
+      "item": "coldsnaphorde:icecore"
     },
     "f": {
-      "item": "coldsnaphorde:frostessence"
+      "item": "coldsnaphorde:iceessence"
     }
   },
   "result": {

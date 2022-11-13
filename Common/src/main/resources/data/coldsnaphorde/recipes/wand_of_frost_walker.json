@@ -13,11 +13,11 @@
       "item": "coldsnaphorde:iceshard"
     },
     "f": {
-      "item": "coldsnaphorde:frostcore"
+      "item": "coldsnaphorde:icecore"
     }
   },
   "result": {
-    "item": "coldsnaphorde:wand_of_frost_walker",
+    "item": "coldsnaphorde:wand_of_ice_walker",
     "count": 1
   }
 }

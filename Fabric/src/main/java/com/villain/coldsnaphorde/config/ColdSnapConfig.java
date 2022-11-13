@@ -1,10 +1,5 @@
 package com.villain.coldsnaphorde.config;
 
-import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
-import me.shedaniel.autoconfig.annotation.ConfigEntry;
-import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
-
 public class ColdSnapConfig {
 
     public static String provider(String filename) {

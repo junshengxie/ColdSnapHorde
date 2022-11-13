@@ -10,14 +10,14 @@
       "item": "minecraft:stick"
     },
     "I": {
-      "item": "coldsnaphorde:frostessence"
+      "item": "coldsnaphorde:iceessence"
     },
     "f": {
-      "item": "coldsnaphorde:icecore"
+      "item": "coldsnaphorde:frostcore"
     }
   },
   "result": {
-    "item": "coldsnaphorde:staff_of_ice_walker",
+    "item": "coldsnaphorde:staff_of_frost_walker",
     "count": 1
   }
 }

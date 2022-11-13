@@ -153,7 +153,7 @@ public class HordeEventTier3 extends Horde {
     }
 
     private void broadcast(MinecraftServer server, Component translationTextComponent) {
-        server.getPlayerList().broadcastSystemMessage(translationTextComponent, ChatType.CHAT);
+        server.getPlayerList().broadcastSystemMessage(translationTextComponent, false);
     }
 
     private boolean trueBiomeCheck(ServerLevel world, BlockPos pos) {
@@ -190,12 +190,12 @@ public class HordeEventTier3 extends Horde {
     @Override
     protected void spawnHordeMember() {
         ArrayList<Integer> SpawnWeights = new ArrayList<>();
-        SpawnWeights.add(ForgeColdSnapHorde.cconfig.GUNNER.get());
-        SpawnWeights.add(ForgeColdSnapHorde.cconfig.STABBER.get());
-        SpawnWeights.add(ForgeColdSnapHorde.cconfig.SNOWBALLER.get());
-        SpawnWeights.add(ForgeColdSnapHorde.cconfig.ZAPPER.get());
-        SpawnWeights.add(ForgeColdSnapHorde.cconfig.GIFTER.get());
-        SpawnWeights.add(ForgeColdSnapHorde.cconfig.BRAWLER.get());
+        SpawnWeights.add(20);
+        SpawnWeights.add(20);
+        SpawnWeights.add(20);
+        SpawnWeights.add(10);
+        SpawnWeights.add(10);
+        SpawnWeights.add(10);
         int combined = 0;
         for (Integer weight : SpawnWeights) combined += weight;
         Random random = new Random();

@@ -161,8 +161,8 @@ public class Register {
     public static final SoundEvent NOVEMBERSNOW = new SoundEvent(november_snow_id);
     public static final SoundEvent ARCTICBEAT = new SoundEvent(arctic_beat_id);
 
-    public static final Item NOVEMBERSNOWDISC = new ModMusicDisc(6, Register.NOVEMBERSNOW, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1));
-    public static final Item ARCTICBEATDISC = new ModMusicDisc(7, Register.ARCTICBEAT, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1));
+    public static final Item NOVEMBERSNOWDISC = new ModMusicDisc(6, Register.NOVEMBERSNOW, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), 349);
+    public static final Item ARCTICBEATDISC = new ModMusicDisc(7, Register.ARCTICBEAT, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), 192);
 
     public static final FrostStepEffect FROST_EFFECT = new FrostStepEffect();
 
@@ -201,14 +201,14 @@ public class Register {
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "healing_ball"), HEALINGBALL);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "frosted_snowglobe"), FROSTEDSNOWGLOBE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "ice_staff"), ICESTAFF);
-        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "wand_of_frost_walker"), WANDOFTHEFROSTWALKER);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "wand_of_ice_walker"), WANDOFTHEFROSTWALKER);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "iceessence"), ICEESSENCE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "reinforced_glacier_wall_charm"), REINFOCEDGLACIERCHARM);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "arctic_wind_charm"), ARCTICCHARM);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "greater_healing_ball"), GREATERHEALINGBALL);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "large_present"), LARGEPRESENT);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "glacier_staff"), GLACIERSTAFF);
-        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "staff_of_ice_walker"), STAFFOFICEFROSTWALKER);
+        Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "staff_of_frost_walker"), STAFFOFICEFROSTWALKER);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "frozen_snowglobe"), FROZENSNOWGLOBE);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "november_snow"), NOVEMBERSNOWDISC);
         Registry.register(Registry.ITEM, new ResourceLocation(MOD_ID, "arctic_beat"), ARCTICBEATDISC);

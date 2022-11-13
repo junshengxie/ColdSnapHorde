@@ -51,7 +51,7 @@ public class GeneralEvents {
     @SubscribeEvent
     public static void CheckThermometer(PlayerInteractEvent.RightClickItem event){
         if(event.getItemStack().getItem().equals(Register.THERMOMETER.get())){
-            Player player = event.getPlayer();
+            Player player = event.getEntity();
             float temp = player.level.getBiomeManager().getBiome(player.blockPosition()).value().getBaseTemperature();
             String code = "MISSING";
             if (temp < 0.3){code = "Cold";}
@@ -69,8 +69,8 @@ public class GeneralEvents {
 
     @SubscribeEvent
     public static void Transposer(PlayerInteractEvent.RightClickItem event){
-        if(event.getItemStack().getItem().equals(Register.LIGHTNINGTRANSPOSER.get()) && event.getPlayer().isCrouching() && !event.getPlayer().level.isClientSide()){
-            Player player = event.getPlayer();
+        if(event.getItemStack().getItem().equals(Register.LIGHTNINGTRANSPOSER.get()) && event.getEntity().isCrouching() && !event.getEntity().level.isClientSide()){
+            Player player = event.getEntity();
             ItemStack itemStack = event.getItemStack();
             itemStack.shrink(1);
             EntityType.LIGHTNING_BOLT.spawn((ServerLevel) player.getCommandSenderWorld(), new ItemStack(Items.AIR), null, event.getPos(), MobSpawnType.TRIGGERED, true, false);}
@@ -88,7 +88,7 @@ public class GeneralEvents {
 
     @SubscribeEvent
     public static void HordeHitByFire(LivingHurtEvent event){
-        if(event.getEntityLiving() instanceof SnowCreature){
+        if(event.getEntity() instanceof SnowCreature){
             if(event.getSource() == DamageSource.ON_FIRE || event.getSource() == DamageSource.IN_FIRE || event.getSource() == DamageSource.LAVA){
                 if(ForgeColdSnapHorde.sconfig.HORDETAKESMOREFIRE.get()){
                     event.setAmount(event.getAmount() * 2);
@@ -99,8 +99,8 @@ public class GeneralEvents {
 
     @SubscribeEvent
     public static void playerHurtEvent(LivingHurtEvent event) {
-        if (event.getEntityLiving() instanceof Player && !event.getEntityLiving().level.isClientSide && event.getSource().getEntity() instanceof LivingEntity attacker) {
-            LazyOptional<IItemHandlerModifiable> optional = CuriosApi.getCuriosHelper().getEquippedCurios(event.getEntityLiving());
+        if (event.getEntity() instanceof Player && !event.getEntity().level.isClientSide && event.getSource().getEntity() instanceof LivingEntity attacker) {
+            LazyOptional<IItemHandlerModifiable> optional = CuriosApi.getCuriosHelper().getEquippedCurios(event.getEntity());
             if(!optional.isPresent()) return;
 
             optional.ifPresent(entry -> {
@@ -119,13 +119,13 @@ public class GeneralEvents {
                     }
 
                     case 1 -> {
-                        int chance = event.getEntityLiving().level.random.nextInt(5);
+                        int chance = event.getEntity().level.random.nextInt(5);
                         if (chance == 1) {
                             attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 0));
                         }
                     }
                     case 2 -> {
-                        int chance = event.getEntityLiving().level.random.nextInt(3);
+                        int chance = event.getEntity().level.random.nextInt(3);
                         if (chance == 1) {
                             attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1));
                         }
@@ -137,9 +137,9 @@ public class GeneralEvents {
 
     @SubscribeEvent
     public static void playerAttackEvent(AttackEntityEvent event) {
-        if (!event.getEntityLiving().level.isClientSide && event.getTarget() instanceof LivingEntity target && event.getPlayer().getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(Register.ICICLE.get())) {
-            float value = event.getPlayer().getAttackStrengthScale(1);
-            if(event.getPlayer().getRandom().nextBoolean() && value == 1) {
+        if (!event.getEntity().level.isClientSide && event.getTarget() instanceof LivingEntity target && event.getEntity().getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(Register.ICICLE.get())) {
+            float value = event.getEntity().getAttackStrengthScale(1);
+            if(event.getEntity().getRandom().nextBoolean() && value == 1) {
                 target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 0));
             }
         }
@@ -148,27 +148,27 @@ public class GeneralEvents {
     @SubscribeEvent
     public static void Login(final PlayerEvent.PlayerLoggedInEvent event){
         if(CommonColdSnapHorde.isInHolidayWindow){
-            event.getPlayer().sendSystemMessage(Component.translatable("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA));
+            event.getEntity().sendSystemMessage(Component.translatable("info.coldsnaphorde.holiday").withStyle(ChatFormatting.AQUA));
         }
     }
 
     @SubscribeEvent
     public static void Death(LivingDeathEvent event){
-        if(event.getEntityLiving().getType() != EntityType.PLAYER && !event.getEntityLiving().level.isClientSide() && CommonColdSnapHorde.isInHolidayWindow){
-            int random = event.getEntityLiving().level.random.nextInt(15);
+        if(event.getEntity().getType() != EntityType.PLAYER && !event.getEntity().level.isClientSide() && CommonColdSnapHorde.isInHolidayWindow){
+            int random = event.getEntity().level.random.nextInt(15);
             if(random == 1) {
                 switch (ForgeColdSnapHorde.hordeDataManager.getHighestLevelBeaten()) {
                     default -> {
-                        ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.SMALLPRESENT.get(), 1));
-                        event.getEntityLiving().level.addFreshEntity(itemEntity);
+                        ItemEntity itemEntity = new ItemEntity(event.getEntity().level, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), new ItemStack(Register.SMALLPRESENT.get(), 1));
+                        event.getEntity().level.addFreshEntity(itemEntity);
                     }
                     case 2 -> {
-                        ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.PRESENT.get(), 1));
-                        event.getEntityLiving().level.addFreshEntity(itemEntity);
+                        ItemEntity itemEntity = new ItemEntity(event.getEntity().level, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), new ItemStack(Register.PRESENT.get(), 1));
+                        event.getEntity().level.addFreshEntity(itemEntity);
                     }
                     case 3 -> {
-                        ItemEntity itemEntity = new ItemEntity(event.getEntityLiving().level, event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ(), new ItemStack(Register.LARGEPRESENT.get(), 1));
-                        event.getEntityLiving().level.addFreshEntity(itemEntity);
+                        ItemEntity itemEntity = new ItemEntity(event.getEntity().level, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), new ItemStack(Register.LARGEPRESENT.get(), 1));
+                        event.getEntity().level.addFreshEntity(itemEntity);
                     }
                 }
             }

@@ -4,15 +4,13 @@ import com.villain.coldsnaphorde.ColdSnapBiomeTags;
 import com.villain.coldsnaphorde.FabricColdSnapHorde;
 import com.villain.coldsnaphorde.Register;
 import com.villain.coldsnaphorde.Utils;
-import com.villain.coldsnaphorde.config.ColdSnapConfig;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectionContext;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
-import net.fabricmc.fabric.mixin.object.builder.SpawnRestrictionAccessor;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -54,19 +52,19 @@ public class Spawns {
         BiomeModifications.addSpawn(spawnPredicate, MobCategory.MONSTER, Register.ECOLDSNAPGIFTER, FabricColdSnapHorde.config.getOrDefault("DGIFTER", 1), 1, 1);
         BiomeModifications.addSpawn(spawnPredicate, MobCategory.MONSTER, Register.ECOLDSNAPBRAWLER, FabricColdSnapHorde.config.getOrDefault("DBRAWLER", 1), 1, 1);
         if (!FabricColdSnapHorde.config.getOrDefault("PROGRESSIVESPAWNS", true)) {
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.ECOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.ECOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.ECOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.ECOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.ECOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.ECOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
         } else {
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.ECOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.ECOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.ECOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.ECOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.ECOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.ECOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.ECOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
         }
     }
 
@@ -79,19 +77,19 @@ public class Spawns {
         BiomeModifications.addSpawn(spawnPredicate, MobCategory.MONSTER, Register.NCOLDSNAPGIFTER, FabricColdSnapHorde.config.getOrDefault("DGIFTER", 1), 1, 1);
         BiomeModifications.addSpawn(spawnPredicate, MobCategory.MONSTER, Register.NCOLDSNAPBRAWLER, FabricColdSnapHorde.config.getOrDefault("DBRAWLER", 1), 1, 1);
         if (!FabricColdSnapHorde.config.getOrDefault("PROGRESSIVESPAWNS", true)) {
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.NCOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.NCOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.NCOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.NCOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.NCOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.NCOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
         } else {
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
-            SpawnRestrictionAccessor.callRegister(Register.NCOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.NCOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.NCOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.NCOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.NCOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.NCOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
+            SpawnPlacements.register(Register.NCOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier3);
         }
     }
 
@@ -104,19 +102,19 @@ public class Spawns {
         BiomeModifications.addSpawn(spawnPredicate, MobCategory.MONSTER, Register.PCOLDSNAPGIFTER, FabricColdSnapHorde.config.getOrDefault("GIFTER", 10), 1, 1);
         BiomeModifications.addSpawn(spawnPredicate, MobCategory.MONSTER, Register.PCOLDSNAPBRAWLER, FabricColdSnapHorde.config.getOrDefault("BRAWLER", 8), 1, 1);
         if (!FabricColdSnapHorde.config.getOrDefault("PROGRESSIVESPAWNS", true)) {
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.PCOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.PCOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.PCOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.PCOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.PCOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.PCOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
         } else {
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
-            SpawnRestrictionAccessor.callRegister(Register.PCOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.PCOLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.PCOLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.PCOLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.PCOLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.PCOLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.PCOLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
         }
     }
 
@@ -136,21 +134,21 @@ public class Spawns {
         BiomeModifications.addSpawn(spawnPredicate, MobCategory.MONSTER, Register.COLDSNAPBRAWLER, FabricColdSnapHorde.config.getOrDefault("BRAWLER", 8), 1, 1);
         BiomeModifications.addSpawn(spawnPredicate, MobCategory.CREATURE, Register.COLDSNAPCOW, FabricColdSnapHorde.config.getOrDefault("SNOWCOW", 4), 1, 1);
         if (!FabricColdSnapHorde.config.getOrDefault("PROGRESSIVESPAWNS", true)) {
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.COLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.COLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.COLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.COLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.COLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+            SpawnPlacements.register(Register.COLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
         } else {
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier1);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,Utils::tier1);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier1);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
-            SpawnRestrictionAccessor.callRegister(Register.COLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.COLDSNAPSTABBER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier1);
+            SpawnPlacements.register(Register.COLDSNAPSNOWBALLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,Utils::tier1);
+            SpawnPlacements.register(Register.COLDSNAPGUNNER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier1);
+            SpawnPlacements.register(Register.COLDSNAPGIFTER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.COLDSNAPZAPPER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
+            SpawnPlacements.register(Register.COLDSNAPBRAWLER, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2);
         }
-        SpawnRestrictionAccessor.callRegister(Register.COLDSNAPCOW,SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
+        SpawnPlacements.register(Register.COLDSNAPCOW,SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Animal::checkAnimalSpawnRules);
     }
 
     /*

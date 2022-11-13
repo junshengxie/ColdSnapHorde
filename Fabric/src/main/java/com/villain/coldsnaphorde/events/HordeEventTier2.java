@@ -114,7 +114,7 @@ public class HordeEventTier2 extends Horde {
     }
 
     private void broadcast(MinecraftServer server, Component translationTextComponent) {
-        server.getPlayerList().broadcastSystemMessage(translationTextComponent, ChatType.CHAT);
+        server.getPlayerList().broadcastSystemMessage(translationTextComponent, false);
     }
 
     private boolean trueBiomeCheck(ServerLevel world, BlockPos pos) {

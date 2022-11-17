@@ -62,12 +62,12 @@ public class ForgeColdSnapHorde {
     public ForgeColdSnapHorde() {
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         serializers.register(modEventBus);
-        CommonColdSnapHorde.init();
         Register.init();
         FrostEffect.init();
         clientConfig = ConfigHelper.register(ModConfig.Type.CLIENT, ClientConfig::new);
         sconfig = ConfigHelper.register(ModConfig.Type.SERVER, SConfiguration::new);
         cconfig = ConfigHelper.register(ModConfig.Type.COMMON, CConfiguration::new);
+        CommonColdSnapHorde.init();
         MinecraftForge.EVENT_BUS.register(this);
     }
 

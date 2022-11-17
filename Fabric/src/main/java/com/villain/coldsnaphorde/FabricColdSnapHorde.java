@@ -43,7 +43,6 @@ public class FabricColdSnapHorde implements ModInitializer {
     
     @Override
     public void onInitialize() {
-        CommonColdSnapHorde.init();
         Register.init();
         CommandRegistrationCallback.EVENT.register(((dispatcher, registryAccess, dedicated) -> {
             GetHordeDefeatedLevel.register(dispatcher);
@@ -58,6 +57,7 @@ public class FabricColdSnapHorde implements ModInitializer {
 
         ServerPlayConnectionEvents.JOIN.register(JoinListener.getInstance());
 
+        CommonColdSnapHorde.init();
 
         Spawns.addSpawns();
     }

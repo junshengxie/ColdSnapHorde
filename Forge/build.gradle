@@ -103,8 +103,8 @@ dependencies {
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.4-SNAPSHOT:processor'
 
-    //    implementation fg.deobf("curse.maven:immortuoscalyx-411857:3544376")
-    compileOnly fg.deobf("curse.maven:immortuoscalyx-411857:3544376")
+      implementation fg.deobf("curse.maven:immortuoscalyx-411857:3544376")
+//    compileOnly fg.deobf("curse.maven:immortuoscalyx-411857:3544376")
 
     implementation fg.deobf("curse.maven:hordelib-571315:3761071")
 

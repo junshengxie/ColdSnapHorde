@@ -45,7 +45,6 @@ public class FabricColdSnapHorde implements ModInitializer {
     
     @Override
     public void onInitialize() {
-        CommonColdSnapHorde.init();
         Register.init();
         AutoConfig.register(ColdSnapConfig.class, JanksonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(ColdSnapConfig.class).getConfig();
@@ -62,6 +61,7 @@ public class FabricColdSnapHorde implements ModInitializer {
 
         ServerPlayConnectionEvents.JOIN.register(JoinListener.getInstance());
 
+        CommonColdSnapHorde.init();
 
         Spawns.addSpawns();
     }

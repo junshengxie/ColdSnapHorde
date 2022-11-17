@@ -38,11 +38,11 @@ public class ForgeColdSnapHorde {
     public static HordeDataManager hordeDataManager = null;
 
     public ForgeColdSnapHorde() {
-        CommonColdSnapHorde.init();
         Register.init();
         clientConfig = ConfigHelper.register(ModConfig.Type.CLIENT, ClientConfig::new);
         sconfig = ConfigHelper.register(ModConfig.Type.SERVER, SConfiguration::new);
         cconfig = ConfigHelper.register(ModConfig.Type.COMMON, CConfiguration::new);
+        CommonColdSnapHorde.init();
         MinecraftForge.EVENT_BUS.register(this);
     }
 

@@ -1,0 +1,27 @@
+{
+    "__comment": "Made with TheDestruc7i0n's advancements generator: https://advancements.thedestruc7i0n.ca",
+    "display": {
+        "title": {
+            "text": "Cold Snap Horde",
+            "color": "aqua"
+        },
+        "description": {
+            "text": "A band of frosty marauders declare the cold regions their homes. ",
+            "color": "aqua",
+            "italic": false
+        },
+        "icon": {
+            "item": "coldsnaphorde:small_present"
+        },
+        "frame": "task",
+        "show_toast": false,
+        "announce_to_chat": false,
+        "hidden": false,
+        "background": "coldsnaphorde:textures/blocks/slush.png"
+    },
+    "criteria": {
+        "Login": {
+            "trigger": "minecraft:tick"
+        }
+    }
+}

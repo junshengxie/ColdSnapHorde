@@ -1,4 +1,2 @@
 # ColdSnapHorde
-A Winterjam 2020 Mod
-
-Looking for the fabric repository? See here: https://github.com/CartoonishVillain/ColdSnapHorde-Fabric
+A Winterjam 2020 Mod featuring murderous snowmen. Inspired by the Frost Legion from Terraria

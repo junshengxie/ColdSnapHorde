@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IfI",
+    " # ",
+    "I#I"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:stick"
+    },
+    "I": {
+      "item": "coldsnaphorde:iceessence"
+    },
+    "f": {
+      "item": "coldsnaphorde:frostcore"
+    }
+  },
+  "result": {
+    "item": "coldsnaphorde:staff_of_frost_walker",
+    "count": 1
+  }
+}

@@ -136,7 +136,7 @@ public class HordeEventTier3 extends Horde {
 
     @Override
     protected void updateCenter() {
-        if (updateCenter == 0) {
+        if (updateCenter == 0 && hordeAnchorPlayer != null) {
             center = hordeAnchorPlayer.blockPosition();
             updateCenter = FabricColdSnapHorde.config.coldSnapSettings.UPDATETICK;
             if (!world.dimension().toString().contains("nether") && !world.dimension().toString().contains("end")) {

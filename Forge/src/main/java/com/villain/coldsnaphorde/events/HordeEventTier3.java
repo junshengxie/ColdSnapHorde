@@ -132,7 +132,7 @@ public class HordeEventTier3 extends Horde {
 
     @Override
     protected void updateCenter() {
-        if (updateCenter == 0) {
+        if (updateCenter == 0 && hordeAnchorPlayer != null) {
             center = hordeAnchorPlayer.blockPosition();
             updateCenter = ForgeColdSnapHorde.sconfig.UPDATETICK.get();
             if (!world.dimension().toString().contains("nether") && !world.dimension().toString().contains("end")) {

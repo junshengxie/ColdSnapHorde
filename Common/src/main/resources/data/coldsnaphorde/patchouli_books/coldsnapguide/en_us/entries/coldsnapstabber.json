@@ -1,0 +1,53 @@
+{
+  "name": "Cold Snap Stabber",
+  "category": "coldsnaphorde:coldsnapmobs",
+  "icon": "coldsnaphorde:stabber_spawn_egg",
+  "advancement": "coldsnaphorde:coldsnapstabber",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Cold Snap Stabber was built next to a player's mob farm. After days of watching players tear enemies down with their weapons, the Stabber stole one for themselves, and has been rampaging ever since."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:coldsnapstabber",
+      "name": "Cold Snap Stabber"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Nether Stabber",
+      "text": "A Stabber, melted from the heat of the Nether. No one knows how or why a horde of snowmen decided going to the Nether would be a good idea, but those that have leave behind a trail of slush when they move.",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ncoldsnapstabber",
+      "name": "Nether Stabber",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "End Stabber",
+      "text": "A Stabber, mutated by the desolate environments of the end. Has a chance to teleport you or itself when attacking or attacked",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ecoldsnapstabber",
+      "name": "End Stabber",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Plague Stabber",
+      "text": "A Stabber filled with the murky waters of the swamp. May transmit parasites and diseases, or generally make you feel unwell",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:pcoldsnapstabber",
+      "name": "Plague Stabber",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    }
+  ]
+}

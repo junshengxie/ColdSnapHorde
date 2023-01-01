@@ -1,0 +1,23 @@
+{
+  "name": "Lightning Transposer",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:transposerpiece",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "coldsnaphorde:transposerpiece",
+      "text": "Advanced electrical wiring dropped by Cold Snap Zappers on occasion. Used to construct lightning transposers, the devices Zappers use to summon lightning on demand."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:lightningtransposer",
+      "text": "The lightning transposer, as used by the Cold Snap Zapper. Can be used in crafting, or you can shift-interact with one in your hand to summon lightning upon yourself."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:lightningsnowball",
+      "text": "A lightning transposer stuck to a snowball. The lightning transposer will activate when the snowball makes contact with anything."
+    }
+  ]
+}

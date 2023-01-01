@@ -1,0 +1,13 @@
+{
+  "name": "Frozen Snow Globe",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:frozen_snowglobe",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:frozen_snowglobe",
+      "text": "Summons a tier 3 horde. See $(l:hordetier3)Horde Tier 3$() for more details."
+    }
+  ]
+}

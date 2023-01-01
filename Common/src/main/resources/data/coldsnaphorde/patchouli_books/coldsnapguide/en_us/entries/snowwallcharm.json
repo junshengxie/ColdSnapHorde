@@ -1,0 +1,13 @@
+{
+  "name": "Snow Wall Charm",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:snow_wall_charm",
+  "advancement": "coldsnaphorde:sliced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:snow_wall_charm",
+      "text": "A charm that will, when worn, use the power of the ice shards to reduce knockback slightly."
+    }
+  ]
+}

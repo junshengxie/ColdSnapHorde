@@ -1,0 +1,16 @@
+{
+  "name": "Tier 1 Horde",
+  "category": "coldsnaphorde:coldsnapprogress",
+  "icon": "coldsnaphorde:snowglobe",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Old villager tales tell of a band of frosty marauders attacking players and villages in cold biomes in swarms, particularly incensed when a snow globe is shaken. After many casualties, an old wizard sealed these marauders in another dimension. As time passes, the barrier between dimensions grows weak. Do you dare shake the snow globe?"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:snowglobe",
+      "text": "Summons a tier 1 horde. Must be summoned in a cold or neutral temperature environment (Unless otherwise configured)."
+    }
+  ]
+}

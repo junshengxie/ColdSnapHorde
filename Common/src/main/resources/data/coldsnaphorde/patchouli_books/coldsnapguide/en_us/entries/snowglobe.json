@@ -1,0 +1,12 @@
+{
+  "name": "Snow Globe",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:snowglobe",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:snowglobe",
+      "text": "Summons a tier 1 horde. See $(l:hordetier1)Horde Tier 1$() for more details."
+    }
+  ]
+}

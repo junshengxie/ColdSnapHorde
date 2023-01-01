@@ -2,15 +2,14 @@ package com.villain.coldsnaphorde.entities.mobs.basemob;
 
 import com.cartoonishvillain.immortuoscalyx.infection.InfectionManagerCapability;
 import com.villain.cartoonishhorde.CommonCartoonishHorde;
-import com.villain.coldsnaphorde.CommonColdSnapHorde;
-import com.villain.coldsnaphorde.ForgeColdSnapHorde;
-import com.villain.coldsnaphorde.HordeDataManager;
-import com.villain.coldsnaphorde.Register;
+import com.villain.coldsnaphorde.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
@@ -31,6 +30,8 @@ import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
 import java.util.List;
+
+import static com.villain.coldsnaphorde.CommonColdSnapHorde.giveAdvancement;
 
 public class GenericHordeMember extends Monster implements SnowCreature {
     private BlockPos target = null;
@@ -122,6 +123,34 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                 }
             }
         }
+        if (cause.getEntity() != null && !cause.getEntity().level.isClientSide() && cause.getEntity() instanceof ServerPlayer serverPlayer
+            && serverPlayer.getServer() != null) {
+
+            if (getHordeVariant() == 1) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapnether"));
+            } else if (getHordeVariant() == 2) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapend"));
+            } else if (getHordeVariant() == 3) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapplague"));
+            }
+
+            if (this instanceof ColdSnapGunner) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapgunner"));
+            } else if (this instanceof ColdSnapStabber) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapstabber"));
+            } else if (this instanceof ColdSnapSnowballer) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapsnowballer"));
+            } else if (this instanceof ColdSnapGifter) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapgifter"));
+            } else if (this instanceof ColdSnapZapper) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapzapper"));
+            } else if (this instanceof ColdSnapBrawler) {
+                giveAdvancement(serverPlayer, serverPlayer.getServer(), new ResourceLocation(Constants.MOD_ID, "coldsnapbrawler"));
+            }
+        }
+
+
+
         super.die(cause);
     }
 

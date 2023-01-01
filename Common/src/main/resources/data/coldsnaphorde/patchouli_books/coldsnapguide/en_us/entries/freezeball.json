@@ -1,0 +1,13 @@
+{
+  "name": "Freeze Ball",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:freezeball",
+  "advancement": "coldsnaphorde:sliced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:freezeball",
+      "text": "A snowball enhanced by the power of an ice shard to be extra cold. Chance to slow enemies, place snow, and freeze ice or lava."
+    }
+  ]
+}

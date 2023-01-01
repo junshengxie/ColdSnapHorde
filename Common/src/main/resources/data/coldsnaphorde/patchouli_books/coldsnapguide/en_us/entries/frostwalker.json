@@ -1,0 +1,13 @@
+{
+  "name": "Staff of Frost Walking",
+  "category": "coldsnaphorde:coldsnaptier3",
+  "icon": "coldsnaphorde:staff_of_frost_walker",
+  "advancement": "coldsnaphorde:horde_breaker",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:staff_of_ice_walker",
+      "text": "An upgraded $(l:icewalker)Wand of Ice Walking$() with a larger area of effect for turning water into ice."
+    }
+  ]
+}

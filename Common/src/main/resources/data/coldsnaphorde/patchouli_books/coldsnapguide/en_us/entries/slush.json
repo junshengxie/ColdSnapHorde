@@ -1,0 +1,12 @@
+{
+  "name": "Slush",
+  "category": "coldsnaphorde:coldsnaptiero",
+  "icon": "coldsnaphorde:slush",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "coldsnaphorde:slush",
+      "text": "A block that dissolves over time, reduces movement speed when stepped on. Left behind and dropped by Nether Cold Snap Horde members."
+    }
+  ]
+}

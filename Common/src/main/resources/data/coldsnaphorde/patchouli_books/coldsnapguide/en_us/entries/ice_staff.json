@@ -1,0 +1,13 @@
+{
+  "name": "Ice Staff",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:ice_staff",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:ice_staff",
+      "text": "A staff capable of summoning ice projectiles. Ice projectiles may form ice blocks upon impact."
+    }
+  ]
+}

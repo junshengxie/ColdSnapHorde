@@ -1,0 +1,13 @@
+{
+  "name": "Glacier Staff",
+  "category": "coldsnaphorde:coldsnaptier3",
+  "icon": "coldsnaphorde:glacier_staff",
+  "advancement": "coldsnaphorde:horde_breaker",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:glacier_staff",
+      "text": "An upgraded $(l:ice_staff)Ice Staff$() capable of summoning packed ice and blue ice projectiles projectiles."
+    }
+  ]
+}

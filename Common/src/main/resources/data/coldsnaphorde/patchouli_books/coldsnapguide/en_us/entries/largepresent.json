@@ -1,0 +1,13 @@
+{
+  "name": "Large Present",
+  "category": "coldsnaphorde:coldsnaptier3",
+  "icon": "coldsnaphorde:large_present",
+  "advancement": "coldsnaphorde:horde_breaker",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:present",
+      "text": "An upgraded $(l:present)Present$(). Enhanced with a new wrapping and frost essence, a notably larger chance for previously introduced interesting presents."
+    }
+  ]
+}

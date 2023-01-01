@@ -1,0 +1,13 @@
+{
+  "name": "Glacier Wall Charm",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:glacier_wall_charm",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:glacier_wall_charm",
+      "text": "An upgraded $(l:snowwallcharm)Snow Wall Charm$(). Enhanced with additional ice shards and ice cores, further increases knockback resistance for the wearer"
+    }
+  ]
+}

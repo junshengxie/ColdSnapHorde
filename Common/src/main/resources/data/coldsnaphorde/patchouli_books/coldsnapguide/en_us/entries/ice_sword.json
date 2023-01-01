@@ -1,0 +1,13 @@
+{
+  "name": "Ice Sword",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:ice_sword",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:ice_sword",
+      "text": "An Iron sword modified with the properties of an ice core and ice essence. Slows enemies upon impact. Can not be enchanted with fire aspect."
+    }
+  ]
+}

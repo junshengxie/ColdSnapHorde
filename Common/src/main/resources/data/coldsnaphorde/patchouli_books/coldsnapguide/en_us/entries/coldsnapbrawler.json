@@ -1,0 +1,53 @@
+{
+  "name": "Cold Snap Brawler",
+  "category": "coldsnaphorde:coldsnapmobs",
+  "icon": "coldsnaphorde:brawler_spawn_egg",
+  "advancement": "coldsnaphorde:coldsnapbrawler",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Cold Snap Brawler was built to defend a large village. One day, a baby villager gave the Brawler their boxing gloves. Hours later, a player stormed into the village with a raiding party on their heels. No villager survived this day, but the Brawler was spared, now refusing to rest until they avenge their village."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:coldsnapbrawler",
+      "name": "Cold Snap Brawler"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Nether Brawler",
+      "text": "A Brawler, melted from the heat of the Nether. No one knows how or why a horde of snowmen decided going to the Nether would be a good idea, but those that have leave behind a trail of slush when they move.",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ncoldsnapbrawler",
+      "name": "Nether Brawler",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "End Brawler",
+      "text": "A Brawler, mutated by the desolate environments of the end. Has a chance to teleport you or itself when attacking or attacked",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ecoldsnapbrawler",
+      "name": "End Brawler",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Plague Brawler",
+      "text": "A Brawler filled with the murky waters of the swamp. May transmit parasites and diseases, or generally make you feel unwell",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:pcoldsnapbrawler",
+      "name": "Plague Brawler",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    }
+  ]
+}

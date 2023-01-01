@@ -1,0 +1,13 @@
+{
+  "name": "Reinforced Wall Charm",
+  "category": "coldsnaphorde:coldsnaptier3",
+  "icon": "coldsnaphorde:reinforced_glacier_wall_charm",
+  "advancement": "coldsnaphorde:horde_breaker",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:reinforced_glacier_wall_charm",
+      "text": "An upgraded $(l:glacierwallcharm)Glacier Wall Charm$(). Further enhanced with additional ice essence and frost cores, significantly increases knockback resistance for the wearer"
+    }
+  ]
+}

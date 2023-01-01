@@ -1,0 +1,17 @@
+{
+  "name": "Tier 2 Horde",
+  "category": "coldsnaphorde:coldsnapprogress",
+  "icon": "coldsnaphorde:frosted_snowglobe",
+  "advancement": "coldsnaphorde:sliced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The old tales are true, and you've just angered the Cold Snap Horde into tearing open a small interdimensional window to leak back into the overworld. The materials they drop can be used to make magical items however.. You can upgrade a snow globe with some of these materials as well. Will you agitate the horde further?"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:frosted_snowglobe",
+      "text": "Summons a tier 2 horde. Must be summoned in a cold or neutral temperature environment (Unless otherwise configured), or in a swamp biome."
+    }
+  ]
+}

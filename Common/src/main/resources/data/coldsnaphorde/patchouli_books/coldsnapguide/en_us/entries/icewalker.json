@@ -1,0 +1,13 @@
+{
+  "name": "Wand of Ice Walking",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:wand_of_ice_walker",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:wand_of_frost_walker",
+      "text": "A wand that allows the user to temporarily freeze the water beneath their feet"
+    }
+  ]
+}

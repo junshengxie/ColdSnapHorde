@@ -1,0 +1,13 @@
+{
+  "name": "Ball of Healing",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:healing_ball",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:healing_ball",
+      "text": "A direct upgrade to the $(l:lesserhealingball)Lesser Healing Ball$(), invokes moderately strong ancient healing magic."
+    }
+  ]
+}

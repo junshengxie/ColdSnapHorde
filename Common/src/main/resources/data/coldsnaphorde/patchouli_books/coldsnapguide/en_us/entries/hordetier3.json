@@ -1,0 +1,17 @@
+{
+  "name": "Tier 3 Horde",
+  "category": "coldsnaphorde:coldsnapprogress",
+  "icon": "coldsnaphorde:frozen_snowglobe",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The upgraded snow globe worked to further anger the horde, and they are providing more potent materials as a result, though only when attacking as a horde. Furthermore, their ability to enter the overworld freely has increased dramatically. With these new materials, you can once again upgrade the snow globe. What could go wrong?"
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:frozen_snowglobe",
+      "text": "Summons a tier 3 horde. Must be summoned in a cold or neutral temperature environment (Unless otherwise configured), a swamp biome, the nether, or the end."
+    }
+  ]
+}

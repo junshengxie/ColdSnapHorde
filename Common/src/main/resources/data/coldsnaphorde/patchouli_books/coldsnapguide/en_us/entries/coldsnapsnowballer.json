@@ -1,0 +1,53 @@
+{
+  "name": "Cold Snap Snowballer",
+  "category": "coldsnaphorde:coldsnapmobs",
+  "icon": "coldsnaphorde:snowballer_spawn_egg",
+  "advancement": "coldsnaphorde:coldsnapsnowballer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Cold Snap Snowballer was your average snow golem, fenced into a one block area for weeks. All they ever knew was to throw snowballs at enemies. When a well placed creeper set the Snowballer free, they ran off, intent to punish the players who trapped them, collecting loose stones on the way to throw with their snowballs."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:coldsnapsnowballer",
+      "name": "Cold Snap Snowballer"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Nether Snowballer",
+      "text": "A Snowballer, melted from the heat of the Nether. No one knows how or why a horde of snowmen decided going to the Nether would be a good idea, but those that have leave behind a trail of slush when they move.",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ncoldsnapsnowballer",
+      "name": "Nether Snowballer",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "End Snowballer",
+      "text": "A Snowballer, mutated by the desolate environments of the end. Has a chance to teleport you or itself when attacking or attacked",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ecoldsnapsnowballer",
+      "name": "End Snowballer",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Plague Snowballer",
+      "text": "A Snowballer filled with the murky waters of the swamp. May transmit parasites and diseases, or generally make you feel unwell",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:pcoldsnapsnowballer",
+      "name": "Plague Snowballer",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    }
+  ]
+}

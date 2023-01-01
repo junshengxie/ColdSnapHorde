@@ -1,0 +1,17 @@
+{
+  "name": "Frosty Cow",
+  "category": "coldsnaphorde:coldsnapmobs",
+  "icon": "minecraft:powder_snow_bucket",
+  "advancement": "coldsnaphorde:snow_farmer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The frosty cow was originally a mooshroom, brought to cold climates by players for food. After being abandoned in the cold for too long, their mushrooms froze off. They now slowly freeze their milk into powdered snow."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:frostycow",
+      "name": "Frosty Cow"
+    }
+  ]
+}

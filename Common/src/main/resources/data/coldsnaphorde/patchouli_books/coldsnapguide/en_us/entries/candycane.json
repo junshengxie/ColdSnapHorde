@@ -1,0 +1,17 @@
+{
+  "name": "Candy Cane Blocks",
+  "category": "coldsnaphorde:coldsnaptiero",
+  "icon": "coldsnaphorde:redcandycane",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "coldsnaphorde:redcandycane",
+      "text": "A decorative block that can only be found in presents."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "coldsnaphorde:greencandycane",
+      "text": "A decorative block that can only be found in presents."
+    }
+  ]
+}

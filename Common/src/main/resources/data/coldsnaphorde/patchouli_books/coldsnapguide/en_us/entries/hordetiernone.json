@@ -1,0 +1,12 @@
+{
+  "name": "Tier ? Horde",
+  "category": "coldsnaphorde:coldsnapprogress",
+  "icon": "coldsnaphorde:slush",
+  "advancement": "coldsnaphorde:horde_breaker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Due to your continued agitation of the Cold Snap Horde, the horde has now managed to break into the Nether and End as well. Try as you might, you can not currently figure out a way to upgrade the snow globe. Perhaps some day you can antagonize the horde more than you already have. But for now, the frozen snow globe will have to do."
+    }
+  ]
+}

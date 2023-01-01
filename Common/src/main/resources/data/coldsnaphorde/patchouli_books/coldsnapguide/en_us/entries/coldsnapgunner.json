@@ -1,0 +1,53 @@
+{
+  "name": "Cold Snap Gunner",
+  "category": "coldsnaphorde:coldsnapmobs",
+  "icon": "coldsnaphorde:gunner_spawn_egg",
+  "advancement": "coldsnaphorde:coldsnapgunner",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Cold Snap Gunner was given a toy gun when they were made. When left alone, the gunner would practice their marksmanship. Now they aim for the eyes of any player they meet. Their aim would be better, if their own eyes weren't made of coal..."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:coldsnapgunner",
+      "name": "Cold Snap Gunner"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Nether Gunner",
+      "text": "A Gunner, melted from the heat of the Nether. No one knows how or why a horde of snowmen decided going to the Nether would be a good idea, but those that have leave behind a trail of slush when they move.",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ncoldsnapgunner",
+      "name": "Nether Gunner",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "End Gunner",
+      "text": "A gunner, mutated by the desolate environments of the end. Has a chance to teleport you or itself when attacking or attacked",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ecoldsnapgunner",
+      "name": "End Gunner",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Plague Gunner",
+      "text": "A gunner filled with the murky waters of the swamp. May transmit parasites and diseases, or generally make you feel unwell",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:pcoldsnapgunner",
+      "name": "Plague Gunner",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    }
+  ]
+}

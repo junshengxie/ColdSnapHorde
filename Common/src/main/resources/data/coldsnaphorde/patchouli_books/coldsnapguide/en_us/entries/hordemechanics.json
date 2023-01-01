@@ -1,0 +1,24 @@
+{
+  "name": "Horde Mechanics",
+  "category": "coldsnaphorde:coldsnapprogress",
+  "icon": "coldsnaphorde:thermometer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Hordes are events similar to raids. Depending on the horde tier and the configurations of your world/server, properties of hordes may differ. Hordes will continuously spawn in enemies around a determined \"Anchor\" player until a spawn cap is met. When the player kills a horde member, the horde member will be replaced until enough enemies are killed to end the event."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Hordes are preferably fought on flat land. If the spawning algorithm fails to find a valid spawn point randomly after several attempts, the horde will be ended as a draw, and the mod will not progress. If all players within visible range of the horde health bar are killed, the horde ends as a player loss. If the \"Anchor\" player is killed, and other players remain within range, anchor status carries to an in range player."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Successfully defeating a horde will upgrade the world's progression tier, which unless otherwise disabled in configurations, will increase the Cold Snap Horde's presence naturally, allowing more members to spawn in without an event."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:thermometer",
+      "text": "For overworld horde summonings, temperature is an important mechanic. A thermometer can be crafted to get an idea of spawning conditions at your location when interacting."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Ice Essence",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:iceessence",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "coldsnaphorde:iceessence",
+      "text": "Ice Essence holds a small amount of the magical energy that keeps the Cold Snap Horde running. Stronger than ice shards, it can be combined with more ice essence to make an ice core. Ice essence only drops when killing horde members during a tier 2 horde event."
+    },
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:icecore",
+      "text": "A complex structure of ice essence to form a more powerful core. Can be used to invoke more power from the Cold Snap Horde."
+    }
+  ]
+}

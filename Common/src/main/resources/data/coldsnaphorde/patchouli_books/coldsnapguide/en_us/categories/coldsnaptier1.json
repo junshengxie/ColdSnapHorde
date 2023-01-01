@@ -1,0 +1,6 @@
+{
+  "name": "Tier 1 Gear",
+  "description": "A list of items made craftable with the loot from tier 1 hordes, and without any horde based loot.",
+  "icon": "coldsnaphorde:iceshard",
+  "sortnum": 1
+}

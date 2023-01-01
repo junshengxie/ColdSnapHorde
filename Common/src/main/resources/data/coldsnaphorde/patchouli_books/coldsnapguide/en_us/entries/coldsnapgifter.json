@@ -1,0 +1,53 @@
+{
+  "name": "Cold Snap Gifter",
+  "category": "coldsnaphorde:coldsnapmobs",
+  "icon": "coldsnaphorde:gifter_spawn_egg",
+  "advancement": "coldsnaphorde:coldsnapgifter",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Cold Snap Gifter was never a fan of the holidays. Inspired by creepers and the grief they caused players, the Gifter attempts to trick players into thinking they are delivering presents to players. What awaits their victims is a bone chilling surprise."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:coldsnapgifter",
+      "name": "Cold Snap Gifter"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Nether Gifter",
+      "text": "A Gifter, melted from the heat of the Nether. No one knows how or why a horde of snowmen decided going to the Nether would be a good idea, but those that have leave behind a trail of slush when they move.",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ncoldsnapgifter",
+      "name": "Nether Gifter",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "End Gifter",
+      "text": "A Gifter, mutated by the desolate environments of the end. Has a chance to teleport you or itself when attacking or attacked",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ecoldsnapgifter",
+      "name": "End Gifter",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Plague Gifter",
+      "text": "A Gifter filled with the murky waters of the swamp. May transmit parasites and diseases, or generally make you feel unwell",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:pcoldsnapgifter",
+      "name": "Plague Gifter",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    }
+  ]
+}

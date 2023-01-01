@@ -1,0 +1,13 @@
+{
+  "name": "Lesser Healing Ball",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:lesser_healing_ball",
+  "advancement": "coldsnaphorde:sliced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:lesser_healing_ball",
+      "text": "A snowball enhanced by the power of an ice shard to invoke a small amount of ancient healing magic. Will harm undead."
+    }
+  ]
+}

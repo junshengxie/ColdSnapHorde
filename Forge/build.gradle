@@ -41,6 +41,10 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
+
+    maven {
+        url 'https://maven.blamejared.com'
+    }
 }
 
 minecraft {
@@ -110,6 +114,11 @@ dependencies {
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}:api")
+
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.2-77:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.2-77")
+
+    runtimeOnly fg.deobf("curse.maven:jei-238222:4087658")
 }
 
 tasks.withType(JavaCompile) {

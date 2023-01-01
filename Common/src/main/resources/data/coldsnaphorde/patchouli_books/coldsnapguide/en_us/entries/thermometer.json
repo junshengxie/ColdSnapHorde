@@ -1,0 +1,12 @@
+{
+  "name": "Thermometer",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:thermometer",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:thermometer",
+      "text": "A device used to check the temperature of the environment you're in. Good for determining horde spawn conditions."
+    }
+  ]
+}

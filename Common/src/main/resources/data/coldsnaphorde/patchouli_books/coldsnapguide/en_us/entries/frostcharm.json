@@ -1,0 +1,13 @@
+{
+  "name": "Frost Charm",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:frost_charm",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:frost_charm",
+      "text": "A defensive charm that has a chance to slow down enemies attacking the wearer with Slowness I"
+    }
+  ]
+}

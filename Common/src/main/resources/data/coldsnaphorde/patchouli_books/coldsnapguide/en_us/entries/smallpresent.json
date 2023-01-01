@@ -1,0 +1,13 @@
+{
+  "name": "Small Present",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:small_present",
+  "advancement": "coldsnaphorde:sliced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:small_present",
+      "text": "A small box with loot provided by the frost shard within. Too small to hold anything particularly valuable."
+    }
+  ]
+}

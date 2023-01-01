@@ -1,0 +1,13 @@
+{
+  "name": "Ice Shard",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:iceshard",
+  "advancement": "coldsnaphorde:sliced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "coldsnaphorde:iceshard",
+      "text": "The ice shard is a weak, fundamental component of the magic that keeps the Cold Snap Horde running. Dropped by horde members regularly, and within hordes. Used in crafting."
+    }
+  ]
+}

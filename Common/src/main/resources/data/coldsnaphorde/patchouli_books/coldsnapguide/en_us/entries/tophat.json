@@ -1,0 +1,13 @@
+{
+  "name": "Top Hat",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:tophat",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:tophat",
+      "text": "A hat, similar to the ones Cold Snap Horde members wear. The ice core woven in will trick horde members into ignoring you when they are not in a horde event, and if they don't see you put it on."
+    }
+  ]
+}

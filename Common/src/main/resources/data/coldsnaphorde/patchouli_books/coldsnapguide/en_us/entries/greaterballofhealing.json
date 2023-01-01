@@ -1,0 +1,13 @@
+{
+  "name": "Greater Ball of Healing",
+  "category": "coldsnaphorde:coldsnaptier3",
+  "icon": "coldsnaphorde:greater_healing_ball",
+  "advancement": "coldsnaphorde:horde_breaker",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:greater_healing_ball",
+      "text": "A direct upgrade to the $(l:ballofhealing)Healing Ball$(), invokes strong ancient healing magic."
+    }
+  ]
+}

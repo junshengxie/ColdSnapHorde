@@ -1,0 +1,12 @@
+{
+  "name": "Snow Covered Rock",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:rockysnowball",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:rockysnowball",
+      "text": "A snowball with a small stone in the middle. Will do a minuscule amount of damage to targets."
+    }
+  ]
+}

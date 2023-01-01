@@ -1,0 +1,13 @@
+{
+  "name": "Icicle",
+  "category": "coldsnaphorde:coldsnaptier1",
+  "icon": "coldsnaphorde:icicle",
+  "advancement": "coldsnaphorde:sliced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:icicle",
+      "text": "A stone sword, transformed by the properties of frost shards. Has a chance to slow enemies upon a fully charged hit. Can not be enchanted with fire aspect."
+    }
+  ]
+}

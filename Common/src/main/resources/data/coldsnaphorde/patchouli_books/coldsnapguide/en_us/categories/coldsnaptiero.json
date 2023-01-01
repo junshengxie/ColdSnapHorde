@@ -1,0 +1,6 @@
+{
+  "name": "Other items",
+  "description": "A list of items that are not tier specific per se, but can't be freely crafted.",
+  "icon": "coldsnaphorde:redcandycane",
+  "sortnum": 4
+}

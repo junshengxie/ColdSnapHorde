@@ -1,0 +1,13 @@
+{
+  "name": "Present",
+  "category": "coldsnaphorde:coldsnaptier2",
+  "icon": "coldsnaphorde:present",
+  "advancement": "coldsnaphorde:diced_snowmen",
+  "pages": [
+    {
+      "type": "patchouli:crafting",
+      "recipe": "coldsnaphorde:present",
+      "text": "An upgraded $(l:smallpresent)Small Present$(). Enhanced with a new wrapping and ice essence, a chance for more interesting presents."
+    }
+  ]
+}

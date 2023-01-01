@@ -1,0 +1,53 @@
+{
+  "name": "Cold Snap Zapper",
+  "category": "coldsnaphorde:coldsnapmobs",
+  "icon": "coldsnaphorde:zapper_spawn_egg",
+  "advancement": "coldsnaphorde:coldsnapzapper",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The Cold Snap Zapper was built to watch over a charged creeper farm. After studying the lightning and lightning rods, the Zapper was able to find a quick, cheap, and effective way to summon lightning on command. Their first test was on the player who created them, sticking a small device on their back and running away. The result was electrifying."
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:coldsnapzapper",
+      "name": "Cold Snap Zapper"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Nether Zapper",
+      "text": "A Zapper, melted from the heat of the Nether. No one knows how or why a horde of snowmen decided going to the Nether would be a good idea, but those that have leave behind a trail of slush when they move.",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ncoldsnapzapper",
+      "name": "Nether Zapper",
+      "advancement": "coldsnaphorde:coldsnapnether"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "End Zapper",
+      "text": "A Zapper, mutated by the desolate environments of the end. Has a chance to teleport you or itself when attacking or attacked",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:ecoldsnapzapper",
+      "name": "End Zapper",
+      "advancement": "coldsnaphorde:coldsnapend"
+    },
+    {
+      "type": "patchouli:text",
+      "title": "Plague Zapper",
+      "text": "A Zapper filled with the murky waters of the swamp. May transmit parasites and diseases, or generally make you feel unwell",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    },
+    {
+      "type": "patchouli:entity",
+      "entity": "coldsnaphorde:pcoldsnapzapper",
+      "name": "Plague Zapper",
+      "advancement": "coldsnaphorde:coldsnapplague"
+    }
+  ]
+}

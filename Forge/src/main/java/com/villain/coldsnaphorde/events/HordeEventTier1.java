@@ -147,9 +147,9 @@ public class HordeEventTier1 extends Horde {
     @Override
     protected void spawnHordeMember() {
         ArrayList<Integer> SpawnWeights = new ArrayList<>();
-        SpawnWeights.add(1);
-        SpawnWeights.add(1);
-        SpawnWeights.add(1);
+        SpawnWeights.add(20);
+        SpawnWeights.add(20);
+        SpawnWeights.add(20);
         int combined = 0;
         for (Integer weight : SpawnWeights) combined += weight;
         Random random = new Random();
@@ -185,7 +185,7 @@ public class HordeEventTier1 extends Horde {
                 world.addFreshEntity(coldSnapStabber);
                 activeHordeMembers.add(coldSnapStabber);
             }
-            case 2 -> {
+            default -> {
                 ColdSnapSnowballer coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
                 BlockPos pos = hordeSpawnAttempter(coldSnapSnowballer.getType());
                 if (pos == null) return;

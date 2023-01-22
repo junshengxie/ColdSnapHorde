@@ -83,8 +83,8 @@ public class Register {
     public static final RegistryObject<Item> STAFFOFICEFROSTWALKER = ITEMS.register("staff_of_frost_walker", () -> new FrostWalkStaff(Materials.ICEESSENCE, new Item.Properties().tab(Services.PLATFORM.TAB()).defaultDurability(768), Tier.THREE));
     public static final RegistryObject<Item> FROZENSNOWGLOBE = ITEMS.register("frozen_snowglobe", () -> new Snowglobe(new Item.Properties().tab(Services.PLATFORM.TAB()), Tier.THREE));
 
-    public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), 349));
-    public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), 192));
+    public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), 6980));
+    public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), 3840));
 
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSERPIECE = ITEMS.register("transposerpiece", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
     public static final RegistryObject<Item> LIGHTNINGTRANSPOSER = ITEMS.register("lightningtransposer", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));

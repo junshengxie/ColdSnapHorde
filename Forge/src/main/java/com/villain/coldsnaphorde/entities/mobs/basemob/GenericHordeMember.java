@@ -174,7 +174,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
                 level.addFreshEntity(itemEntity);
             } else {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.FROSTESSENCE.get(), level.random.nextInt(2)+1));
+                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.ICEESSENCE.get(), level.random.nextInt(2)+1));
                 level.addFreshEntity(itemEntity);
             }
         }
@@ -187,7 +187,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.LARGEPRESENT.get(), 1));
                 level.addFreshEntity(itemEntity);
             } else {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.ICEESSENCE.get(), level.random.nextInt(2)+1));
+                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.FROSTESSENCE.get(), level.random.nextInt(2)+1));
                 level.addFreshEntity(itemEntity);
             }
         }

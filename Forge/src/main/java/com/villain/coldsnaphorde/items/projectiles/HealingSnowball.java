@@ -23,7 +23,7 @@ import java.util.List;
 public class HealingSnowball extends Item {
     Tier tier;
     public HealingSnowball(Tier tier) {
-        super(new Properties().tab(Services.PLATFORM.TAB()).stacksTo(16));
+        super(new Properties().stacksTo(16));
         this.tier = tier;
     }
 

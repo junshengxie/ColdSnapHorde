@@ -2,8 +2,9 @@ package com.villain.coldsnaphorde.entities.projectiles;
 
 import com.villain.coldsnaphorde.Register;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
@@ -45,7 +46,7 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
         super.onHitEntity(p_213868_1_);
         if (!p_213868_1_.getEntity().level.isClientSide && p_213868_1_.getEntity() instanceof LivingEntity entity) {
             int i = entity instanceof Blaze ? 5 : 0;
-            entity.hurt(DamageSource.thrown(this, this.getOwner()), (float) i);
+            entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float) i);
             entity.setIsInPowderSnow(true);
             entity.setTicksFrozen(getTicksFrozen() + 40);
             int chance = random.nextInt(20);
@@ -59,7 +60,8 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
     protected void onHit(HitResult result) {
         super.onHit(result);
         BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
-        BlockPos blockpos = new BlockPos(result.getLocation());
+        Vec3i vec3i = new Vec3i((int) result.getLocation().x, (int) result.getLocation().y, (int) result.getLocation().z);
+        BlockPos blockpos = new BlockPos(vec3i);
         if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
             this.level.setBlockAndUpdate(blockpos, blockstate);
         } else if(this.level.getBlockState(blockpos) == Blocks.LAVA.defaultBlockState() && !level.isClientSide()){
@@ -71,7 +73,7 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

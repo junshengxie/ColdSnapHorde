@@ -43,7 +43,7 @@ public class GifterSurprise {
         this.Entz = z;
         this.exploder = exploder;
         this.radius = radius;
-        this.damageSource = DamageSource.explosion((LivingEntity) exploder);
+        this.damageSource = world.damageSources().explosion(null, (LivingEntity) exploder);
         this.position = new Vec3(x, y, z);
         if(exploder instanceof GenericHordeMember){
             GenericHordeMember genericHordeMember = (GenericHordeMember) exploder;
@@ -80,7 +80,7 @@ public class GifterSurprise {
         for (int x = (int) -radius - 1; x <= radius; x++) {
             for (int y = (int) -radius - 1; y <= radius; y++) {
                 for (int z = (int) -radius - 1; z <= radius; z++) {
-                    BlockPos blockPos = new BlockPos(Entx + x,Enty + y,Entz + z);
+                    BlockPos blockPos = new BlockPos((int) Entx + x,(int) Enty + y, (int)Entz + z);
                     blockPosArrayList.add(blockPos);
                     ArrayList<Entity> entities = (ArrayList<Entity>) world.getEntities(exploder, new AABB(Entx+x+2, Enty+y+2, Entz+z+2, Entx+x-2, Enty+y-2, Entz+z-2));
                     for(Entity entity : entities){

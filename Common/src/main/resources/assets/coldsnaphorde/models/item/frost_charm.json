@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-   "layer0": "coldsnaphorde:items/frost_charm"
+   "layer0": "coldsnaphorde:item/frost_charm"
  }
 }

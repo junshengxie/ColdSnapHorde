@@ -89,7 +89,7 @@ public class GeneralEvents {
     @SubscribeEvent
     public static void HordeHitByFire(LivingHurtEvent event){
         if(event.getEntity() instanceof SnowCreature){
-            if(event.getSource() == DamageSource.ON_FIRE || event.getSource() == DamageSource.IN_FIRE || event.getSource() == DamageSource.LAVA){
+            if(event.getSource() == event.getEntity().damageSources().onFire() || event.getSource() == event.getEntity().damageSources().inFire() || event.getSource() == event.getEntity().damageSources().lava()){
                 if(ForgeColdSnapHorde.sconfig.HORDETAKESMOREFIRE.get()){
                     event.setAmount(event.getAmount() * 2);
                 }

@@ -1,7 +1,8 @@
 package com.villain.coldsnaphorde.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.villain.cartoonishhorde.Horde;
+import com.villain.cartoonishhorde.hordes.EntityEnumHorde;
+import com.villain.cartoonishhorde.hordes.EntityTypeHorde;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -18,13 +19,13 @@ public class StopHorde {
         if (ForgeColdSnapHorde.hordeDataManager.getCurrentHordeLevel() != 0) {
             switch (ForgeColdSnapHorde.hordeDataManager.getCurrentHordeLevel()) {
                 case 1 -> {
-                    ForgeColdSnapHorde.hordeTier1.Stop(Horde.HordeStopReasons.DEFEAT);
+                    ForgeColdSnapHorde.hordeTier1.Stop(EntityTypeHorde.HordeStopReasons.DEFEAT);
                 }
                 case 2 -> {
-                    ForgeColdSnapHorde.hordeTier2.Stop(Horde.HordeStopReasons.DEFEAT);
+                    ForgeColdSnapHorde.hordeTier2.Stop(EntityEnumHorde.HordeStopReasons.DEFEAT);
                 }
                 case 3 -> {
-                    ForgeColdSnapHorde.hordeTier3.Stop(Horde.HordeStopReasons.DEFEAT);
+                    ForgeColdSnapHorde.hordeTier3.Stop(EntityEnumHorde.HordeStopReasons.DEFEAT);
                 }
             }
             sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.stopsuccess"), false);

@@ -4,7 +4,9 @@ import com.villain.coldsnaphorde.CommonColdSnapHorde;
 import com.villain.coldsnaphorde.Constants;
 import com.villain.coldsnaphorde.Register;
 import net.minecraft.ChatFormatting;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -123,7 +125,7 @@ public class Present extends Item {
         }
         if(entity instanceof Cat catEntity){
             catEntity.tame(playerEntity);
-            catEntity.setCatVariant(CatVariant.JELLIE);
+            catEntity.setVariant(BuiltInRegistries.CAT_VARIANT.getOrThrow(CatVariant.JELLIE));
             catEntity.setBaby(true);
             catEntity.setCollarColor(DyeColor.byId(world.random.nextInt(15)));
             catEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
@@ -132,7 +134,7 @@ public class Present extends Item {
         if(entity instanceof Parrot parrotEntity){
             parrotEntity.tame(playerEntity);
             parrotEntity.setBaby(true);
-            parrotEntity.setVariant(world.random.nextInt(4));
+            parrotEntity.setVariant(Util.getRandom(Parrot.Variant.values(), world.getRandom()));
             parrotEntity.setPos(playerEntity.getX(), playerEntity.getY(), playerEntity.getZ());
             world.addFreshEntity(parrotEntity);
         }

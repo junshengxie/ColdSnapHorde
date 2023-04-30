@@ -1,16 +1,14 @@
 package com.villain.coldsnaphorde.events;
 
-import com.villain.cartoonishhorde.EntityHordeData;
-import com.villain.cartoonishhorde.Horde;
-import com.villain.coldsnaphorde.*;
-import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
-import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapSnowballer;
-import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapStabber;
+import com.villain.cartoonishhorde.hordedata.EntityTypeHordeData;
+import com.villain.cartoonishhorde.hordes.EntityTypeHorde;
+import com.villain.coldsnaphorde.Constants;
+import com.villain.coldsnaphorde.ForgeColdSnapHorde;
+import com.villain.coldsnaphorde.HordeDataManager;
+import com.villain.coldsnaphorde.Utils;
 import com.villain.coldsnaphorde.entities.mobs.basemob.GenericHordeMember;
-import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -20,15 +18,12 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 
-import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Random;
-import java.util.UUID;
 
 import static com.villain.coldsnaphorde.CommonColdSnapHorde.giveAdvancement;
 import static com.villain.coldsnaphorde.ForgeColdSnapHorde.hordeDataManager;
 
-public class HordeEventTier1 extends Horde {
+public class HordeEventTier1 extends EntityTypeHorde {
     public HordeEventTier1(MinecraftServer server) {
         super(server);
     }
@@ -145,88 +140,8 @@ public class HordeEventTier1 extends Horde {
     }
 
     @Override
-    protected void spawnHordeMember() {
-        ArrayList<Integer> SpawnWeights = new ArrayList<>();
-        SpawnWeights.add(20);
-        SpawnWeights.add(20);
-        SpawnWeights.add(20);
-        int combined = 0;
-        for (Integer weight : SpawnWeights) combined += weight;
-        Random random = new Random();
-        int rng = random.nextInt(combined);
-        int selected = -1;
-        int counter = 0;
-        for (Integer weights : SpawnWeights) {
-            if ((rng - weights) <= 0) {
-                selected = counter;
-                break;
-            } else counter++;
-            rng -= weights;
-        }
-
-        switch (selected) {
-            case 0 -> {
-                ColdSnapGunner coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
-                BlockPos pos = hordeSpawnAttempter(coldSnapGunner.getType());
-                if (pos == null) return;
-                coldSnapGunner = gunnerSpawnRules(world, pos);
-                coldSnapGunner.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapGunner, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
-                world.addFreshEntity(coldSnapGunner);
-                activeHordeMembers.add(coldSnapGunner);
-            }
-            case 1 -> {
-                ColdSnapStabber coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
-                BlockPos pos = hordeSpawnAttempter(coldSnapStabber.getType());
-                if (pos == null) return;
-                coldSnapStabber = stabberSpawnRules(world, pos);
-                coldSnapStabber.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapStabber, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
-                world.addFreshEntity(coldSnapStabber);
-                activeHordeMembers.add(coldSnapStabber);
-            }
-            default -> {
-                ColdSnapSnowballer coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
-                BlockPos pos = hordeSpawnAttempter(coldSnapSnowballer.getType());
-                if (pos == null) return;
-                coldSnapSnowballer = snowballerSpawnRules(world, pos);
-                coldSnapSnowballer.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapSnowballer, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
-                world.addFreshEntity(coldSnapSnowballer);
-                activeHordeMembers.add(coldSnapSnowballer);
-            }
-        }
-    }
-
-    @Override
-    public void injectGoal(PathfinderMob entity, EntityHordeData entityHordeData, double movementSpeedModifier) {
+    public void injectGoal(PathfinderMob entity, EntityTypeHordeData entityHordeData, double movementSpeedModifier) {
         super.injectGoal(entity, entityHordeData, movementSpeedModifier);
         if(entity instanceof GenericHordeMember) {((GenericHordeMember) entity).setHordeStatus(true);}
-    }
-
-
-    private ColdSnapGunner gunnerSpawnRules(ServerLevel world, BlockPos pos) {
-        ColdSnapGunner coldSnapGunner = null;
-        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos))) {
-            coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
-        }
-        return coldSnapGunner;
-    }
-
-    private ColdSnapStabber stabberSpawnRules(ServerLevel world, BlockPos pos) {
-        ColdSnapStabber coldSnapStabber = null;
-        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos))) {
-            coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
-        }
-        return coldSnapStabber;
-    }
-
-
-    private ColdSnapSnowballer snowballerSpawnRules(ServerLevel world, BlockPos pos) {
-        ColdSnapSnowballer coldSnapSnowballer = null;
-        if(!Utils.isEnd(world) && !Utils.isNether(world) && !Utils.isSwamp(world.getBiome(pos))) {
-            coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
-        }
-        return coldSnapSnowballer;
     }
 }

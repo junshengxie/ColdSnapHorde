@@ -5,7 +5,7 @@ import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -56,7 +56,7 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
         super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
         int i = 1 + level.getDifficulty().getId();
-        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
+        entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
         if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
@@ -91,7 +91,7 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

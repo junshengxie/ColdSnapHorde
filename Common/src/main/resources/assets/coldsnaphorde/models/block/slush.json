@@ -1,7 +1,7 @@
 {   "parent": "block/thin_block",
 	"textures": {
-		"particle": "coldsnaphorde:blocks/slush",
-		"texture": "coldsnaphorde:blocks/slush"
+		"particle": "coldsnaphorde:block/slush",
+		"texture": "coldsnaphorde:block/slush"
 	},
 	"elements": [
 		{   "from": [ 0, 0, 0 ],

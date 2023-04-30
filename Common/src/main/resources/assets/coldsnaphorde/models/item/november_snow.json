@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-   "layer0": "coldsnaphorde:items/november_snow"
+   "layer0": "coldsnaphorde:item/november_snow"
  }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "coldsnaphorde:blocks/redcandycane"
+    "all": "coldsnaphorde:block/redcandycane"
   }
 }

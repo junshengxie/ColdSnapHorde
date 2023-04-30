@@ -27,9 +27,6 @@ public interface IPlatformHelper {
     boolean isDevelopmentEnvironment();
 
     boolean PLAGUEIMMORTUOSCOMPAT();
-
-    CreativeModeTab TAB();
-
 }
 
 //    int SPAWNTEMPS();

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-   "layer0": "coldsnaphorde:items/tophat"
+   "layer0": "coldsnaphorde:item/tophat"
  }
 }

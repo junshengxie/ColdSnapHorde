@@ -3,17 +3,15 @@ package com.villain.coldsnaphorde.events;
 import com.villain.coldsnaphorde.*;
 import com.villain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.villain.coldsnaphorde.capabilities.PlayerCapabilityManager;
-import com.villain.coldsnaphorde.entities.Spawns;
 import com.villain.coldsnaphorde.entities.mobs.basemob.*;
-import com.villain.coldsnaphorde.items.ColdSpawnEggItem;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.capabilities.*;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -25,11 +23,11 @@ import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.SlotTypeMessage;
 import top.theillusivec4.curios.api.SlotTypePreset;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModBusEvents {
+
+    public static CreativeModeTab HORDETAB;
+
 
     @SubscribeEvent
     public static void interModComms(InterModEnqueueEvent e){
@@ -46,8 +44,6 @@ public class ModBusEvents {
 
     @SubscribeEvent
     public static void effect(RegisterEvent event){
-        ColdSpawnEggItem.initSpawnEggs();
-
         event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> {
                 SpawnPlacements.register(Register.COLDSNAPSTABBER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier1);
                 SpawnPlacements.register(Register.COLDSNAPSNOWBALLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier1);
@@ -75,6 +71,77 @@ public class ModBusEvents {
                 SpawnPlacements.register(Register.PCOLDSNAPBRAWLER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::tier2Swamp);
                 SpawnPlacements.register(Register.COLDSNAPCOW.get(),SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Utils::checkFrostyCow);
         });
+    }
+
+    @SubscribeEvent
+    public static void registerTab(CreativeModeTabEvent.Register event) {
+        HORDETAB = event.registerCreativeModeTab(new ResourceLocation(Constants.MOD_ID, "coldsnaphordetab"), builder -> builder
+                .icon(() -> new ItemStack(Register.SNOWGLOBE.get()))
+                .title(Component.translatable("itemGroup.ColdSnapHorde"))
+                .displayItems((featureFlags, output) -> {
+                    output.accept(Register.TOPHAT.get());
+                    output.accept(Register.REDTOPHAT.get());
+                    output.accept(Register.BLUETOPHAT.get());
+                    output.accept(Register.GREENTOPHAT.get());
+                    output.accept(Register.PURPLETOPHAT.get());
+                    output.accept(Register.THERMOMETER.get());
+                    output.accept(Register.ROCKYSNOWBALL.get());
+                    output.accept(Register.SNOWIERSNOWBALL.get());
+                    output.accept(Register.LESSERHEALINGBALL.get());
+                    output.accept(Register.HEALINGBALL.get());
+                    output.accept(Register.GREATERHEALINGBALL.get());
+                    output.accept(Register.LIGHTNINGSNOWBALL.get());
+                    output.accept(Register.LIGHTNINGTRANSPOSER.get());
+                    output.accept(Register.SNOWGLOBE.get());
+                    output.accept(Register.FROSTEDSNOWGLOBE.get());
+                    output.accept(Register.FROZENSNOWGLOBE.get());
+                    output.accept(Register.SMALLPRESENT.get());
+                    output.accept(Register.PRESENT.get());
+                    output.accept(Register.LARGEPRESENT.get());
+                    output.accept(Register.ICICLE.get());
+                    output.accept(Register.ICESWORD.get());
+                    output.accept(Register.SNOWWALLCHARM.get());
+                    output.accept(Register.GLACIERWALLCHARM.get());
+                    output.accept(Register.REINFOCEDGLACIERCHARM.get());
+                    output.accept(Register.FROSTCHARM.get());
+                    output.accept(Register.ARCTICCHARM.get());
+                    output.accept(Register.ICESTAFF.get());
+                    output.accept(Register.GLACIERSTAFF.get());
+                    output.accept(Register.WANDOFTHEFROSTWALKER.get());
+                    output.accept(Register.STAFFOFICEFROSTWALKER.get());
+                    output.accept(Register.NOVEMBERSNOWDISC.get());
+                    output.accept(Register.ARCTICBEATDISC.get());
+                    output.accept(Register.ICESHARD.get());
+                    output.accept(Register.FROSTESSENCE.get());
+                    output.accept(Register.FROSTCORE.get());
+                    output.accept(Register.ICEESSENCE.get());
+                    output.accept(Register.ICECORE.get());
+                    output.accept(Register.COWSPAWN.get());
+                    output.accept(Register.GUNNERSPAWN.get());
+                    output.accept(Register.STABBERSPAWN.get());
+                    output.accept(Register.SNOWBALLERSPAWN.get());
+                    output.accept(Register.GIFTERSPAWN.get());
+                    output.accept(Register.ZAPPERSPAWN.get());
+                    output.accept(Register.BRAWLERPAWN.get());
+                    output.accept(Register.PGUNNERSPAWN.get());
+                    output.accept(Register.PSTABBERSPAWN.get());
+                    output.accept(Register.PSNOWBALLERSPAWN.get());
+                    output.accept(Register.PGIFTERSPAWN.get());
+                    output.accept(Register.PZAPPERSPAWN.get());
+                    output.accept(Register.PBRAWLERPAWN.get());
+                    output.accept(Register.NGUNNERSPAWN.get());
+                    output.accept(Register.NSTABBERSPAWN.get());
+                    output.accept(Register.NSNOWBALLERSPAWN.get());
+                    output.accept(Register.NGIFTERSPAWN.get());
+                    output.accept(Register.NZAPPERSPAWN.get());
+                    output.accept(Register.NBRAWLERPAWN.get());
+                    output.accept(Register.EGUNNERSPAWN.get());
+                    output.accept(Register.ESTABBERSPAWN.get());
+                    output.accept(Register.ESNOWBALLERSPAWN.get());
+                    output.accept(Register.EGIFTERSPAWN.get());
+                    output.accept(Register.EZAPPERSPAWN.get());
+                    output.accept(Register.EBRAWLERPAWN.get());
+                }));
     }
 
     @SubscribeEvent

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "coldsnaphorde:items/cold_snap_guide"
+    "layer0": "coldsnaphorde:item/cold_snap_guide"
   }
 }

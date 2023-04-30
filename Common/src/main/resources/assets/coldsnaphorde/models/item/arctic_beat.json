@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-   "layer0": "coldsnaphorde:items/arctic_beat"
+   "layer0": "coldsnaphorde:item/arctic_beat"
  }
 }

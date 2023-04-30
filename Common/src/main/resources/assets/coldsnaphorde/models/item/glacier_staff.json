@@ -1,6 +1,6 @@
 {
   "parent": "item/handheld",
   "textures": {
-   "layer0": "coldsnaphorde:items/glacier_staff"
+   "layer0": "coldsnaphorde:item/glacier_staff"
  }
 }

@@ -102,7 +102,7 @@ public class ColdSnapCow extends Cow implements SnowCreature {
     public void tick() {
         super.tick();
         if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), ForgeColdSnapHorde.cconfig.HEATPROT.get())) {
-            this.hurt(DamageSource.ON_FIRE, 1.0F);
+            this.hurt(this.damageSources().onFire(), 1.0F);
         }
 
         if(getHarvestTimer() > 0){

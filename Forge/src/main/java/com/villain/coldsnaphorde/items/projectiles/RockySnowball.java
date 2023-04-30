@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 public class RockySnowball extends Item {
     public RockySnowball() {
-        super(new Properties().tab(Services.PLATFORM.TAB()));
+        super(new Properties());
     }
 
     @Override

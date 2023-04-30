@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-   "layer0": "coldsnaphorde:items/snow_wall_charm"
+   "layer0": "coldsnaphorde:item/snow_wall_charm"
  }
 }

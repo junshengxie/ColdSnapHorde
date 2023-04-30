@@ -3,11 +3,12 @@ package com.villain.coldsnaphorde.entities.projectiles;
 import com.villain.coldsnaphorde.Register;
 import com.villain.coldsnaphorde.entities.mobs.basemob.GenericHordeMember;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -57,7 +58,7 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
         super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
         int i = entity instanceof Blaze ? 3 : 1;
-        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
+        entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
         if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
@@ -91,7 +92,8 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
         super.onHit(result);
         BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
         int snowchance = random.nextInt(20);
-        BlockPos blockpos = new BlockPos(result.getLocation());
+        Vec3i vec3i = new Vec3i((int) result.getLocation().x, (int) result.getLocation().y, (int) result.getLocation().z);
+        BlockPos blockpos = new BlockPos(vec3i);
         if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && snowchance == 1 && !level.isClientSide()) {
             this.level.setBlockAndUpdate(blockpos, blockstate);
         }
@@ -99,7 +101,7 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -2,8 +2,10 @@ package com.villain.coldsnaphorde.entities.projectiles;
 
 import com.villain.coldsnaphorde.items.Tier;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -118,7 +120,8 @@ public class IceProjectile extends ThrowableItemProjectile {
                 blockstate = Blocks.BLUE_ICE.defaultBlockState();
             }
         }
-        BlockPos blockpos = new BlockPos(result.getLocation());
+        Vec3i vec3i = new Vec3i((int) result.getLocation().x, (int) result.getLocation().y, (int) result.getLocation().z);
+        BlockPos blockpos = new BlockPos(vec3i);
         if (this.level.isEmptyBlock(blockpos) && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
             this.level.setBlockAndUpdate(blockpos, blockstate);
         }
@@ -126,7 +129,7 @@ public class IceProjectile extends ThrowableItemProjectile {
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-   "layer0": "coldsnaphorde:items/large_present"
+   "layer0": "coldsnaphorde:item/large_present"
  }
 }

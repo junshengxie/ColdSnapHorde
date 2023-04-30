@@ -33,18 +33,4 @@ public class ForgePlatformHelper implements IPlatformHelper {
     public boolean PLAGUEIMMORTUOSCOMPAT() {
         return ForgeColdSnapHorde.sconfig.PLAGUEIMMORTUOSCOMPAT.get();
     }
-
-    @Override
-    public CreativeModeTab TAB() {
-        if (TAB == null) {
-            TAB = new CreativeModeTab("ColdSnapHorde") {
-                @Override
-                public ItemStack makeIcon() {
-                    return new ItemStack(Register.ROCKYSNOWBALL.get());
-                }
-            };
-        }
-
-        return TAB;
-    }
 }

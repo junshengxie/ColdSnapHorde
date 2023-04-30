@@ -2,7 +2,9 @@ package com.villain.coldsnaphorde.entities.projectiles;
 
 import com.villain.coldsnaphorde.Register;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -40,12 +42,15 @@ public class LightningSnowEntity extends ThrowableItemProjectile {
     protected void onHit(HitResult result) {
         super.onHit(result);
         if(!this.level.isClientSide()){
-        EntityType.LIGHTNING_BOLT.spawn((ServerLevel) this.getCommandSenderWorld(), new ItemStack(Items.AIR), null, new BlockPos(result.getLocation()), MobSpawnType.TRIGGERED, true, false);}
+            Vec3i vec3i = new Vec3i((int) result.getLocation().x, (int) result.getLocation().y, (int) result.getLocation().z);
+            BlockPos blockpos = new BlockPos(vec3i);
+            EntityType.LIGHTNING_BOLT.spawn((ServerLevel) this.getCommandSenderWorld(), new ItemStack(Items.AIR), null, blockpos, MobSpawnType.TRIGGERED, true, false);
+        }
         this.remove(RemovalReason.DISCARDED);
     }
 
     @Override
-    public Packet<?> getAddEntityPacket() {
+    public Packet<ClientGamePacketListener> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -15,7 +15,7 @@ import net.minecraft.world.level.Level;
 
 public class LightningSnowball extends Item {
     public LightningSnowball() {
-        super(new Properties().tab(Services.PLATFORM.TAB()).stacksTo(16));
+        super(new Properties().stacksTo(16));
     }
 
     @Override

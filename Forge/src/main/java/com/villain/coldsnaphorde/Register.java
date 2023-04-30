@@ -17,6 +17,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -46,78 +48,78 @@ public class Register {
     public static final RegistryObject<Item> ROCKYSNOWBALL = ITEMS.register("rockysnowball", RockySnowball::new);
     public static final RegistryObject<Item> SNOWIERSNOWBALL = ITEMS.register("freezeball", SnowierSnowball::new);
 
-    public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<ArmorItem> REDTOPHAT = ITEMS.register("redtophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<ArmorItem> BLUETOPHAT = ITEMS.register("bluetophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<ArmorItem> GREENTOPHAT = ITEMS.register("greentophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<ArmorItem> PURPLETOPHAT = ITEMS.register("purpletophat", () -> new TopHat(ArmorMaterials.HAT, EquipmentSlot.HEAD, new Item.Properties().tab(Services.PLATFORM.TAB())));
+    public static final RegistryObject<ArmorItem> TOPHAT = ITEMS.register("tophat", () -> new TopHat(ArmorMaterials.HAT, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<ArmorItem> REDTOPHAT = ITEMS.register("redtophat", () -> new TopHat(ArmorMaterials.HAT, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<ArmorItem> BLUETOPHAT = ITEMS.register("bluetophat", () -> new TopHat(ArmorMaterials.HAT, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<ArmorItem> GREENTOPHAT = ITEMS.register("greentophat", () -> new TopHat(ArmorMaterials.HAT, ArmorItem.Type.HELMET, new Item.Properties()));
+    public static final RegistryObject<ArmorItem> PURPLETOPHAT = ITEMS.register("purpletophat", () -> new TopHat(ArmorMaterials.HAT, ArmorItem.Type.HELMET, new Item.Properties()));
 
-    public static final RegistryObject<Item> THERMOMETER = ITEMS.register("thermometer", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
+    public static final RegistryObject<Item> THERMOMETER = ITEMS.register("thermometer", () -> new Item(new Item.Properties()));
 
-    public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> SNOWWALLCHARM = ITEMS.register("snow_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), Tier.ONE));
-    public static final RegistryObject<Item> SNOWGLOBE = ITEMS.register("snowglobe", () -> new Snowglobe(new Item.Properties().tab(Services.PLATFORM.TAB()), Tier.ONE));
-    public static final RegistryObject<Item> SMALLPRESENT = ITEMS.register("small_present", () -> new Present(new Item.Properties().tab(Services.PLATFORM.TAB()), Tier.ONE));
+    public static final RegistryObject<Item> ICESHARD = ITEMS.register("iceshard", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SNOWWALLCHARM = ITEMS.register("snow_wall_charm", () -> new FrostWallCharm(new Item.Properties().stacksTo(1), Tier.ONE));
+    public static final RegistryObject<Item> SNOWGLOBE = ITEMS.register("snowglobe", () -> new Snowglobe(new Item.Properties(), Tier.ONE));
+    public static final RegistryObject<Item> SMALLPRESENT = ITEMS.register("small_present", () -> new Present(new Item.Properties(), Tier.ONE));
     public static final RegistryObject<Item> LESSERHEALINGBALL = ITEMS.register("lesser_healing_ball", () -> new HealingSnowball(Tier.ONE));
-    public static final RegistryObject<Item> ICICLE = ITEMS.register("icicle", () -> new Icicle(Materials.ICICLE, 2, -3.2f, new Item.Properties().tab(Services.PLATFORM.TAB()).rarity(Rarity.UNCOMMON)));
+    public static final RegistryObject<Item> ICICLE = ITEMS.register("icicle", () -> new Icicle(Materials.ICICLE, 2, -3.2f, new Item.Properties().rarity(Rarity.UNCOMMON)));
 
-    public static final RegistryObject<Item> FROSTESSENCE = ITEMS.register("frostessence", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> FROSTCORE = ITEMS.register("frostcore", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> GLACIERWALLCHARM = ITEMS.register("glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), Tier.TWO));
-    public static final RegistryObject<Item> FROSTCHARM = ITEMS.register("frost_charm", () -> new FrostCharm(new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), Tier.TWO));
+    public static final RegistryObject<Item> FROSTESSENCE = ITEMS.register("frostessence", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> FROSTCORE = ITEMS.register("frostcore", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> GLACIERWALLCHARM = ITEMS.register("glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().stacksTo(1), Tier.TWO));
+    public static final RegistryObject<Item> FROSTCHARM = ITEMS.register("frost_charm", () -> new FrostCharm(new Item.Properties().stacksTo(1), Tier.TWO));
     public static final RegistryObject<Item> HEALINGBALL = ITEMS.register("healing_ball", () -> new HealingSnowball(Tier.TWO));
-    public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties().tab(Services.PLATFORM.TAB()), Tier.TWO));
-    public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", () -> new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().tab(Services.PLATFORM.TAB()).rarity(Rarity.UNCOMMON).stacksTo(1)));
-    public static final RegistryObject<Item> FROSTEDSNOWGLOBE = ITEMS.register("frosted_snowglobe", () -> new Snowglobe(new Item.Properties().tab(Services.PLATFORM.TAB()), Tier.TWO));
-    public static final RegistryObject<Item> ICESTAFF = ITEMS.register("ice_staff", () -> new IceStaff(Materials.FROSTESSENCE, new Item.Properties().tab(Services.PLATFORM.TAB()).defaultDurability(256), Tier.TWO));
-    public static final RegistryObject<Item> WANDOFTHEFROSTWALKER = ITEMS.register("wand_of_ice_walker", () -> new FrostWalkStaff(Materials.FROSTESSENCE, new Item.Properties().tab(Services.PLATFORM.TAB()).defaultDurability(256), Tier.TWO));
+    public static final RegistryObject<Item> PRESENT = ITEMS.register("present", () -> new Present(new Item.Properties(), Tier.TWO));
+    public static final RegistryObject<Item> ICESWORD = ITEMS.register("ice_sword", () -> new IceSword(Materials.ICE, 0, -2.4f, new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1)));
+    public static final RegistryObject<Item> FROSTEDSNOWGLOBE = ITEMS.register("frosted_snowglobe", () -> new Snowglobe(new Item.Properties(), Tier.TWO));
+    public static final RegistryObject<Item> ICESTAFF = ITEMS.register("ice_staff", () -> new IceStaff(Materials.FROSTESSENCE, new Item.Properties().defaultDurability(256), Tier.TWO));
+    public static final RegistryObject<Item> WANDOFTHEFROSTWALKER = ITEMS.register("wand_of_ice_walker", () -> new FrostWalkStaff(Materials.FROSTESSENCE, new Item.Properties().defaultDurability(256), Tier.TWO));
 
 
-    public static final RegistryObject<Item> ICEESSENCE = ITEMS.register("iceessence", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> ICECORE = ITEMS.register("icecore", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> REINFOCEDGLACIERCHARM = ITEMS.register("reinforced_glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), Tier.THREE));
-    public static final RegistryObject<Item> ARCTICCHARM = ITEMS.register("arctic_wind_charm", () -> new FrostCharm(new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), Tier.THREE));
+    public static final RegistryObject<Item> ICEESSENCE = ITEMS.register("iceessence", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> ICECORE = ITEMS.register("icecore", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> REINFOCEDGLACIERCHARM = ITEMS.register("reinforced_glacier_wall_charm", () -> new FrostWallCharm(new Item.Properties().stacksTo(1), Tier.THREE));
+    public static final RegistryObject<Item> ARCTICCHARM = ITEMS.register("arctic_wind_charm", () -> new FrostCharm(new Item.Properties().stacksTo(1), Tier.THREE));
     public static final RegistryObject<Item> GREATERHEALINGBALL = ITEMS.register("greater_healing_ball", () -> new HealingSnowball(Tier.THREE));
-    public static final RegistryObject<Item> LARGEPRESENT = ITEMS.register("large_present", () -> new Present(new Item.Properties().tab(Services.PLATFORM.TAB()), Tier.THREE));
-    public static final RegistryObject<Item> GLACIERSTAFF = ITEMS.register("glacier_staff", () -> new IceStaff(Materials.ICEESSENCE, new Item.Properties().tab(Services.PLATFORM.TAB()).defaultDurability(256), Tier.THREE));
-    public static final RegistryObject<Item> STAFFOFICEFROSTWALKER = ITEMS.register("staff_of_frost_walker", () -> new FrostWalkStaff(Materials.ICEESSENCE, new Item.Properties().tab(Services.PLATFORM.TAB()).defaultDurability(768), Tier.THREE));
-    public static final RegistryObject<Item> FROZENSNOWGLOBE = ITEMS.register("frozen_snowglobe", () -> new Snowglobe(new Item.Properties().tab(Services.PLATFORM.TAB()), Tier.THREE));
+    public static final RegistryObject<Item> LARGEPRESENT = ITEMS.register("large_present", () -> new Present(new Item.Properties(), Tier.THREE));
+    public static final RegistryObject<Item> GLACIERSTAFF = ITEMS.register("glacier_staff", () -> new IceStaff(Materials.ICEESSENCE, new Item.Properties().defaultDurability(256), Tier.THREE));
+    public static final RegistryObject<Item> STAFFOFICEFROSTWALKER = ITEMS.register("staff_of_frost_walker", () -> new FrostWalkStaff(Materials.ICEESSENCE, new Item.Properties().defaultDurability(768), Tier.THREE));
+    public static final RegistryObject<Item> FROZENSNOWGLOBE = ITEMS.register("frozen_snowglobe", () -> new Snowglobe(new Item.Properties(), Tier.THREE));
 
-    public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), 6980));
-    public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().tab(Services.PLATFORM.TAB()).stacksTo(1), 3840));
+    public static final RegistryObject<Item> NOVEMBERSNOWDISC = ITEMS.register("november_snow", () -> new RecordItem(6, Register.NOVEMBERSNOW, new Item.Properties().stacksTo(1), 6980));
+    public static final RegistryObject<Item> ARCTICBEATDISC = ITEMS.register("arctic_beat", () -> new RecordItem(7, Register.ARCTICBEAT, new Item.Properties().stacksTo(1), 3840));
 
-    public static final RegistryObject<Item> LIGHTNINGTRANSPOSERPIECE = ITEMS.register("transposerpiece", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> LIGHTNINGTRANSPOSER = ITEMS.register("lightningtransposer", () -> new Item(new Item.Properties().tab(Services.PLATFORM.TAB())));
+    public static final RegistryObject<Item> LIGHTNINGTRANSPOSERPIECE = ITEMS.register("transposerpiece", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> LIGHTNINGTRANSPOSER = ITEMS.register("lightningtransposer", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> LIGHTNINGSNOWBALL = ITEMS.register("lightningsnowball", LightningSnowball::new);
 
-    public static final RegistryObject<Item> GUNNERSPAWN = ITEMS.register("gunner_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPGUNNER, 14804727, 0, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> STABBERSPAWN = ITEMS.register("stabber_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPSTABBER, 14804727, 8585216, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> SNOWBALLERSPAWN = ITEMS.register("snowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPSNOWBALLER, 14804727, 25753, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> GIFTERSPAWN = ITEMS.register("gifter_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPGIFTER, 14804727, 26671, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> ZAPPERSPAWN = ITEMS.register("zapper_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPZAPPER, 14804727, 9802549, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> BRAWLERPAWN = ITEMS.register("brawler_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPBRAWLER, 14804727, 6229378, new Item.Properties().tab(Services.PLATFORM.TAB())));
+    public static final RegistryObject<Item> GUNNERSPAWN = ITEMS.register("gunner_spawn_egg", () -> new ForgeSpawnEggItem(Register.COLDSNAPGUNNER, 14804727, 0, new Item.Properties()));
+    public static final RegistryObject<Item> STABBERSPAWN = ITEMS.register("stabber_spawn_egg", () -> new ForgeSpawnEggItem(Register.COLDSNAPSTABBER, 14804727, 8585216, new Item.Properties()));
+    public static final RegistryObject<Item> SNOWBALLERSPAWN = ITEMS.register("snowballer_spawn_egg", () -> new ForgeSpawnEggItem(Register.COLDSNAPSNOWBALLER, 14804727, 25753, new Item.Properties()));
+    public static final RegistryObject<Item> GIFTERSPAWN = ITEMS.register("gifter_spawn_egg", () -> new ForgeSpawnEggItem(Register.COLDSNAPGIFTER, 14804727, 26671, new Item.Properties()));
+    public static final RegistryObject<Item> ZAPPERSPAWN = ITEMS.register("zapper_spawn_egg", () -> new ForgeSpawnEggItem(Register.COLDSNAPZAPPER, 14804727, 9802549, new Item.Properties()));
+    public static final RegistryObject<Item> BRAWLERPAWN = ITEMS.register("brawler_spawn_egg", () -> new ForgeSpawnEggItem(Register.COLDSNAPBRAWLER, 14804727, 6229378, new Item.Properties()));
 
-    public static final RegistryObject<Item> NGUNNERSPAWN = ITEMS.register("ngunner_spawn_egg", () -> new ColdSpawnEggItem(Register.NCOLDSNAPGUNNER, 4926000, 0, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> NSTABBERSPAWN = ITEMS.register("nstabber_spawn_egg", () -> new ColdSpawnEggItem(Register.NCOLDSNAPSTABBER, 4926000, 8585216, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> NSNOWBALLERSPAWN = ITEMS.register("nsnowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.NCOLDSNAPSNOWBALLER, 4926000, 25753, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> NGIFTERSPAWN = ITEMS.register("ngifter_spawn_egg", () -> new ColdSpawnEggItem(Register.NCOLDSNAPGIFTER, 4926000, 26671, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> NZAPPERSPAWN = ITEMS.register("nzapper_spawn_egg", () -> new ColdSpawnEggItem(Register.NCOLDSNAPZAPPER, 4926000, 9802549, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> NBRAWLERPAWN = ITEMS.register("nbrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.NCOLDSNAPBRAWLER, 4926000, 6229378, new Item.Properties().tab(Services.PLATFORM.TAB())));
+    public static final RegistryObject<Item> NGUNNERSPAWN = ITEMS.register("ngunner_spawn_egg", () -> new ForgeSpawnEggItem(Register.NCOLDSNAPGUNNER, 4926000, 0, new Item.Properties()));
+    public static final RegistryObject<Item> NSTABBERSPAWN = ITEMS.register("nstabber_spawn_egg", () -> new ForgeSpawnEggItem(Register.NCOLDSNAPSTABBER, 4926000, 8585216, new Item.Properties()));
+    public static final RegistryObject<Item> NSNOWBALLERSPAWN = ITEMS.register("nsnowballer_spawn_egg", () -> new ForgeSpawnEggItem(Register.NCOLDSNAPSNOWBALLER, 4926000, 25753, new Item.Properties()));
+    public static final RegistryObject<Item> NGIFTERSPAWN = ITEMS.register("ngifter_spawn_egg", () -> new ForgeSpawnEggItem(Register.NCOLDSNAPGIFTER, 4926000, 26671, new Item.Properties()));
+    public static final RegistryObject<Item> NZAPPERSPAWN = ITEMS.register("nzapper_spawn_egg", () -> new ForgeSpawnEggItem(Register.NCOLDSNAPZAPPER, 4926000, 9802549, new Item.Properties()));
+    public static final RegistryObject<Item> NBRAWLERPAWN = ITEMS.register("nbrawler_spawn_egg", () -> new ForgeSpawnEggItem(Register.NCOLDSNAPBRAWLER, 4926000, 6229378, new Item.Properties()));
 
-    public static final RegistryObject<Item> EGUNNERSPAWN = ITEMS.register("egunner_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPGUNNER, 15332272, 0, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> ESTABBERSPAWN = ITEMS.register("estabber_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPSTABBER, 15332272, 8585216, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> ESNOWBALLERSPAWN = ITEMS.register("esnowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPSNOWBALLER, 15332272, 25753, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> EGIFTERSPAWN = ITEMS.register("egifter_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPGIFTER, 15332272, 26671, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> EZAPPERSPAWN = ITEMS.register("ezapper_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPZAPPER, 15332272, 9802549, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> EBRAWLERPAWN = ITEMS.register("ebrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.ECOLDSNAPBRAWLER, 15332272, 6229378, new Item.Properties().tab(Services.PLATFORM.TAB())));
+    public static final RegistryObject<Item> EGUNNERSPAWN = ITEMS.register("egunner_spawn_egg", () -> new ForgeSpawnEggItem(Register.ECOLDSNAPGUNNER, 15332272, 0, new Item.Properties()));
+    public static final RegistryObject<Item> ESTABBERSPAWN = ITEMS.register("estabber_spawn_egg", () -> new ForgeSpawnEggItem(Register.ECOLDSNAPSTABBER, 15332272, 8585216, new Item.Properties()));
+    public static final RegistryObject<Item> ESNOWBALLERSPAWN = ITEMS.register("esnowballer_spawn_egg", () -> new ForgeSpawnEggItem(Register.ECOLDSNAPSNOWBALLER, 15332272, 25753, new Item.Properties()));
+    public static final RegistryObject<Item> EGIFTERSPAWN = ITEMS.register("egifter_spawn_egg", () -> new ForgeSpawnEggItem(Register.ECOLDSNAPGIFTER, 15332272, 26671, new Item.Properties()));
+    public static final RegistryObject<Item> EZAPPERSPAWN = ITEMS.register("ezapper_spawn_egg", () -> new ForgeSpawnEggItem(Register.ECOLDSNAPZAPPER, 15332272, 9802549, new Item.Properties()));
+    public static final RegistryObject<Item> EBRAWLERPAWN = ITEMS.register("ebrawler_spawn_egg", () -> new ForgeSpawnEggItem(Register.ECOLDSNAPBRAWLER, 15332272, 6229378, new Item.Properties()));
 
-    public static final RegistryObject<Item> PGUNNERSPAWN = ITEMS.register("pgunner_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPGUNNER, 7444, 0, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> PSTABBERSPAWN = ITEMS.register("pstabber_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPSTABBER, 7444, 8585216, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> PSNOWBALLERSPAWN = ITEMS.register("psnowballer_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPSNOWBALLER, 7444, 25753, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> PGIFTERSPAWN = ITEMS.register("pgifter_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPGIFTER, 7444, 26671, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> PZAPPERSPAWN = ITEMS.register("pzapper_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPZAPPER, 7444, 9802549, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> PBRAWLERPAWN = ITEMS.register("pbrawler_spawn_egg", () -> new ColdSpawnEggItem(Register.PCOLDSNAPBRAWLER, 7444, 6229378, new Item.Properties().tab(Services.PLATFORM.TAB())));
-    public static final RegistryObject<Item> COWSPAWN = ITEMS.register("frostcow_spawn_egg", () -> new ColdSpawnEggItem(Register.COLDSNAPCOW, 14804727, 1840384, new Item.Properties().tab(Services.PLATFORM.TAB())));
+    public static final RegistryObject<Item> PGUNNERSPAWN = ITEMS.register("pgunner_spawn_egg", () -> new ForgeSpawnEggItem(Register.PCOLDSNAPGUNNER, 7444, 0, new Item.Properties()));
+    public static final RegistryObject<Item> PSTABBERSPAWN = ITEMS.register("pstabber_spawn_egg", () -> new ForgeSpawnEggItem(Register.PCOLDSNAPSTABBER, 7444, 8585216, new Item.Properties()));
+    public static final RegistryObject<Item> PSNOWBALLERSPAWN = ITEMS.register("psnowballer_spawn_egg", () -> new ForgeSpawnEggItem(Register.PCOLDSNAPSNOWBALLER, 7444, 25753, new Item.Properties()));
+    public static final RegistryObject<Item> PGIFTERSPAWN = ITEMS.register("pgifter_spawn_egg", () -> new ForgeSpawnEggItem(Register.PCOLDSNAPGIFTER, 7444, 26671, new Item.Properties()));
+    public static final RegistryObject<Item> PZAPPERSPAWN = ITEMS.register("pzapper_spawn_egg", () -> new ForgeSpawnEggItem(Register.PCOLDSNAPZAPPER, 7444, 9802549, new Item.Properties()));
+    public static final RegistryObject<Item> PBRAWLERPAWN = ITEMS.register("pbrawler_spawn_egg", () -> new ForgeSpawnEggItem(Register.PCOLDSNAPBRAWLER, 7444, 6229378, new Item.Properties()));
+    public static final RegistryObject<Item> COWSPAWN = ITEMS.register("frostcow_spawn_egg", () -> new ForgeSpawnEggItem(Register.COLDSNAPCOW, 14804727, 1840384, new Item.Properties()));
 
     public static final RegistryObject<EntityType<ColdSnapCow>> COLDSNAPCOW = ENTITY_TYPES.register("frostycow", () -> EntityType.Builder.of(ColdSnapCow::new, MobCategory.CREATURE).sized(0.9F, 1.4F).build(new ResourceLocation(Constants.MOD_ID, "frostycow").toString()));
 
@@ -158,17 +160,17 @@ public class Register {
     public static final RegistryObject<EntityType<HealingSnowballEntity>> HEALINGSNOWBALLPROJECTILE = ENTITY_TYPES.register("healingsnowprojectile", () -> EntityType.Builder.<HealingSnowballEntity>of(HealingSnowballEntity::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(Constants.MOD_ID, "healingsnowprojectile").toString()));
     public static final RegistryObject<EntityType<IceProjectile>> ICEPROJECTILE = ENTITY_TYPES.register("iceprojectile", () -> EntityType.Builder.<IceProjectile>of(IceProjectile::new, MobCategory.MISC).sized(0.25f, 0.25f).clientTrackingRange(4).updateInterval(10).build(new ResourceLocation(Constants.MOD_ID, "iceprojectile").toString()));
 
-    public static final RegistryObject<SoundEvent> GIFTERATTACK = SOUND_EVENT.register("gifter_attack", () -> new SoundEvent(new ResourceLocation(Constants.MOD_ID, "gifter_attack")));
-    public static final RegistryObject<SoundEvent> NOVEMBERSNOW = SOUND_EVENT.register("novemember_snow", () -> new SoundEvent(new ResourceLocation(Constants.MOD_ID, "november_snow")));
-    public static final RegistryObject<SoundEvent> ARCTICBEAT = SOUND_EVENT.register("arctic_beat", () -> new SoundEvent(new ResourceLocation(Constants.MOD_ID, "arctic_beat")));
+    public static final RegistryObject<SoundEvent> GIFTERATTACK = SOUND_EVENT.register("gifter_attack", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Constants.MOD_ID, "gifter_attack")));
+    public static final RegistryObject<SoundEvent> NOVEMBERSNOW = SOUND_EVENT.register("novemember_snow", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Constants.MOD_ID, "november_snow")));
+    public static final RegistryObject<SoundEvent> ARCTICBEAT = SOUND_EVENT.register("arctic_beat", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Constants.MOD_ID, "arctic_beat")));
 
     public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
     public static final RegistryObject<Block> SLUSH = BLOCKS.register("slush", () -> new SlushBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(0).sound(SoundType.SNOW)));
 
-    public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new LoredBlockItem(REDCANDYCANE.get(), new Item.Properties().tab(Services.PLATFORM.TAB()), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
-    public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new LoredBlockItem(GREENCANDYCANE.get(), new Item.Properties().tab(Services.PLATFORM.TAB()), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
-    public static final RegistryObject<BlockItem> SLUSHITEM = ITEMS.register("slush", ()-> new BlockItem(SLUSH.get(), new Item.Properties().tab(Services.PLATFORM.TAB())));
+    public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new LoredBlockItem(REDCANDYCANE.get(), new Item.Properties(), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
+    public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new LoredBlockItem(GREENCANDYCANE.get(), new Item.Properties(), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
+    public static final RegistryObject<BlockItem> SLUSHITEM = ITEMS.register("slush", ()-> new BlockItem(SLUSH.get(), new Item.Properties()));
 
     public static ResourceLocation location(String name)
     {

@@ -1,14 +1,14 @@
 package com.villain.coldsnaphorde.events;
 
-import com.villain.cartoonishhorde.EntityHordeData;
-import com.villain.cartoonishhorde.Horde;
+import com.villain.cartoonishhorde.RuleEnumInterface;
+import com.villain.cartoonishhorde.hordedata.EnumHordeData;
+import com.villain.cartoonishhorde.hordes.EntityEnumHorde;
 import com.villain.coldsnaphorde.*;
 import com.villain.coldsnaphorde.entities.mobs.basemob.*;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.PlagueHorde;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -18,14 +18,12 @@ import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 
-import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Random;
 
 import static com.villain.coldsnaphorde.CommonColdSnapHorde.giveAdvancement;
 import static com.villain.coldsnaphorde.ForgeColdSnapHorde.hordeDataManager;
 
-public class HordeEventTier2 extends Horde {
+public class HordeEventTier2 extends EntityEnumHorde {
     public HordeEventTier2 (MinecraftServer server) {
         super(server);
     }
@@ -155,94 +153,67 @@ public class HordeEventTier2 extends Horde {
     }
 
     @Override
-    protected void spawnHordeMember() {
-        ArrayList<Integer> SpawnWeights = new ArrayList<>();
-        SpawnWeights.add(20);
-        SpawnWeights.add(20);
-        SpawnWeights.add(20);
-        SpawnWeights.add(10);
-        SpawnWeights.add(10);
-        SpawnWeights.add(10);
-        int combined = 0;
-        for (Integer weight : SpawnWeights) combined += weight;
-        Random random = new Random();
-        int rng = random.nextInt(combined);
-        int selected = -1;
-        int counter = 0;
-        for (Integer weights : SpawnWeights) {
-            if ((rng - weights) <= 0) {
-                selected = counter;
-                break;
-            } else counter++;
-            rng -= weights;
-        }
-
-        switch (selected) {
-            case 0 -> {
+    protected void spawnBasedOnEnum(RuleEnumInterface ruleEnumInterface, EnumHordeData enumHordeData) {
+        if (ruleEnumInterface instanceof HordeEnum)
+            if (ruleEnumInterface.equals(HordeEnum.COLDSNAPGUNNER)) {
                 ColdSnapGunner coldSnapGunner = new StandardHorde.StandardGunner(Register.COLDSNAPGUNNER.get(), world);
                 BlockPos pos = hordeSpawnAttempter(coldSnapGunner.getType());
                 if (pos == null) return;
                 coldSnapGunner = gunnerSpawnRules(world, pos);
                 coldSnapGunner.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapGunner, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                injectGoal(coldSnapGunner, enumHordeData, enumHordeData.getGoalMovementSpeed());
                 world.addFreshEntity(coldSnapGunner);
                 activeHordeMembers.add(coldSnapGunner);
-            }
-            case 1 -> {
+            } else if (ruleEnumInterface.equals(HordeEnum.COLDSNAPSTABBER)) {
                 ColdSnapStabber coldSnapStabber = new StandardHorde.StandardStabber(Register.COLDSNAPSTABBER.get(), world);
                 BlockPos pos = hordeSpawnAttempter(coldSnapStabber.getType());
                 if (pos == null) return;
                 coldSnapStabber = stabberSpawnRules(world, pos);
                 coldSnapStabber.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapStabber, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                injectGoal(coldSnapStabber, enumHordeData, enumHordeData.getGoalMovementSpeed());
                 world.addFreshEntity(coldSnapStabber);
                 activeHordeMembers.add(coldSnapStabber);
-            }
-            case 2 -> {
+            } else if (ruleEnumInterface.equals(HordeEnum.COLDSNAPSNOWBALLER)) {
                 ColdSnapSnowballer coldSnapSnowballer = new StandardHorde.StandardSnowballer(Register.COLDSNAPSNOWBALLER.get(), world);
                 BlockPos pos = hordeSpawnAttempter(coldSnapSnowballer.getType());
                 if (pos == null) return;
                 coldSnapSnowballer = snowballerSpawnRules(world, pos);
                 coldSnapSnowballer.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapSnowballer, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                injectGoal(coldSnapSnowballer, enumHordeData, enumHordeData.getGoalMovementSpeed());
                 world.addFreshEntity(coldSnapSnowballer);
                 activeHordeMembers.add(coldSnapSnowballer);
-            }
-            case 3 -> {
+            } else if (ruleEnumInterface.equals(HordeEnum.COLDSNAPGIFTER)) {
                 ColdSnapGifter coldSnapGifter = new StandardHorde.StandardGifter(Register.COLDSNAPGIFTER.get(), world);
                 BlockPos pos = hordeSpawnAttempter(coldSnapGifter.getType());
                 if (pos == null) return;
                 coldSnapGifter = gifterSpawnRules(world, pos);
                 coldSnapGifter.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapGifter, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                injectGoal(coldSnapGifter, enumHordeData, enumHordeData.getGoalMovementSpeed());
                 world.addFreshEntity(coldSnapGifter);
                 activeHordeMembers.add(coldSnapGifter);
-            }
-            case 4 -> {
+            } else if (ruleEnumInterface.equals(HordeEnum.COLDSNAPZAPPER)) {
                 ColdSnapZapper coldSnapZapper = new StandardHorde.StandardZapper(Register.COLDSNAPSNOWBALLER.get(), world);
                 BlockPos pos = hordeSpawnAttempter(coldSnapZapper.getType());
                 if (pos == null) return;
                 coldSnapZapper = zapperSpawnRules(world, pos);
                 coldSnapZapper.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapZapper, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                injectGoal(coldSnapZapper, enumHordeData, enumHordeData.getGoalMovementSpeed());
                 world.addFreshEntity(coldSnapZapper);
                 activeHordeMembers.add(coldSnapZapper);
-            }
-            case 5 -> {
+            } else if (ruleEnumInterface.equals(HordeEnum.COLDSNAPBRAWLER)) {
                 ColdSnapBrawler coldSnapBrawler = new StandardHorde.StandardBrawler(Register.COLDSNAPSNOWBALLER.get(), world);
                 BlockPos pos = hordeSpawnAttempter(coldSnapBrawler.getType());
                 if (pos == null) return;
                 coldSnapBrawler = brawlerSpawnRules(world, pos);
                 coldSnapBrawler.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
-                injectGoal(coldSnapBrawler, ForgeColdSnapHorde.defaultHordeData, ForgeColdSnapHorde.defaultHordeData.getGoalMovementSpeed());
+                injectGoal(coldSnapBrawler, enumHordeData, enumHordeData.getGoalMovementSpeed());
                 world.addFreshEntity(coldSnapBrawler);
                 activeHordeMembers.add(coldSnapBrawler);
             }
-        }
     }
 
     @Override
-    public void injectGoal(PathfinderMob entity, EntityHordeData entityHordeData, double movementSpeedModifier) {
+    public void injectGoal(PathfinderMob entity, EnumHordeData entityHordeData, double movementSpeedModifier) {
         super.injectGoal(entity, entityHordeData, movementSpeedModifier);
         if(entity instanceof GenericHordeMember) {((GenericHordeMember) entity).setHordeStatus(true);}
     }

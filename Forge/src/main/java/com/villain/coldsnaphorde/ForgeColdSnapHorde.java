@@ -2,7 +2,8 @@ package com.villain.coldsnaphorde;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.villain.cartoonishhorde.EntityHordeData;
+import com.villain.cartoonishhorde.hordedata.EntityTypeHordeData;
+import com.villain.cartoonishhorde.hordedata.EnumHordeData;
 import com.villain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.villain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.villain.coldsnaphorde.configs.CConfiguration;
@@ -10,7 +11,7 @@ import com.villain.coldsnaphorde.configs.ClientConfig;
 import com.villain.coldsnaphorde.configs.ConfigHelper;
 import com.villain.coldsnaphorde.configs.SConfiguration;
 import com.villain.coldsnaphorde.entities.Spawns;
-import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapGunner;
+import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
 import com.villain.coldsnaphorde.events.HordeEventTier1;
 import com.villain.coldsnaphorde.events.HordeEventTier2;
 import com.villain.coldsnaphorde.events.HordeEventTier3;
@@ -45,7 +46,7 @@ public class ForgeColdSnapHorde {
     public static HordeEventTier1 hordeTier1;
     public static HordeEventTier2 hordeTier2;
     public static HordeEventTier3 hordeTier3;
-    public static EntityHordeData defaultHordeData;
+
     public static HordeDataManager hordeDataManager = null;
 
     static DeferredRegister<Codec<? extends BiomeModifier>> serializers = DeferredRegister
@@ -73,14 +74,34 @@ public class ForgeColdSnapHorde {
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-        defaultHordeData = new EntityHordeData(3, 0.5D, 1, Register.COLDSNAPGUNNER.get(), ColdSnapGunner.class);
         hordeTier1 = new HordeEventTier1(event.getServer());
+        hordeTier1.setHordeData(
+                new EntityTypeHordeData<>(3, 0.35d, 1, Register.COLDSNAPGUNNER.get(), StandardHorde.StandardGunner.class),
+                new EntityTypeHordeData<>(3, 0.35d, 1, Register.COLDSNAPSTABBER.get(), StandardHorde.StandardStabber.class),
+                new EntityTypeHordeData<>(3, 0.35d, 1, Register.COLDSNAPSNOWBALLER.get(), StandardHorde.StandardSnowballer.class)
+        );
         hordeTier2 = new HordeEventTier2(event.getServer());
+        hordeTier2.setHordeData(
+                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPGUNNER),
+                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPSTABBER),
+                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPSNOWBALLER),
+                new EnumHordeData<>(3, 0.35d, 7, HordeEnum.COLDSNAPGIFTER),
+                new EnumHordeData<>(3, 0.35d, 7, HordeEnum.COLDSNAPZAPPER),
+                new EnumHordeData<>(3, 0.35d, 7, HordeEnum.COLDSNAPBRAWLER)
+        );
+
         hordeTier3 = new HordeEventTier3(event.getServer());
+        hordeTier3.setHordeData(
+                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPGUNNER),
+                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPSTABBER),
+                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPSNOWBALLER),
+                new EnumHordeData<>(3, 0.35d, 10, HordeEnum.COLDSNAPGIFTER),
+                new EnumHordeData<>(3, 0.35d, 10, HordeEnum.COLDSNAPZAPPER),
+                new EnumHordeData<>(3, 0.35d, 10, HordeEnum.COLDSNAPBRAWLER)
+        );
 
         hordeDataManager = HordeDataManager.getInstance();
 
         hordeDataManager.setupHighestLevelBeaten(event.getServer());
     }
-
 }

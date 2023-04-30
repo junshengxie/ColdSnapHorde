@@ -258,7 +258,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
             int j = Mth.floor(this.getY());
             int k = Mth.floor(this.getZ());
             if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), ForgeColdSnapHorde.cconfig.HEATPROT.get())) {
-                this.hurt(DamageSource.ON_FIRE, 1.0F);
+                this.hurt(this.damageSources().onFire(), 1.0F);
             }
 
             if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {

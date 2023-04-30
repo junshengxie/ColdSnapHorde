@@ -13,8 +13,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class TopHat extends ArmorItem  {
-    public TopHat(ArmorMaterials materialIn, EquipmentSlot slot, Properties builder) {
-        super(materialIn, slot, builder.tab(Services.PLATFORM.TAB()));
+    public TopHat(ArmorMaterials materialIn, ArmorItem.Type slot, Properties builder) {
+        super(materialIn, slot, builder);
     }
 
 

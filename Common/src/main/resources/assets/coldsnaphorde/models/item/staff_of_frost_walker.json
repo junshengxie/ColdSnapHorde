@@ -1,6 +1,18 @@
 {
-  "parent": "item/handheld",
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
   "textures": {
-   "layer0": "coldsnaphorde:item/staff_of_frost_walker"
- }
+    "layer0": "coldsnaphorde:item/staff_of_frost_walker"
+  },
+  "base": {
+    "parent": "coldsnaphorde:item/staff_of_frost_walker_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "coldsnaphorde:item/staff_of_frost_walker_gui"
+    },
+    "fixed": {
+      "parent": "coldsnaphorde:item/staff_of_frost_walker_gui"
+    }
+  }
 }

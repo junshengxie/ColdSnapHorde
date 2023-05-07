@@ -1,6 +1,0 @@
-{
-  "parent": "item/handheld",
-  "textures": {
-   "layer0": "coldsnaphorde:item/wand_of_frost_walker"
- }
-}

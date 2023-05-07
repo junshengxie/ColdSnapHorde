@@ -1,11 +1,17 @@
 package com.villain.coldsnaphorde.entities.mobs.basemob;
 
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.SnowGolem;
@@ -18,8 +24,14 @@ import javax.annotation.Nullable;
 
 import static com.villain.coldsnaphorde.ForgeColdSnapHorde.TOPHATS;
 
-public class ColdSnapBrawler extends GenericHordeMember{
-    public ColdSnapBrawler(EntityType<? extends Monster> type, Level worldIn) { super(type, worldIn);}
+public class ColdSnapBrawler extends GenericHordeMember {
+    public ColdSnapBrawler(EntityType<? extends Monster> type, Level worldIn) {
+        super(type, worldIn);
+    }
+
+    private static final EntityDataAccessor<Float> ANITIMER = SynchedEntityData.defineId(ColdSnapBrawler.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> ARMTOGGLE = SynchedEntityData.defineId(ColdSnapBrawler.class, EntityDataSerializers.BOOLEAN);
+
 
     @Override
     protected void registerGoals() {
@@ -34,6 +46,13 @@ public class ColdSnapBrawler extends GenericHordeMember{
         this.targetSelector.addGoal(6, new NearestAttackableTargetGoal<>(this, IronGolem.class, 10, true, false, this::shouldAttack));
     }
 
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        getEntityData().define(ANITIMER, 10f);
+        getEntityData().define(ARMTOGGLE, false);
+    }
+
     public static AttributeSupplier.Builder customAttributes() {
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
@@ -44,31 +63,54 @@ public class ColdSnapBrawler extends GenericHordeMember{
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
-        switch(this.getHordeVariant()){
+        switch (this.getHordeVariant()) {
             case 0 -> {
 
             }
             case 1 -> {
                 int chance2 = random.nextInt(100);
                 if (chance2 <= 10) {
-                    ((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*5, 1));
+                    ((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 5, 1));
                 }
 
             }
             case 2 -> {
                 int chance2 = random.nextInt(20);
-                if(chance2 <= 1) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
-                else if(chance2 <= 3) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+                if (chance2 <= 1)
+                    ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5 + 5) - 5, entityIn.getY() + random.nextInt(5 + 5) - 5, entityIn.getZ() + random.nextInt(5 + 5) - 5, true);
+                else if (chance2 <= 3)
+                    this.randomTeleport(this.getX() + random.nextInt(5 + 5) - 5, this.getY() + random.nextInt(5 + 5) - 5, this.getZ() + random.nextInt(5 + 5) - 5, true);
             }
             case 3 -> {
                 Infection((LivingEntity) entityIn);
             }
         }
+
+        if(getANITIMER() >= 10) {
+            this.getEntityData().set(ARMTOGGLE, this.random.nextBoolean());
+            this.getEntityData().set(ANITIMER, 0f);
+        }
         return super.doHurtTarget(entityIn);
     }
 
-    public boolean shouldAttack(@Nullable LivingEntity entity){
+    public Float getANITIMER() {
+        return getEntityData().get(ANITIMER);
+    }
+
+    public Boolean getARMTOGGLE() {
+        return getEntityData().get(ARMTOGGLE);
+    }
+
+    public boolean shouldAttack(@Nullable LivingEntity entity) {
         return entity != null && (!TOPHATS.contains(entity.getItemBySlot(EquipmentSlot.HEAD).getItem()) || getHordeMember());
     }
 
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (!this.level.isClientSide()) {
+            float timer = getEntityData().get(ANITIMER);
+            if (timer < 11) this.getEntityData().set(ANITIMER, timer += 1f);
+        }
+    }
 }

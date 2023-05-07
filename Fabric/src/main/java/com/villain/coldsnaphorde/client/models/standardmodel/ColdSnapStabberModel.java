@@ -1,4 +1,5 @@
-package com.villain.coldsnaphorde.client.models.standardmodel;// Made with Blockbench 4.0.0-beta.0
+package com.villain.coldsnaphorde.client.models.standardmodel;
+// Made with Blockbench 4.0.0-beta.0
 // Exported for Minecraft version 1.17 with Mojang mappings
 // Paste this class into your mod and generate all required imports
 

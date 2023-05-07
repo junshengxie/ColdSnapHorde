@@ -19,10 +19,6 @@ public class RenderColdSnapBrawler extends MobRenderer<ColdSnapBrawler, ColdSnap
         super(p_174304_, new ColdSnapBrawlerModel<>(p_174304_.bakeLayer(COLDSNAPBRAWLER)), 0.5f);
     }
 
-//    public RenderNetherColdSnapBrawler(EntityRenderDispatcher renderManagerIn) {
-//        super(renderManagerIn, new ColdSnapBrawlerModel<>(), 0.5F);
-//    }
-
     @Override
     public ResourceLocation getTextureLocation(ColdSnapBrawler entity) {
         if (entity.getHordeVariant() == 0)

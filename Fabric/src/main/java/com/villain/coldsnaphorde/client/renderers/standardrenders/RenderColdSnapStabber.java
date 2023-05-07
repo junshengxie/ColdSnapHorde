@@ -19,10 +19,6 @@ public class RenderColdSnapStabber extends MobRenderer<ColdSnapStabber, ColdSnap
         super(p_174304_, new ColdSnapStabberModel<>(p_174304_.bakeLayer(COLDSNAPSTABBER)), 0.5f);
     }
 
-//    public RenderNetherColdSnapBrawler(EntityRenderDispatcher renderManagerIn) {
-//        super(renderManagerIn, new ColdSnapBrawlerModel<>(), 0.5F);
-//    }
-
     @Override
     public ResourceLocation getTextureLocation(ColdSnapStabber entity) {
         if (entity.getHordeVariant() == 0) {return TEXTURE;}

@@ -6,6 +6,7 @@ package com.villain.coldsnaphorde.client.models.nethermodel;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapBrawler;
 import com.villain.coldsnaphorde.entities.mobs.basemob.GenericHordeMember;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
@@ -19,10 +20,14 @@ public class NetherColdSnapBrawlerModel<T extends GenericHordeMember> extends En
     public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "nethercoldsnapbrawlermodel"), "main");
     private final ModelPart lowbody;
     private final ModelPart bone;
+    private final ModelPart left_hand;
+    private final ModelPart right_hand;
 
     public NetherColdSnapBrawlerModel(ModelPart root) {
         this.lowbody = root.getChild("lowbody");
         this.bone = root.getChild("bone");
+        this.left_hand = bone.getChild("nether_left_hand");
+        this.right_hand = bone.getChild("nether_right_hand");
     }
 
     public static LayerDefinition createBodyLayer() {
@@ -37,14 +42,14 @@ public class NetherColdSnapBrawlerModel<T extends GenericHordeMember> extends En
 
         PartDefinition body = bone.addOrReplaceChild("body", CubeListBuilder.create().texOffs(0, 16).addBox(-5.0F, -10.0F, -5.0F, 10.0F, 10.0F, 10.0F, new CubeDeformation(-0.5F)), PartPose.offset(0.0F, 0.5F, 0.0F));
 
-        PartDefinition left_hand = bone.addOrReplaceChild("left_hand", CubeListBuilder.create().texOffs(32, 0).addBox(-0.5F, -0.5F, -1.0F, 12.0F, 2.0F, 2.0F, new CubeDeformation(-0.5F)), PartPose.offsetAndRotation(4.5F, -6.7F, 0.0F, -0.8198F, 0.9435F, -0.3915F));
+        PartDefinition left_hand = bone.addOrReplaceChild("nether_left_hand", CubeListBuilder.create().texOffs(32, 0).addBox(-0.5F, -0.5F, -1.0F, 12.0F, 2.0F, 2.0F, new CubeDeformation(-0.5F)), PartPose.offsetAndRotation(4.5F, -6.7F, 0.0F, -0.8198F, 0.9435F, -0.3915F));
 
         PartDefinition lglove = left_hand.addOrReplaceChild("lglove", CubeListBuilder.create().texOffs(48, 48).addBox(-0.5F, -1.3954F, -1.8046F, 5.0F, 3.0F, 4.0F, new CubeDeformation(-0.5F))
                 .texOffs(48, 55).addBox(-1.3F, -1.3954F, -1.8046F, 5.0F, 3.0F, 4.0F, new CubeDeformation(-0.6F)), PartPose.offsetAndRotation(7.2F, 0.857F, -0.075F, 2.5703F, 0.4259F, 0.5713F));
 
         PartDefinition cube_r1 = lglove.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 0).addBox(-0.5F, -0.5F, -1.8F, 2.0F, 1.0F, 2.0F, new CubeDeformation(-0.2F)), PartPose.offsetAndRotation(0.8F, 0.1046F, 1.6954F, 0.1719F, -0.7703F, -0.2444F));
 
-        PartDefinition right_hand = bone.addOrReplaceChild("right_hand", CubeListBuilder.create().texOffs(32, 0).mirror().addBox(-11.5F, -0.5F, -1.0F, 12.0F, 2.0F, 2.0F, new CubeDeformation(-0.5F)).mirror(false), PartPose.offsetAndRotation(-3.0F, -7.3F, 1.3F, -0.4799F, -0.8743F, -0.0509F));
+        PartDefinition right_hand = bone.addOrReplaceChild("nether_right_hand", CubeListBuilder.create().texOffs(32, 0).mirror().addBox(-11.5F, -0.5F, -1.0F, 12.0F, 2.0F, 2.0F, new CubeDeformation(-0.5F)).mirror(false), PartPose.offsetAndRotation(-3.0F, -7.3F, 1.3F, -0.4799F, -0.8743F, -0.0509F));
 
         PartDefinition lglove2 = right_hand.addOrReplaceChild("lglove2", CubeListBuilder.create().texOffs(48, 48).mirror().addBox(-4.5F, -1.3954F, -1.8046F, 5.0F, 3.0F, 4.0F, new CubeDeformation(-0.5F)).mirror(false)
                 .texOffs(48, 55).mirror().addBox(-3.7F, -1.3954F, -1.8046F, 5.0F, 3.0F, 4.0F, new CubeDeformation(-0.6F)).mirror(false), PartPose.offsetAndRotation(-7.2F, 0.857F, -0.075F, 2.5394F, -0.3776F, -0.4923F));
@@ -63,6 +68,39 @@ public class NetherColdSnapBrawlerModel<T extends GenericHordeMember> extends En
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
+        if (entity instanceof ColdSnapBrawler) {
+            float animvalue = ((ColdSnapBrawler) entity).getANITIMER();
+            float valuedown;
+            float valueup;
+            ModelPart arm;
+            if (((ColdSnapBrawler) entity).getARMTOGGLE()) {
+                arm = this.right_hand;
+                if(animvalue >= 10) {
+                    arm.setPos(-3.0F, -7.3F, 1.3F);
+                } else if (animvalue < 6) {
+                    valuedown = animvalue * 0.5f;
+                    arm.setPos(-3.0F, -7.3F, 1.3F+valuedown);
+                } else {
+                    valuedown = -1f;
+                    valueup = (animvalue-5) * -0.5f;
+                    float valuetotal = valuedown + valueup;
+                    arm.setPos(-3.0F, -7.3F, 1.3F+valuetotal);
+                }
+            } else {
+                arm = this.left_hand;
+                if(animvalue >= 10) {
+                    arm.setPos(4.5F, -6.7F, 0.0F);
+                } else if (animvalue < 6) {
+                    valuedown = animvalue * 0.5f;
+                    arm.setPos(4.5F, -6.7F, 0.0F+valuedown);
+                } else {
+                    valuedown = -1f;
+                    valueup = (animvalue-5) * -0.5f;
+                    float valuetotal = valuedown + valueup;
+                    arm.setPos(4.5F, -6.7F, 0.0F+valuetotal);
+                }
+            }
+        }
     }
 
     @Override

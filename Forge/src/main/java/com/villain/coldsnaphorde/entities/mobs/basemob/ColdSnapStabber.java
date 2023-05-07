@@ -97,6 +97,7 @@ public class ColdSnapStabber extends GenericHordeMember {
         return getEntityData().get(ANITIMER);
     }
 
+    @Override
     public void aiStep() {
         super.aiStep();
         if (!this.level.isClientSide()) {

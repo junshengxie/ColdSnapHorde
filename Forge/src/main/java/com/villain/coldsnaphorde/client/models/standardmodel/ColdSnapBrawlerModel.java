@@ -5,6 +5,8 @@ package com.villain.coldsnaphorde.client.models.standardmodel;// Made with Block
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapBrawler;
+import com.villain.coldsnaphorde.entities.mobs.basemob.ColdSnapStabber;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -64,6 +66,40 @@ public class ColdSnapBrawlerModel<T extends LivingEntity> extends EntityModel<T>
         this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = headPitch * ((float)Math.PI / 180F);
         this.body.yRot = netHeadYaw * ((float)Math.PI / 180F) * 0.25F;
+
+        if (entity instanceof ColdSnapBrawler) {
+            float animvalue = ((ColdSnapBrawler) entity).getANITIMER();
+            float valuedown;
+            float valueup;
+            ModelPart arm;
+            if (((ColdSnapBrawler) entity).getARMTOGGLE()) {
+                arm = this.right_hand;
+                if(animvalue >= 10) {
+                    arm.setPos(-4.5F, 5.8F, 0.0F);
+                } else if (animvalue < 6) {
+                    valuedown = animvalue * 0.5f;
+                    arm.setPos(-4.5F, 5.8F, 0.0F+valuedown);
+                } else {
+                    valuedown = -1f;
+                    valueup = (animvalue-5) * -0.5f;
+                    float valuetotal = valuedown + valueup;
+                    arm.setPos(-4.5F, 5.8F, 0.0F+valuetotal);
+                }
+            } else {
+                arm = this.left_hand;
+                if(animvalue >= 10) {
+                    arm.setPos(4.5F, 5.8F, 0.0F);
+                } else if (animvalue < 6) {
+                    valuedown = animvalue * 0.5f;
+                    arm.setPos(4.5F, 5.8F, 0.0F+valuedown);
+                } else {
+                    valuedown = -1f;
+                    valueup = (animvalue-5) * -0.5f;
+                    float valuetotal = valuedown + valueup;
+                    arm.setPos(4.5F, 5.8F, 0.0F+valuetotal);
+                }
+            }
+        }
     }
 
     @Override

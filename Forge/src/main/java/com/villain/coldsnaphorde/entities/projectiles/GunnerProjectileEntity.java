@@ -57,24 +57,24 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
         Entity entity = p_213868_1_.getEntity();
         int i = 1 + level.getDifficulty().getId();
         entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float)i);
-        int chance = random.nextInt(20);
+        int chance = random.nextInt(30);
         if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
                 case 0 -> {
-                    if(chance <= 3)  {((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
+                    if(chance <= 1)  {((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
                 }
                 case 1 -> {
                     int chance2 = random.nextInt(100);
-                    if (chance2 <= 75) {
+                    if (chance2 <= 10) {
                         ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*5, 1));
                     }
 
                 }
                 case 2 -> {
                     int chance2 = random.nextInt(20);
-                    if(chance2 <= 2) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
-                    else if(chance2 <=4) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+                    if(chance2 <= 1) ((LivingEntity) entity).randomTeleport(entity.getX() + random.nextInt(5+5)-5,entity.getY() + random.nextInt(5+5)-5,entity.getZ() + random.nextInt(5+5)-5, true);
+                    else if(chance2 <=3) member.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 }
                 case 3 -> {
                     Infection((LivingEntity) entity);

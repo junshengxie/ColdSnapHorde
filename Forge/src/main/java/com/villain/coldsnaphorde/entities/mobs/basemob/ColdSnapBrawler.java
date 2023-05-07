@@ -50,15 +50,15 @@ public class ColdSnapBrawler extends GenericHordeMember{
             }
             case 1 -> {
                 int chance2 = random.nextInt(100);
-                if (chance2 <= 75) {
+                if (chance2 <= 10) {
                     ((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*5, 1));
                 }
 
             }
             case 2 -> {
                 int chance2 = random.nextInt(20);
-                if(chance2 <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
-                else if(chance2 <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+                if(chance2 <= 1) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
+                else if(chance2 <= 3) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
             }
             case 3 -> {
                 Infection((LivingEntity) entityIn);

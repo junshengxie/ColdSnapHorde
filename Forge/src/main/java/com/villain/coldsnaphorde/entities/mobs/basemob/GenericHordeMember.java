@@ -37,6 +37,8 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     private BlockPos target = null;
     private Boolean HordeMember = false;
     public static final EntityDataAccessor<Integer> variant = SynchedEntityData.defineId(GenericHordeMember.class, EntityDataSerializers.INT);
+    public static final EntityDataAccessor<Boolean> wasHordeMember = SynchedEntityData.defineId(GenericHordeMember.class, EntityDataSerializers.BOOLEAN);
+
 
     @Override
     protected void registerGoals() {
@@ -65,18 +67,21 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     public void addAdditionalSaveData(CompoundTag p_21484_) {
         super.addAdditionalSaveData(p_21484_);
         p_21484_.putInt("variant", this.getHordeVariant());
+        p_21484_.putBoolean("hordemember", this.wasHordeMember());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag p_21450_) {
         super.readAdditionalSaveData(p_21450_);
         this.setHordeVariant(p_21450_.getInt("variant"));
+        this.setHordeMember(p_21450_.getBoolean("hordemember"));
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         getEntityData().define(variant, -1);
+        getEntityData().define(wasHordeMember, false);
     }
 
     @Override
@@ -91,6 +96,10 @@ public class GenericHordeMember extends Monster implements SnowCreature {
             {setHordeVariant(2);}
             else if(check.contains("pcoldsnap") && variantcheck != 3)
             {setHordeVariant(3);}
+        }
+
+        if (CommonCartoonishHorde.isHordeMember(this)) {
+            this.setHordeMember(true);
         }
 
         if (ForgeColdSnapHorde.TOPHATS.isEmpty()) {
@@ -210,6 +219,14 @@ public class GenericHordeMember extends Monster implements SnowCreature {
         return variant;
     }
 
+    public boolean wasHordeMember() {
+        return this.getEntityData().get(GenericHordeMember.wasHordeMember);
+    }
+
+    public void setHordeMember(boolean memberStatus) {
+        this.getEntityData().set(wasHordeMember, memberStatus);
+    }
+
     @Override
     public boolean isSensitiveToWater() {
         int hordeVariant = this.getEntityData().get(variant);
@@ -299,7 +316,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
 
 
     public boolean shouldOverHeat(float currentTemp, int protectionlevel){
-        if(this.getEntityData().get(variant) == 0) {
+        if(this.getEntityData().get(variant) == 0 && !getHordeMember()) {
             return switch (protectionlevel) {
                 case 0 -> currentTemp > 0.3f;
                 case 1 -> currentTemp > 0.9f;
@@ -313,42 +330,45 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     public static void Infection(LivingEntity entity){
         if(CommonColdSnapHorde.isCalyxLoaded && ForgeColdSnapHorde.sconfig.PLAGUEIMMORTUOSCOMPAT.get()){
             entity.getCapability(InfectionManagerCapability.INSTANCE).ifPresent(h->{
-                if(entity.getRandom().nextInt(10) >= 4){
+                if(entity.getRandom().nextInt(30) >= 4){
                     if(h.getInfectionProgress() < 0) h.setInfectionProgress(1);
                 }
             });
         }else{
             entity.getCapability(ForgeColdSnapHorde.PLAYERCAPABILITYINSTANCE).ifPresent(h->{
                 if(h.getCooldownTicks() <= 0) {
-                    int chance = entity.getRandom().nextInt(10);
-                    switch (chance) {
-                        default -> {
-                        }
-                        case 3 -> {
-                            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 20, 0));
-                            h.setCooldownTicks(20*60);
-                        }
-                        case 4 -> {
-                            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 20, 0));
-                            entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 20, 0));
-                            h.setCooldownTicks(20*60);
-                        }
-                        case 5 -> {
-                            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 40, 0));
-                            entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 40, 0));
-                            h.setCooldownTicks(20*60);
-                        }
-                        case 6 -> {
-                            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 30, 0));
-                            entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 30, 0));
-                            entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20 * 10, 0));
-                            h.setCooldownTicks(20*60);
-                        }
-                        case 7 -> {
-                            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 25, 1));
-                            entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 25, 1));
-                            entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20 * 20, 0));
-                            h.setCooldownTicks(20*60);
+                    int chanceToDebuff = entity.getRandom().nextInt(30);
+                    if (chanceToDebuff <= 2) {
+                        int chance = entity.getRandom().nextInt(10);
+                        switch (chance) {
+                            default -> {
+                            }
+                            case 3 -> {
+                                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 20, 0));
+                                h.setCooldownTicks(20 * 60);
+                            }
+                            case 4 -> {
+                                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 20, 0));
+                                entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 20, 0));
+                                h.setCooldownTicks(20 * 60);
+                            }
+                            case 5 -> {
+                                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 40, 0));
+                                entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 40, 0));
+                                h.setCooldownTicks(20 * 60);
+                            }
+                            case 6 -> {
+                                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 30, 0));
+                                entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 30, 0));
+                                entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20 * 10, 0));
+                                h.setCooldownTicks(20 * 60);
+                            }
+                            case 7 -> {
+                                entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20 * 25, 1));
+                                entity.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 20 * 25, 1));
+                                entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 20 * 20, 0));
+                                h.setCooldownTicks(20 * 60);
+                            }
                         }
                     }
                 }

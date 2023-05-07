@@ -67,29 +67,27 @@ public class ColdSnapStabber extends GenericHordeMember {
         if (entityIn instanceof LivingEntity && !this.level.isClientSide()) {
             switch(this.getHordeVariant()){
                 case 0 -> {
-                    int chance = random.nextInt(100);
-                    if (chance <= 6){((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.CONFUSION, 10*20, 0));}
-
+                    int chance = random.nextInt(30);
+                    if (chance <= 2){((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.CONFUSION, 10*20, 0));}
                 }
                 case 1 -> {
                     int chance2 = random.nextInt(100);
-                    if (chance2 <= 75) {
+                    if (chance2 <= 10) {
                         ((LivingEntity) entityIn).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 20*5, 1));
                     }
 
                 }
                 case 2 -> {
                     int chance = random.nextInt(20);
-                    if(chance <= 2) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
-                    else if(chance <=4) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
+                    if(chance <= 1) ((LivingEntity) entityIn).randomTeleport(entityIn.getX() + random.nextInt(5+5)-5,entityIn.getY() + random.nextInt(5+5)-5,entityIn.getZ() + random.nextInt(5+5)-5, true);
+                    else if(chance <= 3) this.randomTeleport(this.getX() + random.nextInt(5+5)-5,this.getY() + random.nextInt(5+5)-5,this.getZ() + random.nextInt(5+5)-5, true);
                 }
                 case 3 -> {
                     Infection((LivingEntity) entityIn);
                 }
             }
 
-            if(getANITIMER() >= 10)
-            this.getEntityData().set(ANITIMER, 0f);
+            if(getANITIMER() >= 10) this.getEntityData().set(ANITIMER, 0f);
 
         }
         return super.doHurtTarget(entityIn);

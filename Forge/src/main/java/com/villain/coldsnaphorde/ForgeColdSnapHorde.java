@@ -76,28 +76,28 @@ public class ForgeColdSnapHorde {
     public void onServerStarting(ServerStartingEvent event) {
         hordeTier1 = new HordeEventTier1(event.getServer());
         hordeTier1.setHordeData(
-                new EntityTypeHordeData<>(3, 0.35d, 1, Register.COLDSNAPGUNNER.get(), StandardHorde.StandardGunner.class),
-                new EntityTypeHordeData<>(3, 0.35d, 1, Register.COLDSNAPSTABBER.get(), StandardHorde.StandardStabber.class),
-                new EntityTypeHordeData<>(3, 0.35d, 1, Register.COLDSNAPSNOWBALLER.get(), StandardHorde.StandardSnowballer.class)
+                new EntityTypeHordeData<>(3, 0.45d, 1, Register.COLDSNAPGUNNER.get(), StandardHorde.StandardGunner.class),
+                new EntityTypeHordeData<>(3, 0.45d, 1, Register.COLDSNAPSTABBER.get(), StandardHorde.StandardStabber.class),
+                new EntityTypeHordeData<>(3, 0.45d, 1, Register.COLDSNAPSNOWBALLER.get(), StandardHorde.StandardSnowballer.class)
         );
         hordeTier2 = new HordeEventTier2(event.getServer());
         hordeTier2.setHordeData(
-                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPGUNNER),
-                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPSTABBER),
-                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPSNOWBALLER),
-                new EnumHordeData<>(3, 0.35d, 7, HordeEnum.COLDSNAPGIFTER),
-                new EnumHordeData<>(3, 0.35d, 7, HordeEnum.COLDSNAPZAPPER),
-                new EnumHordeData<>(3, 0.35d, 7, HordeEnum.COLDSNAPBRAWLER)
+                new EnumHordeData<>(3, 0.45d, 20, HordeEnum.COLDSNAPGUNNER),
+                new EnumHordeData<>(3, 0.45d, 20, HordeEnum.COLDSNAPSTABBER),
+                new EnumHordeData<>(3, 0.45d, 20, HordeEnum.COLDSNAPSNOWBALLER),
+                new EnumHordeData<>(3, 0.45d, 7, HordeEnum.COLDSNAPGIFTER),
+                new EnumHordeData<>(3, 0.45d, 7, HordeEnum.COLDSNAPZAPPER),
+                new EnumHordeData<>(3, 0.45d, 7, HordeEnum.COLDSNAPBRAWLER)
         );
 
         hordeTier3 = new HordeEventTier3(event.getServer());
         hordeTier3.setHordeData(
-                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPGUNNER),
-                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPSTABBER),
-                new EnumHordeData<>(3, 0.35d, 20, HordeEnum.COLDSNAPSNOWBALLER),
-                new EnumHordeData<>(3, 0.35d, 10, HordeEnum.COLDSNAPGIFTER),
-                new EnumHordeData<>(3, 0.35d, 10, HordeEnum.COLDSNAPZAPPER),
-                new EnumHordeData<>(3, 0.35d, 10, HordeEnum.COLDSNAPBRAWLER)
+                new EnumHordeData<>(3, 0.45d, 20, HordeEnum.COLDSNAPGUNNER),
+                new EnumHordeData<>(3, 0.45d, 20, HordeEnum.COLDSNAPSTABBER),
+                new EnumHordeData<>(3, 0.45d, 20, HordeEnum.COLDSNAPSNOWBALLER),
+                new EnumHordeData<>(3, 0.45d, 10, HordeEnum.COLDSNAPGIFTER),
+                new EnumHordeData<>(3, 0.45d, 10, HordeEnum.COLDSNAPZAPPER),
+                new EnumHordeData<>(3, 0.45d, 10, HordeEnum.COLDSNAPBRAWLER)
         );
 
         hordeDataManager = HordeDataManager.getInstance();

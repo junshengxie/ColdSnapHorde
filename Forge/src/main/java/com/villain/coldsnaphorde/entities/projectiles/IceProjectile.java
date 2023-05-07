@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkHooks;
@@ -120,9 +121,9 @@ public class IceProjectile extends ThrowableItemProjectile {
                 blockstate = Blocks.BLUE_ICE.defaultBlockState();
             }
         }
-        Vec3i vec3i = new Vec3i((int) result.getLocation().x, (int) result.getLocation().y, (int) result.getLocation().z);
+        Vec3i vec3i = new Vec3i((int) Math.round(result.getLocation().x), (int) Math.round(result.getLocation().y), (int) Math.round(result.getLocation().z));
         BlockPos blockpos = new BlockPos(vec3i);
-        if (this.level.isEmptyBlock(blockpos) && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
+        if (this.level.isUnobstructed(level.getBlockState(blockpos), blockpos, CollisionContext.of(this)) && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
             this.level.setBlockAndUpdate(blockpos, blockstate);
         }
         this.remove(RemovalReason.DISCARDED);

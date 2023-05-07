@@ -45,6 +45,10 @@ repositories {
     maven {
         url 'https://maven.blamejared.com'
     }
+
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
 }
 
 minecraft {
@@ -110,7 +114,9 @@ dependencies {
     //    implementation fg.deobf("curse.maven:immortuoscalyx-411857:3828151")
     compileOnly fg.deobf("curse.maven:immortuoscalyx-411857:3828151")
 
-    implementation fg.deobf("curse.maven:hordelib-571315:4504637")
+    // implementation fg.deobf("curse.maven:hordelib-571315:4504637")
+
+    implementation fg.deobf("maven.modrinth:pXwCfB4o:6SLIappG")
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}:api")

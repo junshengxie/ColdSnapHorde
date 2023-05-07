@@ -2,8 +2,6 @@ package com.villain.coldsnaphorde;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import com.villain.cartoonishhorde.hordedata.EntityTypeHordeData;
-import com.villain.cartoonishhorde.hordedata.EnumHordeData;
 import com.villain.coldsnaphorde.capabilities.IPlayerCapabilityManager;
 import com.villain.coldsnaphorde.capabilities.IWorldCapabilityManager;
 import com.villain.coldsnaphorde.configs.CConfiguration;
@@ -15,6 +13,8 @@ import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde
 import com.villain.coldsnaphorde.events.HordeEventTier1;
 import com.villain.coldsnaphorde.events.HordeEventTier2;
 import com.villain.coldsnaphorde.events.HordeEventTier3;
+import com.villain.villainoushordemanager.hordedata.EntityTypeHordeData;
+import com.villain.villainoushordemanager.hordedata.EnumHordeData;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;

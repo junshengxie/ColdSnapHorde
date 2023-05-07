@@ -1,12 +1,12 @@
 package com.villain.coldsnaphorde.events;
 
-import com.villain.cartoonishhorde.RuleEnumInterface;
-import com.villain.cartoonishhorde.hordedata.EnumHordeData;
-import com.villain.cartoonishhorde.hordes.EntityEnumHorde;
 import com.villain.coldsnaphorde.*;
 import com.villain.coldsnaphorde.entities.mobs.basemob.*;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.PlagueHorde;
 import com.villain.coldsnaphorde.entities.mobs.hordevariantmanager.StandardHorde;
+import com.villain.villainoushordemanager.RuleEnumInterface;
+import com.villain.villainoushordemanager.hordedata.EnumHordeData;
+import com.villain.villainoushordemanager.hordes.EntityEnumHorde;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

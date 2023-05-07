@@ -1,12 +1,13 @@
 package com.villain.coldsnaphorde.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
-import com.villain.cartoonishhorde.hordes.EntityEnumHorde;
-import com.villain.cartoonishhorde.hordes.EntityTypeHorde;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
+import com.villain.villainoushordemanager.hordes.EntityTypeHorde;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
+import com.villain.villainoushordemanager.hordes.EntityEnumHorde;
+
 
 public class StopHorde {
 

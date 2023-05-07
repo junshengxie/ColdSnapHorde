@@ -1,12 +1,12 @@
 package com.villain.coldsnaphorde.events;
 
-import com.villain.cartoonishhorde.hordedata.EntityTypeHordeData;
-import com.villain.cartoonishhorde.hordes.EntityTypeHorde;
 import com.villain.coldsnaphorde.Constants;
 import com.villain.coldsnaphorde.ForgeColdSnapHorde;
 import com.villain.coldsnaphorde.HordeDataManager;
 import com.villain.coldsnaphorde.Utils;
 import com.villain.coldsnaphorde.entities.mobs.basemob.GenericHordeMember;
+import com.villain.villainoushordemanager.hordedata.EntityTypeHordeData;
+import com.villain.villainoushordemanager.hordes.EntityTypeHorde;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;

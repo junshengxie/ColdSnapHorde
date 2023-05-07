@@ -1,8 +1,8 @@
 package com.villain.coldsnaphorde.entities.mobs.basemob;
 
 import com.cartoonishvillain.immortuoscalyx.infection.InfectionManagerCapability;
-import com.villain.cartoonishhorde.CommonCartoonishHorde;
 import com.villain.coldsnaphorde.*;
+import com.villain.villainoushordemanager.CommonVillainousHordeManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -98,7 +98,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
             {setHordeVariant(3);}
         }
 
-        if (CommonCartoonishHorde.isHordeMember(this)) {
+        if (CommonVillainousHordeManager.isHordeMember(this)) {
             this.setHordeMember(true);
         }
 
@@ -119,7 +119,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
 
     @Override
     public void die(DamageSource cause) {
-        if(CommonCartoonishHorde.isHordeMember(this)) {
+        if(CommonVillainousHordeManager.isHordeMember(this) && !this.level.isClientSide) {
             switch (HordeDataManager.getInstance().getCurrentHordeLevel()) {
                 case 1 -> {
                     tier1Check();
@@ -164,7 +164,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     }
 
     private void tier1Check() {
-        int chance = level.random.nextInt(4);
+        int chance = level.random.nextInt(3);
         if(chance == 1) {
             if(level.random.nextBoolean()) {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.SMALLPRESENT.get(), 1));
@@ -177,7 +177,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     }
 
     private void tier2Check() {
-        int chance = level.random.nextInt(4);
+        int chance = level.random.nextInt(3);
         if(chance == 1) {
             if(level.random.nextBoolean()) {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
@@ -190,7 +190,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     }
 
     private void tier3Check() {
-        int chance = level.random.nextInt(4);
+        int chance = level.random.nextInt(3);
         if(chance == 1) {
             if(level.random.nextBoolean()) {
                 ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.LARGEPRESENT.get(), 1));

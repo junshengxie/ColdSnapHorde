@@ -1,6 +1,6 @@
 package com.villain.coldsnaphorde;
 
-import com.villain.cartoonishhorde.RuleEnumInterface;
+import com.villain.villainoushordemanager.RuleEnumInterface;
 
 public enum HordeEnum implements RuleEnumInterface {
     COLDSNAPGUNNER,

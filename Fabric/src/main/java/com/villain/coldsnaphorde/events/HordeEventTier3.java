@@ -18,8 +18,8 @@ import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level().ServerLevel;
+import net.minecraft.server.level().ServerPlayer;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -90,11 +90,11 @@ public class HordeEventTier3 extends Horde {
         isNether = false;
 
         bossInfo.setCreateWorldFog(true);
-        if (hordeAnchorPlayer.level.dimension().toString().contains("end")) {
+        if (hordeAnchorPlayer.level().dimension().toString().contains("end")) {
             bossInfo.setColor(BossEvent.BossBarColor.PURPLE);
             bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
             isEnd = true;
-        } else if (hordeAnchorPlayer.level.dimension().toString().contains("nether")) {
+        } else if (hordeAnchorPlayer.level().dimension().toString().contains("nether")) {
             bossInfo.setColor(BossEvent.BossBarColor.RED);
             bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
             isNether = true;

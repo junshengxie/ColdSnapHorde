@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.mixin;
 
 import com.villain.coldsnaphorde.events.MixinEvents;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level().ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

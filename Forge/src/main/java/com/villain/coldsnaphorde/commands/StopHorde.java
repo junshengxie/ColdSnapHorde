@@ -29,7 +29,7 @@ public class StopHorde {
                     ForgeColdSnapHorde.hordeTier3.Stop(EntityEnumHorde.HordeStopReasons.DEFEAT);
                 }
             }
-            sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.stopsuccess"), false);
+            sourceStack.sendSuccess(() -> Component.translatable("command.coldsnaphorde.stopsuccess"), false);
             ForgeColdSnapHorde.hordeDataManager.setCurrentHordeLevel(0);
         } else {
             sourceStack.sendFailure(Component.translatable("command.coldsnaphorde.stopfailure"));

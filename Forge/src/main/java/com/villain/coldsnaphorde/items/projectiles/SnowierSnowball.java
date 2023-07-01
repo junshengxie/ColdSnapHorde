@@ -2,15 +2,14 @@ package com.villain.coldsnaphorde.items.projectiles;
 
 import com.villain.coldsnaphorde.Register;
 import com.villain.coldsnaphorde.entities.projectiles.SnowierSnowballEntity;
-import com.villain.coldsnaphorde.platform.Services;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.stats.Stats;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.Level;
 
 public class SnowierSnowball extends Item {

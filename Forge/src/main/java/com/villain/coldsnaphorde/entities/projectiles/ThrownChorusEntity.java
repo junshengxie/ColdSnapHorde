@@ -63,7 +63,7 @@ public class ThrownChorusEntity extends ThrowableItemProjectile {
         int i = entity instanceof Blaze ? 3 : 1;
         entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
-        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
+        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level().isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
                 case 0 -> {
@@ -86,7 +86,7 @@ public class ThrownChorusEntity extends ThrowableItemProjectile {
                 }
             }
         }
-        else if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
+        else if (chance <= 2 && entity instanceof LivingEntity && !this.level().isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
             if (chance == 1) ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5*20, 0));}
     }
 
@@ -97,8 +97,8 @@ public class ThrownChorusEntity extends ThrowableItemProjectile {
         int snowchance = random.nextInt(20);
         Vec3i vec3i = new Vec3i((int) Math.round(result.getLocation().x), (int) Math.round(result.getLocation().y), (int) Math.round(result.getLocation().z));
         BlockPos blockpos = new BlockPos(vec3i);
-        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level, blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && snowchance == 1 && !level.isClientSide()) {
-            this.level.setBlockAndUpdate(blockpos, blockstate);
+        if (this.level().isEmptyBlock(blockpos) && this.level().getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level(), blockpos) && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) && snowchance == 1 && !level().isClientSide()) {
+            this.level().setBlockAndUpdate(blockpos, blockstate);
         }
         this.remove(RemovalReason.DISCARDED);
     }

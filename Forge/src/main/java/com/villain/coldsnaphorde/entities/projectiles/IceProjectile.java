@@ -123,8 +123,8 @@ public class IceProjectile extends ThrowableItemProjectile {
         }
         Vec3i vec3i = new Vec3i((int) Math.round(result.getLocation().x), (int) Math.round(result.getLocation().y), (int) Math.round(result.getLocation().z));
         BlockPos blockpos = new BlockPos(vec3i);
-        if (this.level.isUnobstructed(level.getBlockState(blockpos), blockpos, CollisionContext.of(this)) && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
-            this.level.setBlockAndUpdate(blockpos, blockstate);
+        if (this.level().isUnobstructed(level().getBlockState(blockpos), blockpos, CollisionContext.of(this)) && blockstate.canSurvive(this.level(), blockpos) && !level().isClientSide()) {
+            this.level().setBlockAndUpdate(blockpos, blockstate);
         }
         this.remove(RemovalReason.DISCARDED);
     }

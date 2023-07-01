@@ -98,7 +98,7 @@ public class GifterSurprise {
     }
 
     public void DetonateBlockDamage(){
-        if(net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(exploder.level, exploder) && hordeVariant != 2){
+        if(net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(exploder.level(), exploder) && hordeVariant != 2){
             if(hordeVariant != 1){
                 for (BlockPos blockPos : blockPosArrayList){
                     if((world.getBlockState(blockPos).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos).equals(Blocks.GRASS.defaultBlockState())) && !(world.getBlockState(blockPos.below()).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos.below()).equals(Blocks.GRASS.defaultBlockState()))){
@@ -144,7 +144,7 @@ public class GifterSurprise {
                             entity.setDeltaMovement(entity.getDeltaMovement().add(directionalx * knockback, directionaly * knockback, directionalz * knockback));
                             if(hordeVariant == 3){Infection((LivingEntity) entity);}
                         }else{
-                            ((LivingEntity) entity).randomTeleport(entity.getX() + entity.level.random.nextInt(10+10)-10,entity.getY() + entity.level.random.nextInt(10+10)-10,entity.getZ() + entity.level.random.nextInt(10+10)-10, true);
+                            ((LivingEntity) entity).randomTeleport(entity.getX() + entity.level().random.nextInt(10+10)-10,entity.getY() + entity.level().random.nextInt(10+10)-10,entity.getZ() + entity.level().random.nextInt(10+10)-10, true);
                         }
                         entity.hurt(this.damageSource, (float)((int)((damage * damage + damage) / 2.0D * 3.0D * (double)DamageRadius + 1.0D)));
                     }

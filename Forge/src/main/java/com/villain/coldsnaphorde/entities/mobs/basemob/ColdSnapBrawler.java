@@ -108,7 +108,7 @@ public class ColdSnapBrawler extends GenericHordeMember {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide()) {
+        if (!this.level().isClientSide()) {
             float timer = getEntityData().get(ANITIMER);
             if (timer < 11) this.getEntityData().set(ANITIMER, timer += 1f);
         }

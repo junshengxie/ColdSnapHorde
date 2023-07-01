@@ -1,9 +1,7 @@
 package com.villain.coldsnaphorde.items.armor;
 
-import com.villain.coldsnaphorde.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;

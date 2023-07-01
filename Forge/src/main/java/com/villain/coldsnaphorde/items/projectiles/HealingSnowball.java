@@ -3,7 +3,6 @@ package com.villain.coldsnaphorde.items.projectiles;
 import com.villain.coldsnaphorde.Register;
 import com.villain.coldsnaphorde.entities.projectiles.HealingSnowballEntity;
 import com.villain.coldsnaphorde.items.Tier;
-import com.villain.coldsnaphorde.platform.Services;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;

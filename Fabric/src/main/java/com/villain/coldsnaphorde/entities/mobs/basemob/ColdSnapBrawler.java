@@ -15,7 +15,7 @@ import net.minecraft.world.entity.animal.SnowGolem;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level().Level;
 import org.jetbrains.annotations.Nullable;
 
 import static com.villain.coldsnaphorde.FabricColdSnapHorde.TOPHATS;

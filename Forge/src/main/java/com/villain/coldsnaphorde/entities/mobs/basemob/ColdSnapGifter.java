@@ -77,7 +77,7 @@ public class ColdSnapGifter extends GenericHordeMember {
         LivingEntity livingEntity = this.getTarget();
         if (livingEntity != null) {
             double distance = this.distanceToSqr(livingEntity);
-            if (distance < 4.5D && !level.isClientSide()) {
+            if (distance < 4.5D && !level().isClientSide()) {
                 if(!exploding){this.playSound(SoundEvents.TNT_PRIMED, 1F, 1F);}
                 exploding = true;
                 this.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 50, 10, false, false));
@@ -85,9 +85,9 @@ public class ColdSnapGifter extends GenericHordeMember {
 
             if (exploding && distance < 36D) {
                 timer -= 1;
-                if (!level.isClientSide() && timer == 0) {
+                if (!level().isClientSide() && timer == 0) {
                     this.dead = true;
-                    GifterSurprise gifterSurprise = new GifterSurprise(this.level, this, this.getX(), this.getY(), this.getZ(), 5);
+                    GifterSurprise gifterSurprise = new GifterSurprise(this.level(), this, this.getX(), this.getY(), this.getZ(), 5);
                     gifterSurprise.StageDetonation();
                     gifterSurprise.DetonateBlockDamage();
                     gifterSurprise.DetonateLivingHarm();

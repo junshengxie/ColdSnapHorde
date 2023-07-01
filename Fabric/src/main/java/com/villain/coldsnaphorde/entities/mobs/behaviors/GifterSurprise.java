@@ -7,11 +7,11 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.enchantment.ProtectionEnchantment;
-import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level().Explosion;
+import net.minecraft.world.level().GameRules;
+import net.minecraft.world.level().Level;
+import net.minecraft.world.level().block.Blocks;
+import net.minecraft.world.level().block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -99,7 +99,7 @@ public class GifterSurprise {
     }
 
     public void DetonateBlockDamage(){
-        if(exploder.level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && hordeVariant != 2){
+        if(exploder.level().getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && hordeVariant != 2){
             if(hordeVariant != 1){
                 for (BlockPos blockPos : blockPosArrayList){
                     if((world.getBlockState(blockPos).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos).equals(Blocks.GRASS.defaultBlockState())) && !(world.getBlockState(blockPos.below()).equals(Blocks.AIR.defaultBlockState()) || world.getBlockState(blockPos.below()).equals(Blocks.GRASS.defaultBlockState()))){
@@ -145,7 +145,7 @@ public class GifterSurprise {
                             entity.setDeltaMovement(entity.getDeltaMovement().add(directionalx * knockback, directionaly * knockback, directionalz * knockback));
                             if(hordeVariant == 3){Infection((LivingEntity) entity);}
                         }else{
-                            ((LivingEntity) entity).randomTeleport(entity.getX() + entity.level.random.nextInt(10+10)-10,entity.getY() + entity.level.random.nextInt(10+10)-10,entity.getZ() + entity.level.random.nextInt(10+10)-10, true);
+                            ((LivingEntity) entity).randomTeleport(entity.getX() + entity.level().random.nextInt(10+10)-10,entity.getY() + entity.level().random.nextInt(10+10)-10,entity.getZ() + entity.level().random.nextInt(10+10)-10, true);
                         }
                         entity.hurt(this.damageSource, (float)((int)((damage * damage + damage) / 2.0D * 3.0D * (double)DamageRadius + 1.0D)));
                     }

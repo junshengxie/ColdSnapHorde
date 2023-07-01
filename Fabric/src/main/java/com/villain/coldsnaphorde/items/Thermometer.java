@@ -7,7 +7,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level().Level;
 
 public class Thermometer extends Item {
     public Thermometer(Properties properties) {
@@ -17,7 +17,7 @@ public class Thermometer extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         if(!level.isClientSide && interactionHand.equals(InteractionHand.MAIN_HAND)){
-            float temp = player.level.getBiomeManager().getBiome(player.blockPosition()).value().getBaseTemperature();
+            float temp = player.level().getBiomeManager().getBiome(player.blockPosition()).value().getBaseTemperature();
             String code = "MISSING";
             if (temp < 0.3){code = "Cold";}
             else if(temp >= 0.3 && temp < 0.9){code = "Neutral";}

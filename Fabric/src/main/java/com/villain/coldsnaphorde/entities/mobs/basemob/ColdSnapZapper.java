@@ -1,7 +1,7 @@
 package com.villain.coldsnaphorde.entities.mobs.basemob;
 
 import com.villain.coldsnaphorde.FabricColdSnapHorde;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level().ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
@@ -17,7 +17,7 @@ import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level().Level;
 import org.jetbrains.annotations.Nullable;
 
 import static com.villain.coldsnaphorde.FabricColdSnapHorde.TOPHATS;
@@ -103,7 +103,7 @@ public class ColdSnapZapper extends GenericHordeMember {
     public void aiStep() {
         super.aiStep();
 
-        if(ZapTarget != null && !this.level.isClientSide()){
+        if(ZapTarget != null && !this.level().isClientSide()){
             timer -= 1;
             if (timer == 0){
                 EntityType.LIGHTNING_BOLT.spawn((ServerLevel) ZapTarget.getCommandSenderWorld(), new ItemStack(Items.AIR), null, ZapTarget.blockPosition(), MobSpawnType.TRIGGERED, true, false);

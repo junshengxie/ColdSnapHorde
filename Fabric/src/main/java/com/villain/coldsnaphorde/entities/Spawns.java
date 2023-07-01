@@ -13,7 +13,7 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level().levelgen.Heightmap;
 
 import java.util.ArrayList;
 import java.util.function.Predicate;

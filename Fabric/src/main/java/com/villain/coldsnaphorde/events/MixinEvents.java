@@ -4,7 +4,7 @@ import com.villain.coldsnaphorde.Register;
 import com.villain.coldsnaphorde.items.ToolsOrOther.FrostCharm;
 import dev.emi.trinkets.api.SlotReference;
 import dev.emi.trinkets.api.TrinketsApi;
-import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level().ServerPlayer;
 import net.minecraft.util.Tuple;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -39,13 +39,13 @@ public class MixinEvents {
                         default -> {
                         }
                         case 1 -> {
-                            int chance = player.level.random.nextInt(5);
+                            int chance = player.level().random.nextInt(5);
                             if (chance == 1) {
                                 attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 0));
                             }
                         }
                         case 2 -> {
-                            int chance = player.level.random.nextInt(3);
+                            int chance = player.level().random.nextInt(3);
                             if (chance == 1) {
                                 attacker.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 1));
                             }
@@ -57,13 +57,13 @@ public class MixinEvents {
     }
 
     public static void PlayerTick(ServerPlayer player) {
-        if (player.tickCount % 2 == 0 && !player.level.isClientSide && player.hasEffect(Register.FROST_EFFECT)) {
+        if (player.tickCount % 2 == 0 && !player.level().isClientSide && player.hasEffect(Register.FROST_EFFECT)) {
             FrostWalkerEnchantment.onEntityMoved(player, player.getLevel(), player.blockPosition(), player.getEffect(Register.FROST_EFFECT).getAmplifier()+1);
         }
     }
 
     public static void PlayerAttack(Player player, Entity entity) {
-        if (!player.level.isClientSide && entity instanceof LivingEntity target && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(Register.ICICLE)) {
+        if (!player.level().isClientSide && entity instanceof LivingEntity target && player.getItemInHand(InteractionHand.MAIN_HAND).getItem().equals(Register.ICICLE)) {
             float value = player.getAttackStrengthScale(1);
             if(player.getRandom().nextBoolean() && value == 1) {
                 target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 0));

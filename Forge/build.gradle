@@ -116,7 +116,7 @@ dependencies {
 
     // implementation fg.deobf("curse.maven:hordelib-571315:4504637")
 
-    implementation fg.deobf("maven.modrinth:pXwCfB4o:6SLIappG")
+    implementation fg.deobf("maven.modrinth:pXwCfB4o:4K3R6wkp")
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:${project.curiosVersion}:api")
@@ -124,7 +124,7 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.3-78:api")
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.19.3-78")
 
-    runtimeOnly fg.deobf("curse.maven:jei-238222:4496036")
+    runtimeOnly fg.deobf("curse.maven:jei-238222:4609866")
 }
 
 tasks.withType(JavaCompile) {

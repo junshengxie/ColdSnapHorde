@@ -119,7 +119,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
 
     @Override
     public void die(DamageSource cause) {
-        if(CommonVillainousHordeManager.isHordeMember(this) && !this.level.isClientSide) {
+        if(CommonVillainousHordeManager.isHordeMember(this) && !this.level().isClientSide) {
             switch (HordeDataManager.getInstance().getCurrentHordeLevel()) {
                 case 1 -> {
                     tier1Check();
@@ -132,7 +132,7 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                 }
             }
         }
-        if (cause.getEntity() != null && !cause.getEntity().level.isClientSide() && cause.getEntity() instanceof ServerPlayer serverPlayer
+        if (cause.getEntity() != null && !cause.getEntity().level().isClientSide() && cause.getEntity() instanceof ServerPlayer serverPlayer
             && serverPlayer.getServer() != null) {
 
             if (getHordeVariant() == 1) {
@@ -164,40 +164,40 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     }
 
     private void tier1Check() {
-        int chance = level.random.nextInt(3);
+        int chance = level().random.nextInt(3);
         if(chance == 1) {
-            if(level.random.nextBoolean()) {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.SMALLPRESENT.get(), 1));
-                level.addFreshEntity(itemEntity);
+            if(level().random.nextBoolean()) {
+                ItemEntity itemEntity = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), new ItemStack(Register.SMALLPRESENT.get(), 1));
+                level().addFreshEntity(itemEntity);
             } else {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.ICESHARD.get(), level.random.nextInt(2)+1));
-                level.addFreshEntity(itemEntity);
+                ItemEntity itemEntity = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), new ItemStack(Register.ICESHARD.get(), level().random.nextInt(2)+1));
+                level().addFreshEntity(itemEntity);
             }
         }
     }
 
     private void tier2Check() {
-        int chance = level.random.nextInt(3);
+        int chance = level().random.nextInt(3);
         if(chance == 1) {
-            if(level.random.nextBoolean()) {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
-                level.addFreshEntity(itemEntity);
+            if(level().random.nextBoolean()) {
+                ItemEntity itemEntity = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), new ItemStack(Register.PRESENT.get(), 1));
+                level().addFreshEntity(itemEntity);
             } else {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.ICEESSENCE.get(), level.random.nextInt(2)+1));
-                level.addFreshEntity(itemEntity);
+                ItemEntity itemEntity = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), new ItemStack(Register.ICEESSENCE.get(), level().random.nextInt(2)+1));
+                level().addFreshEntity(itemEntity);
             }
         }
     }
 
     private void tier3Check() {
-        int chance = level.random.nextInt(3);
+        int chance = level().random.nextInt(3);
         if(chance == 1) {
-            if(level.random.nextBoolean()) {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.LARGEPRESENT.get(), 1));
-                level.addFreshEntity(itemEntity);
+            if(level().random.nextBoolean()) {
+                ItemEntity itemEntity = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), new ItemStack(Register.LARGEPRESENT.get(), 1));
+                level().addFreshEntity(itemEntity);
             } else {
-                ItemEntity itemEntity = new ItemEntity(level, this.getX(), this.getY(), this.getZ(), new ItemStack(Register.FROSTESSENCE.get(), level.random.nextInt(2)+1));
-                level.addFreshEntity(itemEntity);
+                ItemEntity itemEntity = new ItemEntity(level(), this.getX(), this.getY(), this.getZ(), new ItemStack(Register.FROSTESSENCE.get(), level().random.nextInt(2)+1));
+                level().addFreshEntity(itemEntity);
             }
         }
     }
@@ -270,15 +270,15 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide()) {
+        if (!this.level().isClientSide()) {
             int i = Mth.floor(this.getX());
             int j = Mth.floor(this.getY());
             int k = Mth.floor(this.getZ());
-            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), ForgeColdSnapHorde.cconfig.HEATPROT.get())) {
+            if (shouldOverHeat(this.level().getBiome(this.blockPosition()).value().getBaseTemperature(), ForgeColdSnapHorde.cconfig.HEATPROT.get())) {
                 this.hurt(this.damageSources().onFire(), 1.0F);
             }
 
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
                 return;
             }
 
@@ -297,8 +297,8 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                     j = Mth.floor(this.getY());
                     k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), ForgeColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level, blockpos)) {
-                        this.level.setBlockAndUpdate(blockpos, blockstate);
+                    if (this.level().isEmptyBlock(blockpos) && !shouldOverHeat(this.level().getBiome(this.blockPosition()).value().getBaseTemperature(), ForgeColdSnapHorde.cconfig.SNOWTRAIL.get()) && blockstate.canSurvive(this.level(), blockpos)) {
+                        this.level().setBlockAndUpdate(blockpos, blockstate);
                     }
                 }
             } else if (blockstate == Register.SLUSH.get().defaultBlockState()) {
@@ -307,8 +307,8 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                     j = Mth.floor(this.getY());
                     k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.level.getBlockState(blockpos).equals(Blocks.AIR.defaultBlockState()) && (blockstate.canSurvive(this.level, blockpos)))
-                        this.level.setBlockAndUpdate(blockpos, blockstate);
+                    if (this.level().getBlockState(blockpos).equals(Blocks.AIR.defaultBlockState()) && (blockstate.canSurvive(this.level(), blockpos)))
+                        this.level().setBlockAndUpdate(blockpos, blockstate);
                 }
             }
         }

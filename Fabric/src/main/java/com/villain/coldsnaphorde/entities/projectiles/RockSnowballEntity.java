@@ -18,10 +18,10 @@ import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level().GameRules;
+import net.minecraft.world.level().Level;
+import net.minecraft.world.level().block.Blocks;
+import net.minecraft.world.level().block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -57,7 +57,7 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
         int i = entity instanceof Blaze ? 3 : 1;
         entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
-        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
+        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level().isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
                 case 0 -> {
@@ -80,7 +80,7 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
                 }
             }
         }
-        else if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
+        else if (chance <= 2 && entity instanceof LivingEntity && !this.level().isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 5*20, 0));
             if (chance == 1) ((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 5*20, 0));}
     }
 
@@ -90,8 +90,8 @@ public class RockSnowballEntity extends ThrowableItemProjectile {
         BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
         int snowchance = random.nextInt(20);
         BlockPos blockpos = new BlockPos(result.getLocation());
-        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level, blockpos) && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && snowchance == 1 && !level.isClientSide()) {
-            this.level.setBlockAndUpdate(blockpos, blockstate);
+        if (this.level().isEmptyBlock(blockpos) && this.level().getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level(), blockpos) && level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) && snowchance == 1 && !level.isClientSide()) {
+            this.level().setBlockAndUpdate(blockpos, blockstate);
         }
         this.remove(RemovalReason.DISCARDED);
     }

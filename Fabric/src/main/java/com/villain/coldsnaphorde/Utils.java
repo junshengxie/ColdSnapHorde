@@ -6,11 +6,11 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level().Level;
+import net.minecraft.world.level().LevelAccessor;
+import net.minecraft.world.level().ServerLevelAccessor;
+import net.minecraft.world.level().biome.Biome;
+import net.minecraft.world.level().biome.Biomes;
 
 public class Utils {
     public static boolean isEnd(Level serverLevel) {

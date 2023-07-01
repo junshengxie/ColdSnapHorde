@@ -12,20 +12,19 @@ import com.villain.coldsnaphorde.items.armor.ArmorMaterials;
 import com.villain.coldsnaphorde.items.armor.TopHat;
 import com.villain.coldsnaphorde.items.projectiles.*;
 import com.villain.coldsnaphorde.items.toolsorother.*;
-import com.villain.coldsnaphorde.platform.Services;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -38,11 +37,14 @@ public class Register {
     public static final DeferredRegister<SoundEvent> SOUND_EVENT = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, Constants.MOD_ID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Constants.MOD_ID);
 
+    public static final DeferredRegister<CreativeModeTab> TAB = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Constants.MOD_ID);
+
     public static void init(){
         ENTITY_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         SOUND_EVENT.register(FMLJavaModLoadingContext.get().getModEventBus());
         BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TAB.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     public static final RegistryObject<Item> ROCKYSNOWBALL = ITEMS.register("rockysnowball", RockySnowball::new);
@@ -164,13 +166,82 @@ public class Register {
     public static final RegistryObject<SoundEvent> NOVEMBERSNOW = SOUND_EVENT.register("novemember_snow", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Constants.MOD_ID, "november_snow")));
     public static final RegistryObject<SoundEvent> ARCTICBEAT = SOUND_EVENT.register("arctic_beat", () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(Constants.MOD_ID, "arctic_beat")));
 
-    public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
-    public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
-    public static final RegistryObject<Block> SLUSH = BLOCKS.register("slush", () -> new SlushBlock(BlockBehaviour.Properties.of(Material.SNOW).strength(0).sound(SoundType.SNOW)));
+    public static final RegistryObject<Block> REDCANDYCANE = BLOCKS.register("redcandycane", () -> new Block(BlockBehaviour.Properties.of().pushReaction(PushReaction.NORMAL).mapColor(MapColor.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<Block> GREENCANDYCANE = BLOCKS.register("greencandycane", () -> new Block(BlockBehaviour.Properties.of().pushReaction(PushReaction.NORMAL).mapColor(MapColor.STONE).strength(1).requiresCorrectToolForDrops().sound(SoundType.BONE_BLOCK)));
+    public static final RegistryObject<Block> SLUSH = BLOCKS.register("slush", () -> new SlushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).strength(0).sound(SoundType.SNOW)));
 
     public static final RegistryObject<BlockItem> REDCANDYCANEITEM = ITEMS.register("redcandycane", ()-> new LoredBlockItem(REDCANDYCANE.get(), new Item.Properties(), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
     public static final RegistryObject<BlockItem> GREENCANDYCANEITEM = ITEMS.register("greencandycane", ()-> new LoredBlockItem(GREENCANDYCANE.get(), new Item.Properties(), Component.translatable("itemtooltip.candycane.1").withStyle(ChatFormatting.AQUA), Component.translatable("itemtooltip.candycane.2").withStyle(ChatFormatting.AQUA)));
     public static final RegistryObject<BlockItem> SLUSHITEM = ITEMS.register("slush", ()-> new BlockItem(SLUSH.get(), new Item.Properties()));
+
+    public static final RegistryObject<CreativeModeTab> COLDSNAPHORDETAB = TAB.register("coldsnaphordetab", () -> CreativeModeTab.builder()
+            .withTabsBefore(CreativeModeTabs.COMBAT)
+            .icon(() -> SNOWGLOBE.get().getDefaultInstance())
+            .title(Component.translatable("itemGroup.ColdSnapHorde"))
+            .displayItems((parameters, output) -> {
+                output.accept(Register.TOPHAT.get());
+                output.accept(Register.REDTOPHAT.get());
+                output.accept(Register.BLUETOPHAT.get());
+                output.accept(Register.GREENTOPHAT.get());
+                output.accept(Register.PURPLETOPHAT.get());
+                output.accept(Register.THERMOMETER.get());
+                output.accept(Register.ROCKYSNOWBALL.get());
+                output.accept(Register.SNOWIERSNOWBALL.get());
+                output.accept(Register.LESSERHEALINGBALL.get());
+                output.accept(Register.HEALINGBALL.get());
+                output.accept(Register.GREATERHEALINGBALL.get());
+                output.accept(Register.LIGHTNINGSNOWBALL.get());
+                output.accept(Register.LIGHTNINGTRANSPOSER.get());
+                output.accept(Register.SNOWGLOBE.get());
+                output.accept(Register.FROSTEDSNOWGLOBE.get());
+                output.accept(Register.FROZENSNOWGLOBE.get());
+                output.accept(Register.SMALLPRESENT.get());
+                output.accept(Register.PRESENT.get());
+                output.accept(Register.LARGEPRESENT.get());
+                output.accept(Register.ICICLE.get());
+                output.accept(Register.ICESWORD.get());
+                output.accept(Register.SNOWWALLCHARM.get());
+                output.accept(Register.GLACIERWALLCHARM.get());
+                output.accept(Register.REINFOCEDGLACIERCHARM.get());
+                output.accept(Register.FROSTCHARM.get());
+                output.accept(Register.ARCTICCHARM.get());
+                output.accept(Register.ICESTAFF.get());
+                output.accept(Register.GLACIERSTAFF.get());
+                output.accept(Register.WANDOFTHEFROSTWALKER.get());
+                output.accept(Register.STAFFOFICEFROSTWALKER.get());
+                output.accept(Register.NOVEMBERSNOWDISC.get());
+                output.accept(Register.ARCTICBEATDISC.get());
+                output.accept(Register.ICESHARD.get());
+                output.accept(Register.FROSTESSENCE.get());
+                output.accept(Register.FROSTCORE.get());
+                output.accept(Register.ICEESSENCE.get());
+                output.accept(Register.ICECORE.get());
+                output.accept(Register.COWSPAWN.get());
+                output.accept(Register.GUNNERSPAWN.get());
+                output.accept(Register.STABBERSPAWN.get());
+                output.accept(Register.SNOWBALLERSPAWN.get());
+                output.accept(Register.GIFTERSPAWN.get());
+                output.accept(Register.ZAPPERSPAWN.get());
+                output.accept(Register.BRAWLERPAWN.get());
+                output.accept(Register.PGUNNERSPAWN.get());
+                output.accept(Register.PSTABBERSPAWN.get());
+                output.accept(Register.PSNOWBALLERSPAWN.get());
+                output.accept(Register.PGIFTERSPAWN.get());
+                output.accept(Register.PZAPPERSPAWN.get());
+                output.accept(Register.PBRAWLERPAWN.get());
+                output.accept(Register.NGUNNERSPAWN.get());
+                output.accept(Register.NSTABBERSPAWN.get());
+                output.accept(Register.NSNOWBALLERSPAWN.get());
+                output.accept(Register.NGIFTERSPAWN.get());
+                output.accept(Register.NZAPPERSPAWN.get());
+                output.accept(Register.NBRAWLERPAWN.get());
+                output.accept(Register.EGUNNERSPAWN.get());
+                output.accept(Register.ESTABBERSPAWN.get());
+                output.accept(Register.ESNOWBALLERSPAWN.get());
+                output.accept(Register.EGIFTERSPAWN.get());
+                output.accept(Register.EZAPPERSPAWN.get());
+                output.accept(Register.EBRAWLERPAWN.get());
+            }).build());
 
     public static ResourceLocation location(String name)
     {

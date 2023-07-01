@@ -70,7 +70,7 @@ public class ColdSnapGunner extends GenericHordeMember implements RangedAttackMo
     }
 
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
-        GunnerProjectileEntity snowballentity = new GunnerProjectileEntity(Register.GUNNERPROJECTILE.get(), this.level, this);
+        GunnerProjectileEntity snowballentity = new GunnerProjectileEntity(Register.GUNNERPROJECTILE.get(), this.level(), this);
         double d0 = target.getEyeY() - (double)1.1F;
         double d1 = target.getX() - this.getX();
         double d2 = d0 - snowballentity.getY();
@@ -78,7 +78,7 @@ public class ColdSnapGunner extends GenericHordeMember implements RangedAttackMo
         float f = Mth.sqrt((float) (d1 * d1 + d3 * d3)) * 0.2F;
         snowballentity.shoot(d1, d2 + (double)f, d3, 1.6F, 3.0F);
         this.playSound(SoundEvents.GENERIC_EXPLODE, 0.5F, 3.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level.addFreshEntity(snowballentity);
+        this.level().addFreshEntity(snowballentity);
     }
 
     public void aiStep() {

@@ -24,7 +24,7 @@ public class CapabilityEvents {
 
     @SubscribeEvent
     public static void playerCooldownTick(TickEvent.PlayerTickEvent event){
-        if(event.phase == TickEvent.Phase.END && !event.player.level.isClientSide){
+        if(event.phase == TickEvent.Phase.END && !event.player.level().isClientSide){
             event.player.getCapability(ForgeColdSnapHorde.PLAYERCAPABILITYINSTANCE).ifPresent(IPlayerCapabilityManager::tickCooldown);
         }
     }

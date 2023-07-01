@@ -64,7 +64,7 @@ public class ColdSnapStabber extends GenericHordeMember {
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
-        if (entityIn instanceof LivingEntity && !this.level.isClientSide()) {
+        if (entityIn instanceof LivingEntity && !this.level().isClientSide()) {
             switch(this.getHordeVariant()){
                 case 0 -> {
                     int chance = random.nextInt(30);
@@ -100,7 +100,7 @@ public class ColdSnapStabber extends GenericHordeMember {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide()) {
+        if (!this.level().isClientSide()) {
             float timer = getEntityData().get(ANITIMER);
             if (timer < 11) this.getEntityData().set(ANITIMER, timer += 1f);
         }

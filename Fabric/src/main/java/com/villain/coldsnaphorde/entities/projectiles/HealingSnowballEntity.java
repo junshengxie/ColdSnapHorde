@@ -15,7 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level().Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -82,7 +82,7 @@ public class HealingSnowballEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult p_37259_) {
         super.onHitEntity(p_37259_);
-        if (!p_37259_.getEntity().level.isClientSide && p_37259_.getEntity() instanceof LivingEntity entity) {
+        if (!p_37259_.getEntity().level().isClientSide && p_37259_.getEntity() instanceof LivingEntity entity) {
             switch (tier) {
                 default -> {
                     entity.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 0));

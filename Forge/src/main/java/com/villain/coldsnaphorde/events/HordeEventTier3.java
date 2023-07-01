@@ -84,11 +84,11 @@ public class HordeEventTier3 extends EntityEnumHorde {
         isNether = false;
 
         bossInfo.setCreateWorldFog(true);
-        if (hordeAnchorPlayer.level.dimension().toString().contains("end")) {
+        if (hordeAnchorPlayer.level().dimension().toString().contains("end")) {
             bossInfo.setColor(BossEvent.BossBarColor.PURPLE);
             bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
             isEnd = true;
-        } else if (hordeAnchorPlayer.level.dimension().toString().contains("nether")) {
+        } else if (hordeAnchorPlayer.level().dimension().toString().contains("nether")) {
             bossInfo.setColor(BossEvent.BossBarColor.RED);
             bossInfo.setName(Component.literal("Cold Snap Horde (Tier 3)").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
             isNether = true;

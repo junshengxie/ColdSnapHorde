@@ -64,8 +64,8 @@ public class ColdSnapSnowballer extends GenericHordeMember implements RangedAtta
     @Override
     public void performRangedAttack(LivingEntity target, float distanceFactor) {
         ThrowableItemProjectile snowballentity;
-        if(getHordeVariant() == 2){snowballentity = new ThrownChorusEntity(Register.THROWNCHORUSPROJECTILE.get(), this.level, this);}
-        else{snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE.get(), this.level, this);}
+        if(getHordeVariant() == 2){snowballentity = new ThrownChorusEntity(Register.THROWNCHORUSPROJECTILE.get(), this.level(), this);}
+        else{snowballentity = new RockSnowballEntity(Register.ROCKSNOWBALLPROJECTILE.get(), this.level(), this);}
 
         double d0 = target.getEyeY() - (double)1.1F;
         double d1 = target.getX() - this.getX();
@@ -75,7 +75,7 @@ public class ColdSnapSnowballer extends GenericHordeMember implements RangedAtta
         snowballentity.setOwner(this);
         snowballentity.shoot(d1, d2 + (double)f, d3, 1.6F, 8.0F);
         this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level.addFreshEntity(snowballentity);
+        this.level().addFreshEntity(snowballentity);
     }
 
     public void aiStep() {

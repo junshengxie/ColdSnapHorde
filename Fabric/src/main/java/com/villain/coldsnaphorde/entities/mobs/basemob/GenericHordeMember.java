@@ -28,10 +28,10 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level().GameRules;
+import net.minecraft.world.level().Level;
+import net.minecraft.world.level().block.Blocks;
+import net.minecraft.world.level().block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -227,11 +227,11 @@ public class GenericHordeMember extends Monster implements SnowCreature {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide()) {
+        if (!this.level().isClientSide()) {
             int i = Mth.floor(this.getX());
             int j = Mth.floor(this.getY());
             int k = Mth.floor(this.getZ());
-            if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.getOrDefault("HEATPROT", 1))) {
+            if (shouldOverHeat(this.level().getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.getOrDefault("HEATPROT", 1))) {
                 this.hurt(DamageSource.ON_FIRE, 1.0F);
             }
 
@@ -254,8 +254,8 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                     j = Mth.floor(this.getY());
                     k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.level.isEmptyBlock(blockpos) && !shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.getOrDefault("SNOWTRAIL", 1)) && blockstate.canSurvive(this.level, blockpos)) {
-                        this.level.setBlockAndUpdate(blockpos, blockstate);
+                    if (this.level().isEmptyBlock(blockpos) && !shouldOverHeat(this.level().getBiome(this.blockPosition()).value().getBaseTemperature(), FabricColdSnapHorde.config.getOrDefault("SNOWTRAIL", 1)) && blockstate.canSurvive(this.level(), blockpos)) {
+                        this.level().setBlockAndUpdate(blockpos, blockstate);
                     }
                 }
             } else if (blockstate == Register.SLUSH.defaultBlockState()) {
@@ -264,8 +264,8 @@ public class GenericHordeMember extends Monster implements SnowCreature {
                     j = Mth.floor(this.getY());
                     k = Mth.floor(this.getZ() + (double) ((float) (l / 2 % 2 * 2 - 1) * 0.25F));
                     BlockPos blockpos = new BlockPos(i, j, k);
-                    if (this.level.getBlockState(blockpos).equals(Blocks.AIR.defaultBlockState()) && (blockstate.canSurvive(this.level, blockpos)))
-                        this.level.setBlockAndUpdate(blockpos, blockstate);
+                    if (this.level().getBlockState(blockpos).equals(Blocks.AIR.defaultBlockState()) && (blockstate.canSurvive(this.level(), blockpos)))
+                        this.level().setBlockAndUpdate(blockpos, blockstate);
                 }
             }
         }

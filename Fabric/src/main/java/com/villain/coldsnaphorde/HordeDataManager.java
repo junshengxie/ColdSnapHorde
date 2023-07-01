@@ -2,7 +2,7 @@ package com.villain.coldsnaphorde;
 
 import com.villain.coldsnaphorde.component.WorldCooldownComponent;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level().ServerLevel;
 
 import static com.villain.coldsnaphorde.component.ComponentStarter.WORLDCOMPONENT;
 

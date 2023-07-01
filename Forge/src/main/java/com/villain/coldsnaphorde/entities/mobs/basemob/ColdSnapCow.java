@@ -13,7 +13,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -47,7 +46,7 @@ public class ColdSnapCow extends Cow implements SnowCreature {
             if(p_28298_.getServer() != null) {
                 giveAdvancement((ServerPlayer) p_28298_, p_28298_.getServer(), new ResourceLocation(Constants.MOD_ID, "snow_farmer"));
             }
-            return InteractionResult.sidedSuccess(this.level.isClientSide);
+            return InteractionResult.sidedSuccess(this.level().isClientSide);
         }else return super.mobInteract(p_28298_, p_28299_);
     }
 
@@ -101,7 +100,7 @@ public class ColdSnapCow extends Cow implements SnowCreature {
     @Override
     public void tick() {
         super.tick();
-        if (shouldOverHeat(this.level.getBiome(this.blockPosition()).value().getBaseTemperature(), ForgeColdSnapHorde.cconfig.HEATPROT.get())) {
+        if (shouldOverHeat(this.level().getBiome(this.blockPosition()).value().getBaseTemperature(), ForgeColdSnapHorde.cconfig.HEATPROT.get())) {
             this.hurt(this.damageSources().onFire(), 1.0F);
         }
 

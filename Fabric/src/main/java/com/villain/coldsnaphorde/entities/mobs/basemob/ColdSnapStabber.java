@@ -16,7 +16,7 @@ import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level().Level;
 import org.jetbrains.annotations.Nullable;
 
 import static com.villain.coldsnaphorde.FabricColdSnapHorde.TOPHATS;
@@ -66,7 +66,7 @@ public class ColdSnapStabber extends GenericHordeMember {
 
     @Override
     public boolean doHurtTarget(Entity entityIn) {
-        if (entityIn instanceof LivingEntity && !this.level.isClientSide()) {
+        if (entityIn instanceof LivingEntity && !this.level().isClientSide()) {
             switch(this.getHordeVariant()){
                 case 0 -> {
                     int chance = random.nextInt(100);
@@ -104,7 +104,7 @@ public class ColdSnapStabber extends GenericHordeMember {
 
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide()) {
+        if (!this.level().isClientSide()) {
             float timer = getEntityData().get(ANITIMER);
             if (timer < 11) this.getEntityData().set(ANITIMER, timer += 1f);
         }

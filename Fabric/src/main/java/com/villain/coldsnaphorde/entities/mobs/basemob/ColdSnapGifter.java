@@ -24,7 +24,7 @@ import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level().Level;
 import org.jetbrains.annotations.Nullable;
 
 import static com.villain.coldsnaphorde.FabricColdSnapHorde.TOPHATS;
@@ -87,7 +87,7 @@ public class ColdSnapGifter extends GenericHordeMember {
                 timer -= 1;
                 if (!level.isClientSide() && timer == 0) {
                     this.dead = true;
-                    GifterSurprise gifterSurprise = new GifterSurprise(this.level, this, this.getX(), this.getY(), this.getZ(), 5);
+                    GifterSurprise gifterSurprise = new GifterSurprise(this.level(), this, this.getX(), this.getY(), this.getZ(), 5);
                     gifterSurprise.StageDetonation();
                     gifterSurprise.DetonateBlockDamage();
                     gifterSurprise.DetonateLivingHarm();

@@ -32,7 +32,7 @@ public class StartHorde {
                     }
                 }
                 ForgeColdSnapHorde.hordeDataManager.setCurrentHordeLevel(level);
-                sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.startsuccess", level), false);
+                sourceStack.sendSuccess(() -> Component.translatable("command.coldsnaphorde.startsuccess", level), false);
             } catch (CommandSyntaxException e) {
                 Log.error("startHorde can only be run by live players. Apologies for the inconvenience!");
             }

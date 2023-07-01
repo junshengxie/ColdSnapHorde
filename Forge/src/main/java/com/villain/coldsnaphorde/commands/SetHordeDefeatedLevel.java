@@ -17,7 +17,7 @@ public class SetHordeDefeatedLevel {
 
     private static int setHorde(CommandSourceStack sourceStack, int level) {
         ForgeColdSnapHorde.hordeDataManager.setHighestLevelBeaten(sourceStack.getServer(), level);
-        sourceStack.sendSuccess(Component.translatable("command.coldsnaphorde.setsuccess", level), false);
+        sourceStack.sendSuccess(() -> Component.translatable("command.coldsnaphorde.setsuccess", level), false);
         return 0;
     }
 }

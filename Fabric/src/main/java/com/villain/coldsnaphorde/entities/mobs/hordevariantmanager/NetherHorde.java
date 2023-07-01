@@ -3,7 +3,7 @@ package com.villain.coldsnaphorde.entities.mobs.hordevariantmanager;
 import com.villain.coldsnaphorde.entities.mobs.basemob.*;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level().Level;
 
 public class NetherHorde {
     public static class NetherStabber extends ColdSnapStabber {

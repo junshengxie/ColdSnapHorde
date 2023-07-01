@@ -103,7 +103,7 @@ public class ColdSnapZapper extends GenericHordeMember {
     public void aiStep() {
         super.aiStep();
 
-        if(ZapTarget != null && !this.level.isClientSide()){
+        if(ZapTarget != null && !this.level().isClientSide()){
             timer -= 1;
             if (timer == 0){
                 EntityType.LIGHTNING_BOLT.spawn((ServerLevel) ZapTarget.getCommandSenderWorld(), new ItemStack(Items.AIR), null, ZapTarget.blockPosition(), MobSpawnType.TRIGGERED, true, false);

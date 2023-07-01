@@ -2,7 +2,6 @@ package com.villain.coldsnaphorde.items.projectiles;
 
 import com.villain.coldsnaphorde.Register;
 import com.villain.coldsnaphorde.entities.projectiles.LightningSnowEntity;
-import com.villain.coldsnaphorde.platform.Services;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

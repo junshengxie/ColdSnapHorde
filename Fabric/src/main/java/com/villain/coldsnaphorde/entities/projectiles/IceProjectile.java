@@ -14,9 +14,9 @@ import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level().Level;
+import net.minecraft.world.level().block.Blocks;
+import net.minecraft.world.level().block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 
 public class IceProjectile extends ThrowableItemProjectile {
@@ -116,8 +116,8 @@ public class IceProjectile extends ThrowableItemProjectile {
             }
         }
         BlockPos blockpos = new BlockPos(result.getLocation());
-        if (this.level.isEmptyBlock(blockpos) && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
-            this.level.setBlockAndUpdate(blockpos, blockstate);
+        if (this.level().isEmptyBlock(blockpos) && blockstate.canSurvive(this.level(), blockpos) && !level.isClientSide()) {
+            this.level().setBlockAndUpdate(blockpos, blockstate);
         }
         this.remove(RemovalReason.DISCARDED);
     }

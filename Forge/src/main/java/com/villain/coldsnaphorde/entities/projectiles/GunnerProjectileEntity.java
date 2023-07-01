@@ -55,10 +55,10 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
     protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
-        int i = 1 + level.getDifficulty().getId();
+        int i = 1 + level().getDifficulty().getId();
         entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(30);
-        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level.isClientSide()){
+        if(this.getOwner() instanceof GenericHordeMember && entity instanceof LivingEntity && !this.level().isClientSide()){
             GenericHordeMember member = (GenericHordeMember) this.getOwner();
             switch(member.getHordeVariant()){
                 case 0 -> {
@@ -81,7 +81,7 @@ public class GunnerProjectileEntity extends ThrowableItemProjectile {
                 }
             }
         }
-        else if (entity instanceof LivingEntity && chance <= 3 && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
+        else if (entity instanceof LivingEntity && chance <= 3 && !this.level().isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 10*20, 0));}
     }
 
     @Override

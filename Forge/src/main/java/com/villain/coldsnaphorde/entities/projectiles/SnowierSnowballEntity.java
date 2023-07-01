@@ -44,13 +44,13 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult p_213868_1_) {
         super.onHitEntity(p_213868_1_);
-        if (!p_213868_1_.getEntity().level.isClientSide && p_213868_1_.getEntity() instanceof LivingEntity entity) {
+        if (!p_213868_1_.getEntity().level().isClientSide && p_213868_1_.getEntity() instanceof LivingEntity entity) {
             int i = entity instanceof Blaze ? 5 : 0;
             entity.hurt(this.damageSources().thrown(this, this.getOwner()), (float) i);
             entity.setIsInPowderSnow(true);
             entity.setTicksFrozen(getTicksFrozen() + 40);
             int chance = random.nextInt(20);
-            if (chance <= 2 && !this.level.isClientSide()) {
+            if (chance <= 2 && !this.level().isClientSide()) {
                 entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 7 * 20, 0));
             }
         }
@@ -62,12 +62,12 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
         BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
         Vec3i vec3i = new Vec3i((int) Math.round(result.getLocation().x), (int) Math.round(result.getLocation().y), (int) Math.round(result.getLocation().z));
         BlockPos blockpos = new BlockPos(vec3i);
-        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
-            this.level.setBlockAndUpdate(blockpos, blockstate);
-        } else if(this.level.getBlockState(blockpos) == Blocks.LAVA.defaultBlockState() && !level.isClientSide()){
-            this.level.setBlockAndUpdate(blockpos, Blocks.OBSIDIAN.defaultBlockState());
-        }else if(this.level.getBlockState(blockpos) == Blocks.WATER.defaultBlockState() && !level.isClientSide()){
-            this.level.setBlockAndUpdate(blockpos, Blocks.ICE.defaultBlockState());
+        if (this.level().isEmptyBlock(blockpos) && this.level().getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level(), blockpos) && !level().isClientSide()) {
+            this.level().setBlockAndUpdate(blockpos, blockstate);
+        } else if(this.level().getBlockState(blockpos) == Blocks.LAVA.defaultBlockState() && !level().isClientSide()){
+            this.level().setBlockAndUpdate(blockpos, Blocks.OBSIDIAN.defaultBlockState());
+        }else if(this.level().getBlockState(blockpos) == Blocks.WATER.defaultBlockState() && !level().isClientSide()){
+            this.level().setBlockAndUpdate(blockpos, Blocks.ICE.defaultBlockState());
         }
         this.remove(RemovalReason.DISCARDED);
     }
@@ -81,12 +81,12 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
     public void tick() {
         super.tick();
         BlockPos position = this.blockPosition();
-        if(!level.isClientSide()){
-            if(level.getBlockState(position) == Blocks.WATER.defaultBlockState()){
-                level.setBlockAndUpdate(position, Blocks.ICE.defaultBlockState());
+        if(!level().isClientSide()){
+            if(level().getBlockState(position) == Blocks.WATER.defaultBlockState()){
+                level().setBlockAndUpdate(position, Blocks.ICE.defaultBlockState());
                 this.remove(RemovalReason.DISCARDED);
-            }else if(level.getBlockState(position) == Blocks.LAVA.defaultBlockState()){
-                level.setBlockAndUpdate(position, Blocks.OBSIDIAN.defaultBlockState());
+            }else if(level().getBlockState(position) == Blocks.LAVA.defaultBlockState()){
+                level().setBlockAndUpdate(position, Blocks.OBSIDIAN.defaultBlockState());
                 this.remove(RemovalReason.DISCARDED);
             }
 

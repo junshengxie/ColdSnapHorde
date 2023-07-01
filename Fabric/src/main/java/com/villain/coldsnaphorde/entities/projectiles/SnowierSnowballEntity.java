@@ -14,9 +14,9 @@ import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level().Level;
+import net.minecraft.world.level().block.Blocks;
+import net.minecraft.world.level().block.state.BlockState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
@@ -45,7 +45,7 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
         int i = entity instanceof Blaze ? 5 : 0;
         entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
         int chance = random.nextInt(20);
-        if (chance <= 2 && entity instanceof LivingEntity && !this.level.isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 7*20, 0));}
+        if (chance <= 2 && entity instanceof LivingEntity && !this.level().isClientSide()){((LivingEntity) entity).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 7*20, 0));}
     }
 
     @Override
@@ -53,12 +53,12 @@ public class SnowierSnowballEntity extends ThrowableItemProjectile {
         super.onHit(result);
         BlockState blockstate = Blocks.SNOW_BLOCK.defaultBlockState();
         BlockPos blockpos = new BlockPos(result.getLocation());
-        if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level, blockpos) && !level.isClientSide()) {
-            this.level.setBlockAndUpdate(blockpos, blockstate);
-        } else if(this.level.getBlockState(blockpos) == Blocks.LAVA.defaultBlockState() && !level.isClientSide()){
-            this.level.setBlockAndUpdate(blockpos, Blocks.OBSIDIAN.defaultBlockState());
-        }else if(this.level.getBlockState(blockpos) == Blocks.WATER.defaultBlockState() && !level.isClientSide()){
-            this.level.setBlockAndUpdate(blockpos, Blocks.ICE.defaultBlockState());
+        if (this.level().isEmptyBlock(blockpos) && this.level().getBiome(blockpos).value().getBaseTemperature() < 0.8F && blockstate.canSurvive(this.level(), blockpos) && !level.isClientSide()) {
+            this.level().setBlockAndUpdate(blockpos, blockstate);
+        } else if(this.level().getBlockState(blockpos) == Blocks.LAVA.defaultBlockState() && !level.isClientSide()){
+            this.level().setBlockAndUpdate(blockpos, Blocks.OBSIDIAN.defaultBlockState());
+        }else if(this.level().getBlockState(blockpos) == Blocks.WATER.defaultBlockState() && !level.isClientSide()){
+            this.level().setBlockAndUpdate(blockpos, Blocks.ICE.defaultBlockState());
         }
         this.remove(RemovalReason.DISCARDED);
     }

@@ -85,7 +85,7 @@ public class HealingSnowballEntity extends ThrowableItemProjectile {
     @Override
     protected void onHitEntity(EntityHitResult p_37259_) {
         super.onHitEntity(p_37259_);
-        if (!p_37259_.getEntity().level.isClientSide && p_37259_.getEntity() instanceof LivingEntity entity) {
+        if (!p_37259_.getEntity().level().isClientSide && p_37259_.getEntity() instanceof LivingEntity entity) {
             switch (tier) {
                 default -> {
                     entity.addEffect(new MobEffectInstance(MobEffects.HEAL, 1, 0));
